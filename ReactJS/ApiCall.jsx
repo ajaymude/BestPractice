@@ -1,4 +1,4 @@
-// how to call api in react js 
+// 1  how to call api in react js 
 
 import { useEffect, useRef, useState } from "react";
 
@@ -64,3 +64,22 @@ export default function Demo() {
     </div>
   );
 }
+
+
+
+
+// 2 folder structure in reactjs 
+src -
+    - page 
+    - component
+    - hooks
+    - api
+    - store
+    - libs 
+    - utils
+    - assets
+    - services 
+
+
+
+// 3 
