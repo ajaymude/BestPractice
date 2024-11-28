@@ -155,3 +155,65 @@ export default Form;
 
 
 // 2 useEffect 
+
+import { useEffect, useState } from 'react';
+
+interface DemoProps {}
+
+export default function Demo({}: DemoProps) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    // The code that we want to run
+    console.log('The count is:', count);
+
+    // Optional return function
+    return () => {
+      console.log('I am being cleaned up!');
+    };
+  }, [count]); // The dependency array
+
+  return (
+    <div className='tutorial'>
+      <h1>Count: {count}</h1>
+      <button onClick={() => setCount(count - 1)}>
+        Decrement
+      </button>
+      <button onClick={() => setCount(count + 1)}>
+        Increment
+      </button>
+    </div>
+  );
+}
+
+
+
+import React, { useState, useEffect } from 'react';
+
+function ExampleComponent() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      console.log('Timer running...');
+    }, 1000);
+
+    // Cleanup function
+    return () => {
+      clearInterval(timer); // Clean up the timer when the component is unmounted
+      console.log('Timer cleared');
+    };
+  }, []); // Empty array means this effect runs only once
+
+  return (
+    <div>
+      <p>{count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+
+export default ExampleComponent;
+
+
+
