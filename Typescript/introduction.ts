@@ -1,8 +1,79 @@
-// ts its a superset of javascript 
+// 1. Primitive Types
+let age: number = 25;
+let price: number = 99.99;
+let name: string = "Alice";
+let isActive: boolean = true;
+let obj: null = null;
+let uninitialized: undefined = undefined;
 
-// installing of typescript 
-// npm install -g typescript 
+// 2. Special Types
+function greet(): void {
+  console.log("Hello!");
+}
 
-// compile the code 
-// node index.js 
-// tsc index.ts 
+function throwError(): never {
+  throw new Error("An error occurred");
+}
+
+let value: any = 42;
+value = "Hello"; // No type error
+
+let unknownValue: unknown = 42;
+if (typeof unknownValue === "string") {
+  console.log(unknownValue.length); // Type-safe access
+}
+
+// 3. Object Types
+let personObj: object = { name: "John", age: 30 };
+
+interface Person {
+  name: string;
+  age: number;
+}
+const person: Person = { name: "Alice", age: 25 };
+
+// 4. Arrays
+let numbers: number[] = [1, 2, 3];
+let names: string[] = ["Alice", "Bob"];
+let numbers2: Array<number> = [1, 2, 3];
+
+// 5. Tuple
+let personTuple: [string, number] = ["Alice", 30];
+
+// 6. Enum
+enum Direction {
+  Up,
+  Down,
+  Left,
+  Right
+}
+let direction: Direction = Direction.Up;
+
+// 7. Function Types
+let add: (a: number, b: number) => number = (a, b) => a + b;
+
+// 8. Union Types
+let valueUnion: string | number = "hello";
+valueUnion = 42; // Valid
+
+// 9. Intersection Types
+interface A {
+  name: string;
+}
+interface B {
+  age: number;
+}
+
+type PersonType = A & B;
+const personIntersect: PersonType = { name: "Alice", age: 30 };
+
+// 10. Literal Types
+let directionLiteral: "up" | "down" = "up"; // Only "up" or "down" are allowed.
+
+// 11. Type Aliases
+type Point = { x: number, y: number };
+const point: Point = { x: 10, y: 20 };
+
+// 12. Type Assertions
+let someValue: unknown = "hello";
+let strLength: number = (someValue as string).length;
