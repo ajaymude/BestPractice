@@ -1,0 +1,8 @@
+// ts its a superset of javascript 
+
+// installing of typescript 
+// npm install -g typescript 
+
+// compile the code 
+// node index.js 
+// tsc index.ts 
