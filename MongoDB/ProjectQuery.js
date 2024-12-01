@@ -64,4 +64,5 @@ if (product) {
   res.status(404).json({ message: "Product not found" });
 }
 
-// 8 
+// 8 to count total document 
+const totalUsers = await User.countDocuments();

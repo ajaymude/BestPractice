@@ -1,0 +1,1 @@
+// monolithic single page application 

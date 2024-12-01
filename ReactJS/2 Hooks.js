@@ -8,7 +8,8 @@ function Counter() {
   return (
     <div>
       <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>Click me</button>
+      <button onClick={() => setCount(count + 1)}>Click me</button>  // state scheduling
+      <button onClick={() => setCount(prev => prev+1 )}>Click me</button>  // lt update the current value      
     </div>
   );
 }
