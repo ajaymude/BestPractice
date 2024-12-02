@@ -195,6 +195,49 @@ function App2() {
 }
 
 
+// 6 conditional rendering 
+import React, { Suspense, lazy, useState } from 'react';
+
+// Lazy load different user dashboards
+const AdminDashboard = lazy(() => import('./AdminDashboard'));
+const ManagerDashboard = lazy(() => import('./ManagerDashboard'));
+const UserDashboard = lazy(() => import('./UserDashboard'));
+function App() {
+  const [userRole, setUserRole] = useState(null);
+  const handleLogin = (role) => {
+    setUserRole(role);
+  };
+  const renderDashboard = () => {
+    switch (userRole) {
+      case 'admin':
+        return <AdminDashboard />;
+      case 'manager':
+        return <ManagerDashboard />;
+      case 'user':
+        return <UserDashboard />;
+      default:
+        return <div>Please log in</div>;
+    }
+  };
+  return (
+    <div>
+      {!userRole ? (
+        <div>
+          <button onClick={() => handleLogin('admin')}>Login as Admin</button>
+          <button onClick={() => handleLogin('manager')}>Login as Manager</button>
+          <button onClick={() => handleLogin('user')}>Login as User</button>
+        </div>
+      ) : (
+        <Suspense fallback={<div>Loading Dashboard...</div>}>
+          {renderDashboard()}
+        </Suspense>
+      )}
+    </div>
+  );
+}
+
+// 
+
 
 
 
