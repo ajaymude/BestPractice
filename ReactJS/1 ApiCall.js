@@ -236,7 +236,25 @@ function App() {
   );
 }
 
-// 
+// 7 react route optimisation 
+import { lazy } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+const Home = lazy(() => import('./Home'));
+const About = lazy(() => import('./About'));
+function App() {
+  return (
+    <Router>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </Suspense>
+    </Router>
+  );
+}
+
 
 
 
