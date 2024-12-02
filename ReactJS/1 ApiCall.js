@@ -86,7 +86,7 @@ src -
 
 
 
-// 4b file upload in reactjs with axios
+// 4 file upload in reactjs with axios
 import axios from 'axios';
 import { ChangeEvent, useState } from 'react';
 
@@ -175,9 +175,24 @@ export default function FileUploader() {
 
 
 
+// 5 dynamic imports 
+import React, { useState } from 'react';
 
-
-
+function App2() {
+  const [data, setData] = useState([20, 10, 30, 50, 40]);
+  const sortNumbers = async () => {
+    // Dynamically import Lodash's sortBy function
+    const { sortBy } = await import('lodash');
+    const sortedData = sortBy(data);
+    setData(sortedData);
+  };
+  return (
+    <div>
+      <h1>Numbers: {data.join(', ')}</h1>
+      <button onClick={sortNumbers}>Sort Numbers</button>
+    </div>
+  );
+}
 
 
 
