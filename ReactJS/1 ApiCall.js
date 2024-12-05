@@ -256,6 +256,76 @@ function App() {
 }
 
 
+// 8 Memoize Components to Improve Performance
+// Prevent unnecessary re-renders
+const MyComponent = React.memo(({ value }) => (
+  <div>{value}</div>
+));
+
+
+// 9  Use PropTypes for Component Type Checking
+
+import PropTypes from 'prop-types';
+
+const Greeting = ({ name }) => <h1>Hello, {name}</h1>;
+
+Greeting.propTypes = {
+  name: PropTypes.string.isRequired,
+};
+
+// 10 Manage State Efficiently with Context API or State Management Libraries
+
+// Using React Context API for global state management
+const ThemeContext = React.createContext();
+
+const App = () => (
+  <ThemeContext.Provider value="dark">
+    <Toolbar />
+  </ThemeContext.Provider>
+);
+
+const Toolbar = () => (
+  <ThemeContext.Consumer>
+    {theme => <div>The theme is {theme}</div>}
+  </ThemeContext.Consumer>
+);
+
+
+// 11 Avoid Inline Functions in JSX for Better Performance
+
+// Avoid this (causes new function creation on every render)
+<button onClick={() => handleClick()}>Click me</button>
+
+// Use this instead
+const handleClick = () => { /* handle click */ };
+<button onClick={handleClick}>Click me</button>
+
+// 12 Use Error Boundaries for Better Error Handling
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, info) {
+    console.error("Error caught in error boundary:", error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <h1>Something went wrong.</h1>;
+    }
+    return this.props.children;
+  }
+}
+
+
+// 13
+
 
 
 

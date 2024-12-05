@@ -1,0 +1,5 @@
+1. Keep Your Components Small and Focused.
+2.a component only has a single responsibility.
+3. Use React Fragments to Avoid Unnecessary Wrappers.
+3. Leverage the Power of React Hooks
+    
