@@ -1,14 +1,7 @@
-
 // React router dom
 // v6 react router dom 
-// installed react router dom 
-npm i react-router
+// installed react router dom  // npm i react-router-dom
 
-// config for the parent app to react router dom 
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router";
-import App from "./app";
 
 
 // congig for the route
@@ -76,96 +69,12 @@ export default function Dashboard() {
 </Routes>
 
 
-//  route prefixes  or params routes 
-<Route path="projects">
-  <Route index element={<ProjectsHome />} />
-  <Route element={<ProjectsLayout />}>
-    <Route path=":pid" element={<Project />} />
-    <Route path=":pid/edit" element={<EditProject />} />
-  </Route>
-</Route>
-
-//how to define param
-<Route path="teams/:teamId" element={<Team />} />
-
-//how to get the params 
-import { useParams } from "react-router";
-
-export default function Team() {
-  let params = useParams();
-  // params.teamId
-}
-
-// how to import multiple params 
-import { useParams } from "react-router";
-
-export default function Team() {
-  let { categoryId, productId } = useParams();
-  // ...
-}
-
-
-// optional segment 
-<Route path=":lang?/categories" element={<Categories />} />
-<Route path="users/:userId/edit?" component={<User />} />
-
-
-// splate
-<Route path="files/*" element={<File />} />
-
-let params = useParams();
-// params["*"] will contain the remaining URL after files/
-let filePath = params["*"];
-
-let { "*": splat } = useParams();
-
 
 
 // two types of routes 
 // absolute route 
 // relative routed 
 
-
-
-
- //  programatically navigate 
- // React (React Router v6 and later uses useNavigate)
-import { useNavigate } from 'react-router-dom';
-
-function MyComponent() {
-  const navigate = useNavigate();
-
-  const goToNewPage = () => {
-    navigate('/new-page');
-  };
-
-  return <button onClick={goToNewPage}>Go to New Page</button>;
-}
-
-
-// replace in react router dom to make route secure 
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-
-function LoginPage() {
-  const navigate = useNavigate();
-
-  const handleLogin = () => {
-    // Perform login logic here...
-
-    // Replace the current page with the home page
-    navigate('/', { replace: true });
-  };
-
-  return (
-    <div>
-      <h1>Login</h1>
-      <button onClick={handleLogin}>Log In</button>
-    </div>
-  );
-}
-
-export default LoginPage;
 
 
 // 404 page in react router dom 
@@ -203,79 +112,6 @@ function App() {
 export default App;
 
 
-// query in react router dom 
-
-import React from 'react';
-import { useParams } from 'react-router-dom';
-
-function SearchResults() {
-  const { query } = useParams();
-
-  return (
-    <div>
-      <h2>Search Results</h2>
-      <p>Search Query: {query || 'No query provided'}</p>
-    </div>
-  );
-}
-
-export default SearchResults;
-
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import SearchResults from './SearchResults';
-
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/search/:query?" element={<SearchResults />} />
-      </Routes>
-    </Router>
-  );
-}
-
-export default App;
-
-
-//  Navigating with State:
-
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-
-function HomePage() {
-  const navigate = useNavigate();
-
-  const goToAbout = () => {
-    navigate('/about', { state: { message: 'Hello from HomePage!' } });
-  };
-
-  return (
-    <div>
-      <h2>Home Page</h2>
-      <button onClick={goToAbout}>Go to About</button>
-    </div>
-  );
-}
-
-export default HomePage;
-
-
-
-import React from 'react';
-import { useLocation } from 'react-router-dom';
-
-function AboutPage() {
-  const location = useLocation();
-
-  return (
-    <div>
-      <h2>About Page</h2>
-      <p>State from HomePage: {location.state?.message}</p>
-    </div>
-  );
-}
-
-export default AboutPage;
 
 
 
@@ -288,69 +124,10 @@ export default AboutPage;
 
 
 
- //  search query with react 
- import React from 'react';
-import { useNavigate } from 'react-router-dom';
-
-function SearchPage() {
-  const navigate = useNavigate();
-
-  const handleSearch = (query) => {
-    // Navigate with query parameters
-    navigate(`/results?query=${query}`);
-  };
-
-  return (
-    <div>
-      <h2>Search Page</h2>
-      <button onClick={() => handleSearch('react')}>Search for React</button>
-    </div>
-  );
-}
-
-export default SearchPage;
-
-
-import React from 'react';
-import { useLocation } from 'react-router-dom';
-
-function ResultsPage() {
-  const location = useLocation();
-
-  const queryParams = new URLSearchParams(location.search);
-  const query = queryParams.get('query');
-
-  return (
-    <div>
-      <h2>Search Results</h2>
-      <p>Search Query: {query}</p>
-    </div>
-  );
-}
-
-export default ResultsPage;
 
 
 
-// search param
-import React from 'react';
-import { useSearchParams } from 'react-router-dom';
 
-function SearchPage() {
-  const [searchParams] = useSearchParams();
-  
-  // Get the 'query' parameter from the URL
-  const query = searchParams.get('query');
-  
-  return (
-    <div>
-      <h2>Search Page</h2>
-      <p>Search Query: {query}</p>
-    </div>
-  );
-}
-
-export default SearchPage;
 
 
 //   lazy Loading 
@@ -507,6 +284,7 @@ export default App;
 
 
 
+
 // hooks in react router dom 
 
 // 1 useNavigate();
@@ -518,11 +296,26 @@ function NavigateExample() {
 
   const goHome = () => {
     navigate('/home'); // Navigate to "/home"
+    navigate('/about', { state: { message: 'Hello from HomePage!' } });// navigate with the state 
+
+    // Replace the current page with the home page  / it don't save the previous history of the routes 
+    navigate('/', { replace: true });
   };
 
-  return <button onClick={goHome}>Go to Home</button>;
-}
+  const handleSearch = (query) => {
+    // Navigate with query parameters
+    navigate(`/results?query=${query}`);
+  };
 
+  return (
+    <div>
+      <h2>Search Page</h2>
+      <button onClick={() => handleSearch('react')}>Search for React</button>
+      <button onClick={goHome}>Go to Home</button>;
+    </div>
+  );
+
+}
 
 
 
@@ -548,10 +341,18 @@ import { useLocation } from 'react-router-dom';
 
 function CurrentLocation() {
   const location = useLocation();
-  return <div>Current URL: {location.pathname}</div>;
+  
+  const queryParams = new URLSearchParams(location.search);
+  const query = queryParams.get('query');
+  return (
+    <div>
+      <h2>About Page</h2>
+      <p>State from HomePage: {location.state?.message}</p>
+      <div>Current URL: {location.pathname}</div>;
+      <p>Search Query: {query}</p>
+    </div>
+  );
 }
-
-
 
 
 
@@ -579,11 +380,25 @@ import { useParams } from 'react-router-dom';
 
 function User() {
   const { id } = useParams();  // Get the dynamic 'id' from the URL
-  return <h1>User ID: {id}</h1>;
+  let { categoryId, productId } = useParams();
+  const { query } = useParams(); 
+
+
+
+  return (
+    <div>
+      <h2>Search Results</h2>
+      <p>Search Query: {query || 'No query provided'}</p>
+      <h1>User ID: {id}</h1>; 
+    </div>
+  );
+
 }
 
 // In your Routes:
 <Route path="/user/:id" element={<User />} />
+<Route path="teams/:teamId" element={<Team />} />
+<Route path="/search/:query?" element={<SearchResults />} />
 
 
 
@@ -635,7 +450,7 @@ function ActiveLink() {
 
 
 
-// 6 useRoutes 
+// 5 useRoutes 
 
 import { useRoutes } from 'react-router-dom';
 
@@ -669,12 +484,13 @@ function App() {
 
 
 
-// 7 useSearchParams 
+// 6 useSearchParams 
 
 import { useSearchParams } from 'react-router-dom';
 
 function SearchExample() {
   const [searchParams, setSearchParams] = useSearchParams();
+  
 
   const changeQuery = () => {
     setSearchParams({ name: 'John' });
@@ -687,8 +503,6 @@ function SearchExample() {
     </div>
   );
 }
-
-
 
 
 
