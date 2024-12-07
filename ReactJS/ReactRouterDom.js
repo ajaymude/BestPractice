@@ -361,6 +361,7 @@ function NavigateExample() {
 
   const goHome = () => {
     navigate('/home'); // Navigate to "/home"
+    navigate(-1); // Goes back one step in the history
     navigate('/about', { state: { message: 'Hello from HomePage!' } });// navigate with the state 
 
     // Replace the current page with the home page  / it don't save the previous history of the routes 
