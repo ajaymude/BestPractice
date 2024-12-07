@@ -131,29 +131,6 @@ export default App;
 
 
 //   lazy Loading 
-import React, { Suspense } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
-// Lazy load the AboutPage component
-const AboutPage = React.lazy(() => import('./AboutPage'));
-
-function App() {
-  return (
-    <Router>
-      <div>
-        <h1>Welcome to My App</h1>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Routes>
-            <Route path="/about" element={<AboutPage />} />
-          </Routes>
-        </Suspense>
-      </div>
-    </Router>
-  );
-}
-
-export default App;
-
 
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -181,9 +158,6 @@ function App() {
 }
 
 export default App;
-
-
-
 
 
 
