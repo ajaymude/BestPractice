@@ -130,6 +130,97 @@ export default App;
 
 
 
+
+
+
+
+
+
+// NavLink for the active status  
+
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch, NavLink } from 'react-router-dom';
+import './App.css'; // Import the CSS file for styling
+
+// Define simple components for each route
+const Home = () => <h2>Home Page</h2>;
+const About = () => <h2>About Page</h2>;
+const Contact = () => <h2>Contact Page</h2>;
+
+function App() {
+  return (
+    <Router>
+      <div className="container">
+        {/* Navigation Links */}
+        <nav className="navigation">
+          <ul className="nav-list">
+            <li className="nav-item">
+              <NavLink
+                to="/"
+                exact
+                className={({ isActive }) =>
+                  isActive ? 'nav-link active' : 'nav-link'
+                }
+              >
+                Home
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                to="/about"
+                className={({ isActive }) =>
+                  isActive ? 'nav-link active' : 'nav-link'
+                }
+              >
+                About
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                to="/contact"
+                className={({ isActive }) =>
+                  isActive ? 'nav-link active' : 'nav-link'
+                }
+              >
+                Contact
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
+
+        {/* Define Routes */}
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/about" component={About} />
+          <Route path="/contact" component={Contact} />
+        </Switch>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //   lazy Loading 
 
 import React, { Suspense } from 'react';
