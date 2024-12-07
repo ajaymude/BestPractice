@@ -1,14 +1,5 @@
 
 // React router dom
-
-// we can create react router dom in two way 
-// 
-
-// create react app 
-npx create-vite@latest
-
-
-
 // v6 react router dom 
 // installed react router dom 
 npm i react-router
@@ -19,14 +10,6 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router";
 import App from "./app";
 
-const root = document.getElementById("root");
-
-ReactDOM.createRoot(root).render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
-);
-
 
 // congig for the route
 import React from "react";
@@ -45,7 +28,7 @@ ReactDOM.createRoot(root).render(
 );
 
 
-// routes 
+// routes and nested routes
 <Routes>
   <Route index element={<Home />} />
   <Route path="about" element={<About />} />
@@ -63,14 +46,6 @@ ReactDOM.createRoot(root).render(
 </Routes>
 
 
-// nestded routes
-<Routes>
-  <Route path="dashboard" element={<Dashboard />}>
-    <Route index element={<Home />} />
-    <Route path="settings" element={<Settings />} />
-  </Route>
-</Routes>
-
 
 // outlet for the parent if the parent contain the child 
 import { Outlet } from "react-router";
@@ -84,23 +59,6 @@ export default function Dashboard() {
     </div>
   );
 }
-
-
-// route layout 
-<Routes>
-  <Route element={<MarketingLayout />}>
-    <Route index element={<MarketingHome />} />
-    <Route path="contact" element={<Contact />} />
-  </Route>
-
-  <Route path="projects">
-    <Route index element={<ProjectsHome />} />
-    <Route element={<ProjectsLayout />}>
-      <Route path=":pid" element={<Project />} />
-      <Route path=":pid/edit" element={<EditProject />} />
-    </Route>
-  </Route>
-</Routes>
 
 
 // index route
@@ -118,174 +76,7 @@ export default function Dashboard() {
 </Routes>
 
 
-//  route prefixes 
-<Route path="projects">
-  <Route index element={<ProjectsHome />} />
-  <Route element={<ProjectsLayout />}>
-    <Route path=":pid" element={<Project />} />
-    <Route path=":pid/edit" element={<EditProject />} />
-  </Route>
-</Route>
-
-//how to define param
-<Route path="teams/:teamId" element={<Team />} />
-
-//how to get the params 
-import { useParams } from "react-router";
-
-export default function Team() {
-  let params = useParams();
-  // params.teamId
-}
-
-// how to import multiple params 
-import { useParams } from "react-router";
-
-export default function Team() {
-  let { categoryId, productId } = useParams();
-  // ...
-}
-
-
-// optional segment 
-<Route path=":lang?/categories" element={<Categories />} />
-<Route path="users/:userId/edit?" component={<User />} />
-
-
-// splate
-<Route path="files/*" element={<File />} />
-
-let params = useParams();
-// params["*"] will contain the remaining URL after files/
-let filePath = params["*"];
-
-let { "*": splat } = useParams();
-
-
-
-// two types of routes 
-// absolute route 
-// relative routed 
-
-
-
-// React router dom
-
-// we can create react router dom in two way 
-// 
-
-// create react app 
-npx create-vite@latest
-
-// installed react router dom 
-npm i react-router
-
-// config for the parent app to react router dom 
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router";
-import App from "./app";
-
-const root = document.getElementById("root");
-
-ReactDOM.createRoot(root).render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
-);
-
-
-// congig for the route
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router";
-import App from "./app";
-
-const root = document.getElementById("root");
-
-ReactDOM.createRoot(root).render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />} />
-    </Routes>
-  </BrowserRouter>
-);
-
-
-// routes 
-<Routes>
-  <Route index element={<Home />} />
-  <Route path="about" element={<About />} />
-
-  <Route element={<AuthLayout />}>
-    <Route path="login" element={<Login />} />
-    <Route path="register" element={<Register />} />
-  </Route>
-
-  <Route path="concerts">
-    <Route index element={<ConcertsHome />} />
-    <Route path=":city" element={<City />} />
-    <Route path="trending" element={<Trending />} />
-  </Route>
-</Routes>
-
-
-// nestded routes
-<Routes>
-  <Route path="dashboard" element={<Dashboard />}>
-    <Route index element={<Home />} />
-    <Route path="settings" element={<Settings />} />
-  </Route>
-</Routes>
-
-
-// outlet for the parent if the parent contain the child 
-import { Outlet } from "react-router";
-
-export default function Dashboard() {
-  return (
-    <div>
-      <h1>Dashboard</h1>
-      {/* will either be <Home/> or <Settings/> */}
-      <Outlet />
-    </div>
-  );
-}
-
-
-// route layout 
-<Routes>
-  <Route element={<MarketingLayout />}>
-    <Route index element={<MarketingHome />} />
-    <Route path="contact" element={<Contact />} />
-  </Route>
-
-  <Route path="projects">
-    <Route index element={<ProjectsHome />} />
-    <Route element={<ProjectsLayout />}>
-      <Route path=":pid" element={<Project />} />
-      <Route path=":pid/edit" element={<EditProject />} />
-    </Route>
-  </Route>
-</Routes>
-
-
-// index route
-<Routes>
-  <Route path="/" element={<Root />}>
-    {/* renders into the outlet in <Root> at "/" */}
-    <Route index element={<Home />} />
-
-    <Route path="dashboard" element={<Dashboard />}>
-      {/* renders into the outlet in <Dashboard> at "/dashboard" */}
-      <Route index element={<DashboardHome />} />
-      <Route path="settings" element={<Settings />} />
-    </Route>
-  </Route>
-</Routes>
-
-
-//  route prefixes 
+//  route prefixes  or params routes 
 <Route path="projects">
   <Route index element={<ProjectsHome />} />
   <Route element={<ProjectsLayout />}>
@@ -339,21 +130,6 @@ let { "*": splat } = useParams();
 
  //  programatically navigate 
  // React (React Router v6 and later uses useNavigate)
-import { useNavigate } from 'react-router-dom';
-
-function MyComponent() {
-  const navigate = useNavigate();
-
-  const goToNewPage = () => {
-    navigate('/new-page');
-  };
-
-  return <button onClick={goToNewPage}>Go to New Page</button>;
-}
-
-
-// go back in react router v6 
-// React (React Router v6 and later uses useNavigate)
 import { useNavigate } from 'react-router-dom';
 
 function MyComponent() {
@@ -425,157 +201,6 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-// nested route in react js 
-
-// App.js
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Home from './Home';
-import Dashboard from './Dashboard';
-import Settings from './Settings';
-import Profile from './Profile';
-
-function App() {
-  return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/dashboard">Dashboard</Link>
-            </li>
-          </ul>
-        </nav>
-
-        <Routes>
-          <Route path="/" element={<Home />} />
-          
-          {/* Dashboard Route with Nested Routes */}
-          <Route path="/dashboard" element={<Dashboard />}>
-            <Route path="settings" element={<Settings />} />
-            <Route path="profile" element={<Profile />} />
-          </Route>
-        </Routes>
-      </div>
-    </Router>
-  );
-}
-
-export default App;
-
-
-// parent component setting 
-import React from 'react';
-import { Outlet, Link } from 'react-router-dom';
-
-function Dashboard() {
-  return (
-    <div>
-      <h2>Dashboard</h2>
-      <nav>
-        <ul>
-          <li>
-            <Link to="settings">Settings</Link>
-          </li>
-          <li>
-            <Link to="profile">Profile</Link>
-          </li>
-        </ul>
-      </nav>
-
-      {/* Render nested route components here */}
-      <Outlet />
-    </div>
-  );
-}
-
-export default Dashboard;
-
-
-
-
-
-
-
-// useParams in react router dom 
-
-// getting the id 
-import React from 'react';
-import { useParams } from 'react-router-dom';
-
-function UserProfile() {
-  // Accessing the 'id' parameter from the URL
-  const { id } = useParams();
-
-  return (
-    <div>
-      <h2>User Profile</h2>
-      <p>Showing profile for user ID: {id}</p>
-    </div>
-  );
-}
-
-export default UserProfile;
-
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import UserProfile from './UserProfile';
-
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/user/:id" element={<UserProfile />} />
-      </Routes>
-    </Router>
-  );
-}
-
-export default App;
-
-
-// getting the multiple id 
-import React from 'react';
-import { useParams } from 'react-router-dom';
-
-function ProductDetail() {
-  // Accessing multiple parameters from the URL
-  const { category, id } = useParams();
-
-  return (
-    <div>
-      <h2>Product Detail</h2>
-      <p>Category: {category}</p>
-      <p>Product ID: {id}</p>
-    </div>
-  );
-}
-
-export default ProductDetail;
-
-
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import ProductDetail from './ProductDetail';
-
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/products/:category/:id" element={<ProductDetail />} />
-      </Routes>
-    </Router>
-  );
-}
-
-export default App;
-
 
 
 // query in react router dom 
@@ -863,3 +488,209 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// hooks in react router dom 
+
+// 1 useNavigate();
+
+import { useNavigate } from 'react-router-dom';
+
+function NavigateExample() {
+  const navigate = useNavigate();
+
+  const goHome = () => {
+    navigate('/home'); // Navigate to "/home"
+  };
+
+  return <button onClick={goHome}>Go to Home</button>;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 2 useLocation();
+import { useLocation } from 'react-router-dom';
+
+function CurrentLocation() {
+  const location = useLocation();
+  return <div>Current URL: {location.pathname}</div>;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 3 useParams()
+
+import { useParams } from 'react-router-dom';
+
+function User() {
+  const { id } = useParams();  // Get the dynamic 'id' from the URL
+  return <h1>User ID: {id}</h1>;
+}
+
+// In your Routes:
+<Route path="/user/:id" element={<User />} />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 4 useMatch();
+
+import { useMatch } from 'react-router-dom';
+
+function ActiveLink() {
+  const match = useMatch('/about');
+  
+  return match ? <div>We are on the About page!</div> : <div>Not on About page</div>;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 6 useRoutes 
+
+import { useRoutes } from 'react-router-dom';
+
+function App() {
+  const routes = [
+    { path: '/', element: <Home /> },
+    { path: '/about', element: <About /> },
+  ];
+
+  const element = useRoutes(routes);
+
+  return <>{element}</>;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 7 useSearchParams 
+
+import { useSearchParams } from 'react-router-dom';
+
+function SearchExample() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const changeQuery = () => {
+    setSearchParams({ name: 'John' });
+  };
+
+  return (
+    <div>
+      <button onClick={changeQuery}>Change Query</button>
+      <p>Current query: {searchParams.get('name')}</p>
+    </div>
+  );
+}
+
+
+
+
+
+
+
