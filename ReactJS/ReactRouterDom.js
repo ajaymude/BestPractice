@@ -350,6 +350,298 @@ export default App;
 
 
 
+
+// Protected routes 
+
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import ProtectedRoute from "./ProtectedRoute";  // Our custom ProtectedRoute component
+import Home from "./Home";
+import Dashboard from "./Dashboard";
+import Login from "./Login";
+
+const App = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  return (
+    <Router>
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/dashboard">Dashboard</Link>
+      </nav>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/dashboard"
+          element={<ProtectedRoute isAuthenticated={isAuthenticated} />}
+        >
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+        <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+      </Routes>
+    </Router>
+  );
+};
+
+export default App;
+
+
+import React from "react";
+import { Navigate , useLocation } from "react-router-dom";
+
+const ProtectedRoute = ({ isAuthenticated, children }) => {
+  const location = useLocation();
+  if (!isAuthenticated) {
+    // If not authenticated, redirect to login page
+    return <Navigate to="/login" replace  state={path:location.pathname} />;
+  }
+
+  // If authenticated, render the protected route's content
+  return children;
+};
+
+export default ProtectedRoute;
+
+
+
+const Home = () => {
+  return <h1>Home Page</h1>;
+};
+
+export default Home;
+
+
+const Dashboard = () => {
+  return <h1>Dashboard - Protected Content</h1>;
+};
+
+export default Dashboard;
+
+
+const Login = ({ setIsAuthenticated }) => {
+  const location = useLocation()
+  const redirectPath = location.state.pathname  || '/' ; 
+
+
+  const handleLogin = () => {
+    // You can implement authentication logic here
+    setIsAuthenticated(true); // Assume login is successful
+    navigate(redirectPath , {replace:true})
+  };
+
+  return (
+    <div>
+      <h1>Login Page</h1>
+      <button onClick={handleLogin}>Log In</button>
+    </div>
+  );
+};
+
+export default Login;
+
+
+
+// protected route 2 
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
+
+
+
+
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import Login from "./components/login_component";
+import SignUp from "./components/signup_component";
+import UserDetails from "./components/userDetails";
+import Navbar from "./components/Navbar";
+import AdminHome from "./components/adminHome";
+import Product from "./components/products";
+import About from "./components/about";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+function App() {
+  const isLoggedIn = window.localStorage.getItem("loggedIn"); // Check if logged in
+  const userType = window.localStorage.getItem("userType");
+
+  return (
+    <Router>
+      <div className="App">
+        <Navbar isLoggedIn={isLoggedIn} userType={userType} />
+
+        <Routes>
+          {/* unauthorized route */}
+          {!isLoggedIn && (
+            <>
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<SignUp />} />
+              <Route path="/" element={<Login />} />
+            </>
+          )}
+
+          {/* ProtectedRoutes */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/login" element={<Navigate to="/" />} />
+            <Route path="/register" element={<Navigate to="/" />} />
+            {userType != "Admin" ? (
+              <>
+                <Route path="/" element={<Navigate to="/userDetails" />} />
+                <Route path="/userDetails" element={<UserDetails />} />
+                <Route path="/products" element={<Product />} />
+                <Route path="/admin-dashboard" element={<Navigate to="/" />} />
+              </>
+            ) : (
+              <>
+                <Route path="/" element={<Navigate to="/admin-dashboard" />} />
+                <Route path="/userDetails" element={<Navigate to="/" />} />
+                <Route path="/products" element={<Navigate to="/" />} />
+                <Route path="/admin-dashboard" element={<AdminHome />} />
+              </>
+            )}
+          </Route>
+
+          <Route path="/about" element={<About />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
+
+
+import React from "react";
+import { Link } from "react-router-dom";
+import "../App.css";
+
+function Navbar({ isLoggedIn, userType }) {
+  return (
+    <nav className="navbar">
+      <ul className="nav-list">
+        <li className="nav-item"></li>
+        {!isLoggedIn && (
+          <>
+            <li className="nav-item">
+              <Link to="/login" className="nav-link">
+                Login
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/register" className="nav-link">
+                Register
+              </Link>
+            </li>
+          </>
+        )}
+        {isLoggedIn && userType == "Admin" ? (
+          <li className="nav-item">
+            <Link to="/admin-dashboard" className="nav-link">
+              Dashboard
+            </Link>
+          </li>
+        ) : (
+          isLoggedIn && (
+            <>
+              <li className="nav-item">
+                <Link to="/userDetails" className="nav-link">
+                  User Details
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link to="/products" className="nav-link">
+                  Product
+                </Link>
+              </li>
+            </>
+          )
+        )}
+
+        <li className="nav-item">
+          <Link to="/about" className="nav-link">
+            About
+          </Link>
+        </li>
+      </ul>
+    </nav>
+  );
+}
+
+export default Navbar;
+
+
+import React from "react";
+import { Navigate, Outlet } from "react-router-dom";
+
+function ProtectedRoute() {
+  const isLoggedIn = window.localStorage.getItem("loggedIn");
+  return isLoggedIn==="true"?<Outlet/>:<Navigate to="login"/>;
+}
+
+export default ProtectedRoute;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// react router v7 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // hooks in react router dom 
 
 // 1 useNavigate();
@@ -569,6 +861,39 @@ function SearchExample() {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 7 Navigate()
+
+import { Navigate } from "react-router-dom";
+
+const ProtectedRoute = ({ isAuthenticated, children }) => {
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+    
+<Navigate to="/dashboard" replace />
+<Navigate to="/login" state={{ message: "Session expired" }} />
+  }
+  return children;
+};
 
 
 
