@@ -19,6 +19,8 @@
 
 - use axios with abort 
 
+- Never mix UI with the logic 
+
 - 
 
 
