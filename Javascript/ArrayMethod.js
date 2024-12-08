@@ -858,4 +858,566 @@ for (let value of iteratorObject) {
 
 
 
-// 17
+// 17 slice()
+
+// The slice() method returns a shallow copy of a portion 
+// of an array into a new array object.
+
+// 1 example 
+
+let numbers = [2, 3, 5, 7, 11, 13, 17];
+
+// create another array by slicing numbers from index 3 to 5
+let newArray = numbers.slice(3, 6);
+console.log(newArray);
+
+// Output: [ 7, 11, 13 ]
+
+
+// 2 example 
+
+let languages = ["JavaScript", "Python", "C", "C++", "Java"];
+
+// slicing the array (from start to end)
+let new_arr = languages.slice();
+console.log(new_arr); // [ 'JavaScript', 'Python', 'C', 'C++', 'Java' ]
+
+// slicing from the third element
+let new_arr1 = languages.slice(2);
+console.log(new_arr1); // [ 'C', 'C++', 'Java' ]
+
+// slicing from the second element to fourth element
+let new_arr2 = languages.slice(1, 4);
+console.log(new_arr2); // [ 'Python', 'C', 'C++' ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 18 fill()
+
+// The fill() method returns an array by filling all elements with a specified value.
+
+// arr.fill(value, start, end)
+
+// 1 example 
+// defining an array 
+var fruits = ['Apple', 'Banana', 'Grape'];
+
+// filling every element of the array with 'Cherry'
+fruits.fill("Cherry");
+
+console.log(fruits);
+
+// Output: 
+// [ 'Cherry', 'Cherry', 'Cherry' ]
+
+
+// 2 example 
+
+
+var rank = [8, 9, 3, 7];
+
+// on passing negative index, counting starts from back
+rank.fill(15, -2);
+
+// prints the modified 'rank' array
+console.log(rank);  // [ 8, 9, 15, 15 ]
+
+// passing invalid index result in no change
+rank.fill(15, 7, 8);
+
+console.log(rank);  // [ 8, 9, 15, 15 ]
+
+// passing invalid indexes
+rank.fill(15, NaN, NaN);
+
+console.log(rank);  // [ 8, 9, 15, 15 ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 19 find()
+
+// The find() method returns the value of the first array element that
+// satisfies the provided test function.
+
+// 1 example 
+
+let numbers = [1, 3, 4, 9, 8];
+
+// function to check even number
+function isEven(element) {
+  return element % 2 == 0;
+}
+
+// get the first even number
+let evenNumber = numbers.find(isEven);
+console.log(evenNumber);
+
+// Output: 4
+
+
+
+// 2 example 
+
+function isEven(element) {
+    return element % 2 == 0;
+  }
+  
+  let randomArray = [1, 45, 8, 98, 7];
+  
+  let firstEven = randomArray.find(isEven);
+  console.log(firstEven); // 8
+  
+  // using arrow operator
+  let firstOdd = randomArray.find((element) => element % 2 == 1);
+  console.log(firstOdd); // 1
+
+
+
+  // 3 example 
+
+  const team = [
+    { name: "Bill", age: 10 },
+    { name: "Linus", age: 15 },
+    { name: "Alan", age: 20 },
+    { name: "Steve", age: 34 },
+  ];
+  
+  function isAdult(member) {
+    return member.age >= 18;
+  }
+  
+  console.log(team.find(isAdult)); // { name: 'Alan', age: 20 }
+  
+  // using arrow function and deconstructing
+  let adultMember = team.find(({ age }) => age >= 18);
+  
+  console.log(adultMember); // { name: 'Alan', age: 20 }
+
+
+
+  // 20 findindex()
+
+  // The findIndex() method returns the index of the first
+  //  array element that satisfies the provided test function or else returns -1.
+
+  // 1 example 
+  // function that returns odd number
+function isOdd(element) {
+    return element % 2 !== 0;
+  }
+  
+  // defining an array of integers
+  let numbers = [2, 8, 1, 3, 4];
+  
+  // returns the index of the first odd number in the array
+  let firstOdd = numbers.findIndex(isOdd);
+  
+  console.log(firstOdd);
+  
+  // Output: 2
+
+
+  // 2 example 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // 21 flat()
+  // The flat() method creates a new array by flattening a nested array up to the specified depth.
+
+
+// 1 example 
+// 3 nested arrays 
+let numbers = [1, 2, [3, 4, [5, 6, [7, 8]]]];
+
+// reducing nesting by flattening the array to depth 2 
+let flattenArray = numbers.flat(2);
+
+// new flatten array
+console.log(flattenArray);
+
+// Output:
+// [ 1, 2, 3, 4, 5, 6, [ 7, 8 ] ]
+
+
+
+// 2 example 
+// array with empty slots
+let array_with_holes = [1, , 3];
+
+// removes holes in the array
+let flattedArray = array_with_holes.flat();
+
+console.log(flattedArray); // [ 1, 3 ]
+
+
+// 3 example 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 22 flatmap()
+
+//The flatMap() method first maps each element of an array using 
+//a mapping function, then flattens it into a new array.
+
+
+// 1 example
+
+// defining an array
+let numbers = [1, 2, 3, 4, 5];
+
+// each element of the array is squared and later flattened
+const resultingArray = numbers.flatMap((x) => [x ** 2]);
+
+console.log(resultingArray);
+
+// Output:
+// [ 1, 4, 9, 16, 25 ]
+
+
+
+// 2 example
+
+// defining an array
+let numbers = [1, 2, 3, 4, 5];
+
+// each element of the array is incremented by 1
+// and later the array is flattened
+let resultingArray = numbers.flatMap((element) => element + 1);
+
+console.log(resultingArray);
+
+
+//3 example
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 23 forEach()
+
+// The forEach() method executes a provided function for each array element.
+
+// 1 example
+
+let numbers = [1, 3, 4, 9, 8];
+
+// function to compute square of each number
+function computeSquare(element) {
+  console.log(element * element);
+}
+
+// compute square root of each element
+numbers.forEach(computeSquare);
+
+/* Output:
+1
+9 
+16
+81
+64
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 24  .from()
+
+// The from() method creates a new array from any array-like or iterable object.
+
+// 1 example 
+
+// creating a new array from string
+let newArray = Array.from("abc");
+
+console.log(newArray);
+
+// Output:
+// [ 'a', 'b', 'c' ]
+
+
+// 2 example 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 24 includes()
+
+// The includes() method checks if an array contains a specified element or not.
+
+// arr.includes(valueToFind, fromIndex)
+
+// 1 example 
+
+// defining an array
+let languages = ["JavaScript", "Java", "C"];
+
+// checking whether the array contains 'Java'
+let check = languages.includes("Java");
+
+console.log(check); 
+
+// Output: true
+
+
+// 2 example
+
+let languages = ["JavaScript", "Java", "C", "C++"];
+
+// checking whether the array contains 'C'
+let check1 = languages.includes("C");
+
+console.log(check1); // true
+
+// checking whether the array contains 'Ruby'
+let check2 = languages.includes("Ruby");
+
+console.log(check2); // false
+
+
+// 3 example 
+
+let languages = ["JavaScript", "Java", "C", "Python"];
+
+// checking whether the array contains 'Python'
+let check1 = languages.includes("Python");
+
+console.log(check1); // true
+
+// checking whether the array contains 'python'
+let check2 = languages.includes("python");
+
+console.log(check2); // false
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 25 indexOf()
+
+// The indexOf() method returns the first index of occurance
+//  of an array element, or -1 if it is not found.
+
+// 1 example
+
+let languages = ["Java", "JavaScript", "Python", "JavaScript"];
+
+// get the index of the first occurrence of "JavaScript"
+let index = languages.indexOf("JavaScript");
+console.log(index);
+
+// Output: 1
+
+
+// 2 example 
+
+var priceList = [10, 8, 2, 31, 10, 1, 65];
+
+// indexOf() returns the first occurance
+var index1 = priceList.indexOf(31);
+console.log(index1); // 3
+
+var index2 = priceList.indexOf(10);
+console.log(index2); // 0
+
+// second argument specifies the search's start index
+var index3 = priceList.indexOf(10, 1);
+console.log(index3); // 4
+
+// indexOf returns -1 if not found
+var index4 = priceList.indexOf(69.5);
+console.log(index4); // -1
+
+
+
+// 3  example 
+
+function findAllIndex(array, element) {
+    indices = [];
+    var currentIndex = array.indexOf(element);
+    while (currentIndex != -1) {
+      indices.push(currentIndex);
+      currentIndex = array.indexOf(element, currentIndex + 1);
+    }
+    return indices;
+  }
+  
+  var priceList = [10, 8, 2, 31, 10, 1, 65, 10];
+  
+  var occurance1 = findAllIndex(priceList, 10);
+  console.log(occurance1); // [ 0, 4, 7 ]
+  
+  var occurance2 = findAllIndex(priceList, 8);
+  console.log(occurance2); // [ 1 ]
+  
+  var occurance3 = findAllIndex(priceList, 9);
+  console.log(occurance3); // []
+
+
+
+  
