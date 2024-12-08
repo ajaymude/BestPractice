@@ -1,4 +1,4 @@
-// array methods 
+//array methods 
 01 - map()
 02 - filter()
 03 - concat()
@@ -7,6 +7,9 @@
 06 - unshift()
 07 - reverse()
 08 - sort()
+09 - reduce()
+10 - reduceRight()
+11 - shift()
 
 
 
@@ -420,3 +423,439 @@ console.log("Descending - " + priceList);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 9 reducer()
+
+// The reduce() method executes a reducer function on each element 
+// of the array and returns a single output value.
+
+// arr.reduce(callback(accumulator, currentValue), initialValue)
+
+// 2 example 
+
+const message = ["JavaScript ", "is ", "fun."];
+
+// function to join each string elements
+function joinStrings(accumulator, currentValue) {
+  return accumulator + currentValue;
+}
+
+// reduce join each element of the string
+let joinedString = message.reduce(joinStrings);
+console.log(joinedString);
+
+// Output: JavaScript is fun.
+
+
+// 2 example 
+const numbers = [1, 2, 3, 4, 5, 6];
+
+function sum_reducer(accumulator, currentValue) {
+  return accumulator + currentValue;
+}
+
+let sum = numbers.reduce(sum_reducer);
+console.log(sum); // 21
+
+// using arrow function
+let summation = numbers.reduce(
+  (accumulator, currentValue) => accumulator + currentValue
+);
+console.log(summation); // 21
+
+
+// 3 example 
+let ageGroup = [18, 21, 1, 1, 51, 18, 21, 5, 18, 7, 10];
+let uniqueAgeGroup = ageGroup.reduce(function (accumulator, currentValue) {
+  if (accumulator.indexOf(currentValue) === -1) {
+    accumulator.push(currentValue);
+  }
+  return accumulator;
+}, []);
+
+console.log(uniqueAgeGroup); // [ 18, 21, 1, 51, 5, 7, 10 ]
+
+
+// 4 example 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 10 reduceRight()
+
+// The reduceRight() method reduces the array to a single value by executing
+//  a callback function on two values of the array (from right to left). a callback
+// function on two values of the array (from right to left).
+
+// 1 example 
+
+let numbers = [1, 2, 3, 4];
+
+// function that adds last two values of the numbers array
+function sum_reducer(accumulator, currentValue) {
+  return accumulator + currentValue;
+}
+
+// returns a single value after reducing the numbers array
+let sum = numbers.reduceRight(sum_reducer);
+
+console.log(sum);
+
+// Output: 10
+
+
+// 2 example 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 11 shift()
+
+// The shift() method removes the first element from an array and returns that element.
+
+// 1 example 
+let languages = ["English", "Java", "Python", "JavaScript"];
+
+// removes the first element of the array
+let first = languages.shift();
+console.log(first);
+console.log(languages);
+
+// Output: English
+//         [ 'Java', 'Python', 'JavaScript' ]
+
+// 2 example 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 12 every()
+
+// The every() method checks if all the array elements pass the given test function.
+
+// every() does not change the original array.
+// every() does not execute the callback() function for an empty array.
+//  In case we do pass an empty array, it always returns true.
+
+// 1 example 
+// function that checks whether
+// the age is 18 or above
+function checkAdult(age) {
+    return age >= 18;
+}
+
+const ageArray = [34, 23, 20, 26, 12];
+
+//checks if all the array elements
+// pass the checkAdult() function
+let check = ageArray.every(checkAdult);
+
+// Output: false
+
+
+// 2 example 
+
+// function that checks whether all
+// the array elements are even or not
+function checkEven(num) {
+    return num%2 === 0;
+}
+
+// create an array of numbers
+const numbers = [2, 4, 6, 7, 8];
+
+// use the every() method along with
+// checkEven() on the numbers array
+let check = numbers.every(checkEven); 
+
+console.log(check)
+
+// Output: false
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 13  entries()
+
+// The entries() method returns a new Array Iterator 
+// object containing key/value pairs for each array index.
+
+// 1 example
+
+// defining an array named alphabets
+const alphabets = ["A", "B", "C"];
+
+// array iterator object that contains
+// key-value pairs for each index in the array
+let iterator = alphabets.entries();
+
+// iterating through key-value pairs in the array
+for (let entry of iterator) {
+  console.log(entry);
+}
+
+// Output: 
+// [ 0, 'A' ]
+// [ 1, 'B' ]
+// [ 2, 'C' ]
+
+
+// 2 example 
+
+// defining an array
+const symbols = ["#", "$", "*"];
+
+// Array iterator object that holds key/value pairs 
+let iterator = symbols.entries();
+
+// using built-in next() method in Array iterator object
+console.log(iterator.next().value);
+console.log(iterator.next().value);
+console.log(iterator.next().value);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 14  some()
+
+// The some() method tests whether any of the array elements pass the given test function.
+
+
+// 1 example 
+// a test function: returns an even number
+function isEven(element) {
+    return element % 2 === 0;
+  }
+  
+  // defining an array
+  let numbers = [1, 3, 2, 5, 4];
+  
+  // checks whether the numbers array contain at least one even number
+  console.log(numbers.some(isEven));
+  
+  // Output: true 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 15 toString()
+
+//   The toString() method returns a string formed by the elements of the given array.
+
+// 1  example 
+
+// defining an array
+let items = ["JavaScript", 1, "a", 3];
+
+// returns a string with elements of the array separated by commas
+let itemsString = items.toString();
+
+console.log(itemsString);
+
+// Output: 
+// JavaScript,1,a,3
+
+
+// 2 example 
+
+// defining a nested array
+let nestedArray = [1, 2, 4, ["Apple", 5]];
+
+// returns string representation of the nested array by flattening the array 
+let resultingArray = nestedArray.toString();
+
+console.log(resultingArray);
+
+// output 1,2,4,Apple,5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 16 values()
+
+// The values() method returns a new Array Iterator
+//  object that contains the values for each index in the array.
+
+// 1 example 
+
+let languages = ["JavaScript", "Java", "C++"];
+
+// returns an Array Iterator object that contain values
+let iteratorObject = languages.values();
+
+// looping through iterator
+for (let value of iteratorObject) {
+  console.log(value);
+}
+
+// Output:
+// JavaScript
+// Java
+// C++
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 17
