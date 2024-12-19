@@ -1,0 +1,794 @@
+// Array methods list
+
+// Some important point to remember while use this method 
+// 1 - you must which method change the original array 
+//     which method creating new array 
+//     consider performance , some method takes time 
+
+
+
+
+
+
+### 1. **`push()`**  X  unshift()
+   - Adds one or more elements to the end of an array.
+   - Returns the new length of the array.
+
+### 2. **`pop()`**
+   - Removes the last element from an array.
+   - Returns the element that was removed.
+
+### 3. **`shift()`**
+   - Removes the first element from an array.
+   - Returns the removed element.
+
+### 4. **`unshift()`**
+   - Adds one or more elements to the beginning of an array.
+   - Returns the new length of the array.
+
+### 5. **`concat()`**
+   - Merges two or more arrays into one.
+   - Returns a new array.
+
+### 6. **`join()`**
+   - Joins all the elements of an array into a string.
+   - You can specify a separator between elements.
+
+### 7. **`slice()`**
+   - Returns a shallow copy of a portion of an array into a new array.
+   - You can specify the start and end index.
+
+### 8. **`splice()`**
+   - Changes the content of an array by removing or replacing elements.
+   - Takes start index, how many elements to remove, and optional elements to add.
+
+### 9. **`reverse()`**
+   - Reverses the order of the elements in the array.
+
+### 10. **`sort()`**
+   - Sorts the elements of an array in place, modifying the original array.
+
+### 11. **`forEach()`**
+   - Executes a function on each element of the array.
+
+### 12. **`map()`**
+   - Creates a new array by applying a function to each element.
+
+### 13. **`filter()`**
+   - Creates a new array with elements that pass a test (callback function).
+
+### 14. **`reduce()`**
+   - Applies a function to each element, reducing it to a single value.
+
+### 15. **`reduceRight()`**
+   - Similar to `reduce()`, but processes the array from right to left.
+
+### 16. **`some()`**
+   - Checks if at least one element in the array passes the test.
+   - Returns `true` or `false`.
+
+### 17. **`every()`**
+   - Checks if all elements pass the test.
+   - Returns `true` or `false`.
+
+### 18. **`find()`**
+   - Returns the first element that passes the test in the callback function.
+
+### 19. **`findIndex()`**
+   - Returns the index of the first element that passes the test.
+
+### 20. **`indexOf()`**
+   - Returns the first index of the element in the array or `-1` if not found.
+
+### 21. **`includes()`**
+   - Checks if the array contains a certain element.
+   - Returns `true` or `false`.
+
+### 22. **`lastIndexOf()`**
+   - Returns the last index of the element in the array or `-1` if not found.
+
+### 23. **`flat()`**
+   - Flattens nested arrays into a single array.
+
+### 24. **`flatMap()`**
+   - Maps each element using a function, then flattens the result into a new array.
+
+### 25. **`from()`**
+   - Creates a new array from an iterable object like a string, set, or array-like object.
+
+### 26. **`keys()`**
+   - Returns an array iterator object containing the keys (indexes) of the array.
+
+### 27. **`values()`**
+   - Returns an array iterator object containing the values of the array.
+
+### 28. **`entries()`**
+   - Returns an array iterator object with key-value pairs for each index and element.
+
+### 29. **`copyWithin()`**
+   - Shallow copies a portion of the array to another location within the same array.
+
+### 30. **`fill()`**
+   - Changes all elements in the array to a static value, from a start index to an end index.
+
+### 31. **`findLast()`** *(ES2022)*
+   - Returns the last element in the array that passes a test.
+
+### 32. **`at()`** *(ES2022)*
+   - Returns the element at the given index, including support for negative indices.
+
+### 33. **`isArray()`**
+   - Checks if the value is an array.
+   - Returns `true` or `false`.
+
+### 34. **`toLocaleString()`**
+   - Returns a string representing the array, with elements localized according to the user's locale.
+
+### 35. **`toString()`**
+   - Returns a string representing the array.
+
+### 36. **`valueOf()`**
+   - Returns the primitive value of the array (usually the array itself).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 1. **`push()`**
+   - Adds one or more elements to the end of an array.
+   - Returns the new length of the array.
+
+// 1 Example
+let fruits = ["apple", "banana"];
+fruits.push("orange");
+
+console.log(fruits); // Output: ["apple", "banana", "orange"]
+
+
+
+
+// 2 Example
+let numbers = [1, 2, 3];
+numbers.push(4, 5, 6);
+
+console.log(numbers); // Output: [1, 2, 3, 4, 5, 6]
+
+
+
+
+// 3 Example
+let mixedArray = [1, "hello", true];
+mixedArray.push({ name: "Alice", age: 25 });
+
+console.log(mixedArray); 
+// Output: [1, "hello", true, { name: "Alice", age: 25 }]
+
+
+
+
+// 4 Example
+let arrayOfArrays = [[1, 2], [3, 4]];
+arrayOfArrays.push([5, 6]);
+
+console.log(arrayOfArrays); 
+// Output: [[1, 2], [3, 4], [5, 6]]
+
+
+
+
+// 5 Example
+let arr1 = [1, 2, 3];
+let arr2 = [4, 5, 6];
+
+arr1.push(...arr2);  // Using the spread operator
+
+console.log(arr1); // Output: [1, 2, 3, 4, 5, 6]
+
+
+
+
+// 6 Example
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 2. **`pop()`**
+   - Removes the last element from an array.
+   - Returns the element that was removed.
+
+// 1 Example
+let fruits = ["apple", "banana", "cherry"];
+let removedElement = fruits.pop();
+
+console.log(fruits);           // ["apple", "banana"]
+console.log(removedElement);   // "cherry"
+
+
+
+
+// 2 Example
+let numbers = [1, 2, 3, 4, 5];
+numbers.pop();  // Removes the last element (5)
+numbers.push(6); // Adds a new element (6) at the end
+
+console.log(numbers); // [1, 2, 3, 4, 6]
+
+
+
+
+// 3 Example 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 3. **`shift()`**
+   - Removes the first element from an array.
+   - Returns the removed element.
+
+// 1 Example
+let fruits = ["apple", "banana", "cherry"];
+let removedElement = fruits.shift();
+
+console.log(fruits);           // ["banana", "cherry"]
+console.log(removedElement);   // "apple"
+
+
+
+
+// 2 Example
+let emptyArray = [];
+let removedElement = emptyArray.shift();
+
+console.log(emptyArray);       // []
+console.log(removedElement);   // undefined
+
+
+
+
+// 3 Example
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 4. **`unshift()`**
+   - Adds one or more elements to the beginning of an array.
+   - Returns the new length of the array.
+
+// 1 Example
+let fruits = ["banana", "cherry"];
+let newLength = fruits.unshift("apple");
+
+console.log(fruits);           // ["apple", "banana", "cherry"]
+console.log(newLength);        // 3 (the new length of the array)
+
+
+
+
+// 2 Example
+let animals = ["dog", "cat"];
+let newLength = animals.unshift("rabbit", "hamster");
+
+console.log(animals);          // ["rabbit", "hamster", "dog", "cat"]
+console.log(newLength);        // 4 (the new length of the array)
+
+
+
+
+// 3 Example
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 5. **`concat()`**
+   - Merges two or more arrays into one.
+   - Returns a new array.
+
+// 1 Example
+let array1 = [1, 2, 3];
+let array2 = [4, 5, 6];
+let combinedArray = array1.concat(array2);
+
+console.log(combinedArray);   // [1, 2, 3, 4, 5, 6]
+console.log(array1);          // [1, 2, 3] (original array is unchanged)
+console.log(array2);          // [4, 5, 6] (original array is unchanged)
+
+
+
+
+// 2 Example
+let array1 = [1, 2];
+let array2 = [3, 4];
+let array3 = [5, 6];
+let combinedArray = array1.concat(array2, array3);
+
+console.log(combinedArray);   // [1, 2, 3, 4, 5, 6]
+
+
+
+
+// 3 Example
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 6. **`join()`**
+   - Joins all the elements of an array into a string.
+   - You can specify a separator between elements.
+
+// 1 Example
+let fruits = ["apple", "banana", "cherry"];
+let result = fruits.join();
+
+console.log(result); // "apple,banana,cherry"
+
+
+
+
+// 2 Example
+let colors = ["red", "green", "blue"];
+let result = colors.join(" ");
+
+console.log(result); // "red green blue"
+
+
+
+
+// 3 Example
+let words = ["hello", "world"];
+let result = words.join("-");
+
+console.log(result); // "hello-world"
+
+
+
+
+// 4 Example
+let digits = [1, 2, 3, 4];
+let result = digits.join("");
+
+console.log(result); // "1234"
+
+
+
+
+// 5 Example
+let numbers = [1, 2, 3, 4, 5];
+let result = numbers.join(" | ");
+
+console.log(result); // "1 | 2 | 3 | 4 | 5"
+
+
+
+
+// 6 Example
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 7. **`slice()`**
+   - Returns a shallow copy of a portion of an array into a new array.
+   - You can specify the start and end index.
+
+// 1 Example
+let numbers = [1, 2, 3, 4, 5];
+let slicedArray = numbers.slice(1, 4);  // Extract elements from index 1 to index 4 (excluding index 4)
+
+console.log(slicedArray);  // [2, 3, 4]
+
+
+
+
+// 2 Example
+let fruits = ["apple", "banana", "cherry", "date"];
+let slicedFruits = fruits.slice(2);  // Extract elements from index 2 to the end
+
+console.log(slicedFruits);  // ["cherry", "date"]
+
+
+
+
+// 3 Example
+let colors = ["red", "green", "blue", "yellow", "purple"];
+let slicedColors = colors.slice(-3, -1);  // Extract elements from the 3rd-last element to the last element (not including -1)
+
+console.log(slicedColors);  // ["blue", "yellow"]
+
+
+
+
+// 4 
+let colors = ["red", "green", "blue", "yellow", "purple"];
+let slicedColors = colors.slice(-3, -1);  // Extract elements from the 3rd-last element to the last element (not including -1)
+
+console.log(slicedColors);  // ["blue", "yellow"]
+
+
+
+
+// 5 Example
+let numbers = [10, 20, 30, 40, 50, 60, 70];
+let slice1 = numbers.slice(2, -1);  // Start at index 2, end 1 element before the last
+
+console.log(slice1);  // [30, 40, 50, 60]
+
+
+
+
+// 6 
+let numbers = [1, 2, 3, 4, 5];
+let sliceResult = numbers.slice(3, 2);  // Start at index 3, end at index 2
+
+console.log(sliceResult);  // []
+
+
+
+
+// 7
+let colors = ["red", "green", "blue", "yellow"];
+let result = colors.slice(2, 2);  // Start and end at index 2
+
+console.log(result);  // []
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 8. **`splice()`**
+   - Changes the content of an array by removing or replacing elements.
+   - Takes start index, how many elements to remove, and optional elements to add.
+
+   - The splice() method in JavaScript is used to add, remove, or replace elements in an array.
+   - It changes the contents of an array by removing or replacing 
+   - existing elements and/or adding new elements.
+
+// 1 Example
+let fruits = ["apple", "banana", "cherry", "date"];
+let removedElements = fruits.splice(1, 2);  // Start at index 1, remove 2 elements
+
+console.log(fruits);              // ["apple", "date"]
+console.log(removedElements);     // ["banana", "cherry"]
+
+
+
+
+// 2 Example
+let fruits = ["apple", "banana", "cherry"];
+fruits.splice(1, 0, "orange", "grape");  // Start at index 1, remove 0 elements, add "orange" and "grape"
+
+console.log(fruits);  // ["apple", "orange", "grape", "banana", "cherry"]
+
+
+
+
+// 3 Example
+let colors = ["red", "green", "blue"];
+colors.splice(1, 1, "yellow", "purple");  // Start at index 1, remove 1 element, add "yellow" and "purple"
+
+console.log(colors);  // ["red", "yellow", "purple", "blue"]
+
+
+
+
+// 4  Example
+let numbers = [1, 2, 3, 4, 5];
+numbers.splice(2, numbers.length - 2);  // Start at index 2, remove all elements after that
+
+console.log(numbers);  // [1, 2]
+
+
+
+
+// 5 Example
+let items = ["banana", "apple"];
+items.splice(0, 0, "orange", "grape");  // Add "orange" and "grape" at the beginning
+
+console.log(items);  // ["orange", "grape", "banana", "apple"]
+
+
+
+
+// 6 Example
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 9. **`reverse()`**
+   - Reverses the order of the elements in the array.
+
+// 1 Example
+let numbers = [1, 2, 3, 4, 5];
+numbers.reverse();  // Reverses the elements in the array
+
+console.log(numbers);  // [5, 4, 3, 2, 1]
+
+
+
+
+// 
+2 let twoDimensionalArray = [[1, 2], [3, 4], [5, 6]];
+twoDimensionalArray.reverse();  // Reverses the outer array
+
+console.log(twoDimensionalArray);  // [[5, 6], [3, 4], [1, 2]]
+
+
+
+
+// 3 
+let originalArray = [1, 2, 3, 4, 5];
+let reversedArray = [...originalArray].reverse();  // Spread operator to create a copy and then reverse
+
+console.log(originalArray);  // [1, 2, 3, 4, 5] (original array remains unchanged)
+console.log(reversedArray);  // [5, 4, 3, 2, 1] (new reversed array)
+
+
+
+
+// 4 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 10. **`sort()`**
+   - Sorts the elements of an array in place, modifying the original array.
+
+// 1 
+let fruits = ["banana", "apple", "cherry", "date"];
+fruits.sort();  // Sorts the elements as strings in ascending order
+
+console.log(fruits);  // ["apple", "banana", "cherry", "date"]
+
+
+
+
+// 2 
+let numbers = [10, 5, 100, 1, 30];
+numbers.sort();  // Sorts as strings (incorrect for numbers)
+
+console.log(numbers);  // [1, 10, 100, 05, 30] (this is incorrect)
+
+
+
+
+// 3 
+let numbers = [10, 5, 100, 1, 30];
+numbers.sort((a, b) => a - b);  // Compare numbers numerically (ascending)
+
+console.log(numbers);  // [1, 5, 10, 30, 100]
+
+
+
+
+// 4 
+let numbers = [10, 5, 100, 1, 30];
+numbers.sort((a, b) => b - a);  // Compare numbers numerically (descending)
+
+console.log(numbers);  // [100, 30, 10, 5, 1]
+
+
+
+
+// 5 
+let people = [
+  { name: "John", age: 30 },
+  { name: "Jane", age: 25 },
+  { name: "Alice", age: 35 }
+];
+
+people.sort((a, b) => a.age - b.age);  // Sort by 'age' in ascending order
+
+console.log(people); 
+// [
+//   { name: "Jane", age: 25 },
+//   { name: "John", age: 30 },
+//   { name: "Alice", age: 35 }
+// ]
+
+
+
+
+// 6 
+let fruits = ["banana", "apple", "cherry", "date"];
+fruits.sort((a, b) => b.localeCompare(a));  // Use localeCompare for descending alphabetical order
+
+console.log(fruits);  // ["date", "cherry", "banana", "apple"]
+
+
+
+
+// 7 
+let words = ["apple", "banana", "kiwi", "cherry"];
+words.sort((a, b) => a.length - b.length);  // Sort by string length (ascending)
+
+console.log(words);  // ["kiwi", "apple", "cherry", "banana"]
+
+
+
+
+// 8 
+let words = ["apple", "banana", "cherry", "éclair"];
+words.sort((a, b) => a.localeCompare(b));  // Locale-aware sorting
+
+console.log(words);  // ["apple", "banana", "cherry", "éclair"]
+
+
+
+
+// 9
+let mixedArray = [10, "apple", 5, "banana"];
+mixedArray.sort((a, b) => {
+  // Convert both elements to strings before comparing
+  return String(a).localeCompare(String(b));
+});
+
+console.log(mixedArray);  // [5, "apple", 10, "banana"]
+
+
+
+
+// 10 
+let colors = ["red", "blue", "green", "yellow"];
+let customOrder = ["green", "blue", "red", "yellow"];  // Custom order
+
+colors.sort((a, b) => customOrder.indexOf(a) - customOrder.indexOf(b));
+
+console.log(colors);  // ["green", "blue", "red", "yellow"]
