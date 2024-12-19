@@ -792,3 +792,190 @@ let customOrder = ["green", "blue", "red", "yellow"];  // Custom order
 colors.sort((a, b) => customOrder.indexOf(a) - customOrder.indexOf(b));
 
 console.log(colors);  // ["green", "blue", "red", "yellow"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 11. **`forEach()`**
+   - Executes a function on each element of the array.
+
+// 1 Example
+const numbers = [1, 2, 3, 4, 5];
+
+numbers.forEach(function(number) {
+  console.log(number);
+});
+
+1
+2
+3
+4
+5
+
+
+
+
+//2 
+const colors = ["red", "green", "blue"];
+colors.forEach((color, index) => {
+  console.log(`${index}: ${color}`);
+});
+
+0: red
+1: green
+2: blue
+
+
+
+
+// 3 Example
+let numbers = [1, 2, 3, 4];
+numbers.forEach((number, index) => {
+  numbers[index] = number * 2; // Doubling each number
+});
+console.log(numbers);
+
+[2, 4, 6, 8]
+
+
+
+
+// 4 Example
+const people = [
+  { name: "John", age: 30 },
+  { name: "Jane", age: 25 },
+  { name: "Jack", age: 35 }
+];
+
+people.forEach((person) => {
+  console.log(`${person.name} is ${person.age} years old.`);
+});
+
+John is 30 years old.
+Jane is 25 years old.
+Jack is 35 years old.
+
+
+
+
+// 5 
+const ages = [12, 15, 18, 21, 30];
+ages.forEach((age) => {
+  if (age >= 18) {
+    console.log(`Age ${age} is an adult.`);
+  } else {
+    console.log(`Age ${age} is not an adult.`);
+  }
+});
+
+Age 12 is not an adult.
+Age 15 is not an adult.
+Age 18 is an adult.
+Age 21 is an adult.
+Age 30 is an adult.
+
+
+
+
+// 6 
+const items = ["apple", "banana", "cherry"];
+items.forEach((item, index) => {
+  setTimeout(() => {
+    console.log(`${item} processed after ${index + 1} second(s)`);
+  }, (index + 1) * 1000); // Delay for each item
+});
+
+apple processed after 1 second(s)
+banana processed after 2 second(s)
+cherry processed after 3 second(s)
+
+
+
+
+// 7 
+let total = 0;
+const numbers = [1, 2, 3, 4];
+numbers.forEach((num) => {
+  total += num;  // Calculate the sum
+});
+console.log(total);  // 10
+
+10
+
+
+
+
+// 8 
+const nestedArray = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9]
+];
+
+nestedArray.forEach((subArray, index) => {
+  console.log(`Sub-array ${index + 1}:`);
+  subArray.forEach((item) => {
+    console.log(item);
+  });
+});
+
+Sub-array 1:
+1
+2
+3
+Sub-array 2:
+4
+5
+6
+Sub-array 3:
+7
+8
+9
+
+
+
+// 9
+const numbers = [1, 2, 3, 4, 5];
+numbers.forEach((number) => {
+  if (number === 3) return;  // Skip iteration when number is 3
+  console.log(number);
+});
+
+1
+2
+4
+5
+
+
+
+
+// 10
+let max = 0;
+const numbers = [10, 20, 30, 40];
+numbers.forEach((num) => {
+  if (num > max) {
+    max = num;  // Find the maximum value
+  }
+});
+console.log(`The maximum number is: ${max}`);
+
+The maximum number is: 40
+
+
+
