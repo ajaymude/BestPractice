@@ -1,0 +1,684 @@
+// 1 - Adding js in html page
+
+
+
+// a - internal html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multiple JS Example</title>
+</head>
+<body>
+    <h1>Hello, World!</h1>
+
+    <!-- Inline JS #1 -->
+    <script>
+        console.log("This is the first JS script.");
+    </script>
+
+    <!-- Inline JS #2 -->
+    <script>
+        console.log("This is the second JS script.");
+    </script>
+</body>
+</html>
+
+
+// b - external html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multiple External JS Example</title>
+</head>
+<body>
+    <h1>Hello, World!</h1>
+
+    <!-- External JS #1 -->
+    <script src="script1.js"></script>
+
+    <!-- External JS #2 -->
+    <script src="script2.js"></script>
+
+    <!-- External JS #3 -->
+    <script src="script3.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+// 2 - comments 
+
+// This is a single-line comment
+let x = 10; // This is an inline comment
+
+/*
+  This is a multi-line comment.
+  It can span multiple lines.
+*/
+let y = 20;
+
+/*
+  The following code is commented out.
+  let z = 30;
+*/
+
+
+
+
+
+
+
+
+
+
+// 3 - variable
+
+// var example (function or global scope)
+var x = 10;
+console.log('var x:', x); // 10
+
+// let example (block scope)
+let y = 20;
+if (true) {
+    let y = 30;  // This is a different y, local to this block
+    console.log('let y inside block:', y); // 30
+}
+console.log('let y outside block:', y); // 20 (outside the block)
+
+// const example (constant, block scope)
+const z = 40;
+console.log('const z:', z); // 40
+// z = 50;  // Error: Assignment to constant variable.
+
+
+// Different data types examples:
+let number = 5;          // Number
+let name = "Alice";      // String
+let isActive = true;     // Boolean
+let user = { name: "Bob", age: 25 }; // Object
+let numbers = [1, 2, 3]; // Array
+
+// Printing data types
+console.log('number:', number); // 5
+console.log('name:', name);     // "Alice"
+console.log('isActive:', isActive); // true
+console.log('user:', user);     // { name: "Bob", age: 25 }
+console.log('numbers:', numbers); // [1, 2, 3]
+
+
+
+
+
+
+
+
+
+
+
+
+// 4 - data type in js 
+
+// Primitive Data Types
+
+// 1. String
+let name = "John Doe"; // String data type
+console.log(typeof name); // Output: string
+
+// 2. Number
+let age = 30; // Number data type (integer)
+console.log(typeof age); // Output: number
+
+let price = 19.99; // Number data type (floating point)
+console.log(typeof price); // Output: number
+
+// 3. Boolean
+let isAdult = true; // Boolean data type
+console.log(typeof isAdult); // Output: boolean
+
+// 4. Undefined
+let address; // Variable declared but not assigned a value
+console.log(typeof address); // Output: undefined
+
+// 5. Null
+let car = null; // Null data type (empty object reference)
+console.log(typeof car); // Output: object (this is a known JavaScript quirk)
+
+// 6. Symbol
+let uniqueID = Symbol("id"); // Symbol data type (unique value)
+console.log(typeof uniqueID); // Output: symbol
+
+// 7. BigInt
+let largeNumber = 1234567890123456789012345678901234567890n; // BigInt data type (large integer)
+console.log(typeof largeNumber); // Output: bigint
+
+// Non-primitive Data Type
+
+// 1. Object
+let person = {
+  name: "Alice",
+  age: 25,
+  isEmployed: true
+}; // Object data type
+console.log(typeof person); // Output: object
+
+// 2. Array (a type of Object)
+let colors = ["red", "green", "blue"]; // Array (list) data type
+console.log(typeof colors); // Output: object (Arrays are technically objects)
+
+// 3. Function (also an object)
+function greet() {
+  return "Hello!";
+}
+console.log(typeof greet); // Output: function
+
+
+
+
+
+
+
+
+
+
+// 5 - arithmatic operator 
+// Declaring variables
+let a = 10;
+let b = 5;
+
+// 1. Addition
+let sum = a + b; // 15
+console.log("Addition:", sum); // Output: 15
+
+// 2. Subtraction
+let difference = a - b; // 5
+console.log("Subtraction:", difference); // Output: 5
+
+// 3. Multiplication
+let product = a * b; // 50
+console.log("Multiplication:", product); // Output: 50
+
+// 4. Division
+let quotient = a / b; // 2
+console.log("Division:", quotient); // Output: 2
+
+// 5. Modulo (Remainder)
+let remainder = a % b; // 0
+console.log("Modulo:", remainder); // Output: 0
+
+// 6. Exponentiation
+let power = a ** b; // 100000
+console.log("Exponentiation:", power); // Output: 100000
+
+// 7. Increment
+a++; // a becomes 11
+console.log("Increment:", a); // Output: 11
+
+// 8. Decrement
+b--; // b becomes 4
+console.log("Decrement:", b); // Output: 4
+
+
+Addition: 15
+Subtraction: 5
+Multiplication: 50
+Division: 2
+Modulo: 0
+Exponentiation: 100000
+Increment: 11
+Decrement: 4
+
+
+
+
+
+
+
+
+
+
+// 6 - Assignment operator
+
+// Initializing variables
+let x = 10;
+let y = 5;
+
+// 1. Assignment (=)
+x = y;  // Assigns the value of y to x
+console.log("Assignment (=):", x); // Output: 5
+
+// 2. Addition Assignment (+=)
+x += y;  // Adds y to x and assigns the result to x
+console.log("Addition Assignment (+=):", x); // Output: 10 (5 + 5)
+
+// 3. Subtraction Assignment (-=)
+x -= y;  // Subtracts y from x and assigns the result to x
+console.log("Subtraction Assignment (-=):", x); // Output: 5 (10 - 5)
+
+// 4. Multiplication Assignment (*=)
+x *= y;  // Multiplies x by y and assigns the result to x
+console.log("Multiplication Assignment (*=):", x); // Output: 25 (5 * 5)
+
+// 5. Division Assignment (/=)
+x /= y;  // Divides x by y and assigns the result to x
+console.log("Division Assignment (/=):", x); // Output: 5 (25 / 5)
+
+// 6. Modulo Assignment (%=)
+x %= y;  // Assigns the remainder of x divided by y to x
+console.log("Modulo Assignment (%=):", x); // Output: 0 (5 % 5)
+
+// 7. Exponentiation Assignment (**=)
+x **= y;  // Raises x to the power of y and assigns the result to x
+console.log("Exponentiation Assignment (**=):", x); // Output: 0 (0^5)
+
+// 8. Logical AND Assignment (&=)
+x = 10;  // Reset x to 10 for the next example
+x &= y;  // Performs a bitwise AND operation between x and y and assigns the result to x
+console.log("Logical AND Assignment (&=):", x); // Output: 0 (10 & 5)
+
+// 9. Logical OR Assignment (|=)
+x = 10;  // Reset x to 10 for the next example
+x |= y;  // Performs a bitwise OR operation between x and y and assigns the result to x
+console.log("Logical OR Assignment (|=):", x); // Output: 15 (10 | 5)
+
+// 10. Logical XOR Assignment (^=)
+x = 10;  // Reset x to 10 for the next example
+x ^= y;  // Performs a bitwise XOR operation between x and y and assigns the result to x
+console.log("Logical XOR Assignment (^=):", x); // Output: 15 (10 ^ 5)
+
+
+ Assignment (=): 5
+Addition Assignment (+=): 10
+Subtraction Assignment (-=): 5
+Multiplication Assignment (*=): 25
+Division Assignment (/=): 5
+Modulo Assignment (%=): 0
+Exponentiation Assignment (**=): 0
+Logical AND Assignment (&=): 0
+Logical OR Assignment (|=): 15
+Logical XOR Assignment (^=): 15
+
+
+
+
+
+
+
+
+
+
+// 7 - comparison operator
+
+// Declaring variables
+let a = 10;
+let b = 5;
+let c = "10";
+
+// 1. Equal to (==)
+let isEqual = a == b;  // Checks if a is equal to b (value comparison)
+console.log("Equal to (==):", isEqual); // Output: false (10 != 5)
+
+// 2. Strict Equal to (===)
+let isStrictEqual = a === c;  // Checks if a is equal to c (value and type comparison)
+console.log("Strict Equal to (===):", isStrictEqual); // Output: false (10 is number, "10" is string)
+
+// 3. Not Equal to (!=)
+let isNotEqual = a != b;  // Checks if a is not equal to b (value comparison)
+console.log("Not Equal to (!=):", isNotEqual); // Output: true (10 != 5)
+
+// 4. Strict Not Equal to (!==)
+let isStrictNotEqual = a !== c;  // Checks if a is not equal to c (value and type comparison)
+console.log("Strict Not Equal to (!==):", isStrictNotEqual); // Output: true (10 is number, "10" is string)
+
+// 5. Greater than (>)
+let isGreaterThan = a > b;  // Checks if a is greater than b
+console.log("Greater than (>):", isGreaterThan); // Output: true (10 > 5)
+
+// 6. Less than (<)
+let isLessThan = a < b;  // Checks if a is less than b
+console.log("Less than (<):", isLessThan); // Output: false (10 is not less than 5)
+
+// 7. Greater than or Equal to (>=)
+let isGreaterThanOrEqual = a >= b;  // Checks if a is greater than or equal to b
+console.log("Greater than or Equal to (>=):", isGreaterThanOrEqual); // Output: true (10 >= 5)
+
+// 8. Less than or Equal to (<=)
+let isLessThanOrEqual = a <= b;  // Checks if a is less than or equal to b
+console.log("Less than or Equal to (<=):", isLessThanOrEqual); // Output: false (10 is not <= 5)
+
+
+Equal to (==): false
+Strict Equal to (===): false
+Not Equal to (!=): true
+Strict Not Equal to (!==): true
+Greater than (>): true
+Less than (<): false
+Greater than or Equal to (>=): true
+Less than or Equal to (<=): false
+
+
+
+
+
+
+
+
+
+
+
+
+// 8 - logical operator in JavaScript
+
+// Logical AND (&&)
+let a = true;
+let b = false;
+console.log(a && b); // false, both must be true for AND
+
+// Logical OR (||)
+let x = true;
+let y = false;
+console.log(x || y); // true, at least one must be true for OR
+
+// Logical NOT (!)
+let z = true;
+console.log(!z); // false, negates the value of z
+
+// AND with comparison
+let num1 = 10;
+let num2 = 20;
+console.log(num1 > 5 && num2 < 30); // true, both conditions are true
+
+// OR with comparison
+console.log(num1 < 5 || num2 > 15); // true, second condition is true
+
+// Nested logical operators
+let isAdmin = true;
+let isLoggedIn = false;
+console.log(isAdmin && (isLoggedIn || num1 > 5)); // true, because num1 > 5
+
+// NOT operator with OR
+let isAvailable = false;
+console.log(!(isAvailable || num1 < 20)); // true, because both conditions are false
+
+// Using logical operators in conditional statements
+if (a && x) {
+  console.log('Both a and x are true!');
+} else {
+  console.log('Either a or x is false.');
+}
+
+// Combining NOT and AND
+let isMember = true;
+let isVIP = false;
+console.log(!(isMember && isVIP)); // true, because NOT of true && false is true
+
+
+
+
+
+
+
+
+
+
+
+// 9 - if else 
+
+// Example variables
+let score = 85;
+
+// Using if, else if, and else
+if (score >= 90) {
+  console.log('Grade: A');  // If score is 90 or greater
+} else if (score >= 80) {
+  console.log('Grade: B');  // If score is between 80 and 89
+} else if (score >= 70) {
+  console.log('Grade: C');  // If score is between 70 and 79
+} else if (score >= 60) {
+  console.log('Grade: D');  // If score is between 60 and 69
+} else {
+  console.log('Grade: F');  // If score is less than 60
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// 10 -ternary operator 
+
+// Example variable
+let age = 20;
+
+// Using the ternary operator
+let result = age >= 18 ? 'Adult' : 'Minor';
+
+console.log(result);  // Output: 'Adult'
+
+
+
+
+
+
+
+
+
+
+// 11 -  switch statements
+let day = 3;
+let dayName;
+
+switch (day) {
+  case 1:
+    dayName = 'Monday';
+    break;
+  case 2:
+    dayName = 'Tuesday';
+    break;
+  case 3:
+    dayName = 'Wednesday';
+    break;
+  case 4:
+    dayName = 'Thursday';
+    break;
+  case 5:
+    dayName = 'Friday';
+    break;
+  case 6:
+    dayName = 'Saturday';
+    break;
+  case 7:
+    dayName = 'Sunday';
+    break;
+  default:
+    dayName = 'Invalid day';
+}
+
+console.log(dayName);  // Output: 'Wednesday'
+
+
+
+
+
+
+
+
+
+// 12 -  alert , prompt , confirm
+
+let age = 16;
+
+if (age < 18) {
+  alert("You are a minor.");
+} else {
+  alert("You are an adult.");
+}
+
+
+
+let userChoice = confirm("Do you want to proceed?");
+if (userChoice) {
+  alert("You clicked OK!");
+} else {
+  alert("You clicked Cancel!");
+}
+
+
+
+let age = prompt("How old are you?", "25");
+alert("You are " + age + " years old.");
+
+
+
+
+
+
+
+
+
+
+// 13 - function 
+
+
+function greet() {
+  console.log("Hello, world!");
+}
+
+greet();  // Output: Hello, world!
+
+
+
+
+function add(a, b) {
+  return a + b;
+}
+
+let result = add(5, 3);
+console.log(result);  // Output: 8
+
+
+
+
+
+function greet(name = "Guest") {
+  console.log("Hello, " + name + "!");
+}
+
+greet();           // Output: Hello, Guest!
+greet("Alice");    // Output: Hello, Alice!
+
+
+
+// a arrow function 
+const add = (a, b) => a + b;
+
+let result = add(2, 3);
+console.log(result);  // Output: 5
+
+
+
+// b iffe function
+(function() {
+  console.log("This is an IIFE!");
+})();
+
+
+
+
+function sum(...numbers) {
+  return numbers.reduce((total, num) => total + num, 0);
+}
+
+let result = sum(1, 2, 3, 4, 5);
+console.log(result);  // Output: 15
+
+
+
+
+
+
+
+
+
+
+// 14 - setInterval  clearInterval
+
+// 1. setInterval() example
+let counter = 0;
+
+// Using setInterval to execute a function every 1 second (1000 milliseconds)
+let intervalId = setInterval(function() {
+    counter++;
+    console.log('Counter:', counter);
+
+    // After 5 seconds, clear the interval
+    if (counter === 5) {
+        clearInterval(intervalId); // This stops the interval
+        console.log('Interval cleared after 5 counts');
+    }
+}, 1000);  // The function is called every 1000 milliseconds (1 second)
+
+// Output:
+// Counter: 1
+// Counter: 2
+// Counter: 3
+// Counter: 4
+// Counter: 5
+// Interval cleared after 5 counts
+
+
+
+
+
+
+
+
+
+
+
+// 15 setTimeout clearTimeout
+
+
+// 1. Using setTimeout() to execute a function after a delay
+
+let timeoutId = setTimeout(function() {
+    console.log("This message will appear after 3 seconds.");
+}, 3000); // 3000 milliseconds (3 seconds)
+
+// 2. Using clearTimeout() to cancel the timeout before it executes
+
+// Let's cancel the timeout after 1 second
+setTimeout(function() {
+    clearTimeout(timeoutId);  // Clears the first setTimeout
+    console.log("Timeout has been cleared before it ran.");
+}, 1000); // 1000 milliseconds (1 second)
+
+// Output:
+// "Timeout has been cleared before it ran."
+// (The first message won't appear because it was cleared before running)
+
+
+
+
+
+
+
+
+
+
+// 16 - 
+
+

@@ -1,0 +1,767 @@
+// list of event 
+
+1. Mouse Events
+click: Fired when the mouse is clicked on an element.
+dblclick: Fired when the mouse is double-clicked on an element.
+mousedown: Fired when a mouse button is pressed on an element.
+mouseup: Fired when a mouse button is released on an element.
+mouseenter: Fired when the mouse enters an element (does not bubble).
+mouseleave: Fired when the mouse leaves an element (does not bubble).
+mousemove: Fired when the mouse pointer moves over an element.
+mouseover: Fired when the mouse enters an element or its child elements.
+mouseout: Fired when the mouse leaves an element or its child elements.
+contextmenu: Fired when the right mouse button is clicked.
+
+2. Keyboard Events
+keydown: Fired when a key is pressed down.
+keypress: Fired when a key is pressed (deprecated in some cases).
+keyup: Fired when a key is released.
+
+3. Focus Events
+focus: Fired when an element gains focus.
+blur: Fired when an element loses focus.
+focusin: Fired when an element or its children gain focus (bubbles).
+focusout: Fired when an element or its children lose focus (bubbles).
+
+4. Form Events
+submit: Fired when a form is submitted.
+change: Fired when the value of an input element is changed.
+input: Fired when the value of an input element is being modified.
+reset: Fired when a form is reset.
+select: Fired when some text inside an input or textarea is selected.
+invalid: Fired when an input element's value is invalid.
+
+5. Window Events
+load: Fired when the entire page and its resources have finished loading.
+resize: Fired when the window is resized.
+scroll: Fired when the user scrolls the page or an element.
+unload: Fired when the document or a child resource is being unloaded.
+beforeunload: Fired before the page is unloaded (used to warn users).
+orientationchange: Fired when the orientation of the device changes.
+
+6. Touch Events (for mobile devices)
+touchstart: Fired when the user touches an element.
+touchmove: Fired when the user moves their finger across the screen.
+touchend: Fired when the user stops touching an element.
+touchcancel: Fired when the touch event is interrupted.
+
+7. Clipboard Events
+copy: Fired when the user copies content to the clipboard.
+cut: Fired when the user cuts content to the clipboard.
+paste: Fired when the user pastes content from the clipboard.
+8. Media Events
+play: Fired when a media element starts playing.
+pause: Fired when the media element is paused.
+ended: Fired when the media element has finished playing.
+volumechange: Fired when the volume is changed.
+timeupdate: Fired when the current playback position is updated.
+
+9. Drag and Drop Events
+drag: Fired when an element is being dragged.
+dragstart: Fired when the drag operation starts.
+dragend: Fired when the drag operation ends.
+dragenter: Fired when the dragged element enters a valid drop target.
+dragover: Fired when the dragged element is over a valid drop target.
+dragleave: Fired when the dragged element leaves a valid drop target.
+drop: Fired when the dragged element is dropped onto a valid drop target.
+
+10. Animation Events
+animationstart: Fired when a CSS animation starts.
+animationend: Fired when a CSS animation ends.
+animationiteration: Fired when a CSS animation repeats.
+
+11. Transition Events
+transitionstart: Fired when a CSS transition starts.
+transitionend: Fired when a CSS transition ends.
+transitioncancel: Fired when a CSS transition is canceled.
+
+12. Other Events
+error: Fired when an error occurs while loading a resource (e.g., image or script).
+resize: Fired when an element or window is resized.
+input: Fired when a user interacts with an <input> or <textarea> field.
+
+
+
+
+
+
+
+
+
+// methods 
+
+// 1. getElementById()
+let element = document.getElementById('myId');
+console.log(element);  // Output: <div id="myId">...</div>
+
+// 2. getElementsByClassName()
+let elements = document.getElementsByClassName('myClass');
+console.log(elements);  // Output: HTMLCollection of elements with class "myClass"
+
+// 3. getElementsByTagName()
+let elements = document.getElementsByTagName('p');
+console.log(elements);  // Output: HTMLCollection of <p> elements
+
+// 4. querySelector()
+let element = document.querySelector('.myClass');
+console.log(element);  // Output: First element with class "myClass"
+
+// 5. querySelectorAll()
+let elements = document.querySelectorAll('p.myClass');
+console.log(elements);  // Output: NodeList of all <p> elements with class "myClass"
+
+// 6. getAttribute()
+let element = document.getElementById('myId');
+let value = element.getAttribute('class');
+console.log(value);  // Output: Value of the class attribute of the element
+
+// 7. setAttribute()
+let element = document.getElementById('myId');
+element.setAttribute('class', 'newClass');
+console.log(element);  // Output: <div id="myId" class="newClass">...</div>
+
+// 8. removeAttribute()
+let element = document.getElementById('myId');
+element.removeAttribute('class');
+console.log(element);  // Output: <div id="myId">...</div>
+
+// 9. classList.add()
+let element = document.getElementById('myId');
+element.classList.add('newClass');
+console.log(element.classList);  // Output: DOMTokenList ["myClass", "newClass"]
+
+// 10. classList.remove()
+let element = document.getElementById('myId');
+element.classList.remove('oldClass');
+console.log(element.classList);  // Output: DOMTokenList (updated classes)
+
+// 11. classList.toggle()
+let element = document.getElementById('myId');
+element.classList.toggle('active');
+console.log(element.classList);  // Output: DOMTokenList with or without "active"
+
+// 12. classList.contains()
+let element = document.getElementById('myId');
+let hasClass = element.classList.contains('active');
+console.log(hasClass);  // Output: true or false
+
+// 13. parentNode
+let element = document.getElementById('myId');
+let parent = element.parentNode;
+console.log(parent);  // Output: Parent element of the element with id "myId"
+
+// 14. childNodes
+let element = document.getElementById('myId');
+let children = element.childNodes;
+console.log(children);  // Output: NodeList of child nodes
+
+// 15. children
+let element = document.getElementById('myId');
+let children = element.children;
+console.log(children);  // Output: HTMLCollection of child elements
+
+// 16. firstChild
+let element = document.getElementById('myId');
+let firstChild = element.firstChild;
+console.log(firstChild);  // Output: The first child node of the element
+
+// 17. firstElementChild
+let element = document.getElementById('myId');
+let firstElementChild = element.firstElementChild;
+console.log(firstElementChild);  // Output: The first child element
+
+// 18. lastChild
+let element = document.getElementById('myId');
+let lastChild = element.lastChild;
+console.log(lastChild);  // Output: The last child node of the element
+
+// 19. lastElementChild
+let element = document.getElementById('myId');
+let lastElementChild = element.lastElementChild;
+console.log(lastElementChild);  // Output: The last child element
+
+// 20. nextSibling
+let element = document.getElementById('myId');
+let nextSibling = element.nextSibling;
+console.log(nextSibling);  // Output: The next sibling node
+
+// 21. nextElementSibling
+let element = document.getElementById('myId');
+let nextElementSibling = element.nextElementSibling;
+console.log(nextElementSibling);  // Output: The next sibling element
+
+// 22. previousSibling
+let element = document.getElementById('myId');
+let previousSibling = element.previousSibling;
+console.log(previousSibling);  // Output: The previous sibling node
+
+// 23. previousElementSibling
+let element = document.getElementById('myId');
+let previousElementSibling = element.previousElementSibling;
+console.log(previousElementSibling);  // Output: The previous sibling element
+
+// 24. createElement()
+let newElement = document.createElement('div');
+console.log(newElement);  // Output: <div></div>
+
+// 25. createTextNode()
+let textNode = document.createTextNode('Hello, World!');
+console.log(textNode);  // Output: "Hello, World!"
+
+// 26. appendChild()
+let parent = document.getElementById('parent');
+let newElement = document.createElement('p');
+newElement.textContent = 'New Paragraph';
+parent.appendChild(newElement);
+
+// 27. insertBefore()
+let parent = document.getElementById('parent');
+let newElement = document.createElement('p');
+newElement.textContent = 'New Paragraph';
+let referenceElement = document.getElementById('reference');
+parent.insertBefore(newElement, referenceElement);
+
+// 28. removeChild()
+let parent = document.getElementById('parent');
+let child = document.getElementById('child');
+parent.removeChild(child);
+
+// 29. replaceChild()
+let parent = document.getElementById('parent');
+let newElement = document.createElement('p');
+newElement.textContent = 'New Paragraph';
+let oldElement = document.getElementById('child');
+parent.replaceChild(newElement, oldElement);
+
+// 30. focus()
+let input = document.getElementById('myInput');
+input.focus();
+
+// 31. blur()
+let input = document.getElementById('myInput');
+input.blur();
+
+
+
+
+
+
+
+// 1. setAttribute()
+let element = document.getElementById('myId');
+element.setAttribute('class', 'newClass');
+console.log(element);  // Output: <div id="myId" class="newClass">...</div>
+
+// 2. innerHTML
+let element = document.getElementById('myId');
+element.innerHTML = '<p>New content inside the div</p>';
+console.log(element.innerHTML);  // Output: <p>New content inside the div</p>
+
+// 3. textContent
+let element = document.getElementById('myId');
+element.textContent = 'This is some text content';
+console.log(element.textContent);  // Output: This is some text content
+
+// 4. classList.add()
+let element = document.getElementById('myId');
+element.classList.add('newClass');
+console.log(element.classList);  // Output: DOMTokenList ["existingClass", "newClass"]
+
+// 5. classList.remove()
+let element = document.getElementById('myId');
+element.classList.remove('oldClass');
+console.log(element.classList);  // Output: DOMTokenList ["existingClass"]
+
+// 6. classList.toggle()
+let element = document.getElementById('myId');
+element.classList.toggle('active');
+console.log(element.classList);  // Output: DOMTokenList ["existingClass", "active"]
+
+// 7. classList.contains()
+let element = document.getElementById('myId');
+let hasClass = element.classList.contains('active');
+console.log(hasClass);  // Output: true or false
+
+// 8. style
+let element = document.getElementById('myId');
+element.style.backgroundColor = 'blue';
+element.style.color = 'white';
+console.log(element.style.backgroundColor);  // Output: blue
+
+// 9. setInterval()
+let counter = 0;
+let intervalId = setInterval(() => {
+    counter++;
+    console.log('Interval:', counter);
+    if (counter === 5) clearInterval(intervalId);
+}, 1000);
+
+// 10. setTimeout()
+setTimeout(() => {
+    console.log('This message appears after 2 seconds');
+}, 2000);
+
+// 11. appendChild()
+let parent = document.getElementById('parent');
+let newElement = document.createElement('p');
+newElement.textContent = 'New Paragraph';
+parent.appendChild(newElement);
+
+// 12. insertBefore()
+let parent = document.getElementById('parent');
+let newElement = document.createElement('p');
+newElement.textContent = 'New Paragraph';
+let referenceElement = document.getElementById('reference');
+parent.insertBefore(newElement, referenceElement);
+
+// 13. replaceChild()
+let parent = document.getElementById('parent');
+let newElement = document.createElement('p');
+newElement.textContent = 'Replaced Paragraph';
+let oldElement = document.getElementById('child');
+parent.replaceChild(newElement, oldElement);
+
+// 14. removeChild()
+let parent = document.getElementById('parent');
+let child = document.getElementById('child');
+parent.removeChild(child);
+
+// 15. remove()
+let element = document.getElementById('myId');
+element.remove();
+
+// 16. createElement()
+let newElement = document.createElement('div');
+newElement.textContent = 'This is a new div element';
+document.body.appendChild(newElement);
+
+// 17. createTextNode()
+let textNode = document.createTextNode('This is a new text node');
+document.body.appendChild(textNode);
+
+// 18. focus()
+let input = document.getElementById('myInput');
+input.focus();
+
+// 19. blur()
+let input = document.getElementById('myInput');
+input.blur();
+
+// 20. scrollIntoView()
+let element = document.getElementById('myId');
+element.scrollIntoView({ behavior: 'smooth' });
+
+// 21. setCustomValidity()
+let input = document.getElementById('myInput');
+input.setCustomValidity('Please enter a valid email address');
+
+// 22. focus() and blur() combined (to manage active state)
+let element = document.getElementById('myId');
+
+// Focus event
+element.addEventListener('focus', function() {
+    element.style.border = '2px solid green';
+});
+
+// Blur event
+element.addEventListener('blur', function() {
+    element.style.border = '1px solid gray';
+});
+
+
+
+
+
+
+// traversal method 
+
+// 1. parentNode
+let element = document.getElementById('myId');
+let parent = element.parentNode;
+console.log(parent);  // Output: Parent node of the element
+
+// 2. parentElement
+let element = document.getElementById('myId');
+let parentElement = element.parentElement;
+console.log(parentElement);  // Output: Parent element of the element
+
+// 3. childNodes
+let element = document.getElementById('myId');
+let childNodes = element.childNodes;
+console.log(childNodes);  // Output: NodeList of all child nodes (includes text and comment nodes)
+
+// 4. children
+let element = document.getElementById('myId');
+let children = element.children;
+console.log(children);  // Output: HTMLCollection of child elements (ignores text and comment nodes)
+
+// 5. firstChild
+let element = document.getElementById('myId');
+let firstChild = element.firstChild;
+console.log(firstChild);  // Output: The first child node of the element
+
+// 6. firstElementChild
+let element = document.getElementById('myId');
+let firstElementChild = element.firstElementChild;
+console.log(firstElementChild);  // Output: The first child element (ignores text nodes)
+
+// 7. lastChild
+let element = document.getElementById('myId');
+let lastChild = element.lastChild;
+console.log(lastChild);  // Output: The last child node of the element
+
+// 8. lastElementChild
+let element = document.getElementById('myId');
+let lastElementChild = element.lastElementChild;
+console.log(lastElementChild);  // Output: The last child element (ignores text nodes)
+
+// 9. nextSibling
+let element = document.getElementById('myId');
+let nextSibling = element.nextSibling;
+console.log(nextSibling);  // Output: The next sibling node of the element (includes text nodes)
+
+// 10. nextElementSibling
+let element = document.getElementById('myId');
+let nextElementSibling = element.nextElementSibling;
+console.log(nextElementSibling);  // Output: The next sibling element (ignores text nodes)
+
+// 11. previousSibling
+let element = document.getElementById('myId');
+let previousSibling = element.previousSibling;
+console.log(previousSibling);  // Output: The previous sibling node of the element (includes text nodes)
+
+// 12. previousElementSibling
+let element = document.getElementById('myId');
+let previousElementSibling = element.previousElementSibling;
+console.log(previousElementSibling);  // Output: The previous sibling element (ignores text nodes)
+
+// 13. querySelector()
+let element = document.querySelector('#myId');
+console.log(element);  // Output: The first element matching the selector
+
+// 14. querySelectorAll()
+let elements = document.querySelectorAll('.myClass');
+console.log(elements);  // Output: NodeList of all elements matching the selector
+
+// 15. matches()
+let element = document.getElementById('myId');
+let isMatch = element.matches('.myClass');
+console.log(isMatch);  // Output: true or false (whether the element matches the selector)
+
+// 16. closest()
+let element = document.getElementById('myId');
+let closestElement = element.closest('.parentClass');
+console.log(closestElement);  // Output: The closest ancestor element matching the selector
+
+
+
+
+
+// dom create method 
+
+// 1. createElement()
+let newElement = document.createElement('div');
+newElement.textContent = 'This is a new div element';
+document.body.appendChild(newElement);
+
+// 2. createTextNode()
+let textNode = document.createTextNode('This is a new text node');
+document.body.appendChild(textNode);
+
+// 3. createComment()
+let comment = document.createComment('This is a comment node');
+document.body.appendChild(comment);
+
+// 4. createDocumentFragment()
+let fragment = document.createDocumentFragment();
+let newElement1 = document.createElement('p');
+newElement1.textContent = 'Paragraph inside fragment';
+fragment.appendChild(newElement1);
+document.body.appendChild(fragment);
+
+// 5. createAttribute()
+let newAttribute = document.createAttribute('class');
+newAttribute.value = 'newClass';
+let element = document.getElementById('myId');
+element.setAttributeNode(newAttribute);
+
+// 6. createCDATASection()
+let cdata = document.createCDATASection('This is a CDATA section');
+document.body.appendChild(cdata);
+
+// 7. createProcessingInstruction()
+let pi = document.createProcessingInstruction('xml-stylesheet', 'type="text/css" href="style.css"');
+document.body.appendChild(pi);
+
+
+
+
+// dom all append method 
+// 1. appendChild()
+let parent = document.getElementById('parent');
+let newElement = document.createElement('p');
+newElement.textContent = 'This is a new paragraph.';
+parent.appendChild(newElement);
+
+// 2. append()
+let parent = document.getElementById('parent');
+let newElement = document.createElement('div');
+newElement.textContent = 'This is a new div element.';
+parent.append(newElement);
+
+// 3. insertAdjacentElement()
+let parent = document.getElementById('parent');
+let newElement = document.createElement('p');
+newElement.textContent = 'This is a new paragraph (inserted).';
+parent.insertAdjacentElement('beforeend', newElement);
+
+// 4. insertAdjacentHTML()
+let parent = document.getElementById('parent');
+parent.insertAdjacentHTML('beforeend', '<p>This is a new paragraph (HTML).</p>');
+
+// 5. insertAdjacentText()
+let parent = document.getElementById('parent');
+parent.insertAdjacentText('beforeend', 'This is a new text node (inserted).');
+
+// 6. replaceChild()
+let parent = document.getElementById('parent');
+let oldElement = document.getElementById('oldElement');
+let newElement = document.createElement('div');
+newElement.textContent = 'This is the new element replacing the old one.';
+parent.replaceChild(newElement, oldElement);
+
+// 7. prepend()
+let parent = document.getElementById('parent');
+let newElement = document.createElement('div');
+newElement.textContent = 'This is a new div element (prepended).';
+parent.prepend(newElement);
+
+// 8. before()
+let referenceNode = document.getElementById('reference');
+let newElement = document.createElement('p');
+newElement.textContent = 'This is a new paragraph (before reference).';
+referenceNode.before(newElement);
+
+// 9. after()
+let referenceNode = document.getElementById('reference');
+let newElement = document.createElement('p');
+newElement.textContent = 'This is a new paragraph (after reference).';
+referenceNode.after(newElement);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// BOM
+
+// 1. window.alert() - Displays an alert box with a specified message
+window.alert('This is an alert box!');
+
+// 2. window.confirm() - Displays a dialog box with OK and Cancel buttons
+let result = window.confirm('Do you want to proceed?');
+console.log(result); // Returns true if OK is clicked, false if Cancel is clicked
+
+// 3. window.prompt() - Displays a prompt box that asks for user input
+let name = window.prompt('What is your name?', 'John Doe');
+console.log('User Name:', name); // Displays the name entered by the user
+
+// 4. window.open() - Opens a new browser window with the specified URL
+let newWindow = window.open('https://www.example.com', '_blank');
+newWindow.focus();  // Focus on the newly opened window
+
+// 5. window.close() - Closes the current browser window
+// window.close();  // Uncomment this to close the current window (works only if the window was opened by JavaScript)
+
+// 6. window.location - Accesses the current page's URL and allows manipulation of the browser's location
+console.log(window.location.href);  // Prints the current URL of the page
+
+// 7. window.location.assign() - Loads a new document
+// window.location.assign('https://www.example.com');  // Uncomment to navigate to the specified URL
+
+// 8. window.location.replace() - Replaces the current document with a new one (no history entry)
+window.location.replace('https://www.example.com');  // Navigates to a new URL without keeping the current URL in history
+
+// 9. window.history - Provides access to the browser's history
+console.log(window.history.length); // Outputs the number of entries in the browser's history
+
+// 10. window.history.back() - Navigates back one step in the browser's history
+// window.history.back();  // Uncomment this to go back one page
+
+// 11. window.history.forward() - Navigates forward one step in the browser's history
+// window.history.forward();  // Uncomment this to go forward one page
+
+// 12. window.history.go() - Moves to a specific point in the history list
+// window.history.go(-1);  // Uncomment this to go back one page (same as history.back())
+
+// 13. window.navigator - Accesses information about the browser
+console.log(window.navigator.userAgent);  // Prints the browser's user-agent string
+
+// 14. window.screen - Provides information about the screen's dimensions
+console.log('Screen width:', window.screen.width);  // Screen width
+console.log('Screen height:', window.screen.height); // Screen height
+
+// 15. window.setTimeout() - Executes a function after a specified time interval (in milliseconds)
+let timeoutId = window.setTimeout(() => {
+    console.log('This message appears after 2 seconds.');
+}, 2000);
+
+// 16. window.clearTimeout() - Clears a timeout set by setTimeout()
+window.clearTimeout(timeoutId);  // Cancels the timeout
+
+// 17. window.setInterval() - Repeatedly executes a function at a specified time interval
+let intervalId = window.setInterval(() => {
+    console.log('This message appears every 3 seconds.');
+}, 3000);
+
+// 18. window.clearInterval() - Clears an interval set by setInterval()
+window.clearInterval(intervalId);  // Stops the repeated execution
+
+// 19. window.localStorage - Allows to store data locally in the browser (persists even after page reload)
+localStorage.setItem('username', 'JohnDoe');
+let storedUsername = localStorage.getItem('username');
+console.log('Stored username:', storedUsername);
+
+// 20. window.sessionStorage - Stores data for the duration of the page session (cleared when the tab is closed)
+sessionStorage.setItem('sessionData', 'Some session data');
+let sessionData = sessionStorage.getItem('sessionData');
+console.log('Session data:', sessionData);
+
+// 21. window.screen.width and window.screen.height - Returns the width and height of the screen
+console.log('Screen width:', window.screen.width);
+console.log('Screen height:', window.screen.height);
+
+
+// Scroll to a specific position
+window.scroll(0, 500);  // Scroll to 500px vertically
+
+// Scroll by a relative amount
+window.scrollBy(0, 200);  // Scroll down by 200px
+
+
+window.resizeTo(800, 600);  // Resize window to 800px by 600px
+window.resizeBy(100, 100);  // Resize window by 100px horizontally and vertically
+
+
+// Scroll to 500px horizontally and 1000px vertically
+window.scrollTo(500, 1000);
+
+
+window.scrollBy(x, y);
+
+
+
+// Smoothly scroll to 500px horizontally and 1000px vertically
+window.scrollTo({
+  top: 1000,
+  left: 500,
+  behavior: "smooth"
+});
+
+
+
+// location 
+
+// 1. Get the current URL
+console.log(window.location.href);  // Output: current URL of the page
+
+// 2. Set a new URL (navigates to a new page)
+window.location.href = "https://www.example.com";  // Redirects to the specified URL
+
+// 3. Get the protocol (http, https, etc.)
+console.log(window.location.protocol);  // Output: "https:"
+
+// 4. Get the host (domain and port if specified)
+console.log(window.location.host);  // Output: "www.example.com" or "localhost:8080"
+
+// 5. Get the hostname (domain only)
+console.log(window.location.hostname);  // Output: "www.example.com"
+
+// 6. Get the pathname (path after the domain)
+console.log(window.location.pathname);  // Output: "/index.html" or "/about"
+
+// 7. Get the query string (everything after ?)
+console.log(window.location.search);  // Output: "?id=123&name=JohnDoe"
+
+// 8. Get the fragment identifier (everything after #)
+console.log(window.location.hash);  // Output: "#section2"
+
+// 9. Reload the current page
+window.location.reload();  // Refreshes the page
+
+// 10. Force reload from the server (ignores cache)
+window.location.reload(true);  // Refreshes the page from the server
+
+// 11. Navigate to a new URL (assign method)
+window.location.assign("https://www.example.com");  // Redirects to the new URL
+
+// 12. Replace the current page without creating a history entry
+window.location.replace("https://www.example.com");  // Navigates without saving current page in history
+
+// 13. Get the origin (protocol, hostname, and port)
+console.log(window.location.origin);  // Output: "https://www.example.com"
+
+// 14. Get the port number (if specified)
+console.log(window.location.port);  // Output: "8080" (if the port is specified)
+
+// 15. Get the entire URL as a string
+console.log(window.location.toString());  // Output: "https://www.example.com/index.html"
+
+// 16. Using URL Parameters (`window.location.search`)
+const queryParams = window.location.search;
+console.log(queryParams);  // Output: "?id=123&name=JohnDoe"
+
+const urlParams = new URLSearchParams(queryParams);
+console.log(urlParams.get("id"));    // Output: "123"
+console.log(urlParams.get("name"));  // Output: "JohnDoe"
+
+// 17. Change the URL without reloading the page (Single Page Application)
+window.history.pushState({page: 1}, "title 1", "?page=1");
+
+// Modify the current history entry
+window.history.replaceState({page: 2}, "title 2", "?page=2");
+
+// 18. Handle hash changes
+window.addEventListener("hashchange", function() {
+    console.log("The hash has changed!");
+});
+
+// Change the hash in the URL
+window.location.hash = "#newSection";  // URL will be updated to the new hash
+

@@ -1,0 +1,269 @@
+// Number 
+
+// 1. Converts a value to a number
+let num1 = Number("123");  // Output: 123
+
+// 2. Parses a string and returns an integer
+let num2 = parseInt("123.45");  // Output: 123
+
+// 3. Parses a string and returns a floating point number
+let num3 = parseFloat("123.45");  // Output: 123.45
+
+// 4. Determines if the value is NaN
+console.log(isNaN("123"));   // Output: false
+console.log(isNaN("Hello")); // Output: true
+
+// 5. Checks if a value is a finite number
+console.log(isFinite(123));  // Output: true
+console.log(isFinite(Infinity));  // Output: false
+
+// 6. Returns a string representation of the number
+let num4 = 123;
+console.log(num4.toString());  // Output: "123"
+
+// 7. Formats a number to a fixed number of decimal places
+let num5 = 3.14159;
+console.log(num5.toFixed(2));  // Output: "3.14"
+
+// 8. Formats a number to a specified length
+let num6 = 3.14159;
+console.log(num6.toPrecision(4));  // Output: "3.142"
+
+// 9. Returns the absolute value of a number
+let num7 = -5;
+console.log(Math.abs(num7));  // Output: 5
+
+// 10. Returns the smallest integer greater than or equal to the number
+let num8 = 3.14;
+console.log(Math.ceil(num8));  // Output: 4
+
+// 11. Returns the largest integer less than or equal to the number
+let num9 = 3.99;
+console.log(Math.floor(num9));  // Output: 3
+
+// 12. Rounds a number to the nearest integer
+let num10 = 3.5;
+console.log(Math.round(num10));  // Output: 4
+
+// 13. Returns a random floating point number between 0 and 1
+console.log(Math.random());  // Output: a random number between 0 and 1
+
+// 14. Returns the largest of the numbers passed as arguments
+console.log(Math.max(1, 3, 7, 5));  // Output: 7
+
+// 15. Returns the smallest of the numbers passed as arguments
+console.log(Math.min(1, 3, 7, 5));  // Output: 1
+
+// 16. Returns the base to the exponent power
+console.log(Math.pow(2, 3));  // Output: 8
+
+// 17. Returns the square root of a number
+console.log(Math.sqrt(9));  // Output: 3
+
+// 18. Returns the natural logarithm (base e) of a number
+console.log(Math.log(10));  // Output: 2.302585092994046
+
+// 19. Returns e raised to the power of a number
+console.log(Math.exp(1));  // Output: 2.718281828459045
+
+// 20. Trigonometric functions
+let angle = Math.PI / 4;  // 45 degrees in radians
+console.log(Math.sin(angle));  // Output: 0.7071067811865475
+console.log(Math.cos(angle));  // Output: 0.7071067811865475
+console.log(Math.tan(angle));  // Output: 1
+
+// 21. Checks whether the value is an integer
+console.log(Number.isInteger(4));    // Output: true
+console.log(Number.isInteger(4.5));  // Output: false
+
+// 22. Checks whether the value is finite
+console.log(Number.isFinite(123));     // Output: true
+console.log(Number.isFinite(Infinity));  // Output: false
+
+// 23. Checks whether the value is NaN
+console.log(Number.isNaN(NaN));  // Output: true
+console.log(Number.isNaN(123));  // Output: false
+
+// 24. Checks whether the value is a safe integer
+console.log(Number.isSafeInteger(9007199254740991));  // Output: true
+console.log(Number.isSafeInteger(9007199254740992));  // Output: false
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// date 
+
+// 1. new Date() - Creates a new Date object with the current date and time
+let currentDate = new Date();
+console.log(currentDate);  // Output: Current date and time (e.g., "Sat Dec 22 2024 12:00:00 GMT+0000 (UTC)")
+
+// 2. Date.now() - Returns the current timestamp in milliseconds
+let timestamp = Date.now();
+console.log(timestamp);  // Output: Current timestamp in milliseconds
+
+// 3. getFullYear() - Gets the year of the Date object
+let date1 = new Date();
+console.log(date1.getFullYear());  // Output: 2024
+
+// 4. getMonth() - Gets the month of the Date object (0-11)
+let date2 = new Date();
+console.log(date2.getMonth());  // Output: 11 (December)
+
+// 5. getDate() - Gets the day of the month (1-31)
+let date3 = new Date();
+console.log(date3.getDate());  // Output: 22
+
+// 6. getDay() - Gets the day of the week (0-6)
+let date4 = new Date();
+console.log(date4.getDay());  // Output: 6 (Saturday)
+
+// 7. getHours() - Gets the hour (0-23)
+let date5 = new Date();
+console.log(date5.getHours());  // Output: 12
+
+// 8. getMinutes() - Gets the minutes (0-59)
+let date6 = new Date();
+console.log(date6.getMinutes());  // Output: 30
+
+// 9. getSeconds() - Gets the seconds (0-59)
+let date7 = new Date();
+console.log(date7.getSeconds());  // Output: 45
+
+// 10. getMilliseconds() - Gets the milliseconds (0-999)
+let date8 = new Date();
+console.log(date8.getMilliseconds());  // Output: 500
+
+// 11. getTime() - Gets the time in milliseconds since Jan 1, 1970
+let date9 = new Date();
+console.log(date9.getTime());  // Output: 1633036800000
+
+// 12. getUTCFullYear() - Gets the UTC year
+let date10 = new Date();
+console.log(date10.getUTCFullYear());  // Output: 2024
+
+// 13. getUTCMonth() - Gets the UTC month (0-11)
+let date11 = new Date();
+console.log(date11.getUTCMonth());  // Output: 11
+
+// 14. getUTCDate() - Gets the UTC day of the month (1-31)
+let date12 = new Date();
+console.log(date12.getUTCDate());  // Output: 22
+
+// 15. getUTCDay() - Gets the UTC day of the week (0-6)
+let date13 = new Date();
+console.log(date13.getUTCDay());  // Output: 6 (Saturday)
+
+// 16. getUTCHours() - Gets the UTC hour (0-23)
+let date14 = new Date();
+console.log(date14.getUTCHours());  // Output: 12
+
+// 17. getUTCMinutes() - Gets the UTC minutes (0-59)
+let date15 = new Date();
+console.log(date15.getUTCMinutes());  // Output: 30
+
+// 18. getUTCSeconds() - Gets the UTC seconds (0-59)
+let date16 = new Date();
+console.log(date16.getUTCSeconds());  // Output: 45
+
+// 19. setFullYear(year) - Sets the year of the Date object
+let date17 = new Date();
+date17.setFullYear(2025);
+console.log(date17);  // Output: New date with year set to 2025
+
+// 20. setMonth(month) - Sets the month (0-11) of the Date object
+let date18 = new Date();
+date18.setMonth(11);  // December (0 = January, 11 = December)
+console.log(date18);  // Output: Date with month set to December
+
+// 21. setDate(day) - Sets the day of the month (1-31) of the Date object
+let date19 = new Date();
+date19.setDate(25);
+console.log(date19);  // Output: Date with day set to 25
+
+// 22. setHours(hour) - Sets the hour (0-23) of the Date object
+let date20 = new Date();
+date20.setHours(10);  // 10 AM
+console.log(date20);  // Output: Date with hour set to 10
+
+// 23. setMinutes(minutes) - Sets the minutes (0-59) of the Date object
+let date21 = new Date();
+date21.setMinutes(30);
+console.log(date21);  // Output: Date with minutes set to 30
+
+// 24. setSeconds(seconds) - Sets the seconds (0-59) of the Date object
+let date22 = new Date();
+date22.setSeconds(45);
+console.log(date22);  // Output: Date with seconds set to 45
+
+// 25. setMilliseconds(milliseconds) - Sets the milliseconds (0-999) of the Date object
+let date23 = new Date();
+date23.setMilliseconds(500);
+console.log(date23);  // Output: Date with milliseconds set to 500
+
+// 26. setTime(milliseconds) - Sets the time in milliseconds since Jan 1, 1970
+let date24 = new Date();
+date24.setTime(1633036800000);  // Set to a specific time in milliseconds
+console.log(date24);  // Output: Date set to the specific time
+
+// 27. toDateString() - Returns the date part of the Date object as a string
+let date25 = new Date();
+console.log(date25.toDateString());  // Output: "Sat Dec 22 2024"
+
+// 28. toISOString() - Returns the date in ISO 8601 format (UTC)
+let date26 = new Date();
+console.log(date26.toISOString());  // Output: "2024-12-22T12:00:00.000Z"
+
+// 29. toJSON() - Returns the Date object in JSON format (same as toISOString)
+let date27 = new Date();
+console.log(date27.toJSON());  // Output: "2024-12-22T12:00:00.000Z"
+
+// 30. toLocaleDateString() - Returns the date part in the local format
+let date28 = new Date();
+console.log(date28.toLocaleDateString());  // Output: "12/22/2024" (depends on locale)
+
+// 31. toLocaleString() - Returns the date and time in local format
+let date29 = new Date();
+console.log(date29.toLocaleString());  // Output: "12/22/2024, 12:00:00 PM"
+
+// 32. toLocaleTimeString() - Returns the time part in local format
+let date30 = new Date();
+console.log(date30.toLocaleTimeString());  // Output: "12:00:00 PM" (depends on locale)
+
+// 33. toString() - Returns a string representing the Date object
+let date31 = new Date();
+console.log(date31.toString());  // Output: "Sat Dec 22 2024 12:00:00 GMT+0000 (UTC)"
+
+// 34. valueOf() - Returns the primitive value (milliseconds since 1970)
+let date32 = new Date();
+console.log(date32.valueOf());  // Output: 1633036800000
