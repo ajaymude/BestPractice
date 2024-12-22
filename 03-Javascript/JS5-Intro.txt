@@ -182,6 +182,17 @@ console.log(typeof greet); // Output: function
 
 
 
+// symbol const symbol1 = Symbol();
+const symbol2 = Symbol('description');
+const symbol3 = Symbol('description'); // Different symbol, even with the same description
+
+console.log(symbol1 === symbol2); // false
+console.log(symbol2 === symbol3); // false
+
+
+
+
+
 
 
 

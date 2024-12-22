@@ -1,0 +1,757 @@
+// Operator
+
+class    -------> object 
+inheritance  a to b
+
+
+
+// creating a class 
+
+class Person {
+  // Constructor method to initialize properties
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  // Method to introduce the person
+  introduce() {
+    console.log(`Hi, my name is ${this.name} and I am ${this.age} years old.`);
+  }
+}
+
+// Creating an instance of the class
+const person1 = new Person("Alice", 30);
+person1.introduce();  // Output: Hi, my name is Alice and I am 30 years old.
+
+const person2 = new Person("Bob", 25);
+person2.introduce();  // Output: Hi, my name is Bob and I am 25 years old.
+
+
+
+class Employee extends Person {
+  constructor(name, age, jobTitle) {
+    super(name, age);  // Call the parent class constructor
+    this.jobTitle = jobTitle;
+  }
+
+  introduce() {
+    console.log(`Hi, I am ${this.name}, a ${this.jobTitle} who is ${this.age} years old.`);
+  }
+}
+
+const employee = new Employee("Alice", 30, "Software Developer");
+employee.introduce();  // Output: Hi, I am Alice, a Software Developer who is 30 years old.
+
+
+
+
+
+
+
+
+
+
+
+
+
+// inheritance 
+// Parent Class
+class Animal {
+  constructor(name, species) {
+    this.name = name;
+    this.species = species;
+  }
+
+  // Method to describe the animal
+  speak() {
+    console.log(`${this.name} is a ${this.species}.`);
+  }
+}
+
+// Child Class (Inherits from Animal)
+class Dog extends Animal {
+  constructor(name, breed) {
+    super(name, "Dog"); // Call the parent class constructor
+    this.breed = breed;
+  }
+
+  // Overriding the speak method
+  speak() {
+    console.log(`${this.name} is a ${this.breed} dog.`);
+  }
+
+  // New method specific to Dog
+  bark() {
+    console.log(`${this.name} barks loudly!`);
+  }
+}
+
+// Create an instance of the Dog class
+const dog1 = new Dog("Buddy", "Golden Retriever");
+dog1.speak();  // Output: Buddy is a Golden Retriever dog.
+dog1.bark();   // Output: Buddy barks loudly!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Modules
+
+
+// math.js (module file)
+export const add = (a, b) => a + b;
+export const subtract = (a, b) => a - b;
+
+export class Calculator {
+  multiply(a, b) {
+    return a * b;
+  }
+}
+
+
+
+// app.js
+import { add, subtract, Calculator } from './math.js';
+
+console.log(add(5, 3));         // Output: 8
+console.log(subtract(5, 3));    // Output: 2
+
+const calc = new Calculator();
+console.log(calc.multiply(5, 3));  // Output: 15
+
+
+
+// app.js
+import { add as addition, subtract as subtraction } from './math.js';
+
+console.log(addition(5, 3));       // Output: 8
+console.log(subtraction(5, 3));    // Output: 2
+
+
+
+// calculator.js
+const multiply = (a, b) => a * b;
+export default multiply;
+
+
+
+// app.js
+import { fetchData } from './data.js';
+
+const data = await fetchData();
+console.log(data);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// promise
+
+then(): Handles the resolved value of a promise.
+catch(): Handles the rejection of a promise.
+finally(): Executes code after a promise is settled (fulfilled or rejected).
+Promise.all(): Waits for all promises to resolve, and returns their results.
+Promise.race(): Resolves or rejects as soon as the first promise resolves or rejects.
+Promise.allSettled(): Resolves when all promises are settled, returning an array of results.
+Promise.any(): Resolves when the first promise fulfills, or rejects if all promises reject.
+async/await: A more readable way to work with promises, allowing asynchronous code to be written in a synchronous style.
+
+
+Creating a Promise
+
+// Creating a new promise
+const myPromise = new Promise((resolve, reject) => {
+  let success = true;  // Change this value to false to test rejection
+
+  if(success) {
+    resolve("The operation was successful!");
+  } else {
+    reject("The operation failed!");
+  }
+});
+
+myPromise
+  .then((message) => {
+    console.log(message);  // Output: "The operation was successful!"
+  })
+  .catch((error) => {
+    console.log(error);  // Output: "The operation failed!" (if success is false)
+  });
+
+
+
+
+
+
+  const fetchData = new Promise((resolve) => {
+  setTimeout(() => {
+    resolve("Data fetched successfully!");
+  }, 1000);
+});
+
+fetchData
+  .then((message) => {
+    console.log(message);  // Output: Data fetched successfully!
+    return "Processing data...";
+  })
+  .then((message) => {
+    console.log(message);  // Output: Processing data...
+  });
+
+
+
+const faultyPromise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    reject("Something went wrong!");
+  }, 1000);
+});
+
+faultyPromise
+  .then((message) => {
+    console.log(message);
+  })
+  .catch((error) => {
+    console.log(error);  // Output: Something went wrong!
+  });
+
+
+
+const taskPromise = new Promise((resolve, reject) => {
+  let taskCompleted = true;
+
+  if (taskCompleted) {
+    resolve("Task completed successfully!");
+  } else {
+    reject("Task failed!");
+  }
+});
+
+taskPromise
+  .then((message) => {
+    console.log(message);  // Output: Task completed successfully!
+  })
+  .catch((error) => {
+    console.log(error);  // Not executed
+  })
+  .finally(() => {
+    console.log("Task status checked.");  // Always executed
+  });
+
+
+
+const promise1 = new Promise((resolve) => {
+  setTimeout(() => resolve("First promise resolved"), 1000);
+});
+const promise2 = new Promise((resolve) => {
+  setTimeout(() => resolve("Second promise resolved"), 500);
+});
+
+Promise.all([promise1, promise2])
+  .then((messages) => {
+    console.log(messages);  // Output: ["First promise resolved", "Second promise resolved"]
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+
+
+
+const promise1 = new Promise((resolve) => {
+  setTimeout(() => resolve("First promise resolved"), 1000);
+});
+const promise2 = new Promise((resolve) => {
+  setTimeout(() => resolve("Second promise resolved"), 500);
+});
+
+Promise.race([promise1, promise2])
+  .then((message) => {
+    console.log(message);  // Output: Second promise resolved (because it resolves first)
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+
+
+const promise1 = Promise.resolve(42);
+const promise2 = Promise.reject("Error");
+
+Promise.allSettled([promise1, promise2])
+  .then((results) => {
+    console.log(results);
+    // Output:
+    // [
+    //   { status: "fulfilled", value: 42 },
+    //   { status: "rejected", reason: "Error" }
+    // ]
+  });
+
+
+
+
+const promise1 = Promise.reject("Failure");
+const promise2 = Promise.resolve("Success");
+
+Promise.any([promise1, promise2])
+  .then((message) => {
+    console.log(message);  // Output: Success (because it resolves first)
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+
+
+
+
+const fetchData = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve("Data fetched!"), 1000);
+  });
+};
+
+async function fetchDataAsync() {
+  try {
+    const result = await fetchData();
+    console.log(result);  // Output: Data fetched!
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+fetchDataAsync();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// fetch 
+
+Basic Fetch Request
+
+fetch('https://api.example.com/data')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json(); // Parse the response as JSON
+  })
+  .then(data => {
+    console.log(data);  // Handle the data received
+  })
+  .catch(error => {
+    console.error('There has been a problem with your fetch operation:', error);
+  });
+
+
+
+fetch('https://api.example.com/data')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json(); // Parse the response as JSON
+  })
+  .then(data => {
+    console.log(data);  // Handle the data received
+  })
+  .catch(error => {
+    console.error('There has been a problem with your fetch operation:', error);
+  });
+
+
+
+
+fetch('https://api.example.com/create', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: 'John Doe',
+    age: 30
+  })
+})
+  .then(response => response.json())
+  .then(data => console.log('Success:', data))
+  .catch(error => console.error('Error:', error));
+
+
+
+
+fetch('https://api.example.com/data')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('HTTP error ' + response.status);
+    }
+    return response.json();
+  })
+  .then(data => console.log(data))
+  .catch(error => console.error('Request failed', error));
+
+
+async function fetchData() {
+  try {
+    const response = await fetch('https://api.example.com/data');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+fetchData();
+
+
+
+
+
+const formData = new FormData();
+formData.append('username', 'john');
+formData.append('password', 'secret');
+
+fetch('https://api.example.com/login', {
+  method: 'POST',
+  body: formData
+})
+  .then(response => response.json())
+  .then(data => console.log('Logged in successfully:', data))
+  .catch(error => console.error('Error:', error));
+
+
+
+
+
+
+// iterator 
+
+const arr = [10, 20, 30];
+
+for (let value of arr) {
+  console.log(value); // 10, 20, 30
+}
+
+
+
+const arr = [1, 2, 3];
+const iterator = arr[Symbol.iterator]();
+
+console.log(iterator.next()); // { value: 1, done: false }
+console.log(iterator.next()); // { value: 2, done: false }
+console.log(iterator.next()); // { value: 3, done: false }
+console.log(iterator.next()); // { value: undefined, done: true }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// generator
+function* simpleGenerator() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+
+const gen = simpleGenerator();
+
+console.log(gen.next()); // { value: 1, done: false }
+console.log(gen.next()); // { value: 2, done: false }
+console.log(gen.next()); // { value: 3, done: false }
+console.log(gen.next()); // { value: undefined, done: true }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// strict 
+
+"use strict";
+x = 10; // Error: x is not defined
+
+
+
+function strictModeFunction() {
+  "use strict";
+  y = 20; // Error: y is not defined
+}
+
+strictModeFunction();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Error hanlding 
+
+SyntaxError: Thrown when the JavaScript code contains invalid syntax.
+ReferenceError: Occurs when a variable or function is referenced before being declared or is out of scope.
+TypeError: Happens when an operation or method is applied to an inappropriate type.
+RangeError: Thrown when a number is outside the allowed range (e.g., invalid array length).
+EvalError: Rarely used, but thrown by eval() function errors.
+URIError: Occurs when a URI handling function (encodeURI, decodeURI, etc.) encounters an issue.
+AggregateError: Used to represent multiple errors, such as those in Promise.any().
+Custom Errors: You can create your own error types by extending the Error class.
+AssertionError (Custom): Used to signal a failed assertion in your code, typically for testing.
+
+try {
+  let result = 10 / 0; // No error
+  console.log(result);
+  
+  let error = undefinedVar; // Error: ReferenceError
+} catch (error) {
+  console.log("Error caught: ", error.message); // Error caught:  undefinedVar is not defined
+}
+
+
+
+
+
+try {
+  let result = 10 / 2; // No error
+  console.log(result); // Output: 5
+} catch (error) {
+  console.log("Error caught:", error.message);
+} finally {
+  console.log("This will always execute."); // Always runs, regardless of error
+}
+
+
+
+function checkAge(age) {
+  if (age < 18) {
+    throw new Error("Age must be 18 or older.");
+  }
+  return "Age is valid";
+}
+
+try {
+  console.log(checkAge(16)); // Error: Age must be 18 or older.
+} catch (error) {
+  console.log("Caught Error: ", error.message);
+}
+
+
+
+try {
+  throw new Error("Something went wrong!");
+} catch (error) {
+  console.log(error.name); // Output: Error
+  console.log(error.message); // Output: Something went wrong!
+  console.log(error.stack); // Output: Error stack trace
+}
+
+
+
+async function fetchData() {
+  try {
+    let response = await fetch('https://api.example.com/data');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    let data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.log("Error fetching data:", error.message);
+  }
+}
+
+fetchData();
+
+
+
+
+window.onerror = function(message, source, lineno, colno, error) {
+  console.log("Global Error caught:", message);
+  return true; // Prevents the default browser error handling
+};
+
+setTimeout(() => {
+  undefinedVar = 10; // This will trigger the global error handler
+}, 1000);
+
+
+
+
+
+// 1. SyntaxError
+try {
+  eval("alert('Hello'");
+} catch (error) {
+  console.log(error.name);  // SyntaxError
+  console.log(error.message);  // Unexpected end of input
+}
+
+// 2. ReferenceError
+try {
+  console.log(nonExistentVariable); // Error: nonExistentVariable is not defined
+} catch (error) {
+  console.log(error.name);  // ReferenceError
+  console.log(error.message);  // nonExistentVariable is not defined
+}
+
+// 3. TypeError
+try {
+  null.f();  // Error: Cannot read property 'f' of null
+} catch (error) {
+  console.log(error.name);  // TypeError
+  console.log(error.message);  // Cannot read property 'f' of null
+}
+
+// 4. RangeError
+try {
+  let arr = new Array(-1);  // Error: Invalid array length
+} catch (error) {
+  console.log(error.name);  // RangeError
+  console.log(error.message);  // Invalid array length
+}
+
+// 5. EvalError
+try {
+  throw new EvalError("This is an EvalError");
+} catch (error) {
+  console.log(error.name);  // EvalError
+  console.log(error.message);  // This is an EvalError
+}
+
+// 6. URIError
+try {
+  decodeURIComponent('%');  // Error: URI malformed
+} catch (error) {
+  console.log(error.name);  // URIError
+  console.log(error.message);  // URI malformed
+}
+
+// 7. AggregateError
+try {
+  throw new AggregateError([new Error("First error"), new Error("Second error")], "Multiple errors occurred");
+} catch (error) {
+  console.log(error.name);  // AggregateError
+  console.log(error.message);  // Multiple errors occurred
+  console.log(error.errors);  // [Error: First error, Error: Second error]
+}
+
+// 8. Custom Error
+class MyCustomError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "MyCustomError"; // Custom error name
+  }
+}
+
+try {
+  throw new MyCustomError("Something went wrong with the custom error!");
+} catch (error) {
+  console.log(error.name);  // MyCustomError
+  console.log(error.message);  // Something went wrong with the custom error!
+}
+
+// 9. AssertionError (Custom)
+class AssertionError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "AssertionError";
+  }
+}
+
+function assert(condition, message) {
+  if (!condition) {
+    throw new AssertionError(message);
+  }
+}
+
+try {
+  assert(2 + 2 === 5, "Math assertion failed");
+} catch (error) {
+  console.log(error.name);  // AssertionError
+  console.log(error.message);  // Math assertion failed
+}
+
+
