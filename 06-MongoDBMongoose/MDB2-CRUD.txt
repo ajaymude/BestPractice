@@ -1,0 +1,566 @@
+// create DB and collection 
+
+// to make mongo connection 
+>mongosh
+
+// to clear terminal 
+>ctrl + L 
+
+// to see all db list 
+> show dbs 
+
+// how to create db 
+> use dbName 
+
+// how to delete db
+> db.dropDatabase()
+
+
+// how to create collection 
+> db.createCollection("student");
+
+// how to see the collection 
+> show collections 
+
+// how to rename collection
+> db.students.renameCollection("newName")
+
+// how to drop the collection
+> db.collName.drop()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Create  data 
+
+a-insertOne()
+b-insertMany()
+
+>db.collName.insertOne(name:'ajay');
+>db.collName.insertMany([{name:'ajay'}, {name:'ajay'}, {name:'ajay'}]);
+
+
+
+    const result = await collection.insertOne({
+      name: 'John Doe',
+      age: 30,
+      email: 'johndoe@example.com'
+    });
+
+
+        // Insert multiple documents
+    const result = await collection.insertMany([
+      { name: 'Alice', age: 25, email: 'alice@example.com' },
+      { name: 'Bob', age: 35, email: 'bob@example.com' }
+    ]);
+
+
+        // Bulk insert operations
+    const result = await collection.bulkWrite([
+      { insertOne: { document: { name: 'Tom', age: 28, email: 'tom@example.com' } } },
+      { insertOne: { document: { name: 'Jerry', age: 30, email: 'jerry@example.com' } } }
+    ]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Read 
+
+find(): Retrieves all matching documents.
+findOne(): Retrieves the first matching document.
+sort(): Sorts results by specified fields.
+limit(): Limits the number of documents returned.
+skip(): Skips a specified number of documents.
+$and, $or: Logical operators to combine multiple conditions.
+$gt, $lt, $gte, $lte, $ne: Comparison operators for range queries.
+$in, $all, $size, $elemMatch: Array query operators.
+$regex: Performs regular expression search on string fields.
+
+
+
+
+    db.users.find({ age: { $gte: 18 } })
+
+Example with Projection:
+db.users.find({ age: { $gte: 18 } }, { name: 1, age: 1 })
+
+
+db.users.findOne({ email: "johndoe@example.com" })
+
+
+find() with Sorting (sort())
+db.collection.find().sort({ field: 1 or -1 })
+
+
+db.users.find().sort({ age: 1 })
+
+
+find() with Limiting (limit())
+db.users.find().limit(5)
+
+
+
+The skip() method is used to skip a specified number of documents in the result set.
+db.users.find().skip(5)
+
+
+
+find() with AND and OR Conditions
+db.users.find({ age: { $gte: 18 }, status: "active" })
+
+
+Example with $or:
+
+db.users.find({
+  $or: [
+    { age: { $lt: 18 } },
+    { status: "inactive" }
+  ]
+})
+
+
+
+
+You can use range queries with operators like $gt, $lt, $gte, $lte, and $ne.
+db.orders.find({ totalAmount: { $gte: 100 } })
+
+db.orders.find({ orderDate: { $lt: new Date("2024-01-01") } })
+
+
+find() with Array Queries
+You can also query arrays within documents. MongoDB provides operators like $in, $all, $size, and $elemMatch to query arrays.
+
+Example with $in:
+
+db.users.find({ status: { $in: ["active", "pending"] } })
+
+
+
+Example with $elemMatch:
+db.orders.find({
+  items: { $elemMatch: { productId: "1234", quantity: { $gte: 2 } } }
+})
+
+
+Example with $regex:
+db.users.find({ name: { $regex: /^John/ } })
+
+
+
+
+Example with Case-Insensitive Regex:
+
+db.users.find({ name: { $regex: /^john/i } })
+
+
+
+find() with Projection
+Projection allows you to specify which fields to include or exclude in the result set.
+
+db.users.find({}, { name: 1, email: 1 })
+
+db.users.find({}, { password: 0 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// update 
+
+
+MongoDB provides several update operators to modify specific fields in a document.
+ Common update operators include:
+
+$set: Sets the value of a field.
+$unset: Removes a field.
+$inc: Increments a numeric field.
+$push: Adds an element to an array.
+$pull: Removes an element from an array.
+$addToSet: Adds a value to an array only if it doesn't already exist.
+$pop: Removes the first or last element from an array.
+$pullAll: Removes multiple specific values from an array.
+$rename: Renames a field in a document.
+$setOnInsert: Sets the value of a field only if the document is being inserted (used in upserts).
+$mul: Multiplies the value of a field by a specified number.
+$min: Updates the field only if the specified value is less than the current value.
+$max: Updates the field only if the specified value is greater than the current value.
+$currentDate: Sets the value of a field to the current date or timestamp.
+$bit: Performs a bitwise operation on an integer field (AND, OR, XOR).
+$slice: Limits the number of elements in an array.
+
+
+    // Update a document or insert if not exists
+    const result = await collection.updateOne(
+      { email: 'johndoe@example.com' }, // Query
+      { $set: { name: 'John Doe', age: 30 } }, // Update
+      { upsert: true } // Create if not exists
+    );
+
+
+    // Update a single document
+    const result = await collection.updateOne(
+      { email: 'johndoe@example.com' }, // Filter
+      { $set: { age: 31 } } // Update operation
+    );
+
+
+        // Update multiple documents
+    const result = await collection.updateMany(
+      { age: { $gte: 30 } }, // Filter: age greater than or equal to 30
+      { $set: { status: 'Senior' } } // Update operation: add status field
+    );
+
+
+
+        // Replace a document completely
+    const result = await collection.replaceOne(
+      { email: 'johndoe@example.com' }, // Filter
+      { name: 'John Smith', age: 32, email: 'johndoe@example.com', status: 'Active' } // New document
+    );
+
+
+
+        // Update or insert if document does not exist
+    const result = await collection.updateOne(
+      { email: 'johndoe@example.com' }, // Filter
+      { $set: { name: 'John Doe', age: 30 } }, // Update operation
+      { upsert: true } // If no document matches, insert it
+    );
+
+
+
+    // Update using $set and $inc operators
+    const result = await collection.updateOne(
+      { email: 'johndoe@example.com' }, // Filter
+      { 
+        $set: { status: 'Active' }, // Set status to 'Active'
+        $inc: { age: 1 } // Increment age by 1
+      }
+    );
+
+
+
+        // Push a new hobby to the hobbies array
+    const result = await collection.updateOne(
+      { email: 'johndoe@example.com' }, // Filter
+      { $push: { hobbies: 'Reading' } } // Add 'Reading' to hobbies array
+    );
+
+
+
+        // Remove a hobby from the hobbies array
+    const result = await collection.updateOne(
+      { email: 'johndoe@example.com' }, // Filter
+      { $pull: { hobbies: 'Reading' } } // Remove 'Reading' from hobbies array
+    );
+
+
+db.collection.update(
+  { _id: 1 },
+  { $pop: { tags: 1 } }
+);
+// Removes the last element from the "tags" array.
+
+db.collection.update(
+  { _id: 1 },
+  { $pop: { tags: -1 } }
+);
+// Removes the first element from the "tags" array.
+
+
+
+
+db.collection.update(
+  { _id: 1 },
+  { $pullAll: { tags: ["mongodb", "nosql"] } }
+);
+// Removes both "mongodb" and "nosql" from the "tags" array.
+
+
+
+
+db.collection.update(
+  { _id: 1 },
+  { $rename: { "oldFieldName": "newFieldName" } }
+);
+// Renames "oldFieldName" to "newFieldName" in the document.
+
+
+
+
+db.collection.update(
+  { _id: 1 },
+  { 
+    $setOnInsert: { createdAt: new Date() },
+    $set: { name: "John" }
+  },
+  { upsert: true }
+);
+// If the document with _id: 1 doesn't exist, it will be inserted with "createdAt" set to current date.
+// If the document exists, only "name" will be updated.
+
+
+
+
+
+db.collection.update(
+  { _id: 1 },
+  { $mul: { price: 1.1 } }
+);
+// Multiplies the value of "price" by 1.1.
+
+
+
+
+db.collection.update(
+  { _id: 1 },
+  { $min: { age: 25 } }
+);
+// Sets "age" to 25 only if it is currently greater than 25.
+
+
+
+
+db.collection.update(
+  { _id: 1 },
+  { $max: { age: 40 } }
+);
+// Sets "age" to 40 only if it is currently less than 40.
+
+
+
+
+db.collection.update(
+  { _id: 1 },
+  { $currentDate: { lastModified: true } }
+);
+// Sets "lastModified" to the current date and time.
+
+
+
+
+db.collection.update(
+  { _id: 1 },
+  { $slice: { comments: 5 } }
+);
+// Limits the "comments" array to the first 5 elements.
+
+
+
+db.collection.update(
+  { _id: 1 },
+  { $addToSet: { tags: "mongodb" } }
+);
+// Adds "mongodb" to the "tags" array only if it's not already present.
+
+
+
+
+db.collection.update(
+  { _id: 1 },
+  { $currentDate: { lastModified: true } }
+);
+// Sets "lastModified" to the current date and time.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Delete 
+    1. deleteOne()
+    2. deleteMany()
+
+
+db.users.deleteOne({ name: "John Doe" })
+db.users.findOneAndDelete({ _id: ObjectId("5f9d9f7c8c5f3b6db7d6f0c5") })
+
+
+
+
+
+
+
+db.users.deleteMany({ age: { $lt: 18 } })
+db.orders.deleteMany({
+  status: "cancelled",
+  orderDate: { $lt: new Date("2023-01-01") }
+})
+
+
+
+
+
+
