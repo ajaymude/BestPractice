@@ -1,0 +1,350 @@
+// Operator
+
+class    -------> object 
+inheritance  a to b
+
+
+
+// creating a class 
+
+class Person {
+  // Constructor method to initialize properties
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  // Method to introduce the person
+  introduce() {
+    console.log(`Hi, my name is ${this.name} and I am ${this.age} years old.`);
+  }
+}
+
+// Creating an instance of the class
+const person1 = new Person("Alice", 30);
+person1.introduce();  // Output: Hi, my name is Alice and I am 30 years old.
+
+const person2 = new Person("Bob", 25);
+person2.introduce();  // Output: Hi, my name is Bob and I am 25 years old.
+
+
+
+class Employee extends Person {
+  constructor(name, age, jobTitle) {
+    super(name, age);  // Call the parent class constructor
+    this.jobTitle = jobTitle;
+  }
+
+  introduce() {
+    console.log(`Hi, I am ${this.name}, a ${this.jobTitle} who is ${this.age} years old.`);
+  }
+}
+
+const employee = new Employee("Alice", 30, "Software Developer");
+employee.introduce();  // Output: Hi, I am Alice, a Software Developer who is 30 years old.
+
+
+
+
+
+
+
+
+
+
+
+
+
+// inheritance 
+// Parent Class
+class Animal {
+  constructor(name, species) {
+    this.name = name;
+    this.species = species;
+  }
+
+  // Method to describe the animal
+  speak() {
+    console.log(`${this.name} is a ${this.species}.`);
+  }
+}
+
+// Child Class (Inherits from Animal)
+class Dog extends Animal {
+  constructor(name, breed) {
+    super(name, "Dog"); // Call the parent class constructor
+    this.breed = breed;
+  }
+
+  // Overriding the speak method
+  speak() {
+    console.log(`${this.name} is a ${this.breed} dog.`);
+  }
+
+  // New method specific to Dog
+  bark() {
+    console.log(`${this.name} barks loudly!`);
+  }
+}
+
+// Create an instance of the Dog class
+const dog1 = new Dog("Buddy", "Golden Retriever");
+dog1.speak();  // Output: Buddy is a Golden Retriever dog.
+dog1.bark();   // Output: Buddy barks loudly!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Modules
+
+
+// math.js (module file)
+export const add = (a, b) => a + b;
+export const subtract = (a, b) => a - b;
+
+export class Calculator {
+  multiply(a, b) {
+    return a * b;
+  }
+}
+
+
+
+// app.js
+import { add, subtract, Calculator } from './math.js';
+
+console.log(add(5, 3));         // Output: 8
+console.log(subtract(5, 3));    // Output: 2
+
+const calc = new Calculator();
+console.log(calc.multiply(5, 3));  // Output: 15
+
+
+
+// app.js
+import { add as addition, subtract as subtraction } from './math.js';
+
+console.log(addition(5, 3));       // Output: 8
+console.log(subtraction(5, 3));    // Output: 2
+
+
+
+// calculator.js
+const multiply = (a, b) => a * b;
+export default multiply;
+
+
+
+// app.js
+import { fetchData } from './data.js';
+
+const data = await fetchData();
+console.log(data);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// promise
+
+then(): Handles the resolved value of a promise.
+catch(): Handles the rejection of a promise.
+finally(): Executes code after a promise is settled (fulfilled or rejected).
+Promise.all(): Waits for all promises to resolve, and returns their results.
+Promise.race(): Resolves or rejects as soon as the first promise resolves or rejects.
+Promise.allSettled(): Resolves when all promises are settled, returning an array of results.
+Promise.any(): Resolves when the first promise fulfills, or rejects if all promises reject.
+async/await: A more readable way to work with promises, allowing asynchronous code to be written in a synchronous style.
+
+
+Creating a Promise
+
+// Creating a new promise
+const myPromise = new Promise((resolve, reject) => {
+  let success = true;  // Change this value to false to test rejection
+
+  if(success) {
+    resolve("The operation was successful!");
+  } else {
+    reject("The operation failed!");
+  }
+});
+
+myPromise
+  .then((message) => {
+    console.log(message);  // Output: "The operation was successful!"
+  })
+  .catch((error) => {
+    console.log(error);  // Output: "The operation failed!" (if success is false)
+  });
+
+
+
+
+
+
+  const fetchData = new Promise((resolve) => {
+  setTimeout(() => {
+    resolve("Data fetched successfully!");
+  }, 1000);
+});
+
+fetchData
+  .then((message) => {
+    console.log(message);  // Output: Data fetched successfully!
+    return "Processing data...";
+  })
+  .then((message) => {
+    console.log(message);  // Output: Processing data...
+  });
+
+
+
+const faultyPromise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    reject("Something went wrong!");
+  }, 1000);
+});
+
+faultyPromise
+  .then((message) => {
+    console.log(message);
+  })
+  .catch((error) => {
+    console.log(error);  // Output: Something went wrong!
+  });
+
+
+
+const taskPromise = new Promise((resolve, reject) => {
+  let taskCompleted = true;
+
+  if (taskCompleted) {
+    resolve("Task completed successfully!");
+  } else {
+    reject("Task failed!");
+  }
+});
+
+taskPromise
+  .then((message) => {
+    console.log(message);  // Output: Task completed successfully!
+  })
+  .catch((error) => {
+    console.log(error);  // Not executed
+  })
+  .finally(() => {
+    console.log("Task status checked.");  // Always executed
+  });
+
+
+
+const promise1 = new Promise((resolve) => {
+  setTimeout(() => resolve("First promise resolved"), 1000);
+});
+const promise2 = new Promise((resolve) => {
+  setTimeout(() => resolve("Second promise resolved"), 500);
+});
+
+Promise.all([promise1, promise2])
+  .then((messages) => {
+    console.log(messages);  // Output: ["First promise resolved", "Second promise resolved"]
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+
+
+
+const promise1 = new Promise((resolve) => {
+  setTimeout(() => resolve("First promise resolved"), 1000);
+});
+const promise2 = new Promise((resolve) => {
+  setTimeout(() => resolve("Second promise resolved"), 500);
+});
+
+Promise.race([promise1, promise2])
+  .then((message) => {
+    console.log(message);  // Output: Second promise resolved (because it resolves first)
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+
+
+const promise1 = Promise.resolve(42);
+const promise2 = Promise.reject("Error");
+
+Promise.allSettled([promise1, promise2])
+  .then((results) => {
+    console.log(results);
+    // Output:
+    // [
+    //   { status: "fulfilled", value: 42 },
+    //   { status: "rejected", reason: "Error" }
+    // ]
+  });
+
+
+
+
+const promise1 = Promise.reject("Failure");
+const promise2 = Promise.resolve("Success");
+
+Promise.any([promise1, promise2])
+  .then((message) => {
+    console.log(message);  // Output: Success (because it resolves first)
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+
+
+
+
+const fetchData = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve("Data fetched!"), 1000);
+  });
+};
+
+async function fetchDataAsync() {
+  try {
+    const result = await fetchData();
+    console.log(result);  // Output: Data fetched!
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+fetchDataAsync();
+

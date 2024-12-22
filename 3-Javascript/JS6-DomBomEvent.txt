@@ -765,3 +765,1253 @@ window.addEventListener("hashchange", function() {
 // Change the hash in the URL
 window.location.hash = "#newSection";  // URL will be updated to the new hash
 
+
+
+
+
+
+
+// history 
+
+// 1. history.back()
+// Goes back one step in the session history (same as clicking the back button).
+history.back(); // Equivalent to clicking the browser's "Back" button.
+
+// 2. history.forward()
+// Goes forward one step in the session history (same as clicking the forward button).
+history.forward(); // Equivalent to clicking the browser's "Forward" button.
+
+// 3. history.go()
+// Moves the session history by a specified number of steps. Positive numbers go forward, negative numbers go backward.
+history.go(-1);  // Goes back one page (equivalent to history.back())
+history.go(1);   // Goes forward one page (equivalent to history.forward())
+history.go(0);   // Reloads the current page
+
+// 4. history.pushState(state, title, url)
+// Adds a new entry to the browser's session history stack, allowing navigation without a page reload.
+history.pushState({ page: 1 }, "Page 1", "?page=1");
+// This method modifies the browser's URL without reloading the page.
+
+// 5. history.replaceState(state, title, url)
+// Modifies the current history entry (does not create a new entry), allowing navigation without a page reload.
+history.replaceState({ page: 2 }, "Page 2", "?page=2");
+// This method replaces the current URL with a new one without adding a new entry to the history stack.
+
+// 6. history.state
+// Returns the state object of the current history entry.
+console.log(history.state);  // Output: { page: 2 } (or whatever state object was set with pushState or replaceState)
+
+
+
+
+
+
+
+// page 
+
+// 1. Get the current horizontal scroll position (pageXOffset)
+console.log(window.pageXOffset);  // Output: Horizontal scroll position in pixels (e.g., 0 or a positive number)
+
+// 2. Get the current vertical scroll position (pageYOffset)
+console.log(window.pageYOffset);  // Output: Vertical scroll position in pixels (e.g., 0 or a positive number)
+
+// 3. Scroll the page vertically by a specific number of pixels (e.g., 100px)
+window.scrollTo(0, 100);  // Scrolls the page down by 100px
+
+// 4. Scroll the page horizontally and vertically (e.g., 100px right and 200px down)
+window.scrollTo(100, 200);  // Scrolls the page right by 100px and down by 200px
+
+// 5. Scroll the page smoothly to a specific position (e.g., 200px down)
+window.scrollTo({
+  top: 200,  // Scroll down 200px
+  left: 0,   // No horizontal scroll
+  behavior: 'smooth'  // Smooth scrolling
+});
+
+// 6. Check the scroll position in real-time (for example, on a scroll event)
+window.addEventListener('scroll', function() {
+  let scrollX = window.pageXOffset;  // Current horizontal scroll position
+  let scrollY = window.pageYOffset;  // Current vertical scroll position
+  console.log("Current scroll position: X = " + scrollX + ", Y = " + scrollY);
+});
+
+// 7. Scroll to the top of the page (reset the vertical scroll to 0)
+window.scrollTo(0, 0);  // Scrolls the page to the top
+
+// 8. Scroll to the bottom of the page (by setting vertical scroll position to a large value)
+window.scrollTo(0, document.body.scrollHeight);  // Scrolls to the bottom of the page
+
+// 9. Get the horizontal and vertical scroll position after a scroll event
+window.addEventListener('scroll', function() {
+  let currentScrollX = window.pageXOffset;  // Horizontal scroll position
+  let currentScrollY = window.pageYOffset;  // Vertical scroll position
+  console.log("Scroll position: X = " + currentScrollX + ", Y = " + currentScrollY);
+});
+
+
+
+
+
+
+
+
+
+// offsetopt and offsetleft
+
+// 1. Getting the vertical position of an element relative to its offset parent (top)
+let element = document.getElementById("myElement");
+console.log(element.offsetTop);  // Output: Vertical distance from the top of its offset parent in pixels
+
+// 2. Getting the horizontal position of an element relative to its offset parent (left)
+console.log(element.offsetLeft);  // Output: Horizontal distance from the left of its offset parent in pixels
+
+// 3. Getting the position of a child element inside a container (relative to the container)
+let container = document.getElementById("container");
+let childElement = container.querySelector(".child");
+
+console.log(childElement.offsetTop);  // Output: Position of the child element from the top of the container
+console.log(childElement.offsetLeft); // Output: Position of the child element from the left of the container
+
+// 4. Calculating the total distance of an element from the top-left corner of the document
+let totalOffsetTop = 0;
+let totalOffsetLeft = 0;
+let currentElement = element;
+
+// Loop through all the offset parents to calculate the position relative to the document
+while (currentElement) {
+  totalOffsetTop += currentElement.offsetTop;
+  totalOffsetLeft += currentElement.offsetLeft;
+  currentElement = currentElement.offsetParent;
+}
+
+console.log("Total distance from the top: " + totalOffsetTop);
+console.log("Total distance from the left: " + totalOffsetLeft);
+
+// 5. Listening for the mouse position relative to an element
+element.addEventListener('mousemove', function(event) {
+  let mouseX = event.offsetX;  // Horizontal mouse position inside the element
+  let mouseY = event.offsetY;  // Vertical mouse position inside the element
+  console.log("Mouse X: " + mouseX + ", Mouse Y: " + mouseY);
+});
+
+// 6. Using offsetTop and offsetLeft to create a simple drag functionality
+let dragElement = document.getElementById("draggable");
+
+dragElement.onmousedown = function(event) {
+  let shiftX = event.clientX - dragElement.getBoundingClientRect().left;
+  let shiftY = event.clientY - dragElement.getBoundingClientRect().top;
+
+  document.onmousemove = function(event) {
+    dragElement.style.left = event.pageX - shiftX + 'px';
+    dragElement.style.top = event.pageY - shiftY + 'px';
+  };
+
+  document.onmouseup = function() {
+    document.onmousemove = null;
+    document.onmouseup = null;
+  };
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// scrollTop and scrollleft
+
+// 1. Get the vertical scroll position of an element
+let element = document.getElementById("myElement");
+console.log(element.scrollTop);  // Output: The number of pixels the content is scrolled vertically (top)
+
+
+// 2. Get the horizontal scroll position of an element
+console.log(element.scrollLeft);  // Output: The number of pixels the content is scrolled horizontally (left)
+
+
+// 3. Set the vertical scroll position of an element
+element.scrollTop = 100;  // Set the scroll position to 100px from the top
+
+// 4. Set the horizontal scroll position of an element
+element.scrollLeft = 200;  // Set the scroll position to 200px from the left
+
+// 5. Get the scroll position of the document (window)
+console.log(window.scrollY);  // Returns the vertical scroll position of the entire document
+console.log(window.scrollX);  // Returns the horizontal scroll position of the entire document
+
+
+// 6. Scroll an element to the top of its scrollable content
+element.scrollTop = 0;  // Scrolls the element to the top (vertical scroll)
+
+// 7. Scroll an element to the left of its scrollable content
+element.scrollLeft = 0;  // Scrolls the element to the left (horizontal scroll)
+
+
+// 8. Automatically scroll an element to the bottom (vertically)
+element.scrollTop = element.scrollHeight;  // Scrolls the element to the bottom
+
+// 9. Automatically scroll an element to the right (horizontally)
+element.scrollLeft = element.scrollWidth;  // Scrolls the element to the right
+
+
+// 10. Scroll an element by a specific number of pixels (vertical)
+element.scrollBy(0, 50);  // Scrolls the element vertically by 50px (downward)
+
+// 11. Scroll an element by a specific number of pixels (horizontal)
+element.scrollBy(50, 0);  // Scrolls the element horizontally by 50px (rightward)
+
+
+// 12. Smooth scrolling to a specific position (vertical)
+element.scrollTo({
+  top: 500,       // Vertical scroll position
+  left: 0,        // Horizontal scroll position (optional)
+  behavior: 'smooth'  // Smooth scrolling
+});
+
+// 13. Smooth scrolling to a specific position (horizontal)
+element.scrollTo({
+  top: 0,         // Vertical scroll position (optional)
+  left: 500,      // Horizontal scroll position
+  behavior: 'smooth'  // Smooth scrolling
+});
+
+
+// 14. Listening for a scroll event on an element
+element.addEventListener('scroll', function() {
+  let currentScrollTop = element.scrollTop;  // Current vertical scroll position
+  let currentScrollLeft = element.scrollLeft;  // Current horizontal scroll position
+  console.log("Vertical Scroll: " + currentScrollTop);
+  console.log("Horizontal Scroll: " + currentScrollLeft);
+});
+
+
+// 15. Checking if the element is scrolled to the top
+if (element.scrollTop === 0) {
+  console.log("The element is scrolled to the top!");
+}
+
+// 16. Checking if the element is scrolled to the left
+if (element.scrollLeft === 0) {
+  console.log("The element is scrolled to the left!");
+}
+
+// 17. Checking if the element is scrolled to the bottom
+if (element.scrollTop + element.clientHeight === element.scrollHeight) {
+  console.log("The element is scrolled to the bottom!");
+}
+
+// 18. Checking if the element is scrolled to the right
+if (element.scrollLeft + element.clientWidth === element.scrollWidth) {
+  console.log("The element is scrolled to the right!");
+}
+
+
+
+
+
+
+// Examples of Using scrollWidth and scrollHeight
+
+// Example 1: Getting the scrollHeight of an element (total content height)
+let element = document.getElementById("myElement");
+console.log(element.scrollHeight);  // Output: Total height of the element's content (including hidden content)
+
+// Example 2: Getting the scrollWidth of an element (total content width)
+console.log(element.scrollWidth);  // Output: Total width of the element's content (including hidden content)
+
+// Example 3: Checking if an element is overflowing vertically (scrollHeight > clientHeight)
+if (element.scrollHeight > element.clientHeight) {
+  console.log("The element's content overflows vertically.");
+} else {
+  console.log("The element's content fits within the visible area.");
+}
+
+// Example 4: Checking if an element is overflowing horizontally (scrollWidth > clientWidth)
+if (element.scrollWidth > element.clientWidth) {
+  console.log("The element's content overflows horizontally.");
+} else {
+  console.log("The element's content fits within the visible area.");
+}
+
+// Example 5: Automatically scrolling an element to the bottom (use scrollHeight)
+element.scrollTop = element.scrollHeight;  // Scrolls the element to the bottom (vertical scroll)
+
+// Example 6: Scroll to the right of an element (use scrollWidth)
+element.scrollLeft = element.scrollWidth;  // Scrolls the element to the far right (horizontal scroll)
+
+// Example 7: Dynamically loading content when the user scrolls to the bottom of a container
+element.addEventListener('scroll', function() {
+  // Check if the user has scrolled to the bottom
+  if (element.scrollTop + element.clientHeight >= element.scrollHeight) {
+    console.log("User has reached the bottom of the container.");
+    // Load more content here
+  }
+});
+
+// Example 8: Adding a fixed header while scrolling a content container
+let container = document.getElementById("contentContainer");
+let header = document.getElementById("header");
+
+container.addEventListener('scroll', function() {
+  // Make header fixed at the top when the container scrolls
+  if (container.scrollTop > 50) {
+    header.style.position = "fixed";
+    header.style.top = "0";
+  } else {
+    header.style.position = "relative";
+    header.style.top = "auto";
+  }
+});
+
+// Example 9: Check if the content of an element is fully scrolled horizontally
+if (element.scrollLeft + element.clientWidth === element.scrollWidth) {
+  console.log("The element is scrolled to the rightmost edge.");
+}
+
+// Example 10: Detecting scrolling direction (up/down) by comparing scrollTop and previous scrollTop
+let previousScrollTop = 0;
+element.addEventListener('scroll', function() {
+  if (element.scrollTop > previousScrollTop) {
+    console.log("Scrolling down");
+  } else {
+    console.log("Scrolling up");
+  }
+  previousScrollTop = element.scrollTop;
+});
+
+// Example 11: Smooth scrolling to the bottom of the content
+element.scrollTo({
+  top: element.scrollHeight,  // Scroll to the bottom vertically
+  left: 0,                    // No horizontal scroll
+  behavior: 'smooth'          // Smooth scrolling behavior
+});
+
+// Example 12: Smooth scrolling to the right of the content
+element.scrollTo({
+  top: 0,                      // No vertical scroll
+  left: element.scrollWidth,   // Scroll to the rightmost position horizontally
+  behavior: 'smooth'           // Smooth scrolling behavior
+});
+
+
+
+
+
+
+
+// Examples of offsetWidth and offsetHeight
+
+// Example 1: Getting the offsetWidth (width) of an element
+let element = document.getElementById("myElement");
+console.log("Offset Width:", element.offsetWidth);  // Output: Width of the element including padding, border, and scrollbar
+
+// Example 2: Getting the offsetHeight (height) of an element
+console.log("Offset Height:", element.offsetHeight);  // Output: Height of the element including padding, border, and scrollbar
+
+// Example 3: Checking if an element has been resized by checking its width and height
+if (element.offsetWidth > 500) {
+  console.log("The element's width is greater than 500px.");
+} else {
+  console.log("The element's width is less than or equal to 500px.");
+}
+
+// Example 4: Dynamically resizing an element and checking its offsetWidth and offsetHeight
+element.style.width = "600px";  // Change the width dynamically
+element.style.height = "300px"; // Change the height dynamically
+console.log("New Offset Width:", element.offsetWidth);  // Output: New width after resizing
+console.log("New Offset Height:", element.offsetHeight);  // Output: New height after resizing
+
+// Example 5: Using offsetWidth and offsetHeight for positioning elements
+let container = document.getElementById("container");
+let newElement = document.createElement("div");
+newElement.style.width = "200px";
+newElement.style.height = "100px";
+newElement.style.position = "absolute";
+
+// Position the new element based on the container's dimensions
+newElement.style.top = container.offsetHeight / 2 + "px";  // Position vertically in the middle of the container
+newElement.style.left = container.offsetWidth / 2 + "px";  // Position horizontally in the middle of the container
+
+container.appendChild(newElement);  // Append the new element to the container
+
+// Example 6: Check the dimensions of a hidden element (visibility: hidden)
+let hiddenElement = document.getElementById("hiddenElement");
+console.log("Hidden Element Width:", hiddenElement.offsetWidth);  // Output: Width of hidden element
+console.log("Hidden Element Height:", hiddenElement.offsetHeight);  // Output: Height of hidden element
+
+// Example 7: Track element size change during window resize
+window.addEventListener('resize', function() {
+  console.log("Element Width on Resize:", element.offsetWidth);  // Output: Width of the element after window resize
+  console.log("Element Height on Resize:", element.offsetHeight);  // Output: Height of the element after window resize
+});
+
+// Example 8: Using offsetWidth and offsetHeight to make responsive design adjustments
+if (element.offsetWidth < 400) {
+  element.style.fontSize = "14px";  // Decrease font size for smaller width
+} else {
+  element.style.fontSize = "18px";  // Increase font size for larger width
+}
+
+// Example 9: Calculating total width and height including the scrollbars
+let box = document.getElementById("box");
+console.log("Box Width (with scrollbar if any):", box.offsetWidth);  // Total width including borders and scrollbar
+console.log("Box Height (with scrollbar if any):", box.offsetHeight);  // Total height including borders and scrollbar
+
+// Example 10: Comparing the element's clientWidth and offsetWidth
+let clientWidth = element.clientWidth;  // Width excluding borders and scrollbars
+let offsetWidth = element.offsetWidth;  // Width including borders and scrollbars
+console.log("Client Width:", clientWidth);
+console.log("Offset Width:", offsetWidth);
+
+
+
+//
+// Example 1: Getting the clientWidth of an element (content width without borders and scrollbars)
+let element = document.getElementById("myElement");
+console.log("Client Width:", element.clientWidth);  // Output: The width of the content area excluding borders, scrollbars, and margins
+
+// Example 2: Getting the clientHeight of an element (content height without borders and scrollbars)
+console.log("Client Height:", element.clientHeight);  // Output: The height of the content area excluding borders, scrollbars, and margins
+
+// Example 3: Check if an element has overflow content horizontally (i.e., it needs scrolling)
+if (element.scrollWidth > element.clientWidth) {
+  console.log("The element is overflowing horizontally and has a horizontal scrollbar.");
+} else {
+  console.log("The element does not overflow horizontally.");
+}
+
+// Example 4: Check if an element has overflow content vertically (i.e., it needs scrolling)
+if (element.scrollHeight > element.clientHeight) {
+  console.log("The element is overflowing vertically and has a vertical scrollbar.");
+} else {
+  console.log("The element does not overflow vertically.");
+}
+
+// Example 5: Dynamically resize an element and log its clientWidth and clientHeight
+element.style.width = "500px";  // Set the width dynamically
+element.style.height = "300px"; // Set the height dynamically
+console.log("New Client Width:", element.clientWidth);  // Output: New content width
+console.log("New Client Height:", element.clientHeight);  // Output: New content height
+
+// Example 6: Checking clientWidth and clientHeight of the document body
+console.log("Body Client Width:", document.body.clientWidth);  // Body's content width (without borders and scrollbars)
+console.log("Body Client Height:", document.body.clientHeight);  // Body's content height (without borders and scrollbars)
+
+// Example 7: Using clientWidth and clientHeight to position an element inside a container
+let container = document.getElementById("container");
+let newElement = document.createElement("div");
+newElement.style.width = "200px";
+newElement.style.height = "100px";
+newElement.style.position = "absolute";
+
+// Position the new element based on the container's client dimensions
+newElement.style.top = container.clientHeight / 2 + "px";  // Position vertically in the middle of the container
+newElement.style.left = container.clientWidth / 2 + "px";  // Position horizontally in the middle of the container
+
+container.appendChild(newElement);  // Append the new element to the container
+
+// Example 8: Track changes in clientWidth and clientHeight during window resizing
+window.addEventListener('resize', function() {
+  console.log("Client Width on Resize:", element.clientWidth);  // Output: Content width after window resize
+  console.log("Client Height on Resize:", element.clientHeight);  // Output: Content height after window resize
+});
+
+// Example 9: Handling responsive design with clientWidth and clientHeight
+if (element.clientWidth < 500) {
+  element.style.fontSize = "14px";  // Apply smaller font size if width is less than 500px
+} else {
+  element.style.fontSize = "18px";  // Apply larger font size if width is greater than 500px
+}
+
+
+
+
+
+// Examples of clientWidth and clientHeight:
+
+// Example 1: Getting the clientWidth of an element (content width without borders and scrollbars)
+let element = document.getElementById("myElement");
+console.log("Client Width:", element.clientWidth);  // Output: The width of the content area excluding borders, scrollbars, and margins
+
+// Example 2: Getting the clientHeight of an element (content height without borders and scrollbars)
+console.log("Client Height:", element.clientHeight);  // Output: The height of the content area excluding borders, scrollbars, and margins
+
+// Example 3: Check if an element has overflow content horizontally (i.e., it needs scrolling)
+if (element.scrollWidth > element.clientWidth) {
+  console.log("The element is overflowing horizontally and has a horizontal scrollbar.");
+} else {
+  console.log("The element does not overflow horizontally.");
+}
+
+// Example 4: Check if an element has overflow content vertically (i.e., it needs scrolling)
+if (element.scrollHeight > element.clientHeight) {
+  console.log("The element is overflowing vertically and has a vertical scrollbar.");
+} else {
+  console.log("The element does not overflow vertically.");
+}
+
+// Example 5: Dynamically resize an element and log its clientWidth and clientHeight
+element.style.width = "500px";  // Set the width dynamically
+element.style.height = "300px"; // Set the height dynamically
+console.log("New Client Width:", element.clientWidth);  // Output: New content width
+console.log("New Client Height:", element.clientHeight);  // Output: New content height
+
+// Example 6: Checking clientWidth and clientHeight of the document body
+console.log("Body Client Width:", document.body.clientWidth);  // Body's content width (without borders and scrollbars)
+console.log("Body Client Height:", document.body.clientHeight);  // Body's content height (without borders and scrollbars)
+
+// Example 7: Using clientWidth and clientHeight to position an element inside a container
+let container = document.getElementById("container");
+let newElement = document.createElement("div");
+newElement.style.width = "200px";
+newElement.style.height = "100px";
+newElement.style.position = "absolute";
+
+// Position the new element based on the container's client dimensions
+newElement.style.top = container.clientHeight / 2 + "px";  // Position vertically in the middle of the container
+newElement.style.left = container.clientWidth / 2 + "px";  // Position horizontally in the middle of the container
+
+container.appendChild(newElement);  // Append the new element to the container
+
+// Example 8: Track changes in clientWidth and clientHeight during window resizing
+window.addEventListener('resize', function() {
+    
+  console.log("Client Width on Resize:", element.clientWidth);  // Output: Content width after window resize
+  console.log("Client Height on Resize:", element.clientHeight);  // Output: Content height after window resize
+});
+
+// Example 9: Handling responsive design with clientWidth and clientHeight
+if (element.clientWidth < 500) {
+  element.style.fontSize = "14px";  // Apply smaller font size if width is less than 500px
+} else {
+  element.style.fontSize = "18px";  // Apply larger font size if width is greater than 500px
+}
+
+
+
+
+// 
+Here are all the important examples of clientX and clientY in a single screen:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>clientX and clientY Examples</title>
+  <style>
+    #myElement {
+      width: 300px;
+      height: 300px;
+      background-color: lightblue;
+      margin: 50px;
+    }
+    #displayBox {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 5px;
+    }
+    #myCanvas {
+      border: 1px solid black;
+      margin-top: 20px;
+    }
+    #customContextMenu {
+      position: absolute;
+      display: none;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    #draggable {
+      width: 100px;
+      height: 100px;
+      background-color: coral;
+      position: absolute;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Example 1: Element to track mouse move -->
+  <div id="myElement">Move the mouse over me!</div>
+
+  <!-- Example 2: Display mouse position -->
+  <div id="displayBox">X: 0 Y: 0</div>
+
+  <!-- Example 3: Canvas for drawing with mouse -->
+  <canvas id="myCanvas" width="500" height="500"></canvas>
+
+  <!-- Example 5: Custom Context Menu -->
+  <div id="customContextMenu">Custom Context Menu</div>
+
+  <!-- Example 6: Draggable element -->
+  <div id="draggable">Drag me!</div>
+
+  <script>
+    // Example 1: Tracking Mouse Position on Mouse Move
+    let element = document.getElementById("myElement");
+    element.addEventListener("mousemove", function(event) {
+      let x = event.clientX;
+      let y = event.clientY;
+      console.log("Mouse X: " + x + ", Mouse Y: " + y);
+    });
+
+    // Example 2: Display Mouse Position
+    let displayBox = document.getElementById("displayBox");
+    document.addEventListener("mousemove", function(event) {
+      let x = event.clientX;
+      let y = event.clientY;
+      displayBox.textContent = "X: " + x + " Y: " + y;
+    });
+
+    // Example 3: Drawing on Canvas Based on Mouse Position
+    let canvas = document.getElementById("myCanvas");
+    let ctx = canvas.getContext("2d");
+    canvas.addEventListener("mousemove", function(event) {
+      let x = event.clientX - canvas.offsetLeft;
+      let y = event.clientY - canvas.offsetTop;
+      ctx.fillStyle = "red";
+      ctx.beginPath();
+      ctx.arc(x, y, 5, 0, 2 * Math.PI);
+      ctx.fill();
+    });
+
+    // Example 5: Right-Click Context Menu Position
+    let customContextMenu = document.getElementById("customContextMenu");
+    document.addEventListener("contextmenu", function(event) {
+      event.preventDefault();
+      let x = event.clientX;
+      let y = event.clientY;
+      customContextMenu.style.left = x + "px";
+      customContextMenu.style.top = y + "px";
+      customContextMenu.style.display = "block";
+    });
+    document.addEventListener("click", function() {
+      customContextMenu.style.display = "none";
+    });
+
+    // Example 6: Draggable Element
+    let draggableElement = document.getElementById("draggable");
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    draggableElement.addEventListener("mousedown", function(event) {
+      isDragging = true;
+      offsetX = event.clientX - draggableElement.offsetLeft;
+      offsetY = event.clientY - draggableElement.offsetTop;
+    });
+
+    document.addEventListener("mousemove", function(event) {
+      if (isDragging) {
+        let x = event.clientX - offsetX;
+        let y = event.clientY - offsetY;
+        draggableElement.style.left = x + "px";
+        draggableElement.style.top = y + "px";
+      }
+    });
+
+    document.addEventListener("mouseup", function() {
+      isDragging = false;
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+// Here are important examples of pageX and pageY in a single screen:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pageX and pageY Examples</title>
+  <style>
+    #myElement {
+      width: 300px;
+      height: 300px;
+      background-color: lightblue;
+      margin: 50px;
+    }
+    #displayBox {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 5px;
+    }
+    #myCanvas {
+      border: 1px solid black;
+      margin-top: 20px;
+    }
+    #customContextMenu {
+      position: absolute;
+      display: none;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    #draggable {
+      width: 100px;
+      height: 100px;
+      background-color: coral;
+      position: absolute;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Example 1: Element to track mouse move -->
+  <div id="myElement">Move the mouse over me!</div>
+
+  <!-- Example 2: Display mouse position -->
+  <div id="displayBox">X: 0 Y: 0</div>
+
+  <!-- Example 3: Canvas for drawing with mouse -->
+  <canvas id="myCanvas" width="500" height="500"></canvas>
+
+  <!-- Example 5: Custom Context Menu -->
+  <div id="customContextMenu">Custom Context Menu</div>
+
+  <!-- Example 6: Draggable element -->
+  <div id="draggable">Drag me!</div>
+
+  <script>
+    // Example 1: Tracking Mouse Position on Mouse Move (Using pageX and pageY)
+    let element = document.getElementById("myElement");
+    element.addEventListener("mousemove", function(event) {
+      let x = event.pageX;  // Horizontal position of mouse relative to the document
+      let y = event.pageY;  // Vertical position of mouse relative to the document
+      console.log("Mouse X: " + x + ", Mouse Y: " + y);
+    });
+
+    // Example 2: Display Mouse Position (Using pageX and pageY)
+    let displayBox = document.getElementById("displayBox");
+    document.addEventListener("mousemove", function(event) {
+      let x = event.pageX;
+      let y = event.pageY;
+      displayBox.textContent = "X: " + x + " Y: " + y;
+    });
+
+    // Example 3: Drawing on Canvas Based on Mouse Position (Using pageX and pageY)
+    let canvas = document.getElementById("myCanvas");
+    let ctx = canvas.getContext("2d");
+    canvas.addEventListener("mousemove", function(event) {
+      let x = event.pageX - canvas.offsetLeft;
+      let y = event.pageY - canvas.offsetTop;
+      ctx.fillStyle = "red";
+      ctx.beginPath();
+      ctx.arc(x, y, 5, 0, 2 * Math.PI);
+      ctx.fill();
+    });
+
+    // Example 5: Right-Click Context Menu Position (Using pageX and pageY)
+    let customContextMenu = document.getElementById("customContextMenu");
+    document.addEventListener("contextmenu", function(event) {
+      event.preventDefault();
+      let x = event.pageX;
+      let y = event.pageY;
+      customContextMenu.style.left = x + "px";
+      customContextMenu.style.top = y + "px";
+      customContextMenu.style.display = "block";
+    });
+    document.addEventListener("click", function() {
+      customContextMenu.style.display = "none";
+    });
+
+    // Example 6: Draggable Element (Using pageX and pageY)
+    let draggableElement = document.getElementById("draggable");
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    draggableElement.addEventListener("mousedown", function(event) {
+      isDragging = true;
+      offsetX = event.pageX - draggableElement.offsetLeft;
+      offsetY = event.pageY - draggableElement.offsetTop;
+    });
+
+    document.addEventListener("mousemove", function(event) {
+      if (isDragging) {
+        let x = event.pageX - offsetX;
+        let y = event.pageY - offsetY;
+        draggableElement.style.left = x + "px";
+        draggableElement.style.top = y + "px";
+      }
+    });
+
+    document.addEventListener("mouseup", function() {
+      isDragging = false;
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+// 
+Here are all the important examples of screenX and screenY in a single screen:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>screenX and screenY Examples</title>
+  <style>
+    #myElement {
+      width: 300px;
+      height: 300px;
+      background-color: lightblue;
+      margin: 50px;
+    }
+    #displayBox {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 5px;
+    }
+    #myCanvas {
+      border: 1px solid black;
+      margin-top: 20px;
+    }
+    #customContextMenu {
+      position: absolute;
+      display: none;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    #draggable {
+      width: 100px;
+      height: 100px;
+      background-color: coral;
+      position: absolute;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Example 1: Element to track mouse move -->
+  <div id="myElement">Move the mouse over me!</div>
+
+  <!-- Example 2: Display mouse position -->
+  <div id="displayBox">X: 0 Y: 0</div>
+
+  <!-- Example 3: Canvas for drawing with mouse -->
+  <canvas id="myCanvas" width="500" height="500"></canvas>
+
+  <!-- Example 5: Custom Context Menu -->
+  <div id="customContextMenu">Custom Context Menu</div>
+
+  <!-- Example 6: Draggable element -->
+  <div id="draggable">Drag me!</div>
+
+  <script>
+    // Example 1: Tracking Mouse Position on Mouse Move (Using screenX and screenY)
+    let element = document.getElementById("myElement");
+    element.addEventListener("mousemove", function(event) {
+      let x = event.screenX;  // Horizontal position of mouse relative to the screen
+      let y = event.screenY;  // Vertical position of mouse relative to the screen
+      console.log("Mouse X: " + x + ", Mouse Y: " + y);
+    });
+
+    // Example 2: Display Mouse Position (Using screenX and screenY)
+    let displayBox = document.getElementById("displayBox");
+    document.addEventListener("mousemove", function(event) {
+      let x = event.screenX;
+      let y = event.screenY;
+      displayBox.textContent = "X: " + x + " Y: " + y;
+    });
+
+    // Example 3: Drawing on Canvas Based on Mouse Position (Using screenX and screenY)
+    let canvas = document.getElementById("myCanvas");
+    let ctx = canvas.getContext("2d");
+    canvas.addEventListener("mousemove", function(event) {
+      let x = event.screenX - window.screenX - canvas.offsetLeft;
+      let y = event.screenY - window.screenY - canvas.offsetTop;
+      ctx.fillStyle = "red";
+      ctx.beginPath();
+      ctx.arc(x, y, 5, 0, 2 * Math.PI);
+      ctx.fill();
+    });
+
+    // Example 5: Right-Click Context Menu Position (Using screenX and screenY)
+    let customContextMenu = document.getElementById("customContextMenu");
+    document.addEventListener("contextmenu", function(event) {
+      event.preventDefault();
+      let x = event.screenX;
+      let y = event.screenY;
+      customContextMenu.style.left = x + "px";
+      customContextMenu.style.top = y + "px";
+      customContextMenu.style.display = "block";
+    });
+    document.addEventListener("click", function() {
+      customContextMenu.style.display = "none";
+    });
+
+    // Example 6: Draggable Element (Using screenX and screenY)
+    let draggableElement = document.getElementById("draggable");
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    draggableElement.addEventListener("mousedown", function(event) {
+      isDragging = true;
+      offsetX = event.screenX - draggableElement.offsetLeft;
+      offsetY = event.screenY - draggableElement.offsetTop;
+    });
+
+    document.addEventListener("mousemove", function(event) {
+      if (isDragging) {
+        let x = event.screenX - offsetX;
+        let y = event.screenY - offsetY;
+        draggableElement.style.left = x + "px";
+        draggableElement.style.top = y + "px";
+      }
+    });
+
+    document.addEventListener("mouseup", function() {
+      isDragging = false;
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+// key c s a meta windows 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mouse Button Click Detection</title>
+  <style>
+    button {
+      margin: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="button1">Button 1</button>
+  <button id="button2">Button 2</button>
+  <button id="button3">Button 3</button>
+
+  <script>
+    // Function to find which button is clicked
+    function detectMouseButton(event) {
+      switch (event.button) {
+        case 0:
+          console.log("Left button clicked");
+          break;
+        case 1:
+          console.log("Middle button (scroll wheel) clicked");
+          break;
+        case 2:
+          console.log("Right button clicked");
+          break;
+        default:
+          console.log("Unknown button clicked");
+      }
+    }
+
+    // Attach event listeners to the buttons
+    document.getElementById("button1").addEventListener("mousedown", function(event) {
+      detectMouseButton(event);
+    });
+
+    document.getElementById("button2").addEventListener("mousedown", function(event) {
+      detectMouseButton(event);
+    });
+
+    document.getElementById("button3").addEventListener("mousedown", function(event) {
+      detectMouseButton(event);
+    });
+  </script>
+
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modifier Key Detection</title>
+  <style>
+    button {
+      margin: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="button1">Button 1</button>
+  <button id="button2">Button 2</button>
+  <button id="button3">Button 3</button>
+
+  <script>
+    // Function to detect the mouse button and modifier keys (Alt, Shift, Ctrl)
+    function detectMouseButtonAndModifiers(event) {
+      let buttonText = '';
+      
+      // Check mouse button
+      switch (event.button) {
+        case 0:
+          buttonText = "Left button clicked";
+          break;
+        case 1:
+          buttonText = "Middle button (scroll wheel) clicked";
+          break;
+        case 2:
+          buttonText = "Right button clicked";
+          break;
+        default:
+          buttonText = "Unknown button clicked";
+      }
+
+      // Check if any modifier keys are pressed
+      if (event.altKey) {
+        buttonText += " with Alt key";
+      }
+      if (event.ctrlKey) {
+        buttonText += " with Control key";
+      }
+      if (event.shiftKey) {
+        buttonText += " with Shift key";
+      }
+
+      console.log(buttonText);
+    }
+
+    // Attach event listeners to the buttons
+    document.getElementById("button1").addEventListener("mousedown", function(event) {
+      detectMouseButtonAndModifiers(event);
+    });
+
+    document.getElementById("button2").addEventListener("mousedown", function(event) {
+      detectMouseButtonAndModifiers(event);
+    });
+
+    document.getElementById("button3").addEventListener("mousedown", function(event) {
+      detectMouseButtonAndModifiers(event);
+    });
+  </script>
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mouse Button Detection</title>
+  <style>
+    button {
+      margin: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="button1">Button 1</button>
+  <button id="button2">Button 2</button>
+  <button id="button3">Button 3</button>
+
+  <script>
+    // Function to detect mouse button and extra buttons (if any)
+    function detectMouseButton(event) {
+      let buttonText = '';
+      
+      switch (event.button) {
+        case 0:
+          buttonText = "Left button clicked";
+          break;
+        case 1:
+          buttonText = "Middle button (scroll wheel) clicked";
+          break;
+        case 2:
+          buttonText = "Right button clicked";
+          break;
+        case 3:
+          buttonText = "Button 4 (extra button) clicked";
+          break;
+        case 4:
+          buttonText = "Button 5 (extra button) clicked";
+          break;
+        default:
+          buttonText = "Unknown button clicked";
+      }
+
+      console.log(buttonText);
+    }
+
+    // Attach event listeners to the buttons
+    document.getElementById("button1").addEventListener("mousedown", function(event) {
+      detectMouseButton(event);
+    });
+
+    document.getElementById("button2").addEventListener("mousedown", function(event) {
+      detectMouseButton(event);
+    });
+
+    document.getElementById("button3").addEventListener("mousedown", function(event) {
+      detectMouseButton(event);
+    });
+  </script>
+
+</body>
+</html>
+
+
+e.key
+
+
+
+
+
+
+// oncut oncopy onpaste
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>oncopy, oncut, onpaste Example</title>
+  <style>
+    textarea {
+      width: 300px;
+      height: 150px;
+      margin-top: 20px;
+    }
+    #info {
+      margin-top: 10px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <h3>Try the oncopy, oncut, and onpaste events</h3>
+
+  <textarea id="textArea" placeholder="Copy, Cut, or Paste text here."></textarea>
+
+  <div id="info"></div>
+
+  <script>
+    // Function to handle copy event
+    function handleCopy(event) {
+      document.getElementById("info").textContent = "Content was copied!";
+      console.log("Content was copied to clipboard.");
+    }
+
+    // Function to handle cut event
+    function handleCut(event) {
+      document.getElementById("info").textContent = "Content was cut!";
+      console.log("Content was cut from the input.");
+    }
+
+    // Function to handle paste event
+    function handlePaste(event) {
+      document.getElementById("info").textContent = "Content was pasted!";
+      console.log("Content was pasted into the input.");
+    }
+
+    // Attach event listeners to the textarea
+    const textArea = document.getElementById("textArea");
+
+    textArea.addEventListener("copy", handleCopy);
+    textArea.addEventListener("cut", handleCut);
+    textArea.addEventListener("paste", handlePaste);
+  </script>
+
+</body>
+</html>
+
+
+
+
+// ononline onoffline
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>onOnline and onOffline Example</title>
+  <style>
+    #status {
+      font-size: 20px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h3>Network Status Detection</h3>
+  <div id="status">Checking network status...</div>
+
+  <script>
+    // Function to handle the online event
+    function handleOnline() {
+      document.getElementById("status").textContent = "You are online!";
+      console.log("The browser is online.");
+    }
+
+    // Function to handle the offline event
+    function handleOffline() {
+      document.getElementById("status").textContent = "You are offline!";
+      console.log("The browser is offline.");
+    }
+
+    // Event listeners for online and offline events
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+  </script>
+
+</body>
+</html>
+
+navigator.online // to is network is on 

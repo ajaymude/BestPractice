@@ -679,6 +679,179 @@ setTimeout(function() {
 
 
 
-// 16 - 
+
+
+// 16 -  Template String
+
+const x = 5;
+const y = 10;
+const sum = `The sum of ${x} and ${y} is ${x + y}.`;
+console.log(sum); // Output: The sum of 5 and 10 is 15.
+
+
+function getYear() {
+  return new Date().getFullYear();
+}
+
+const message = `The current year is ${getYear()}.`;
+console.log(message); // Output: The current year is 2024 (or the current year).
+
+
+
+
+
+
+
+
+
+
+
+// 17 rest operator 
+
+
+
+function sum(...numbers) {
+  return numbers.reduce((acc, num) => acc + num, 0);
+}
+
+console.log(sum(1, 2, 3)); // Output: 6
+console.log(sum(10, 20, 30, 40)); // Output: 100
+
+
+
+
+
+const arr = [1, 2, 3, 4, 5];
+const [first, second, ...rest] = arr;
+
+console.log(first);  // Output: 1
+console.log(second); // Output: 2
+console.log(rest);   // Output: [3, 4, 5]
+
+
+
+
+
+const person = {
+  name: "Alice",
+  age: 25,
+  country: "USA",
+  city: "New York"
+};
+
+const { name, age, ...address } = person;
+
+console.log(name);   // Output: Alice
+console.log(age);    // Output: 25
+console.log(address); // Output: { country: 'USA', city: 'New York' }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 18 -  Spread Operator (...) 
+
+const arr1 = [1, 2, 3];
+const arr2 = [...arr1, 4, 5];
+console.log(arr2); // Output: [1, 2, 3, 4, 5]
+
+
+const arr1 = [1, 2, 3];
+const arr2 = [4, 5, 6];
+const mergedArray = [...arr1, ...arr2];
+console.log(mergedArray); // Output: [1, 2, 3, 4, 5, 6]
+
+
+const person = { name: "Jane", age: 25 };
+const clonedPerson = { ...person };
+clonedPerson.age = 26;
+
+console.log(person); // Output: { name: "Jane", age: 25 }
+console.log(clonedPerson); // Output: { name: "Jane", age: 26 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 20 - object literals 
+
+1. Basic Object Literal
+const person = {
+  name: "Alice",
+  age: 25,
+  country: "USA"
+};
+
+console.log(person.name);   // Output: Alice
+console.log(person.age);    // Output: 25
+console.log(person.country); // Output: USA
+
+
+// short hand 
+const name = "Alice";
+const age = 25;
+const person = {
+  name,
+  age
+};
+
+console.log(person);  // Output: { name: 'Alice', age: 25 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 21 - Destrucuring 
+
+const arr = [1, 2, 3];
+const [a, b, c] = arr;
+console.log(a); // Output: 1
+console.log(b); // Output: 2
+console.log(c); // Output: 3
+
+
+const arr = [1];
+const [a, b = 2] = arr;
+console.log(a); // Output: 1
+console.log(b); // Output: 2
+
+
+const person = { name: "Alice", age: 25 };
+const { name, age } = person;
+console.log(name); // Output: Alice
+console.log(age);  // Output: 25
+
 
 
