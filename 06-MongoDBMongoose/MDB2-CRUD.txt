@@ -181,6 +181,8 @@ db.collection.find().sort({ field: 1 or -1 })
 
 db.users.find().sort({ age: 1 })
 
+db.users.find().sort({ age: 1 }).count()
+
 
 find() with Limiting (limit())
 db.users.find().limit(5)
@@ -247,6 +249,207 @@ Projection allows you to specify which fields to include or exclude in the resul
 db.users.find({}, { name: 1, email: 1 })
 
 db.users.find({}, { password: 0 })
+
+
+
+// operator 
+
+db.users.find({
+  $and: [
+    { age: { $gte: 18 } },
+    { status: "active" }
+  ]
+})
+
+
+db.users.find({
+  age: { $gte: 18 },
+  status: "active"
+})
+
+
+
+db.users.find({
+  $or: [
+    { age: { $lt: 18 } },
+    { status: "inactive" }
+  ]
+})
+
+
+
+db.users.find({
+  $nor: [
+    { status: "active" },
+    { age: { $gte: 18 } }
+  ]
+})
+
+
+
+db.users.find({
+  age: { $not: { $gte: 18 } }
+})
+
+
+db.users.find({
+  email: { $exists: true }
+})
+
+
+
+db.users.find({
+  email: { $exists: false }
+})
+
+
+
+db.users.find({
+  status: { $in: ["active", "pending"] }
+})
+
+
+
+db.users.find({
+  status: { $nin: ["inactive", "banned"] }
+})
+
+
+
+
+db.orders.find({
+  items: { $elemMatch: { productId: "1234", quantity: { $gte: 2 } } }
+})
+
+
+
+db.users.find({
+  roles: { $all: ["admin", "editor"] }
+})
+
+
+db.users.find({
+  name: { $regex: /^john/i }
+})
+
+
+db.articles.find({
+  $text: { $search: "mongodb database" }
+})
+
+
+
+db.articles.find({
+  age: { $type: "string" }
+})
+
+
+db.articles.find({
+  age: { $type: ['int' , 'string'] }
+})
+
+
+
+
+// evalution operator 
+
+db.orders.find({
+  $expr: { $gt: ["$totalAmount", "$discount"] }
+})
+
+
+db.users.find({
+  name: { $regex: "^John", $options: "i" }
+})
+
+
+db.articles.find({
+  $text: { $search: "MongoDB database" }
+})
+
+
+
+db.numbers.find({
+  number: { $mod: [3, 0] }
+})
+
+
+
+db.products.find({
+  $where: "this.price > this.discountedPrice"
+})
+
+
+
+$add: Adds numbers.
+$subtract: Subtracts numbers.
+$multiply: Multiplies numbers.
+$divide: Divides numbers.
+
+
+db.transactions.find({db.users.find({
+  $expr: { $eq: [{ $ifNull: ["$middleName", ""] }, ""] }
+})
+
+  $expr: { $gt: [{ $add: ["$amount", "$tax"] }, 100] }
+})
+
+
+
+db.products.find({
+  $expr: { $lte: [{ $multiply: ["$price", "$quantity"] }, 500] }
+})
+
+
+
+db.orders.find({
+  $expr: { $eq: [{ $arrayElemAt: ["$items", 0] }, "item123"] }
+})
+
+
+db.orders.find({
+  $expr: { $eq: [{ $literal: 100 }, "$totalAmount"] }
+})
+
+
+
+db.products.aggregate([
+  { $project: { randomScore: { $rand: {} } } }
+])
+
+
+
+db.users.findOneAndUpdate(
+  { username: "john_doe" }, // Filter condition to find the document
+  { $set: { status: "inactive" } }, // Update operation
+  { returnDocument: "before" } // Return the document before the update
+)
+
+
+db.users.findOneAndUpdate(
+  { username: "john_doe" }, // Filter condition to find the document
+  { $set: { age: 30 } }, // Update operation
+  { returnDocument: "after" } // Return the document after the update
+)
+
+
+
+db.users.findOneAndReplace(
+  { username: "john_doe" }, // Filter to find the document
+  { username: "john_doe", age: 30, status: "active" }, // Replacement document
+  { returnDocument: "before" } // Return the document before the replacement
+)
+
+
+db.users.findOneAndDelete(
+  { username: "john_doe" } // Filter to find the document to delete
+)
+
+
+
+
+
+
 
 
 
