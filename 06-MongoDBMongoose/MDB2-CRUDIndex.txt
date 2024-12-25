@@ -1,7 +1,7 @@
 // create DB and collection 
 
 // to make mongo connection 
->mongosh
+>mongosh 
 
 // to clear terminal 
 >ctrl + L 
@@ -83,73 +83,68 @@
 a-insertOne()
 b-insertMany()
 
->db.collName.insertOne(name:'ajay');
->db.collName.insertMany([{name:'ajay'}, {name:'ajay'}, {name:'ajay'}]);
 
+const result = await collection.insertOne({
+  name: "John Doe",
+  age: 30,
+  email: "johndoe@example.com",
+});
 
+// Insert multiple documents
+const result = await collection.insertMany([
+  { name: "Alice", age: 25, email: "alice@example.com" },
+  { name: "Bob", age: 35, email: "bob@example.com" },
+]);
 
-    const result = await collection.insertOne({
-      name: 'John Doe',
-      age: 30,
-      email: 'johndoe@example.com'
-    });
-
-
-        // Insert multiple documents
-    const result = await collection.insertMany([
-      { name: 'Alice', age: 25, email: 'alice@example.com' },
-      { name: 'Bob', age: 35, email: 'bob@example.com' }
-    ]);
-
-
-        // Bulk insert operations
-    const result = await collection.bulkWrite([
-      { insertOne: { document: { name: 'Tom', age: 28, email: 'tom@example.com' } } },
-      { insertOne: { document: { name: 'Jerry', age: 30, email: 'jerry@example.com' } } }
-    ]);
-
-
+// Bulk insert operations
+const result = await collection.bulkWrite([
+  {
+    insertOne: { document: { name: "Tom", age: 28, email: "tom@example.com" } },
+  },
+  {
+    insertOne: {
+      document: { name: "Jerry", age: 30, email: "jerry@example.com" },
+    },
+  },
+]);
 
 // Insert multiple documents and continue the operation even if one document fails (ordered: false)
-db.collname.insertMany([
+db.collname.insertMany(
+  [
     { field1: "value1", field2: "value2" },
-    { field1: "value3", field2: "value4" }
-], { ordered: false });
+    { field1: "value3", field2: "value4" },
+  ],
+  { ordered: false }
+);
 
 // Insert a single document with write concern (waiting for majority acknowledgment from replica set members)
 db.collname.insertOne(
-    { field1: "value1", field2: "value2" },
-    { writeConcern: { w: "majority" } }
+  { field1: "value1", field2: "value2" },
+  { writeConcern: { w: "majority" } }
 );
 
 // Insert a single document and bypass document validation rules if validation is enabled
 db.collname.insertOne(
-    { field1: "value1", field2: "value2" },
-    { bypassDocumentValidation: true }
+  { field1: "value1", field2: "value2" },
+  { bypassDocumentValidation: true }
 );
-
-
-// Insert a document with a custom timestamp (e.g., using a Date object)
-db.collname.insertOne({ name: "ajay", createdAt: new Date() });
-
 
 // Insert a document with a custom `_id` (you can specify the _id manually)
 db.collname.insertOne({ _id: 1001, name: "ajay" });
 
-
 // Insert multiple documents with a custom `_id`
 db.collname.insertMany([
-    { _id: 1001, name: "ajay" },
-    { _id: 1002, name: "raj" }
+  { _id: 1001, name: "ajay" },
+  { _id: 1002, name: "raj" },
 ]);
-
 
 // Insert a document with embedded arrays or objects
 db.collname.insertOne({
-    name: "ajay",
-    hobbies: ["reading", "coding"],
-    address: { city: "Delhi", country: "India" }
+  name: "ajay",
+  hobbies: ["reading", "coding"],
+  address: { city: "Delhi", country: "India" },
 });
+
 
 
 
@@ -191,12 +186,15 @@ db.collname.insertOne({
 
 // Read 
 
+a-find()
+b-findOne()
+
 find(): Retrieves all matching documents.
 findOne(): Retrieves the first matching document.
-sort(): Sorts results by specified fields.
-limit(): Limits the number of documents returned.
-skip(): Skips a specified number of documents.
-$and, $or: Logical operators to combine multiple conditions.
+
+Projection, sort(), limit(), skip(), count(), toArray() 
+
+$and, $or, $not, $nor, $exists, $type: Logical operators to combine multiple conditions.
 $gt, $lt, $gte, $lte, $ne: Comparison operators for range queries.
 $in, $all, $size, $elemMatch: Array query operators.
 $regex: Performs regular expression search on string fields.
@@ -204,18 +202,18 @@ $regex: Performs regular expression search on string fields.
 
 
 
-db.users.find({ age: { $gte: 18 } })
+db.users.find({ age:  18  })
+
+db.users.find().pretty();
 
 db.users.find({ age:  18 , status: "active" })
+
+db.collection.find({status.desc:"on time"}) 
 
 Example with Projection:
 db.users.find({ age:  18  }, { name: 1, age: 1 })
 
 db.users.find({}, { password: 0 })
-
-db.users.findOne({ email: "johndoe@example.com" })
-
-db.collection.find({status.desc:"on time"}) 
 
 db.collection.find().sort({ field: 1 or -1 })
 
@@ -225,9 +223,26 @@ db.users.find().limit(5)
 
 db.users.find().skip(5)
 
-db.users.find({
-  "user.name": "John"
-})
+db.users.find({ status: 'active' }).count();
+
+
+db.users.findOne({ email: "johndoe@example.com" })
+
+// Find all documents and return them as an array
+db.users.find().toArray();
+
+// Find all documents and apply a function to each of them
+db.users.find().toArray().forEach(function(doc) {
+    // Your logic here, for example:
+    print(doc.name);
+});
+
+
+
+
+
+
+
 
 
 
@@ -276,6 +291,8 @@ db.users.find({
 db.products.find({
   price: { $type: "double" }
 })
+
+
 
 
 
@@ -351,6 +368,7 @@ db.posts.find({
 db.users.find({
   score: { $mod: [5, 0] }
 })
+
 
 
 
@@ -553,126 +571,87 @@ db.users.findOneAndDelete(
 
 // update 
 
+a-updateOne()
+b-updateMany()
+
 
 MongoDB provides several update operators to modify specific fields in a document.
  Common update operators include:
 
 $set: Sets the value of a field.
 $unset: Removes a field.
-$inc: Increments a numeric field.
+$rename: Renames a field in a document.
+$setOnInsert: Sets the value of a field only if the document is being inserted (used in upserts).
+
 $push: Adds an element to an array.
 $pull: Removes an element from an array.
 $addToSet: Adds a value to an array only if it doesn't already exist.
 $pop: Removes the first or last element from an array.
 $pullAll: Removes multiple specific values from an array.
-$rename: Renames a field in a document.
-$setOnInsert: Sets the value of a field only if the document is being inserted (used in upserts).
+$slice: Limits the number of elements in an array.
+
+$inc: Increments a numeric field.
 $mul: Multiplies the value of a field by a specified number.
 $min: Updates the field only if the specified value is less than the current value.
 $max: Updates the field only if the specified value is greater than the current value.
+
 $currentDate: Sets the value of a field to the current date or timestamp.
+
 $bit: Performs a bitwise operation on an integer field (AND, OR, XOR).
-$slice: Limits the number of elements in an array.
-
-
-    // Update a document or insert if not exists
-    const result = await collection.updateOne(
-      { email: 'johndoe@example.com' }, // Query
-      { $set: { name: 'John Doe', age: 30 } }, // Update
-      { upsert: true } // Create if not exists
-    );
-
-
-    // Update a single document
-    const result = await collection.updateOne(
-      { email: 'johndoe@example.com' }, // Filter
-      { $set: { age: 31 } } // Update operation
-    );
-
-
-        // Update multiple documents
-    const result = await collection.updateMany(
-      { age: { $gte: 30 } }, // Filter: age greater than or equal to 30
-      { $set: { status: 'Senior' } } // Update operation: add status field
-    );
 
 
 
-        // Replace a document completely
-    const result = await collection.replaceOne(
-      { email: 'johndoe@example.com' }, // Filter
-      { name: 'John Smith', age: 32, email: 'johndoe@example.com', status: 'Active' } // New document
-    );
 
 
 
-        // Update or insert if document does not exist
-    const result = await collection.updateOne(
-      { email: 'johndoe@example.com' }, // Filter
-      { $set: { name: 'John Doe', age: 30 } }, // Update operation
-      { upsert: true } // If no document matches, insert it
-    );
 
 
 
-    // Update using $set and $inc operators
-    const result = await collection.updateOne(
-      { email: 'johndoe@example.com' }, // Filter
-      { 
-        $set: { status: 'Active' }, // Set status to 'Active'
-        $inc: { age: 1 } // Increment age by 1
-      }
-    );
 
 
 
-        // Push a new hobby to the hobbies array
-    const result = await collection.updateOne(
-      { email: 'johndoe@example.com' }, // Filter
-      { $push: { hobbies: 'Reading' } } // Add 'Reading' to hobbies array
-    );
-
-
-
-        // Remove a hobby from the hobbies array
-    const result = await collection.updateOne(
-      { email: 'johndoe@example.com' }, // Filter
-      { $pull: { hobbies: 'Reading' } } // Remove 'Reading' from hobbies array
-    );
-
-
-db.collection.update(
-  { _id: 1 },
-  { $pop: { tags: 1 } }
+// Update a single document
+const result = await collection.updateOne(
+  { email: "johndoe@example.com" }, // Filter
+  { $set: { age: 31 } } // Update operation
 );
-// Removes the last element from the "tags" array.
 
-db.collection.update(
-  { _id: 1 },
-  { $pop: { tags: -1 } }
+db.users.updateOne({ name: "Alice" }, { $unset: { address: "" } });
+
+// Update multiple documents
+const result = await collection.updateMany(
+  { age: { $gte: 30 } }, // Filter: age greater than or equal to 30
+  { $set: { status: "Senior" } } // Update operation: add status field
 );
-// Removes the first element from the "tags" array.
 
-
-
-
-db.collection.update(
-  { _id: 1 },
-  { $pullAll: { tags: ["mongodb", "nosql"] } }
+// Update a document or insert if not exists
+const result = await collection.updateOne(
+  { email: "johndoe@example.com" }, // Query
+  { $set: { name: "John Doe", age: 30 } }, // Update
+  { upsert: true } // Create if not exists
 );
-// Removes both "mongodb" and "nosql" from the "tags" array.
 
-
-
-
-db.collection.update(
-  { _id: 1 },
-  { $rename: { "oldFieldName": "newFieldName" } }
+// Replace a document completely
+const result = await collection.replaceOne(
+  { email: "johndoe@example.com" }, // Filter
+  {
+    name: "John Smith",
+    age: 32,
+    email: "johndoe@example.com",
+    status: "Active",
+  } // New document
 );
-// Renames "oldFieldName" to "newFieldName" in the document.
+
+db.users.findOneAndUpdate(
+  { _id: ObjectId("5f9d9f7c8c5f3b6db7d6f0c5") },
+  { $set: { age: 35 } }
+);
 
 
-
+db.users.bulkWrite([
+  { updateOne: { filter: { name: "John Doe" }, update: { $set: { age: 40 } } } },
+  { updateMany: { filter: { status: "inactive" }, update: { $set: { status: "active" } } } }
+]);
 
 db.collection.update(
   { _id: 1 },
@@ -686,87 +665,11 @@ db.collection.update(
 // If the document exists, only "name" will be updated.
 
 
-
-
-
-db.collection.update(
-  { _id: 1 },
-  { $mul: { price: 1.1 } }
-);
-// Multiplies the value of "price" by 1.1.
-
-
-
-
-db.collection.update(
-  { _id: 1 },
-  { $min: { age: 25 } }
-);
-// Sets "age" to 25 only if it is currently greater than 25.
-
-
-
-
-db.collection.update(
-  { _id: 1 },
-  { $max: { age: 40 } }
-);
-// Sets "age" to 40 only if it is currently less than 40.
-
-
-
-
 db.collection.update(
   { _id: 1 },
   { $currentDate: { lastModified: true } }
 );
 // Sets "lastModified" to the current date and time.
-
-
-
-
-db.collection.update(
-  { _id: 1 },
-  { $slice: { comments: 5 } }
-);
-// Limits the "comments" array to the first 5 elements.
-
-
-
-db.collection.update(
-  { _id: 1 },
-  { $addToSet: { tags: "mongodb" } }
-);
-// Adds "mongodb" to the "tags" array only if it's not already present.
-
-
-
-
-db.collection.update(
-  { _id: 1 },
-  { $currentDate: { lastModified: true } }
-);
-// Sets "lastModified" to the current date and time.
-
-
-
-
-
-// push object in array 
-
-db.users.updateOne(
-  { "_id": 1 },
-  {
-    $push: {
-      "user.address": {
-        "street": "789 Pine St",
-        "city": "New York",
-        "zip": "10001"
-      }
-    }
-  }
-)
-
 
 
 db.users.findOneAndUpdate(
@@ -786,6 +689,135 @@ db.users.findOneAndUpdate(
 
 
 
+db.collection.update(
+  { _id: 1 },
+  { $rename: { "oldFieldName": "newFieldName" } }
+);
+// Renames "oldFieldName" to "newFieldName" in the document.
+
+
+// Update a field with a condition using the `$cond` operator (e.g., conditionally set a value based on another field)
+db.users.updateOne(
+  { age: { $gt: 18 } }, 
+  { $set: { status: { $cond: { if: { $gt: ["$age", 18] }, then: "adult", else: "minor" } } } }
+);
+
+
+
+
+
+
+
+
+
+
+
+// array
+
+// Push a new hobby to the hobbies array
+const result = await collection.updateOne(
+  { email: "johndoe@example.com" }, // Filter
+  { $push: { hobbies: "Reading" } } // Add 'Reading' to hobbies array
+);
+
+
+// Remove a hobby from the hobbies array
+const result = await collection.updateOne(
+  { email: "johndoe@example.com" }, // Filter
+  { $pull: { hobbies: "Reading" } } // Remove 'Reading' from hobbies array
+);
+
+
+db.collection.update(
+  { _id: 1 },
+  { $pop: { tags: 1 } }
+);
+// Removes the last element from the "tags" array.
+
+
+db.collection.update(
+  { _id: 1 },
+  { $pop: { tags: -1 } }
+);
+// Removes the first element from the "tags" array.
+
+
+db.collection.update(
+  { _id: 1 },
+  { $pullAll: { tags: ["mongodb", "nosql"] } }
+);
+// Removes both "mongodb" and "nosql" from the "tags" array.
+
+
+
+db.collection.update(
+  { _id: 1 },
+  { $slice: { comments: 5 } }
+);
+// Limits the "comments" array to the first 5 elements.
+
+
+db.collection.update(
+  { _id: 1 },
+  { $addToSet: { tags: "mongodb" } }
+);
+// Adds "mongodb" to the "tags" array only if it's not already present.
+
+
+// push object in array 
+db.users.updateOne(
+  { "_id": 1 },
+  {
+    $push: {
+      "user.address": {
+        "street": "789 Pine St",
+        "city": "New York",
+        "zip": "10001"
+      }
+    }
+  }
+)
+
+
+
+
+
+
+
+
+
+
+
+
+// math 
+
+// Update using $set and $inc operators
+const result = await collection.updateOne(
+  { email: "johndoe@example.com" }, // Filter
+  {
+    $set: { status: "Active" }, // Set status to 'Active'
+    $inc: { age: 1 }, // Increment age by 1
+  }
+);
+
+
+db.collection.update(
+  { _id: 1 },
+  { $mul: { price: 1.1 } }
+);
+// Multiplies the value of "price" by 1.1.
+
+
+db.collection.update(
+  { _id: 1 },
+  { $min: { age: 25 } }
+);
+
+
+db.collection.update(
+  { _id: 1 },
+  { $max: { age: 40 } }
+);
 
 
 
@@ -828,28 +860,37 @@ db.users.findOneAndUpdate(
 
 
 
-    // Delete 
-    1. deleteOne()
-    2. deleteMany()
+
+
+
+
+
+
+
+
+
+// Delete 
+a-deleteOne()
+b-findOneAndDelete()
+c-deleteMany()
+
 
 
 db.users.deleteOne({ name: "John Doe" })
 db.users.findOneAndDelete({ _id: ObjectId("5f9d9f7c8c5f3b6db7d6f0c5") })
 
+db.users.deleteMany({});
 
-
-
-
-
-
-db.users.deleteMany({ age: { $lt: 18 } })
 db.orders.deleteMany({
   status: "cancelled",
   orderDate: { $lt: new Date("2023-01-01") }
 })
 
+db.users.bulkWrite([
+  { deleteOne: { filter: { name: "John Doe" } } },
+  { deleteMany: { filter: { status: "cancelled" } } }
+]);
 
 
-
-
+db.users.drop();  // Deletes the entire "users" collection
 
