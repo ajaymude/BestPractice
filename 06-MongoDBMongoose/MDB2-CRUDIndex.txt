@@ -894,3 +894,49 @@ db.users.bulkWrite([
 
 db.users.drop();  // Deletes the entire "users" collection
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// index
+
