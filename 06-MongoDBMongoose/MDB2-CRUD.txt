@@ -14,6 +14,7 @@
 
 // how to delete db
 > db.dropDatabase()
+> db.stats()
 
 
 // how to create collection 
@@ -79,9 +80,16 @@
 
 
 // Create  data 
+// learn about the ordered method to insert 
+// writeConcern
 
 a-insertOne()
 b-insertMany()
+c-insert()
+d-mongoimport()
+
+mongoimport --db mydatabase --collection users --file users.json --jsonArray
+
 
 
 const result = await collection.insertOne({
@@ -184,10 +192,13 @@ db.collname.insertOne({
 
 
 
+
 // Read 
 
 a-find()
 b-findOne()
+
+// learn about the cond 
 
 find(): Retrieves all matching documents.
 findOne(): Retrieves the first matching document.
@@ -209,6 +220,8 @@ db.users.find().pretty();
 db.users.find({ age:  18 , status: "active" })
 
 db.collection.find({status.desc:"on time"}) 
+db.collection.find({status.hobbies:"cricket"} )  // it search in array 
+db.collection.find({status.hobbies:["cricket"]} )  // it search exam array
 
 Example with Projection:
 db.users.find({ age:  18  }, { name: 1, age: 1 })
@@ -278,6 +291,19 @@ db.users.find({
 })
 
 
+
+
+
+
+
+
+
+
+
+
+// elements operator
+
+
 db.users.find({
   email: { $exists: true }
 })
@@ -288,8 +314,13 @@ db.users.find({
 })
 
 
-db.products.find({
-  price: { $type: "double" }
+db.articles.find({
+  age: { $type: "string" }
+})
+
+
+db.articles.find({
+  age: { $type: ['int' , 'string'] }
 })
 
 
@@ -360,9 +391,7 @@ db.posts.find({
 })
 
 
-db.posts.find({
-  tags: { $size: 3 }
-})
+
 
 
 db.users.find({
@@ -379,46 +408,37 @@ db.users.find({
 
 
 // array operator
+db.collection.find({status.hobbies:"cricket"} )  // it search in array 
+db.collection.find({status.hobbies:["cricket"]} )  // it search exact array
+
+db.collection.find({status.hobbies:{title:sport , test:2 }} )  // if array contains objects  , it check same 
+db.collection.find({status.hobbies:{title:sport  }} )  // if array contains objects  , it check same 
+
+
 
 db.users.find({
-  status: { $in: ["active", "pending"] }
+  status: { $in: ["active", "pending"] }  // acitve or pending it find 
 })
 
 
 db.users.find({
-  status: { $nin: ["inactive", "banned"] }
+  status: { $nin: ["inactive", "banned"] }   // it will find the value don't it have 
 })
 
 
 db.orders.find({
-  items: { $elemMatch: { productId: "1234", quantity: { $gte: 2 } } }
+  items: { $elemMatch: { productId: "1234", quantity: { $gte: 2 } } } // it search same object which match these quontion 
+})
+
+
+db.posts.find({
+  tags: { $size: 3 }  // it find the length equal 3 
 })
 
 
 
 db.users.find({
-  roles: { $all: ["admin", "editor"] }
-})
-
-
-db.users.find({
-  name: { $regex: /^john/i }
-})
-
-
-db.articles.find({
-  $text: { $search: "mongodb database" }
-})
-
-
-
-db.articles.find({
-  age: { $type: "string" }
-})
-
-
-db.articles.find({
-  age: { $type: ['int' , 'string'] }
+  roles: { $all: ["admin", "editor"] }  // it find the array which have two this value order is not matter 
 })
 
 
@@ -427,12 +447,21 @@ db.articles.find({
 // evalution operator 
 
 db.orders.find({
-  $expr: { $gt: ["$totalAmount", "$discount"] }
+  $expr: { $gt: ["$totalAmount", "$discount"] }   // it use to compare two field inside the document 
 })
 
 
 db.users.find({
-  name: { $regex: "^John", $options: "i" }
+  name: { $regex: "^John", $options: "i" }  // search for the text , not efficient 
+})
+
+db.users.find({
+  name: { $regex: /^john/i }
+})
+
+
+db.articles.find({
+  $text: { $search: "mongodb database" }
 })
 
 
@@ -574,6 +603,7 @@ db.users.findOneAndDelete(
 a-updateOne()
 b-updateMany()
 
+// learn about the array updation 
 
 MongoDB provides several update operators to modify specific fields in a document.
  Common update operators include:
@@ -914,29 +944,4 @@ db.users.drop();  // Deletes the entire "users" collection
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// index
 

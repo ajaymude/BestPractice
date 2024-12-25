@@ -5,7 +5,7 @@
 // geospatial 
 // start of mongodb
 // notes 100 level on nesting , max size 16 mb document 
-
+// database - collection - documents - field 
 
 concise list of MongoDB data types in a single screen:
 

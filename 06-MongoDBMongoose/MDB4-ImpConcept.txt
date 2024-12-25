@@ -1,0 +1,182 @@
+// relation 
+
+// nesting , ref 
+
+
+Collection: users
+
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const userSchema = new Schema({
+  name: String,
+  email: String
+});
+
+const User = mongoose.model('User', userSchema);
+
+
+{
+  "_id": ObjectId("5f8d0d55b54764421b7b8b2b"),
+  "name": "John Doe",
+  "email": "john@example.com"
+}
+
+
+Collection: orders
+const orderSchema = new Schema({
+  product: String,
+  amount: Number,
+  user: { type: Schema.Types.ObjectId, ref: 'User' }  // Reference to the User model
+});
+
+const Order = mongoose.model('Order', orderSchema);
+
+
+{
+  "_id": ObjectId("5f8d0d55b54764421b7b8b2c"),
+  "product": "Laptop",
+  "amount": 1000,
+  "user": {
+    "$ref": "users",
+    "$id": ObjectId("5f8d0d55b54764421b7b8b2b")
+  }
+}
+
+
+
+// saving the data 
+async function createOrder() {
+  const user = await User.create({ name: 'John Doe', email: 'john@example.com' });
+
+  const order = await Order.create({
+    product: 'Laptop',
+    amount: 1000,
+    user: user._id  // Storing the reference to the user
+  });
+
+  console.log('Order created:', order);
+}
+
+
+
+// find the data 
+async function getOrder() {
+  const order = await Order.findOne({ product: 'Laptop' }).populate('user');
+  console.log('Order with user:', order);
+}
+
+
+
+
+// relation 
+one to one 
+one to many 
+many to one 
+many to many 
+
+
+
+
+// ACID (Atomicity, Consistency, Isolation, Durability)
+// CAP
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// geospatial data 
+// index
+
+
+
+
+
+// index
+
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+// Define User Schema
+const userSchema = new Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true // This automatically creates a unique index on the email field
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+// Create an index on the name field for faster search
+userSchema.index({ name: 1 });
+
+// Create a compound index on name and email
+userSchema.index({ name: 1, email: 1 });
+
+// Create TTL index on createdAt (documents expire after 3600 seconds)
+userSchema.index({ createdAt: 1 }, { expireAfterSeconds: 3600 });
+
+// Create the User model
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// numbers  , very imporant 
+int32 , 64  
