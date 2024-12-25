@@ -1,0 +1,8 @@
+
+// Old way 
+const userName = user && user.info && user.info.name || ‘Anonymous’;
+
+//Modern way using Optional Chaining and Nullish Coalescing 
+const userName = user?.info?.name ?? 'Anonymous';
+
+

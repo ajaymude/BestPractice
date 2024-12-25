@@ -3,6 +3,8 @@
 // sharding 
 // replication 
 // geospatial 
+// start of mongodb
+// notes 100 level on nesting , max size 16 mb document 
 
 
 concise list of MongoDB data types in a single screen:

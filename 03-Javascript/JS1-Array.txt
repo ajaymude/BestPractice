@@ -979,3 +979,206 @@ The maximum number is: 40
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 13. **`filter()`**
+   - Creates a new array with elements that pass a test (callback function).
+   
+   - The filter() method in JavaScript is used to create a new array with all elements
+   - that pass a test implemented by the provided function. Here are some examples to demonstrate how the filter() method works:
+  
+  
+  
+// 1
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const evenNumbers = numbers.filter(number => number % 2 === 0);
+console.log(evenNumbers); // Output: [2, 4, 6, 8, 10]
+
+
+
+
+// 2
+const users = [
+  { name: "Alice", age: 25 },
+  { name: "Bob", age: 17 },
+  { name: "Charlie", age: 30 },
+  { name: "David", age: 15 }
+];
+const adults = users.filter(user => user.age >= 18);
+console.log(adults);
+// Output: [{ name: "Alice", age: 25 }, { name: "Charlie", age: 30 }]
+
+
+
+
+// 3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 16. **`some()`**
+   - Checks if at least one element in the array passes the test.
+   - Returns `true` or `false`.
+   
+   - The some() method in JavaScript is used to check if at least one element in an array satisfies
+   - a given condition. It returns true if any of the elements pass the test 
+   - (provided by a function), and false otherwise.
+   
+ 
+ //1  
+const numbers = [1, 5, 8, 12, 3];
+
+const result = numbers.some(num => num > 10);
+console.log(result); // true (because 12 is greater than 10)
+
+
+
+
+// 2
+const numbers = [1, 5, 8, 12];
+
+const result = numbers.some((num, index, array) => {
+  console.log(`Checking element at index ${index}: ${num}`);
+  return num > 10;
+});
+
+console.log(result); // true
+
+output 
+Checking element at index 0: 1
+Checking element at index 1: 5
+Checking element at index 2: 8
+Checking element at index 3: 12
+true
+
+
+
+
+
+// 3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 18. **`find()`**
+   - Returns the first element that passes the test in the callback function.
+   
+   - The find() method in JavaScript is used to search for the first element
+   - in an array that satisfies a provided testing function. It returns the value
+   - of the first element that passes the test, and undefined if no element satisfies the condition.
+   
+   
+// 1
+const users = [
+  { id: 1, name: 'Alice', age: 25 },
+  { id: 2, name: 'Bob', age: 30 },
+  { id: 3, name: 'Charlie', age: 35 }
+];
+
+const user = users.find(user => user.id === 2);
+console.log(user); 
+// Output: { id: 2, name: 'Bob', age: 30 }
+
+
+
+
+// 2
+const numbers = [1, 3, 7, 10, 5];
+
+const firstGreaterThanFive = numbers.find(num => num > 5);
+console.log(firstGreaterThanFive); 
+// Output: 7 (because it’s the first number greater than 5)
+
+
+
+
+
+// 3
+const words = ['apple', 'banana', 'cherry', 'date'];
+
+const wordWithB = words.find(word => word.startsWith('b'));
+console.log(wordWithB); 
+// Output: 'banana' (the first word starting with 'b')
+
+
+
+
+
+// 4
+
+
+
+
+
+
+
+
+
+
+
+
+

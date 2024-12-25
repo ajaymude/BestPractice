@@ -110,8 +110,46 @@ b-insertMany()
 
 
 
+// Insert multiple documents and continue the operation even if one document fails (ordered: false)
+db.collname.insertMany([
+    { field1: "value1", field2: "value2" },
+    { field1: "value3", field2: "value4" }
+], { ordered: false });
+
+// Insert a single document with write concern (waiting for majority acknowledgment from replica set members)
+db.collname.insertOne(
+    { field1: "value1", field2: "value2" },
+    { writeConcern: { w: "majority" } }
+);
+
+// Insert a single document and bypass document validation rules if validation is enabled
+db.collname.insertOne(
+    { field1: "value1", field2: "value2" },
+    { bypassDocumentValidation: true }
+);
 
 
+// Insert a document with a custom timestamp (e.g., using a Date object)
+db.collname.insertOne({ name: "ajay", createdAt: new Date() });
+
+
+// Insert a document with a custom `_id` (you can specify the _id manually)
+db.collname.insertOne({ _id: 1001, name: "ajay" });
+
+
+// Insert multiple documents with a custom `_id`
+db.collname.insertMany([
+    { _id: 1001, name: "ajay" },
+    { _id: 1002, name: "raj" }
+]);
+
+
+// Insert a document with embedded arrays or objects
+db.collname.insertOne({
+    name: "ajay",
+    hobbies: ["reading", "coding"],
+    address: { city: "Delhi", country: "India" }
+});
 
 
 
@@ -166,129 +204,62 @@ $regex: Performs regular expression search on string fields.
 
 
 
-    db.users.find({ age: { $gte: 18 } })
+db.users.find({ age: { $gte: 18 } })
+
+db.users.find({ age:  18 , status: "active" })
 
 Example with Projection:
-db.users.find({ age: { $gte: 18 } }, { name: 1, age: 1 })
-
-
-db.users.findOne({ email: "johndoe@example.com" })
-
-
-find() with Sorting (sort())
-db.collection.find().sort({ field: 1 or -1 })
-
-
-db.users.find().sort({ age: 1 })
-
-db.users.find().sort({ age: 1 }).count()
-
-
-find() with Limiting (limit())
-db.users.find().limit(5)
-
-
-
-The skip() method is used to skip a specified number of documents in the result set.
-db.users.find().skip(5)
-
-
-
-find() with AND and OR Conditions
-db.users.find({ age: { $gte: 18 }, status: "active" })
-
-
-Example with $or:
-
-db.users.find({
-  $or: [
-    { age: { $lt: 18 } },
-    { status: "inactive" }
-  ]
-})
-
-
-
-
-You can use range queries with operators like $gt, $lt, $gte, $lte, and $ne.
-db.orders.find({ totalAmount: { $gte: 100 } })
-
-db.orders.find({ orderDate: { $lt: new Date("2024-01-01") } })
-
-
-find() with Array Queries
-You can also query arrays within documents. MongoDB provides operators like $in, $all, $size, and $elemMatch to query arrays.
-
-Example with $in:
-
-db.users.find({ status: { $in: ["active", "pending"] } })
-
-
-
-Example with $elemMatch:
-db.orders.find({
-  items: { $elemMatch: { productId: "1234", quantity: { $gte: 2 } } }
-})
-
-
-Example with $regex:
-db.users.find({ name: { $regex: /^John/ } })
-
-
-
-
-Example with Case-Insensitive Regex:
-
-db.users.find({ name: { $regex: /^john/i } })
-
-
-
-find() with Projection
-Projection allows you to specify which fields to include or exclude in the result set.
-
-db.users.find({}, { name: 1, email: 1 })
+db.users.find({ age:  18  }, { name: 1, age: 1 })
 
 db.users.find({}, { password: 0 })
 
+db.users.findOne({ email: "johndoe@example.com" })
+
+db.collection.find({status.desc:"on time"}) 
+
+db.collection.find().sort({ field: 1 or -1 })
+
+db.users.find().sort({ age: 1 }).count()
+
+db.users.find().limit(5)
+
+db.users.find().skip(5)
+
+db.users.find({
+  "user.name": "John"
+})
 
 
-// operator 
+
+
+
+logical Operator 
 
 db.users.find({
   $and: [
-    { age: { $gte: 18 } },
+    { age: { $gt: 25 } },
     { status: "active" }
   ]
 })
 
 
 db.users.find({
-  age: { $gte: 18 },
-  status: "active"
-})
-
-
-
-db.users.find({
   $or: [
     { age: { $lt: 18 } },
     { status: "inactive" }
   ]
 })
 
-
-
 db.users.find({
   $nor: [
-    { status: "active" },
-    { age: { $gte: 18 } }
+    { age: { $gt: 25 } },
+    { status: "active" }
   ]
 })
 
 
-
 db.users.find({
-  age: { $not: { $gte: 18 } }
+  age: { $not: { $gt: 25 } }
 })
 
 
@@ -297,24 +268,108 @@ db.users.find({
 })
 
 
-
 db.users.find({
-  email: { $exists: false }
+  phone: { $exists: false }
 })
 
+
+db.products.find({
+  price: { $type: "double" }
+})
+
+
+
+
+
+
+
+comparison operator
+
+db.users.find({
+  status: { $eq: "active" }
+})
+
+
+db.users.find({
+  status: { $ne: "inactive" }
+})
+
+
+db.users.find({
+  age: { $gt: 25 }
+})
+
+
+db.users.find({
+  age: { $gte: 18 }
+})
+
+
+db.users.find({
+  age: { $lt: 30 }
+})
+
+
+db.users.find({
+  age: { $lte: 60 }
+})
 
 
 db.users.find({
   status: { $in: ["active", "pending"] }
 })
 
+db.users.find({
+  status: { $nin: ["active", "inactive"] }
+})
+
+db.users.find({
+  name: { $regex: /John/ }
+})
+
+
+db.users.find({
+  name: { $regex: /^John/ }
+})
+
+
+db.posts.find({
+  tags: { $all: ["mongodb", "database"] }
+})
+
+
+db.posts.find({
+  comments: { $elemMatch: { author: "John", message: /great/ } }
+})
+
+
+db.posts.find({
+  tags: { $size: 3 }
+})
+
+
+db.users.find({
+  score: { $mod: [5, 0] }
+})
+
+
+
+
+
+
+
+
+
+// array operator
+
+db.users.find({
+  status: { $in: ["active", "pending"] }
+})
 
 
 db.users.find({
   status: { $nin: ["inactive", "banned"] }
 })
-
-
 
 
 db.orders.find({
@@ -697,6 +752,37 @@ db.collection.update(
 
 
 
+// push object in array 
+
+db.users.updateOne(
+  { "_id": 1 },
+  {
+    $push: {
+      "user.address": {
+        "street": "789 Pine St",
+        "city": "New York",
+        "zip": "10001"
+      }
+    }
+  }
+)
+
+
+
+db.users.findOneAndUpdate(
+  { 
+    "_id": 1, 
+    "user.address.street": "456 Oak St"  // Condition to find the nested address
+  },
+  { 
+    $set: { 
+      "user.address.$.city": "Los Angeles"  // Update the city of the matching address
+    }
+  },
+  { 
+    returnDocument: "after"  // Option to return the updated document, use 'before' for the original one
+  }
+)
 
 
 
