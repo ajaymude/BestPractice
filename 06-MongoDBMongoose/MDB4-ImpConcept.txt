@@ -180,3 +180,25 @@ module.exports = User;
 
 // numbers  , very imporant 
 int32 , 64  
+
+
+
+
+
+
+
+
+
+
+// cap collection 
+
+
+
+
+// replica 
+
+
+// sharding 
+
+
+// stitch 
