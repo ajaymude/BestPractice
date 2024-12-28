@@ -24,4 +24,44 @@
 - 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// important notes for the react app 
+
+// use color variable for the global 
+// use layout component for it 
+// use redux for it  rtk query
+// learn react router dom 
+// use tailwind css for it , for the css 
+
+
+
     

@@ -63,3 +63,155 @@ createRoot(document.getElementById("root")).render(
 
 
 
+
+
+
+
+
+// 2 how to send data with the props 
+
+// ParentComponent.js
+import React from 'react';
+import ChildComponent from './ChildComponent';
+
+function ParentComponent() {
+  return (
+    <div>
+      <ChildComponent name="John" age={30} />
+    </div>
+  );
+}
+
+export default ParentComponent;
+
+// ChildComponent.js
+import React from 'react';
+
+function ChildComponent(props) {
+  return (
+    <div>
+      <h1>Name: {props.name}</h1>
+      <p>Age: {props.age}</p>
+    </div>
+  );
+}
+
+export default ChildComponent;
+
+
+
+2. Destructuring Props
+
+// ChildComponent.js
+import React from 'react';
+
+function ChildComponent({ name, age }) {
+  return (
+    <div>
+      <h1>Name: {name}</h1>
+      <p>Age: {age}</p>
+    </div>
+  );
+}
+
+export default ChildComponent;
+
+
+3. Passing Functions as Props
+
+// ParentComponent.js
+import React from 'react';
+import ChildComponent from './ChildComponent';
+
+function ParentComponent() {
+  const handleClick = () => {
+    alert("Button clicked!");
+  };
+
+  return (
+    <div>
+      <ChildComponent onClick={handleClick} />
+    </div>
+  );
+}
+
+export default ParentComponent;
+
+// ChildComponent.js
+import React from 'react';
+
+function ChildComponent({ onClick }) {
+  return <button onClick={onClick}>Click Me</button>;
+}
+
+export default ChildComponent;
+
+
+
+4. Default Props
+Props can have default values using defaultProps in case 
+the parent component doesn't pass any value for that prop:
+
+// ChildComponent.js
+import React from 'react';
+
+function ChildComponent({ name, age }) {
+  return (
+    <div>
+      <h1>Name: {name}</h1>
+      <p>Age: {age}</p>
+    </div>
+  );
+}
+
+ChildComponent.defaultProps = {
+  name: 'Anonymous',
+  age: 25,
+};
+
+export default ChildComponent;
+
+
+
+
+
+
+
+
+
+
+
+
+5. Prop Validation with PropTypes
+React provides a way to validate the types of props 
+passed to a component. You can use prop-types for this:
+
+
+// ChildComponent.js
+import React from 'react';
+import PropTypes from 'prop-types';
+
+function ChildComponent({ name, age }) {
+  return (
+    <div>
+      <h1>Name: {name}</h1>
+      <p>Age: {age}</p>
+    </div>
+  );
+}
+
+ChildComponent.propTypes = {
+  name: PropTypes.string.isRequired,
+  age: PropTypes.number.isRequired,
+};
+
+export default ChildComponent;
+
+
+
+
+
+
+
+
+
