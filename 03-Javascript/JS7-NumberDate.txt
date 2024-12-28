@@ -76,20 +76,28 @@ console.log(Math.tan(angle));  // Output: 1
 console.log(Number.isInteger(4));    // Output: true
 console.log(Number.isInteger(4.5));  // Output: false
 
-// 22. Checks whether the value is finite
-console.log(Number.isFinite(123));     // Output: true
-console.log(Number.isFinite(Infinity));  // Output: false
-
-// 23. Checks whether the value is NaN
-console.log(Number.isNaN(NaN));  // Output: true
-console.log(Number.isNaN(123));  // Output: false
-
 // 24. Checks whether the value is a safe integer
 console.log(Number.isSafeInteger(9007199254740991));  // Output: true
 console.log(Number.isSafeInteger(9007199254740992));  // Output: false
 
 
+let number = 1234567.89;
 
+// Using toLocaleString() to format the number with default locale
+console.log(number.toLocaleString());  
+// Output (in US locale): "1,234,567.89"
+
+// You can also specify a specific locale
+console.log(number.toLocaleString('de-DE'));  
+// Output (in German locale): "1.234.567,89"
+
+// Format it as currency (USD)
+console.log(number.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+// Output (in US locale): "$1,234,567.89"
+
+// Format it as currency (Euro)
+console.log(number.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' }));
+// Output (in German locale): "1.234.567,89 €"
 
 
 

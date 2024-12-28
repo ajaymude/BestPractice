@@ -5,7 +5,15 @@
 //     which method creating new array 
 //     consider performance , some method takes time 
 
+// shallow copy and deep copy 
 
+// const arr = [2,3,4,56,5]
+access array 
+arr[0]
+
+
+// how to create the array 
+const arr2 = new Array(1,3,4,5)
 
 
 

@@ -1,5 +1,7 @@
 // 1 - Adding js in html page
 
+// stack memory - primitive data type 
+// heap memory - non primitive dat type 
 
 
 // a - internal html
@@ -114,6 +116,29 @@ console.log('user:', user);     // { name: "Bob", age: 25 }
 console.log('numbers:', numbers); // [1, 2, 3]
 
 
+
+
+
+
+Implicit Type Coercion
+This is when JavaScript automatically converts values to a different type during operations.
+
+const result = '5' + 3;
+console.log(result);  // Output: '53' (string)
+
+
+const isActive = 'false';  // Non-empty string, treated as truthy
+if (isActive) {
+    console.log('The value is truthy!');
+} else {
+    console.log('The value is falsy!');
+}
+// Output: The value is truthy!
+
+
+
+console.log(1 + '1');   // Output: '11' (string)
+console.log(true + '1'); // Output: 'true1' (string)
 
 
 
@@ -573,11 +598,11 @@ greet();  // Output: Hello, world!
 
 
 
-function add(a, b) {
+function add(a, b) {   // parameters
   return a + b;
 }
 
-let result = add(5, 3);
+let result = add(5, 3); // arguments
 console.log(result);  // Output: 8
 
 
