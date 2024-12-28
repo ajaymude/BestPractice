@@ -1,0 +1,76 @@
+//  error handling in expressjs  
+// use this code in index.js 
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Something went wrong!' });
+});
+
+
+
+
+// Use helmet to configure security headers:
+
+const helmet = require('helmet');
+app.use(helmet());
+
+
+
+
+
+// Use environment variables and configuration management tools like dotenv:
+
+require('dotenv').config();
+const dbUrl = process.env.DATABASE_URL;
+
+
+
+
+//  Poor Error Logging
+// Many developers rely solely on console.log() for debugging, 
+// making it hard to diagnose issues in production.
+
+const winston = require('winston');
+const logger = winston.createLogger({ level: 'info', transports: [new winston.transports.Console()] });
+
+app.use((req, res, next) => {
+  logger.info(`${req.method} ${req.url}`);
+  next();
+});
+
+
+
+
+
+// Always use async/await with proper error handling:
+
+app.get('/data', async (req, res, next) => {
+  try {
+    const data = await fetchData();
+    res.json(data);
+  } catch (error) {
+    next(error);
+  }
+});
+
+
+
+
+
+// Use tools like Mocha or Jest for testing:
+
+const request = require('supertest');
+const app = require('../app');
+
+describe('GET /users', () => {
+  it('should return a list of users', async () => {
+    const response = await request(app).get('/users');
+    expect(response.status).toBe(200);
+  });
+});
+
+
+
+
+
+// 

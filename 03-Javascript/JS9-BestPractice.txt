@@ -6,3 +6,14 @@ const userName = user && user.info && user.info.name || ‘Anonymous’;
 const userName = user?.info?.name ?? 'Anonymous';
 
 
+
+
+//  Banishing Falsy Values
+Filtering out those pesky falsy values (0, undefined, null, false, "", '') is a breeze:
+const array = [3, 0, 6, 7, '', false];
+array.filter(Boolean); 
+// Output: [3, 6, 7] -  Clean and concise!
+
+
+
+// 

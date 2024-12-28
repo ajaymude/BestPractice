@@ -1,0 +1,131 @@
+readable and scalable code should have 
+
+// big o notation
+
+// worst case 
+
+
+What is Big O Notation?
+Big O notation is a way of expressing the time complexity or space complexity
+ of an algorithm in terms of how it grows relative to the input size. It gives 
+ us an upper bound (worst-case scenario) of an algorithm's performance, allowing 
+ us to compare algorithms and understand their efficiency.
+
+Time Complexity: How the execution time of an algorithm increases as the input size grows.
+Space Complexity: How the memory usage of an algorithm increases as the input size grows.
+
+
+1 - O(1) - Constant Time
+2 - O(log n) - Logarithmic Time
+3 - O(n) - Linear Time
+3 - O(n log n) - Linearithmic Time
+3 - O(n²) - Quadratic Time
+3 - O(n²) - O(2^n) - Exponential Time
+3 - O(2^n) - Exponential Time
+3 - O(2^n) - Exponential Time
+
+
+
+
+In JavaScript, you can measure the performance of your code using the performance.now() 
+function. This function provides a high-resolution timestamp, which allows you to 
+measure the time taken by a block of code to execute, typically in milliseconds.
+
+// Function to test performance
+function sumOfNumbers(n) {
+    let sum = 0;
+    for (let i = 1; i <= n; i++) {
+        sum += i;
+    }
+    return sum;
+}
+
+// Measure the time taken to execute the function
+const start = performance.now(); // Record start time
+const result = sumOfNumbers(1000000); // Execute function
+const end = performance.now(); // Record end time
+
+// Calculate and log the time taken
+const timeTaken = end - start;
+console.log(`Time taken: ${timeTaken.toFixed(4)} milliseconds`); // Display the time in milliseconds
+
+
+
+
+
+
+
+
+
+
+// O(n) O(n) - Linear Time
+
+ Let's dive deeper into O(n) - Linear Time Complexity and go through 
+ some important examples where an algorithm or function exhibits O(n) behavior. 
+ This means that the time it takes to run grows linearly with the size of the input, 
+ which implies that if the input size doubles, the execution time also doubles.
+
+
+ function findMax(arr) {
+    let max = arr[0]; // Start with the first element
+    for (let i = 1; i < arr.length; i++) { // Loop through the array once
+        if (arr[i] > max) {
+            max = arr[i];
+        }
+    }
+    return max;
+}
+
+const arr = [1, 5, 3, 9, 2];
+console.log(findMax(arr));  // Output: 9
+
+
+
+
+function sumArray(arr) {
+    let sum = 0;
+    for (let i = 0; i < arr.length; i++) { // Loop through the array once
+        sum += arr[i]; // Add each element to the sum
+    }
+    return sum;
+}
+
+const arr = [1, 2, 3, 4, 5];
+console.log(sumArray(arr));  // Output: 15
+
+
+
+
+
+
+
+
+
+
+
+// O(1) - Constant Time Complexity
+ 
+O(1) represents constant time complexity, meaning the time taken 
+by the algorithm to execute is independent of the size of the input data. 
+In other words, the execution time remains constant regardless of how large or small the input is.
+
+function getElement(arr, index) {
+    return arr[index];  // Accessing an element by index is O(1)
+}
+
+const arr = [10, 20, 30, 40, 50];
+console.log(getElement(arr, 2));  // Output: 30
+
+
+
+
+
+function getFirstElement(arr) {
+    return arr[0];  // Accessing the first element is O(1)
+}
+
+const arr = [1, 2, 3, 4, 5];
+console.log(getFirstElement(arr));  // Output: 1
+
+
+
