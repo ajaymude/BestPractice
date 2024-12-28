@@ -1,4 +1,10 @@
 // 1 useState 
+// 2 useEffect
+
+
+
+
+// 1 useState
 
 import React, { useState } from 'react';
 

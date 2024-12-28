@@ -1,5 +1,18 @@
 // Operator
 
+// abstraction 
+// encapsulation 
+// inheritance
+// Polymorphism
+
+
+// constructor 
+// prototypes 
+// classes
+// instance
+
+
+
 class    -------> object 
 inheritance  a to b
 
