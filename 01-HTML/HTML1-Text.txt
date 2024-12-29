@@ -127,6 +127,14 @@ Link to a Specific Section on the Same Page (Anchor Link)
 
 
 
+// <hr> Tag (Horizontal Rule)  <hr> and <br>
+
+<h2>Styled <code>&lt;hr&gt; Tag</code></h2>
+
+
+
+
+
 
 
 
