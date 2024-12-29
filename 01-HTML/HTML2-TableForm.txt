@@ -1,0 +1,344 @@
+// table
+
+<table border="1">
+  <caption>List of Students</caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Grade</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>John Doe</td>
+      <td>15</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <td>Jane Smith</td>
+      <td>16</td>
+      <td>B</td>
+    </tr>
+    <tr>
+      <td>Emily Johnson</td>
+      <td>15</td>
+      <td>A</td>
+    </tr>
+    <tfoot>
+      <tr>
+        <td colspan="3">Total: 100</td>
+      </tr>
+    </tfoot>
+  </tbody>
+</table>;
+
+
+
+// colspan , rowspan
+
+<table border="1">
+<tr>
+    <th>Header 1</th>
+    <th>Header 2</th>
+    <th>Header 3</th>
+</tr>
+<tr>
+    <td rowspan="2" colspan="2">This cell spans 2 rows and 2 columns</td>
+    <td>Row 1, Cell 3</td>
+</tr>
+<tr>
+    <td>Row 2, Cell 3</td>
+</tr>
+<tr>
+    <td>Row 3, Cell 1</td>
+    <td>Row 3, Cell 2</td>
+    <td>Row 3, Cell 3</td>
+</tr>
+</table>
+
+
+
+
+
+
+
+
+
+
+// Form 
+
+<form action="/submit" method="POST">
+
+<!-- Name Field -->
+<label for="name">Name:</label>
+<input type="text" id="name" name="name" required><br><br>
+
+<!-- Email Field -->
+<label for="email">Email:</label>
+<input type="email" id="email" name="email" required><br><br>
+
+<!-- Gender Radio Buttons -->
+<label>Gender:</label><br>
+<input type="radio" id="male" name="gender" value="male">
+<label for="male">Male</label><br>
+<input type="radio" id="female" name="gender" value="female">
+<label for="female">Female</label><br><br>
+
+<!-- Hobbies Checkboxes -->
+<label>Hobbies:</label><br>
+<input type="checkbox" id="reading" name="hobbies" value="reading">
+<label for="reading">Reading</label><br>
+<input type="checkbox" id="traveling" name="hobbies" value="traveling">
+<label for="traveling">Traveling</label><br>
+<input type="checkbox" id="sports" name="hobbies" value="sports">
+<label for="sports">Sports</label><br><br>
+
+<!-- Country Dropdown -->
+<label for="country">Country:</label>
+<select id="country" name="country">
+    <option value="usa">USA</option>
+    <option value="canada">Canada</option>
+    <option value="uk">UK</option>
+    <option value="australia">Australia</option>
+</select><br><br>
+
+<!-- Message Field -->
+<label for="message">Message:</label><br>
+<textarea id="message" name="message" rows="4" cols="50"></textarea><br><br>
+
+<!-- Submit Button -->
+<button type="submit">Submit</button>
+</form>
+
+
+
+
+
+// input  type
+
+<form action="/submit" method="POST">
+<!-- Text Input -->
+<label for="name">Name:</label>
+<input type="text" id="name" name="name"><br><br>
+
+<!-- Password Input -->
+<label for="password">Password:</label>
+<input type="password" id="password" name="password"><br><br>
+
+<!-- Email Input -->
+<label for="email">Email:</label>
+<input type="email" id="email" name="email"><br><br>
+
+<!-- Number Input -->
+<label for="age">Age:</label>
+<input type="number" id="age" name="age" min="18" max="100"><br><br>
+
+<!-- Tel Input -->
+<label for="phone">Phone:</label>
+<input type="tel" id="phone" name="phone"><br><br>
+
+<!-- URL Input -->
+<label for="website">Website:</label>
+<input type="url" id="website" name="website"><br><br>
+
+<!-- Search Input -->
+<label for="search">Search:</label>
+<input type="search" id="search" name="search"><br><br>
+
+<!-- Date Input -->
+<label for="birthdate">Birthdate:</label>
+<input type="date" id="birthdate" name="birthdate"><br><br>
+
+<!-- Month Input -->
+<label for="month">Month:</label>
+<input type="month" id="month" name="month"><br><br>
+
+<!-- Week Input -->
+<label for="week">Week:</label>
+<input type="week" id="week" name="week"><br><br>
+
+<!-- Time Input -->
+<label for="time">Time:</label>
+<input type="time" id="time" name="time"><br><br>
+
+<!-- Datetime-local Input -->
+<label for="datetime">Date and Time:</label>
+<input type="datetime-local" id="datetime" name="datetime"><br><br>
+
+<!-- Color Input -->
+<label for="color">Favorite Color:</label>
+<input type="color" id="color" name="color"><br><br>
+
+<!-- Range Input -->
+<label for="volume">Volume:</label>
+<input type="range" id="volume" name="volume" min="0" max="100" step="1"><br><br>
+
+<!-- File Input -->
+<label for="file">Upload File:</label>
+<input type="file" id="file" name="file"><br><br>
+
+<!-- Checkbox Input -->
+<label for="subscribe">Subscribe to Newsletter:</label>
+<input type="checkbox" id="subscribe" name="subscribe"><br><br>
+
+<!-- Radio Button Input -->
+<label>Gender:</label><br>
+<input type="radio" id="male" name="gender" value="male">
+<label for="male">Male</label><br>
+<input type="radio" id="female" name="gender" value="female">
+<label for="female">Female</label><br><br>
+
+<!-- Submit Button -->
+<input type="submit" value="Submit">
+</form>
+
+
+
+// input attributes 
+
+<h1>Form with All Input Attributes</h1>
+
+<form action="/submit" method="POST">
+    
+    <!-- Text Input -->
+    <label for="textInput">Text Input (type="text"):</label>
+    <input type="text" id="textInput" name="textInput" value="Default Text" placeholder="Enter text" required maxlength="20" minlength="5" autocomplete="on" autofocus>
+    <br><br>
+
+    <!-- Disabled Radio Button -->
+    <label for="disabledRadio">Disabled Radio Button:</label>
+    <input type="radio" id="disabledRadio" name="disabledRadio" value="disabled" disabled>
+    <br><br>
+
+    <!-- Password Input -->
+    <label for="passwordInput">Password Input (type="password"):</label>
+    <input type="password" id="passwordInput" name="passwordInput" placeholder="Enter password" required>
+    <br><br>
+
+    <!-- Email Input -->
+    <label for="emailInput">Email Input (type="email"):</label>
+    <input type="email" id="emailInput" name="emailInput" placeholder="Enter email" required autocomplete="on">
+    <br><br>
+
+    <!-- Number Input -->
+    <label for="numberInput">Number Input (type="number"):</label>
+    <input type="number" id="numberInput" name="numberInput" min="1" max="100" step="1" required>
+    <br><br>
+
+    <!-- Tel Input -->
+    <label for="telInput">Tel Input (type="tel"):</label>
+    <input type="tel" id="telInput" name="telInput" placeholder="Enter phone number">
+    <br><br>
+
+    <!-- URL Input -->
+    <label for="urlInput">URL Input (type="url"):</label>
+    <input type="url" id="urlInput" name="urlInput" placeholder="Enter website URL">
+    <br><br>
+
+    <!-- Search Input -->
+    <label for="searchInput">Search Input (type="search"):</label>
+    <input type="search" id="searchInput" name="searchInput" placeholder="Search here">
+    <br><br>
+
+    <!-- Date Input -->
+    <label for="dateInput">Date Input (type="date"):</label>
+    <input type="date" id="dateInput" name="dateInput">
+    <br><br>
+
+    <!-- Color Input -->
+    <label for="colorInput">Color Input (type="color"):</label>
+    <input type="color" id="colorInput" name="colorInput">
+    <br><br>
+
+    <!-- File Input -->
+    <label for="fileInput">File Input (type="file"):</label>
+    <input type="file" id="fileInput" name="fileInput" accept=".jpg,.png" multiple>
+    <br><br>
+
+    <!-- Checkbox Input -->
+    <label for="checkboxInput">Checkbox Input (type="checkbox"):</label>
+    <input type="checkbox" id="checkboxInput" name="checkboxInput" value="Subscribe" checked>
+    <br><br>
+
+    <!-- Radio Button Input -->
+    <label>Radio Button Input (type="radio"):</label><br>
+    <input type="radio" id="radioMale" name="gender" value="male">
+    <label for="radioMale">Male</label>
+    <input type="radio" id="radioFemale" name="gender" value="female">
+    <label for="radioFemale">Female</label>
+    <br><br>
+
+    <!-- Range Input -->
+    <label for="rangeInput">Range Input (type="range"):</label>
+    <input type="range" id="rangeInput" value='5' name="rangeInput" min="0" max="100" step="10">
+    <br><br>
+
+    <!-- DateTime Local Input -->
+    <label for="datetimeLocalInput">DateTime Local Input (type="datetime-local"):</label>
+    <input type="datetime-local" id="datetimeLocalInput" name="datetimeLocalInput">
+    <br><br>
+
+    <!-- Submit Button with Additional Attributes -->
+    <input type="submit" value="Submit" formaction="/submit" formmethod="POST" formnovalidate formtarget="_blank">
+</form>
+
+
+
+
+
+
+// Field and legend
+
+
+<h1>Form with Fieldset and Legend</h1>
+
+<form action="/submit" method="POST">
+
+    <!-- Personal Information Fieldset -->
+    <fieldset>
+        <legend>Personal Information</legend>
+
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required><br><br>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+    </fieldset>
+
+    <!-- Address Information Fieldset -->
+    <fieldset>
+        <legend>Address Information</legend>
+
+        <label for="address">Street Address:</label>
+        <input type="text" id="address" name="address" required><br><br>
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" required><br><br>
+
+        <label for="state">State:</label>
+        <input type="text" id="state" name="state" required><br><br>
+
+        <label for="zip">Zip Code:</label>
+        <input type="text" id="zip" name="zip" required><br><br>
+
+    </fieldset>
+
+    <!-- Submit Button -->
+    <input type="submit" value="Submit">
+
+</form>
+
+
+
+
+
+
+
+
+
+

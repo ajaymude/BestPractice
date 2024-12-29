@@ -1,0 +1,155 @@
+// Text tags in html 
+
+//paragraph tag
+
+<p>This is a basic HTML boilerplate structure.</p>
+
+
+
+
+
+// Heading Example
+<h1>This is the Main Heading (h1)</h1>  // it should be the single      
+<h2>This is a Subheading (h2)</h2>
+<h3>This is a Sub-subheading (h3)</h3>
+<h4>This is a Smaller Heading (h4)</h4>
+<h5>This is an Even Smaller Heading (h5)</h5>
+<h6>This is the Smallest Heading (h6)</h6>
+
+
+
+
+
+// HTML comments
+
+<!-- This is a single-line comment -->
+<p>This paragraph will be visible on the webpage.</p>
+
+<!--
+This is a multi-line comment.
+Comments can span across multiple lines.
+They are useful for explaining sections of code or temporarily removing code.
+-->
+
+
+
+
+
+// <strong> element   , <b> tag   ,  <em> tag  , <i> tag
+
+<p>In a sentence: <strong>Pay attention to this warning!</strong></p>
+
+<p>The <b>bold</b> tag is used to make text appear in bold.</p>
+
+<p>In a sentence: <em>Don't forget</em> to complete your assignment!</p>
+
+<p>In a sentence: The term <i>HTML</i> stands for HyperText Markup Language.</p>
+
+
+
+
+
+// <sup> and <sub> tags 
+
+<p>The number <sup>2</sup> is the exponent in <b>3<sup>2</sup></b>.</p>
+
+<p>Water's chemical formula is H<sub>2</sub>O.</p>
+
+
+
+
+
+// <ul> tag , Ordered List (<ol>)
+
+
+<ul>
+<li>Apple</li>
+<li>Banana</li>
+<li>Cherry</li>
+<li>Orange</li>
+</ul>
+
+
+<ol>
+<li>First place</li>
+<li>Second place</li>
+<li>Third place</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Links 
+
+<a href="URL">Link Text</a>
+<a href="https://www.example.com" target="_blank">Open in New Tab</a>
+<a href="https://www.example.com" title="Visit Example Website">Visit Example Website</a>
+
+<a href="mailto:email@example.com">Send Email</a>
+<a href="mailto:support@example.com?cc=manager@example.com&bcc=admin@example.com">Email Support</a>
+<p>If you want to reach out, you can <a href="mailto:support@example.com?subject=Inquiry&body=Hello, I have a question regarding...">send us an email</a> directly.</p>
+
+
+<a href="tel:+1234567890">Call Us</a>
+
+
+Link to a Specific Section on the Same Page (Anchor Link)
+
+<p><a href="#section1">Go to Section 1</a></p>
+<h2 id="section1">Section 1</h2>
+
+
+
+
+
+// image tag
+
+<img src="cat.jpg" alt="A cute cat" width="300" height="200">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

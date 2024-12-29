@@ -5,6 +5,21 @@
 
 - proper understand the all data of the coding requirement  , thing about the future requirement 
 
--   
+- most imporant npm package 
+  - bcryptjs
+  - expressjs
+  - express-validator 
+  - jsonwebtoken
+  - morgan 
+  - cors
+  - dotenv  
+  - cookie-parser
+  - helmet
+  - mongoose
+  - nodemailer
+  - nodemon
+  - otp-generator
+  - 
+  - 
 
     
