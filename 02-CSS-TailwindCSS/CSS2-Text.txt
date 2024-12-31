@@ -7,6 +7,21 @@ element {
 
 
 
+// current color 
+
+/* Set the text color to blue */
+p {
+  color: blue;
+  border: 2px solid currentColor; /* The border color will also be blue */
+  background-color: currentColor; /* The background will be blue as well */
+}
+
+
+
+
+
+
+
 // background color
 
 element {
@@ -452,6 +467,12 @@ text-decoration: none | underline | overline | line-through | blink;
 
 h2 {
   text-decoration: underline double green;
+  text-decoration-thickness: 4px; /* Set thickness of underline */
+  text-decoration-thickness: 4px;            /* Sets the thickness of the underline */
+  text-decoration-offset: 5px; /* Moves the underline 5px below the text */
+
+
+
 }
 
 
@@ -729,6 +750,14 @@ scrollbar-color: Allows you to define the color of the scrollbar thumb and track
       background-color: #f1f1f1;
     }
 
+
+
+
+
+
+
+
+
     /* Style the content area with overflow to show the scrollbar */
     .content {
       height: 300px;
@@ -751,6 +780,719 @@ scrollbar-color: Allows you to define the color of the scrollbar thumb and track
 </body>
 </html>
 
+
+
+// file selector button 
+
+input[type="file"]::file-selector-button {
+  background-color: #4CAF50;       /* Green background */
+  color: white;                    /* White text */
+  border: none;                    /* Remove default border */
+  padding: 10px 20px;               /* Add padding */
+  font-size: 16px;                  /* Set font size */
+  cursor: pointer;                 /* Change cursor to pointer */
+  border-radius: 5px;               /* Add rounded corners */
+}
+
+input[type="file"]::file-selector-button:hover {
+  background-color: #45a049;       /* Darker green on hover */
+}
+
+
+
+
+
+
+
+// is pseudo 
+
+/* The following applies to any element that is either a p, h1, or div */
+:is(p, h1, div) {
+  color: blue;
+}
+
+
+/* Selects <p>, <h1>, or <h2> elements inside .content that are not disabled */
+.content :is(p, h1, h2):not([disabled]) {
+  font-size: 16px;
+}
+
+
+
+
+
+
+
+// focus-within
+
+parent-element:focus-within {
+  /* styles */
+}
+
+
+.form-group:focus-within {
+  border: 2px solid #4CAF50; /* Green border when any child is focused */
+  background-color: #f0f8f0; /* Light background color when any child is focused */
+}
+
+input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+
+.form-group:focus-within {
+  background-color: #e0ffe0;  /* Light green background when any input is focused */
+  border: 2px solid #008000;  /* Green border */
+}
+
+label {
+  font-size: 16px;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.form-group:focus-within label {
+  color: #008000;  /* Change label color when input is focused */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// display table 
+
+element {
+  display: table;
+}
+
+
+<div class="table">
+  <div class="row">
+    <div class="cell">Row 1, Cell 1</div>
+    <div class="cell">Row 1, Cell 2</div>
+  </div>
+  <div class="row">
+    <div class="cell">Row 2, Cell 1</div>
+    <div class="cell">Row 2, Cell 2</div>
+  </div>
+</div>
+
+
+
+
+.table {
+  display: table; /* Behaves like a <table> element */
+  width: 100%;    /* Full width */
+  border-collapse: collapse; /* Optional, for controlling table borders */
+}
+
+.row {
+  display: table-row; /* Behaves like a <tr> element */
+}
+
+.cell {
+  display: table-cell; /* Behaves like a <td> element */
+  padding: 10px;
+  border: 1px solid black;
+}
+
+
+
+
+
+
+// accent color 
+
+accent-color: <color>;
+
+
+:root {
+  --accent-color: #FF6347; /* Tomato Red */
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--accent-color);
+}
+
+
+
+
+
+
+
+
+// prefers-color-scheme
+
+@media (prefers-color-scheme: light) {
+  /* Styles for light mode */
+}
+
+@media (prefers-color-scheme: dark) {
+  /* Styles for dark mode */
+}
+
+
+/* Default styles (for light mode) */
+body {
+  background-color: white;
+  color: black;
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212;
+    color: white;
+  }
+
+  a {
+    color: #BB86FC;
+  }
+}
+
+
+
+/* Light Mode */
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  button {
+    background-color: #007BFF;
+    color: white;
+  }
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #181818;
+    color: #e0e0e0;
+  }
+  button {
+    background-color: #6200EE;
+    color: white;
+  }
+}
+
+
+
+
+
+
+:root {
+  --background-color-light: #ffffff;
+  --background-color-dark: #121212;
+  --text-color-light: #000000;
+  --text-color-dark: #ffffff;
+}
+
+body {
+  background-color: var(--background-color-light);
+  color: var(--text-color-light);
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--background-color-dark);
+    color: var(--text-color-dark);
+  }
+}
+
+
+
+
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  console.log('User prefers dark mode');
+} else {
+  console.log('User prefers light mode');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// back drop filter 
+
+element {
+  backdrop-filter: none | <filter-function> [<filter-function>]*;
+}
+
+
+body {
+  background-image: url('background.jpg');
+  background-size: cover;
+  height: 100vh;
+  margin: 0;
+}
+
+.backdrop-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);  /* Semi-transparent black background */
+}
+
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  text-align: center;
+  color: white;
+  backdrop-filter: blur(10px);  /* Apply backdrop blur effect */
+  border-radius: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+// scroll behavior
+
+scroll-behavior: auto | smooth;
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+
+
+
+// scroll snap
+
+Key Properties for Scroll Snap
+There are several properties involved in scroll snapping:
+
+scroll-snap-type: Defines the scroll snapping behavior on the scroll container.
+scroll-snap-align: Specifies the alignment of the child element when it snaps.
+scroll-snap-stop: Determines whether the scroll should stop at a snap point or continue scrolling after passing it (optional).
+scroll-snap-margin: (Optional) Provides space around the snap area for better control.
+
+
+.container {
+  scroll-snap-type: mandatory | proximity;
+  scroll-snap-type: x mandatory;
+}
+
+
+
+.item {
+  scroll-snap-align: start | center | end;
+}
+
+
+.item {
+  scroll-snap-align: start | center | end;
+}
+
+
+
+<div class="scroll-container">
+  <div class="item">Item 1</div>
+  <div class="item">Item 2</div>
+  <div class="item">Item 3</div>
+  <div class="item">Item 4</div>
+</div>
+
+
+
+.scroll-container {
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory; /* Scroll horizontally with mandatory snap */
+}
+
+.item {
+  width: 100vw; /* Each item takes the full width of the viewport */
+  height: 100vh; /* Each item takes the full height of the viewport */
+  scroll-snap-align: center; /* Align each item to the center of the viewport */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: lightgray;
+  border: 1px solid #333;
+}
+
+
+
+
+
+
+
+
+
+
+// text orientation
+
+text-orientation: mixed | upright;
+
+
+div {
+  writing-mode: vertical-rl; /* Vertical writing mode (right to left) */
+  text-orientation: mixed;   /* Characters are rotated, but punctuation remains upright */
+}
+
+
+div {
+  writing-mode: vertical-rl;  /* Vertical writing mode (right to left) */
+  text-orientation: upright;  /* All characters remain upright */
+}
+
+
+
+
+
+
+
+
+
+// display mode 
+
+@media (display-mode: <mode>) {
+  /* Styles to apply when the app is in the specified display mode */
+}
+
+
+
+
+@media (display-mode: fullscreen) {
+  header, footer {
+    display: none; /* Hide header and footer in full-screen mode */
+  }
+}
+
+
+
+
+@media (display-mode: standalone) {
+  body {
+    background-color: #f4f4f4;
+    font-family: 'Arial', sans-serif;
+  }
+
+  .nav-bar {
+    display: none; /* Hide the nav bar in standalone mode */
+  }
+}
+
+
+
+@media (display-mode: minimal-ui) {
+  .header {
+    font-size: 14px;
+  }
+
+  .footer {
+    padding: 5px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// fullscreen 
+
+/* Default styles */
+div {
+  width: 50%;
+  height: 50%;
+  background-color: lightblue;
+  transition: all 0.3s ease;
+}
+
+/* Styles when the div is in full-screen mode */
+div:fullscreen {
+  width: 100%;
+  height: 100%;
+  background-color: #3498db;
+}
+
+
+
+
+
+
+video {
+  width: 100%;
+  height: auto;
+}
+
+/* Styles when the video is in full-screen mode */
+video:fullscreen {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  border: none;
+}
+
+
+
+const video = document.querySelector('video');
+
+video.addEventListener('click', () => {
+  if (video.requestFullscreen) {
+    video.requestFullscreen();  // Makes the video element go full-screen
+  } else if (video.mozRequestFullScreen) {  // For Firefox
+    video.mozRequestFullScreen();
+  } else if (video.webkitRequestFullscreen) {  // For Chrome, Safari
+    video.webkitRequestFullscreen();
+  } else if (video.msRequestFullscreen) {  // For IE/Edge
+    video.msRequestFullscreen();
+  }
+});
+
+// Detect when the video enters or exits full-screen mode
+document.addEventListener('fullscreenchange', () => {
+  if (document.fullscreenElement) {
+    console.log('The video is in full-screen mode.');
+  } else {
+    console.log('The video exited full-screen mode.');
+  }
+});
+
+
+
+
+
+
+
+
+
+
+// min max clamp 
+
+
+div {
+  width: min(50%, 400px);
+}
+
+
+
+div {
+  width: max(200px, 20%);
+}
+
+
+
+div {
+  font-size: clamp(14px, 4vw, 24px);
+}
+
+
+
+
+
+
+
+
+// orientation
+
+
+@media (orientation: portrait) {
+  /* Styles for portrait mode */
+}
+
+@media (orientation: landscape) {
+  /* Styles for landscape mode */
+}
+
+
+
+/* Default image size */
+img {
+  width: 100%;
+  height: auto;
+}
+
+/* Styles for landscape orientation */
+@media (orientation: landscape) {
+  img {
+    width: 80%;  /* In landscape, make the image smaller */
+  }
+}
+
+/* Styles for portrait orientation */
+@media (orientation: portrait) {
+  img {
+    width: 100%;  /* In portrait, use full width */
+  }
+}
+
+
+
+
+
+
+
+
+// : has pseudo 
+
+parent:has(child) {
+  /* Styles to apply to the parent element if it contains the child */
+}
+
+
+
+
+/* Style the parent div if it contains an input field */
+div:has(input) {
+  background-color: lightblue;
+}
+
+
+/* Style the parent div if it contains both a button and a p tag */
+div:has(button, p) {
+  border: 2px solid red;
+}
+
+
+
+
+
+
+// print media 
+
+
+@media print {
+  /* Styles for printing */
+}
+
+
+@media print {
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: black;
+    background-color: white;
+  }
+
+  /* Hide navigation links on print */
+  nav, .no-print {
+    display: none;
+  }
+
+  /* Ensure images are not too large */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+
+
+
+@media print {
+  /* Add a page break before certain elements */
+  h1 {
+    page-break-before: always;
+  }
+
+  /* Prevent page breaks inside specific elements */
+  .no-break {
+    page-break-inside: avoid;
+  }
+
+  /* Control page breaks after elements */
+  p {
+    page-break-after: auto;
+  }
+}
+
+
+
+
+
+// @page 
+
+@page {
+  /* Styles for the printed page */
+}
+
+
+
+@page {
+  margin: 1in;  /* Sets a 1-inch margin on all sides */
+}
+
+
+@page {
+  size: A4 landscape;  /* Set the page size to A4 and the orientation to landscape */
+}
+
+
+@media print {
+  .no-break {
+    break-before: avoid; /* Prevent a page break before this element */
+    break-after: avoid;  /* Prevent a page break after this element */
+  }
+}
+
+
+.container {
+  column-count: 3; /* Create a 3-column layout */
+  column-gap: 1rem;
+}
+
+h2 {
+  break-before: always; /* Force a column break before each <h2> */
+}
+
+p {
+  break-after: always; /* Force a column break after each <p> */
+}
+
+
+.container {
+  column-count: 3;  /* Create a 3-column layout */
+  column-gap: 1rem;
+}
+
+.item {
+  break-inside: avoid-column; /* Prevent the item from being split across columns */
+}
 
 
 

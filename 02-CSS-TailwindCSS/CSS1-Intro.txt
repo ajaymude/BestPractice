@@ -245,6 +245,13 @@ The ::selection pseudo-element is used to change the selected text's appearance.
       color: black;
     }
 
+
+    ul::marker {
+    color: red;          /* Change the color of the bullet */
+    font-size: 20px;     /* Increase the size of the bullet */
+    }
+
+
     /* General Styling */
     body {
       font-family: Arial, sans-serif;
@@ -424,6 +431,20 @@ h1 ~ p {
       font-size: 16px;
     }
 
+    selector:placeholder-shown {
+    /* styles to apply when the placeholder is shown */
+    }
+
+
+    input:placeholder-shown {
+    background-color: #f0f0f0;  /* Light background color when placeholder is visible */
+    border: 2px solid #ccc;     /* Border color */
+    }
+
+
+
+
+
   </style>
 
 
@@ -466,6 +487,10 @@ h1 ~ p {
 
 
 Specificity is calculated based on four components, which are represented in a four-part value:
+
+p {
+  color: blue !important; /* This will override any other color rule for <p> elements */
+}
 
 Inline styles (e.g., style="..." in HTML) - highest priority.
 IDs (#id) - more specific than classes, attributes, and elements.
@@ -592,6 +617,75 @@ counter-increment: Increments the counter by a specified value.
 </body>
 </html>
 
+
+
+
+
+
+
+
+
+// @supports 
+
+@supports (property: value) {
+  /* Styles to apply if the property is supported */
+}
+
+@supports not (property: value) {
+  /* Styles to apply if the property is not supported */
+}
+
+
+
+
+@supports (display: grid) {
+  .container {
+    display: grid; /* If the browser supports CSS Grid, apply this */
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@supports not (display: grid) {
+  .container {
+    display: flex; /* If the browser does not support CSS Grid, use Flexbox instead */
+    justify-content: space-between;
+  }
+}
+
+
+
+
+@supports (--css: variables) {
+  :root {
+    --primary-color: blue;
+  }
+  .button {
+    background-color: var(--primary-color);
+  }
+}
+
+
+
+
+@supports (display: grid) and (width: 100%) {
+  /* Apply styles if both conditions are supported */
+}
+
+
+
+@supports (display: grid) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@supports (display: flex) {
+  .grid-container {
+    display: flex;
+    justify-content: space-between;
+  }
+}
 
 
 
