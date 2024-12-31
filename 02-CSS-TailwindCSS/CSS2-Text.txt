@@ -1,0 +1,756 @@
+// color 
+element {
+  color: red;
+}
+
+
+
+
+
+// background color
+
+element {
+  background-color: #ff6347;
+}
+
+
+
+
+
+// border 
+
+element {
+  border-width: 2px;        /* Thickness */
+  border-style: solid;      /* Solid line */
+  border-color: blue;       /* Color */
+}
+
+element {
+  border: 2px solid blue;   /* Border width, style, and color */
+}
+
+element {
+  border-top: 3px solid green;
+  border-right: 2px dashed blue;
+  border-bottom: 4px dotted red;
+  border-left: 5px solid black;
+}
+
+
+element {
+  border: 2px solid purple;
+  border-radius: 10px;  /* All corners rounded */
+}
+
+
+element {
+  border: 2px solid orange;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 15px;
+}
+
+
+.container {
+  width: 200px;
+  height: 200px;
+  background-color: lightblue;
+  border-radius: 20px;  /* All four corners have a radius of 20px */
+}
+
+
+.container {
+  width: 200px;
+  height: 100px;
+  background-color: lightgreen;
+  border-radius: 30px 10px;  /* Horizontal radius 30px, vertical radius 10px */
+}
+
+
+.container {
+  width: 200px;
+  height: 200px;
+  background-color: lightcoral;
+  border-radius: 20px 30px 40px 50px;  /* Top-left 20px, top-right 30px, bottom-right 40px, bottom-left 50px */
+}
+
+
+
+border-image: <source> <slice> <width> <outset> <repeat>;
+
+<source>: Specifies the image to use for the border.
+<slice>: Defines how to slice the image.
+<width>: Specifies the width of the border area.
+<outset>: Determines how far the border image should extend beyond the border box.
+<repeat>: Defines how the image is repeated (if it's smaller than the border area).
+
+border-image: url('border-image.png');
+
+
+border-image: url('border-image.png') 30%;
+
+
+
+
+
+
+
+
+// outline 
+
+element {
+  outline-width: 2px;        /* Thickness of the outline */
+  outline-style: solid;      /* Solid line */
+  outline-color: blue;       /* Color of the outline */
+}
+
+
+element {
+  outline: 3px dashed red;   /* Outline width, style, and color */
+}
+
+
+element {
+  outline-width: 2px;
+  outline-style: dotted;     /* Dotted outline */
+  outline-color: green;
+}
+
+element:hover {
+  outline-style: dashed;    /* Dashed outline on hover */
+  outline-color: orange;
+}
+
+
+element:focus {
+  outline: 3px solid #3498db; /* Bright blue outline on focus */
+}
+
+
+element {
+  outline: 4px solid blue;    /* First outline */
+  outline-offset: 5px;         /* Space between the outline and the element */
+}
+
+element {
+  border: 2px solid #9b59b6;   /* Purple border */
+  outline: 3px dashed #f39c12; /* Yellow dashed outline */
+}
+
+
+
+
+
+// padding
+
+element {
+  padding: 20px; /* 20px padding on all four sides */
+}
+
+
+element {
+  padding-top: 10px;    /* Padding at the top */
+  padding-right: 15px;  /* Padding on the right */
+  padding-bottom: 20px; /* Padding at the bottom */
+  padding-left: 25px;   /* Padding on the left */
+}
+
+
+element {
+  padding: 10px 20px 30px 40px;  /* Top | Right | Bottom | Left */
+}
+
+
+element {
+  padding: 15px 30px;  /* 15px for top and bottom, 30px for left and right */
+}
+
+
+.element {
+  padding: auto;  /* Centers the content (works in combination with flex or grid layout) */
+}
+
+
+element {
+  padding: calc(10px + 2vw);  /* Padding increases with viewport width */
+}
+
+
+
+
+
+
+// margin
+
+element {
+  margin: 20px; /* 20px margin on all four sides */
+}
+
+
+element {
+  margin-top: 10px;    /* Margin at the top */
+  margin-right: 15px;  /* Margin on the right */
+  margin-bottom: 20px; /* Margin at the bottom */
+  margin-left: 25px;   /* Margin on the left */
+}
+
+
+element {
+  margin: 10px 20px 30px 40px;  /* Top | Right | Bottom | Left */
+}
+
+
+element {
+  margin: 15px 30px;  /* 15px for top and bottom, 30px for left and right */
+}
+
+
+.container {
+  width: 80%;
+  margin: 0 auto;  /* Top and bottom margin 0, left and right margin auto */
+}
+
+
+element {
+  margin-top: -10px;   /* Pulls the element 10px upwards */
+  margin-left: -20px;  /* Pulls the element 20px to the left */
+}
+
+
+
+
+
+
+// height and width 
+
+element {
+  height: 200px;  /* 200px height */
+  width: 300px;   /* 300px width */
+}
+
+
+element {
+  width: 100%;           /* Width 100% of parent */
+  max-width: 500px;      /* Limit width to 500px */
+  min-width: 200px;      /* Minimum width 200px */
+  height: 200px;         /* Fixed height */
+  max-height: 300px;     /* Limit height to 300px */
+  min-height: 150px;     /* Minimum height 150px */
+}
+
+
+element {
+  box-sizing: border-box;
+  width: 300px;       /* Total width including padding and border */
+  height: 200px;      /* Total height including padding and border */
+  padding: 20px;      /* Adds 20px padding to all sides */
+  border: 5px solid black;  /* 5px border */
+}
+
+
+element {
+  width: fit-content;  /* Width adjusts to fit content */
+  height: min-content; /* Height adjusts to the minimum required for content */
+}
+
+
+.element {
+  width: 100%;
+  height: auto;      /* Let the height adjust automatically */
+  aspect-ratio: 16/9; /* Maintain a 16:9 aspect ratio */
+}
+
+
+
+
+
+
+// box sizing 
+
+.element {
+  width: 200px;  /* Total width including padding and border */
+  padding: 20px; /* Padding inside the element */
+  border: 5px solid #000; /* Border around the element */
+  box-sizing: border-box;
+  /* Total width = 200px (content + padding + border) */
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+
+
+
+// overflow
+
+overflow: visible | hidden | scroll | auto | inherit;
+
+
+.container {
+  width: 300px;
+  height: 200px;
+  background-color: lightgray;
+  overflow: visible;  /* Content will overflow and be visible outside the box */
+}
+
+.container {
+  width: 300px;
+  height: 200px;
+  background-color: lightgray;
+  overflow-x: scroll;  /* Horizontal scrollbar always visible */
+  overflow-y: hidden;  /* Vertical overflow is hidden */
+}
+
+
+.container {
+  width: 300px;
+  height: 200px;
+  background-color: lightgray;
+  overflow-x: auto;   /* Horizontal scrollbar only if content overflows */
+  overflow-y: scroll; /* Vertical scrollbar always visible */
+}
+
+
+
+
+
+// box shadow
+
+box-shadow: h-offset v-offset blur spread color inset;
+
+
+.container {
+  width: 300px;
+  height: 200px;
+  background-color: lightblue;
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+}
+
+
+
+
+
+
+// float 
+
+float: left | right | none | inherit;
+
+
+}
+
+.image {
+  width: 200px;
+  height: 150px;
+  float: left; /* Floats the image to the left */
+  margin-right: 20px; /* Adds space to the right of the image */
+}
+
+.clearfix {
+  clear: both; /* Clears both left and right floats */
+}
+
+
+
+
+
+
+// font
+
+font: [font-style] [font-variant] [font-weight] [font-size] [line-height] [font-family];
+
+p {
+  font: italic small-caps bold 16px/1.5 Arial, sans-serif;
+}
+
+
+em {
+  font: italic 16px 'Times New Roman', serif;
+}
+
+
+h4 {
+  font-weight: bold;
+  font-style: oblique;
+  font-size: 22px;
+  line-height: 1.8;
+}
+
+
+
+
+// font varient 
+
+font-variant: normal | small-caps | inherit;
+
+
+p {
+  font-variant: small-caps;
+}
+
+
+// font face
+
+@font-face {
+  font-family: <font-name>;
+  src: url(<font-file>) format(<font-format>);
+  font-weight: <weight>;
+  font-style: <style>;
+}
+
+
+@font-face {
+  font-family: 'MyCustomFont';
+  src: url('fonts/mycustomfont.woff2') format('woff2'),
+       url('fonts/mycustomfont.woff') format('woff');
+}
+
+
+
+
+
+
+// google font 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Fonts Example</title>
+    <!-- Google Fonts link -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1 style="font-family: 'Roboto', sans-serif;">This is a heading with the Roboto font</h1>
+    <p style="font-family: 'Roboto', sans-serif;">This is a paragraph with the Roboto font applied.</p>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+// text
+
+h1 {
+  text-align: center;
+}
+
+
+
+// text decoration
+
+text-decoration: none | underline | overline | line-through | blink;
+
+
+h2 {
+  text-decoration: underline double green;
+}
+
+
+
+a {
+  text-decoration-line: underline;
+  text-decoration-color: red;
+  text-decoration-style: dashed;
+}
+
+
+a {
+  text-decoration: underline; /* Underlines the text */
+}
+
+
+h2 {
+  text-transform: uppercase; /* Converts text to uppercase */
+}
+
+
+h3 {
+  letter-spacing: 2px; /* Adds 2px space between letters */
+}
+
+
+p {
+  line-height: 1.6; /* Sets the line height to 1.6 times the font size */
+}
+
+
+p {
+  text-indent: 30px; /* Indents the first line by 30px */
+}
+
+
+h1 {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Horizontal, vertical, blur radius, color */
+}
+
+
+
+white-space: normal | nowrap | pre | pre-wrap | pre-line | break-spaces;
+
+p {
+  white-space: nowrap; /* Prevents the text from wrapping */
+}
+
+
+p {
+  word-spacing: 5px; /* Adds 5px of space between words */
+}
+
+
+// writing-mode: horizontal-tb | vertical-rl | vertical-lr;
+
+div {
+  writing-mode: vertical-rl; /* Text flows vertically from right to left */
+}
+
+
+div {
+  direction: rtl; /* Right to left text direction */
+}
+
+
+h1 {
+
+  color: #ff6347; /* Tomato color */
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* Shadow effect */
+}
+
+
+
+
+
+
+// text overflow
+
+text-overflow: clip | ellipsis | string;
+
+p {
+  text-overflow: clip;
+}
+
+
+p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
+
+
+
+
+
+// word wrap and word-break
+
+word-wrap: normal | break-word;
+
+div {
+  word-wrap: break-word;
+}
+
+
+overflow-wrap: normal | break-word;
+
+div {
+  overflow-wrap: break-word;
+}
+
+
+word-break: normal | break-all | keep-all;
+
+
+p {
+  word-break: break-all;
+}
+
+
+div {
+  word-break: keep-all;
+}
+
+
+div {
+  overflow-wrap: break-word; /* Allows long words to break */
+  word-break: break-all;     /* Breaks words at any point if necessary */
+}
+
+
+
+
+
+
+// white space
+
+
+
+
+
+
+
+
+// column-count: <number>;
+// column-rule: <width> <style> <color>;
+
+
+div {
+  column-count: 3;
+}
+
+div {
+  column-width: 200px;
+}
+
+div {
+  columns: 3 200px;
+}
+
+div {
+  column-count: 2;
+  column-gap: 15px;
+}
+
+column-rule: <width> <style> <color>;
+
+div {
+  column-count: 3;
+  column-gap: 20px;
+  column-rule: 2px solid black;
+}
+
+
+
+
+
+
+// caret color 
+
+
+input, textarea {
+  caret-color: color;
+}
+
+
+input, textarea {
+    caret-color: blue; /* Set the caret color to blue */
+    padding: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+
+
+
+
+
+
+
+  // import rule 
+
+  @import url("path/to/stylesheet.css");
+
+
+@import "path/to/stylesheet.css";
+
+
+
+
+
+// icon font 
+
+
+
+
+
+
+
+
+
+// scrollbar
+
+
+Key CSS Properties for Custom Scrollbars
+scrollbar-width: Controls the width of the scrollbar (for Firefox).
+scrollbar-color: Allows you to define the color of the scrollbar thumb and track (for Firefox).
+::-webkit-scrollbar: Targeting the entire scrollbar (for WebKit-based browsers like Chrome, Safari, and Edge).
+::-webkit-scrollbar-thumb: Styles the draggable thumb of the scrollbar (for WebKit-based browsers).
+::-webkit-scrollbar-track: Styles the track (the part the thumb moves within) (for WebKit-based browsers).
+::-webkit-scrollbar-button: Styles the buttons at the ends of the scrollbar (for WebKit-based browsers).
+::-webkit-scrollbar-corner: Styles the bottom corner of the scrollbar when both horizontal and vertical scrollbars appear (for WebKit-based browsers).
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Target the entire scrollbar */
+    ::-webkit-scrollbar {
+      width: 12px; /* Set the width of the vertical scrollbar */
+      height: 12px; /* Set the height of the horizontal scrollbar */
+    }
+
+    /* Customize the scrollbar thumb (the draggable part) */
+    ::-webkit-scrollbar-thumb {
+      background-color: #3498db; /* Blue thumb color */
+      border-radius: 10px; /* Rounded corners for thumb */
+      border: 3px solid #fff; /* White border around the thumb */
+    }
+
+    /* Customize the scrollbar track (the area the thumb moves in) */
+    ::-webkit-scrollbar-track {
+      background-color: #f1f1f1; /* Light grey track color */
+      border-radius: 10px; /* Rounded corners for track */
+    }
+
+    /* Optional: Style the buttons on the scrollbar (arrows) */
+    ::-webkit-scrollbar-button {
+      background-color: #3498db;
+      display: none; /* Hide the buttons */
+    }
+
+    /* Optional: Style the bottom corner where horizontal and vertical scrollbars meet */
+    ::-webkit-scrollbar-corner {
+      background-color: #f1f1f1;
+    }
+
+    /* Style the content area with overflow to show the scrollbar */
+    .content {
+      height: 300px;
+      overflow: auto;
+      padding: 20px;
+      background-color: #ececec;
+    }
+  </style>
+  <title>Custom Scrollbar Example</title>
+</head>
+<body>
+
+  <div class="content">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
+    <p>Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.</p>
+    <p>Nulla sit amet est eu augue hendrerit fringilla at et orci. Aenean sollicitudin erat et felis malesuada, a vulputate leo ullamcorper.</p>
+    <p>Morbi auctor, leo vel tincidunt consequat, enim arcu gravida libero, at volutpat augue nulla non arcu. Quisque sed nulla eget nunc mollis tincidunt.</p>
+  </div>
+
+</body>
+</html>
+
+
+
+

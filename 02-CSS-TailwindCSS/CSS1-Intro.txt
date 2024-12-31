@@ -1,0 +1,601 @@
+// intro
+
+// inline CSS:
+
+<p style="font-size: 18px; color: green;">This is a paragraph with inline CSS styling.</p>
+
+
+// <style> tag
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Style Tag Example</title>
+
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="style.css">
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            color: darkblue;
+            text-align: center;
+        }
+
+        p {
+            font-size: 16px;
+            color: darkgreen;
+        }
+
+        .highlight {
+            background-color: yellow;
+            font-weight: bold;
+        }
+
+        #special {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to My Page</h1>
+    <p>This is a paragraph with normal text.</p>
+    <p class="highlight">This paragraph has a highlighted background.</p>
+    <p id="special">This paragraph has a special red color.</p>
+</body>
+</html>
+
+
+
+
+
+
+//  CSS selectors
+
+
+ /* Basic Selectors */
+
+ * {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+}
+
+body {
+ font-family: Arial, sans-serif;
+ background-color: #f4f4f4;
+}
+
+h1 {
+ color: darkblue;
+ text-align: center;
+}
+
+.highlight {
+ background-color: yellow;
+ font-weight: bold;
+}
+
+#special {
+ color: red;
+ font-size: 20px;
+}
+
+
+
+
+
+
+
+/* Combinator Selectors */
+
+
+div p {
+ color: green;
+}
+
+Child Selector (>): Selects direct child elements of a specified element.
+
+div > p {
+ font-weight: bold;
+}
+
+h1 + p {
+ color: purple;
+}
+
+h1 ~ p {
+ color: gray;
+}
+
+
+
+
+
+
+
+/* Attribute Selectors */
+
+
+
+a[href] {
+ color: blue;
+}
+
+a[href^="https"] {
+ font-style: italic;
+}
+
+a[href$=".com"] {
+ font-weight: bold;
+}
+
+input[type="text"] {
+ border: 2px solid blue;
+}
+
+img[src*="logo"] {
+ width: 100px;
+}
+
+
+
+
+
+
+
+/* Pseudo-classes */
+
+Pseudo-Classes:
+
+:hover: The link will turn red when hovered over.
+:focus: The input field turns yellow when focused.
+:active: The button turns green when clicked.
+:first-child: The first paragraph becomes bold.
+:last-child: The last paragraph turns blue.
+:nth-child(n): The second list item turns red.
+:not(selector): Any paragraph that does not have the class .special turns gray.
+:checked: The checkbox turns yellow when checked.
+:disabled: The disabled input field turns light gray.
+
+
+Pseudo-Elements:
+
+::before: Adds "Note: " before the special paragraph.
+::after: Adds "(End)" after the second paragraph.
+::first-letter: Makes the first letter of a paragraph larger and red.
+::first-line: Makes the first line of a paragraph bold.
+::selection: Changes the background to yellow and the text to black when text is selected.
+
+
+Styling:
+
+Some general styles are applied to ensure readability and keep the layout simple.
+The ::selection pseudo-element is used to change the selected text's appearance.
+
+
+  <style>
+    /* Pseudo-Classes */
+    a:hover {
+      color: red;
+    }
+
+    input:focus {
+      background-color: yellow;
+    }
+
+    button:active {
+      background-color: green;
+    }
+
+    p:first-child {
+      font-weight: bold;
+    }
+
+    p:last-child {
+      color: blue;
+    }
+
+    li:nth-child(2) {
+      color: red;
+    }
+
+    p:not(.special) {
+      color: gray;
+    }
+
+    input:checked {
+      background-color: yellow;
+    }
+
+    input:disabled {
+      background-color: lightgray;
+    }
+
+    /* Pseudo-Elements */
+    p::before {
+      content: "Note: ";
+      font-weight: bold;
+      color: red;
+    }
+
+    p::after {
+      content: " (End)";
+      color: green;
+    }
+
+    p::first-letter {
+      font-size: 3em;
+      color: red;
+    }
+
+    p::first-line {
+      font-weight: bold;
+    }
+
+    ::selection {
+      background-color: yellow;
+      color: black;
+    }
+
+    /* General Styling */
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    button {
+      margin-top: 20px;
+    }
+
+    .special {
+      color: blue;
+    }
+
+    /* To ensure content fits on screen */
+    .container {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    p, a, li {
+      margin: 10px 0;
+    }
+  </style>
+
+
+
+
+a:hover {
+ color: red;
+}
+
+input:focus {
+ background-color: lightyellow;
+}
+
+button:active {
+ background-color: gray;
+}
+
+div:first-child {
+ font-size: 20px;
+}
+
+p:last-child {
+ margin-bottom: 0;
+}
+
+p:nth-child(odd) {
+ background-color: lightblue;
+}
+
+p:nth-of-type(2) {
+ color: darkgreen;
+}
+
+div:not(.highlight) {
+ background-color: lightgray;
+}
+
+/* Pseudo-elements */
+p::before {
+ content: "Note: ";
+ font-weight: bold;
+}
+
+p::after {
+ content: ".";
+}
+
+p::first-letter {
+ font-size: 2em;
+ font-weight: bold;
+}
+
+p::first-line {
+ color: green;
+}
+
+/* Grouping Selectors */
+h1, h2, h3 {
+ font-family: 'Georgia', serif;
+}
+
+/* ID and Class Selector Combination */
+#container .highlight {
+ color: white;
+ background-color: darkgreen;
+}
+
+/* General Sibling Selector */
+h1 ~ p {
+ font-style: italic;
+}
+
+/* :root for CSS Variables */
+:root {
+ --main-color: #3498db;
+}
+
+.using-variable {
+ color: var(--main-color);
+}
+
+
+
+
+ Summary of Common Pseudo-Elements:
+::before: Inserts content before the element's content.
+::after: Inserts content after the element's content.
+::first-letter: Styles the first letter of a block element (like a paragraph).
+::first-line: Styles the first line of a block element's text.
+::selection: Styles the portion of an element that is selected by the user (like highlighted text).
+
+
+  <style>
+    /* Styling for the page */
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    /* ::before pseudo-element */
+    p::before {
+      content: "Note: ";
+      font-weight: bold;
+      color: red;
+    }
+
+    /* ::after pseudo-element */
+    p::after {
+      content: " (End)";
+      color: green;
+    }
+
+    /* ::first-letter pseudo-element */
+    p::first-letter {
+      font-size: 3em;
+      color: red;
+      font-weight: bold;
+    }
+
+    /* ::first-line pseudo-element */
+    p::first-line {
+      font-weight: bold;
+      color: blue;
+    }
+
+    /* ::selection pseudo-element */
+    ::selection {
+      background-color: yellow;
+      color: black;
+    }
+
+    /* Ensuring all content fits on the screen */
+    .container {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    p {
+      margin: 20px 0;
+    }
+
+
+    input::placeholder {
+      color: gray;
+      font-style: italic;
+      font-size: 16px;
+    }
+
+  </style>
+
+
+
+
+
+
+
+
+
+
+// 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Selects all elements with a 'type' attribute equal to 'text' */
+    input[type="text"] {
+      background-color: yellow;
+    }
+  </style>
+  <title>Attribute Selector Example</title>
+</head>
+<body>
+
+  <input type="text" placeholder="Enter text">
+  <input type="password" placeholder="Enter password">
+  
+</body>
+</html>
+
+
+
+
+
+// Specificity Calculation
+
+
+Specificity is calculated based on four components, which are represented in a four-part value:
+
+Inline styles (e.g., style="..." in HTML) - highest priority.
+IDs (#id) - more specific than classes, attributes, and elements.
+Classes, attributes, and pseudo-classes (.class, [type="text"], :hover) - these are less specific than IDs.
+Elements and pseudo-elements (div, h1, ::before, ::after) - the least specific.
+
+
+
+
+
+
+
+
+
+
+
+// css counter 
+
+Basic Syntax:
+To use CSS counters, you need two main functions:
+
+counter-reset: Initializes or resets a counter to a specific value.
+counter-increment: Increments the counter by a specified value.
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Reset the counter for the entire list */
+    ol {
+      counter-reset: item;
+    }
+
+    /* Increment the counter for each list item */
+    li {
+      counter-increment: item;
+      margin-bottom: 10px;
+    }
+
+    /* Display the counter value before each list item */
+    li::before {
+      content: counter(item) ". ";
+      font-weight: bold;
+    }
+  </style>
+  <title>CSS Counter Example</title>
+</head>
+<body>
+
+  <ol>
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+    <li>Item 4</li>
+  </ol>
+
+</body>
+</html>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Reset the main list counter */
+    ol {
+      counter-reset: section;
+    }
+
+    /* Increment the counter for each main list item */
+    ol > li {
+      counter-increment: section;
+      margin-bottom: 10px;
+    }
+
+    /* Display the counter value before the main list items */
+    ol > li::before {
+      content: "Section " counter(section) ": ";
+      font-weight: bold;
+    }
+
+    /* Reset and increment the counter for nested lists */
+    ol > li ol {
+      counter-reset: subsection;
+    }
+
+    ol > li ol > li {
+      counter-increment: subsection;
+    }
+
+    /* Display the nested counter */
+    ol > li ol > li::before {
+      content: counter(section) "." counter(subsection) " ";
+      font-weight: normal;
+    }
+  </style>
+  <title>Nested CSS Counters</title>
+</head>
+<body>
+
+  <ol>
+    <li>Introduction
+      <ol>
+        <li>Overview</li>
+        <li>Details</li>
+      </ol>
+    </li>
+    <li>Methods
+      <ol>
+        <li>Method 1</li>
+        <li>Method 2</li>
+      </ol>
+    </li>
+    <li>Conclusion</li>
+  </ol>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
