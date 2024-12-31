@@ -58,6 +58,39 @@
 </table>
 
 
+<table>
+  <colgroup>
+    <col span="2" style="background-color: lightblue;">
+    <col style="background-color: lightgreen;">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Country</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>John</td>
+      <td>25</td>
+      <td>USA</td>
+    </tr>
+    <tr>
+      <td>Alice</td>
+      <td>30</td>
+      <td>UK</td>
+    </tr>
+    <tr>
+      <td>Bob</td>
+      <td>22</td>
+      <td>Canada</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
 
 
 
@@ -102,6 +135,20 @@
     <option value="uk">UK</option>
     <option value="australia">Australia</option>
 </select><br><br>
+
+<select name="category" multiple>
+  <optgroup label="Group 1" disabled>
+    <option value="option1">Option 1</option>
+    <option value="option2">Option 2</option>
+  </optgroup>
+  
+  <optgroup label="Group 2">
+    <option value="option3">Option 3</option>
+    <option value="option4">Option 4</option>
+  </optgroup>
+</select>
+
+
 
 <!-- Message Field -->
 <label for="message">Message:</label><br>
@@ -331,9 +378,41 @@
     <!-- Submit Button -->
     <input type="submit" value="Submit">
 
+        <!-- Text input field -->
+    <input type="text" placeholder="Enter something" required>
+
+    <!-- Submit button -->
+    <button type="submit">Submit Form</button>
+
+    <!-- Reset button -->
+    <button type="reset">Reset Form</button>
+
 </form>
 
 
+// datalist tag
+
+  <h2>Enter a city</h2>
+  <form>
+    <label for="city">City:</label>
+    <input type="text" id="city" list="city-list" name="city">
+    <datalist id="city-list">
+      <option value="New York">
+      <option value="Los Angeles">
+      <option value="Chicago">
+      <option value="Miami">
+      <option value="San Francisco">
+    </datalist>
+  </form>
+
+
+
+
+// meter tag
+
+<meter value="65" min="0" max="100">65%</meter>
+
+<meter value="45" min="0" max="100" low="30" high="70" optimum="50">45%</meter>
 
 
 

@@ -17,3 +17,119 @@
     <source src="video-file.webm" type="video/webm">
     Your browser does not support the video element.
 </video>
+
+
+
+
+// <embed> tag
+
+<embed src="audio.mp3" type="audio/mp3" width="300" height="40">
+
+<embed src="animation.swf" type="application/x-shockwave-flash" width="500" height="400">
+
+
+
+//  iframe tag
+
+<iframe src="https://www.example.com" width="800" height="600" title="Example Website"></iframe>
+
+
+
+
+// image tag
+
+<img src="cat.jpg" alt="A cute cat" width="300" height="200">
+
+<img
+  src="image-800w.jpg"
+  srcset="image-320w.jpg 320w, image-480w.jpg 480w, image-800w.jpg 800w"
+  alt="A responsive image"
+  sizes="(max-width: 600px) 100vw, 800px"
+></img>;
+
+
+
+<img src="flower.jpg" alt="A beautiful red flower" longdesc="flower-description.html">
+
+<a href="path-to-your-image.jpg" download="filename.jpg">
+  <img src="path-to-your-image.jpg" alt="Description of image">
+</a>
+
+// figure figcaption tag
+
+<figure>
+  <img src="nature.jpg" alt="Beautiful view of a mountain landscape" width="600">
+  <figcaption>A stunning view of a mountain landscape during sunset.</figcaption>
+</figure>
+
+
+
+// map tag
+
+<img src="world-map.jpg" alt="World Map" usemap="#worldmap">
+
+<map name="worldmap">
+  <area shape="rect" coords="34,44,270,350" href="https://example.com/usa" alt="USA" title="Visit USA">
+  <area shape="circle" coords="450,150,60" href="https://example.com/france" alt="France" title="Visit France">
+  <area shape="poly" coords="500,250,550,300,600,250" href="https://example.com/spain" alt="Spain" title="Visit Spain">
+</map>
+
+
+<img src="world-map.jpg" ismap alt="World Map" usemap="#worldmap">
+
+<map name="worldmap">
+  <area shape="rect" coords="34,44,270,350" alt="USA" href="usa.html">
+  <area shape="circle" coords="400,400,50" alt="Canada" href="canada.html">
+  <area shape="poly" coords="200,200,220,180,240,220" alt="Mexico" href="mexico.html">
+</map>
+
+
+
+
+
+// base tag
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="https://www.example.com/" target="_blank">
+  <title>Base Tag Example</title>
+</head>
+<body>
+  <p><a href="about.html">About Us</a></p>
+  <p><a href="contact.html">Contact</a></p>
+  <p><a href="https://www.external-site.com">External Site</a></p>
+</body>
+</html>
+
+
+
+
+// <object> tag 
+
+<object data="image.jpg" type="image/jpeg" width="500" height="300">
+  <p>Your browser does not support displaying images using the <code>&lt;object&gt;</code> tag.</p>
+</object>
+
+
+
+// <picture> Tag
+
+<picture>
+  <source srcset="image-large.jpg" media="(min-width: 800px)">
+  <source srcset="image-medium.jpg" media="(min-width: 500px)">
+  <img src="image-small.jpg" alt="An example of responsive images">
+</picture>
+
+
+
+// svg tag 
+
+  <svg width="200" height="200">
+    <circle cx="100" cy="100" r="50" stroke="black" stroke-width="3" fill="blue" />
+  </svg>
+
+
+  

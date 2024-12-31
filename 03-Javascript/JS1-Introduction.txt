@@ -1,0 +1,73 @@
+// 1 Linking a JavaScript File
+
+// a - internal html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multiple JS Example</title>
+</head>
+<body>
+    <h1>Hello, World!</h1>
+
+    <!-- Inline JS #1 -->
+    <script>
+        console.log("This is the first JS script.");
+    </script>
+
+    <!-- Inline JS #2 -->
+    <script>
+        console.log("This is the second JS script.");
+    </script>
+</body>
+</html>
+
+
+// b - external html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multiple External JS Example</title>
+</head>
+<body>
+    <h1>Hello, World!</h1>
+
+    <!-- External JS #1 -->
+    <script src="script1.js"></script>
+
+    <!-- External JS #2 -->
+    <script src="script2.js"></script>
+
+    <!-- External JS #3 -->
+    <script src="script3.js"></script>
+</body>
+</html>
+
+
+
+
+
+// 2 variable
+
+var name = "Alice";
+let city = "New York";
+const pi = 3.14159;
+
+
+
+
+
+// 3  Data Types in Variables
+
+// Boolean
+// Number
+// String
+// Undefined
+// Null
+// Symbol
+// BigInt
+
+
+// Array
+// Object

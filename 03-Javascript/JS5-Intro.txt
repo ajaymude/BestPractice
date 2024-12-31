@@ -1,181 +1,3 @@
-// syllabus 
-
-1. Introduction to JavaScript
-What is JavaScript?
-History of JavaScript
-Importance of JavaScript in web development
-JavaScript environments (Browser vs. Node.js)
-Embedding JavaScript in HTML (inline, internal, and external scripts)
-
-2. Basic JavaScript Syntax
-Comments in JavaScript
-Variables and Constants (var, let, const)
-Data Types (Primitive types: string, number, boolean, null, undefined, symbol, bigint)
-Type Conversion (implicit and explicit casting)
-Operators: Arithmetic, Assignment, Comparison, Logical, Ternary, Bitwise, etc.
-Expressions and Statements
-
-3. Control Structures
-Conditional Statements (if, if-else, switch-case)
-Loops (for, while, do-while, forEach)
-Break and Continue
-
-4. Functions
-Defining Functions (function declarations, function expressions)
-Arrow Functions
-Function Parameters (default parameters, rest parameters)
-Return Values
-Function Scope and Closures
-Higher-order Functions
-Immediately Invoked Function Expressions (IIFE)
-Recursion in JavaScript
-
-5. Objects and Arrays
-Arrays (Creating arrays, accessing elements, array methods)
-Multidimensional Arrays
-Objects (Object literal, creating objects, accessing properties)
-Object Methods and this keyword
-JSON (JavaScript Object Notation): parsing and stringifying
-Array Methods (map, filter, reduce, forEach, etc.)
-Destructuring (arrays and objects)
-Spread and Rest Operators
-
-6. Error Handling
-try-catch Block
-Custom Errors
-Throwing Errors
-Handling Asynchronous Errors
-
-7. Asynchronous JavaScript
-Callbacks
-Promises (Creation, .then(), .catch(), chaining)
-Async/Await
-Event Loop and the Call Stack
-JavaScript Timers (setTimeout, setInterval)
-Debouncing and Throttling
-Working with External APIs (fetch API, AJAX)
-
-8. DOM Manipulation
-Introduction to DOM (Document Object Model)
-Accessing DOM Elements (getElementById, querySelector, etc.)
-Manipulating DOM Elements (changing text, HTML, attributes, styles)
-Event Handling (click, submit, input, etc.)
-Event Delegation
-DOM Traversal (parent, children, siblings)
-Creating Elements Dynamically
-
-9. ES6 and Beyond (Modern JavaScript)
-Template Literals
-Arrow Functions
-Enhanced Object Literals
-Destructuring Assignment
-Default Parameters
-Rest and Spread Operators
-Classes (class syntax, constructors, inheritance)
-Modules (import/export)
-Iterators and Generators
-Maps and Sets
-
-Promises and async/await
-10. JavaScript in the Browser
-Browser Object Model (BOM)
-Window, Navigator, Screen, History, Location
-Local Storage and Session Storage
-Cookies
-Handling Forms (validations, inputs, events)
-Geolocation API
-Web Workers
-WebSockets
-Service Workers
-Fetch API vs XMLHttpRequest
-
-11. JavaScript in Node.js
-Introduction to Node.js
-Installing and Setting Up Node.js
-Node.js Modules (fs, http, path, util, etc.)
-NPM (Node Package Manager)
-Package.json File (dependencies, scripts)
-Using third-party Libraries (express, lodash, etc.)
-Event-driven Programming in Node.js
-File System (reading and writing files)
-Creating a Basic Web Server
-Handling HTTP Requests
-Introduction to REST APIs
-
-12. JavaScript Frameworks and Libraries
-Introduction to Front-end Frameworks (React, Angular, Vue.js)
-Introduction to Node.js Frameworks (Express.js)
-Working with React (components, JSX, state, hooks)
-Vue.js Basics (reactivity, components, directives)
-Angular Basics (Modules, components, services)
-Using jQuery
-Testing in JavaScript (Jest, Mocha, Chai)
-
-13. Advanced Topics
-Design Patterns (Module, Singleton, Observer, Factory, etc.)
-Webpack and Module Bundlers
-Babel (Transpiling ES6+ to ES5)
-Server-side Rendering (SSR) in frameworks
-Webpack, Babel, and NPM Scripts (for frontend bundling)
-Reactive Programming (RxJS)
-Progressive Web Apps (PWAs)
-JavaScript and Web Assembly (WASM)
-GraphQL with JavaScript
-Security Best Practices (XSS, CSRF, HTTPS, Content Security Policy)
-Code Optimization and Performance
-Memory Management in JavaScript
-
-14. Testing and Debugging
-Using Browser Developer Tools
-Debugging JavaScript Code (breakpoints, stack traces)
-Unit Testing Frameworks (Jest, Mocha, Jasmine)
-Writing Unit Tests for JavaScript
-Test-Driven Development (TDD) and Behavior-Driven Development (BDD)
-End-to-End Testing (Cypress, Selenium)
-
-15. Version Control and Deployment
-Git Basics (Commit, Push, Pull, Merge, Branch)
-GitHub or GitLab (Repositories, Collaboration)
-Continuous Integration (CI/CD)
-Deploying JavaScript applications (Netlify, Heroku, AWS, DigitalOcean)
-Deployment Strategies (Docker, Kubernetes)
-
-16. Best Practices
-Writing Clean and Maintainable Code
-Code Reviews
-Refactoring
-Using Linting Tools (ESLint)
-Formatting with Prettier
-Version Control Practices
-Writing Documentation
-Performance Optimization
-
-17. Other Topics
-Mobile Development with JavaScript (React Native, Ionic)
-Electron for Desktop Apps
-Using TypeScript with JavaScript
-JavaScript and Machine Learning (TensorFlow.js)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // 1 - Adding js in html page
 
@@ -183,49 +5,7 @@ JavaScript and Machine Learning (TensorFlow.js)
 // heap memory - non primitive dat type 
 
 
-// a - internal html
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Multiple JS Example</title>
-</head>
-<body>
-    <h1>Hello, World!</h1>
-
-    <!-- Inline JS #1 -->
-    <script>
-        console.log("This is the first JS script.");
-    </script>
-
-    <!-- Inline JS #2 -->
-    <script>
-        console.log("This is the second JS script.");
-    </script>
-</body>
-</html>
-
-
-// b - external html
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Multiple External JS Example</title>
-</head>
-<body>
-    <h1>Hello, World!</h1>
-
-    <!-- External JS #1 -->
-    <script src="script1.js"></script>
-
-    <!-- External JS #2 -->
-    <script src="script2.js"></script>
-
-    <!-- External JS #3 -->
-    <script src="script3.js"></script>
-</body>
-</html>
+  
 
 
 
@@ -244,12 +24,7 @@ let x = 10; // This is an inline comment
   This is a multi-line comment.
   It can span multiple lines.
 */
-let y = 20;
 
-/*
-  The following code is commented out.
-  let z = 30;
-*/
 
 
 
@@ -263,115 +38,22 @@ let y = 20;
 // 3 - variable
 
 // var example (function or global scope)
-var x = 10;
-console.log('var x:', x); // 10
 
 // let example (block scope)
 let y = 20;
-if (true) {
-    let y = 30;  // This is a different y, local to this block
-    console.log('let y inside block:', y); // 30
-}
-console.log('let y outside block:', y); // 20 (outside the block)
 
 // const example (constant, block scope)
 const z = 40;
-console.log('const z:', z); // 40
-// z = 50;  // Error: Assignment to constant variable.
 
 
-// Different data types examples:
+
+// 3.1  Different data types examples:
+
 let number = 5;          // Number
 let name = "Alice";      // String
 let isActive = true;     // Boolean
 let user = { name: "Bob", age: 25 }; // Object
 let numbers = [1, 2, 3]; // Array
-
-// Printing data types
-console.log('number:', number); // 5
-console.log('name:', name);     // "Alice"
-console.log('isActive:', isActive); // true
-console.log('user:', user);     // { name: "Bob", age: 25 }
-console.log('numbers:', numbers); // [1, 2, 3]
-
-
-
-
-// scope 
-
-1. Global Scope
-A variable that is declared outside of any function
-or block is said to have global scope.
-It can be accessed from anywhere in the code.
-
-
-
-2. Function Scope
-In JavaScript, variables declared inside a function 
-are confined to that function's scope and are not accessible outside.
-
-
-
-
-3. Block Scope (let and const)
-Variables declared with let or const inside a block 
-(such as inside a for loop or an if statement) are limited to 
-that block scope. They cannot be accessed outside of the block.
-
-
-
-
-What is a Closure in JavaScript?
-In JavaScript, a closure is a function that "remembers" and can access 
-variables from the outer function's scope, even after the outer function has 
-finished execution. This means that a function can have access to variables from 
-its lexical scope (the scope in which it was created), even if the function 
-is executed outside of that scope.
-
-
-
-
-
-
-
-
-What is Hoisting in JavaScript?
-Hoisting is a JavaScript mechanism where variables and 
-function declarations are moved ("hoisted") to the top of their containing 
-scope during the compilation phase, before the code execution begins. However, 
-only the declarations are hoisted, not the initializations.
-
-
-
-
-
-
-
-
-
-
-
-
-
-Implicit Type Coercion
-This is when JavaScript automatically converts values to a different type during operations.
-
-const result = '5' + 3;
-console.log(result);  // Output: '53' (string)
-
-
-const isActive = 'false';  // Non-empty string, treated as truthy
-if (isActive) {
-    console.log('The value is truthy!');
-} else {
-    console.log('The value is falsy!');
-}
-// Output: The value is truthy!
-
-
-
-console.log(1 + '1');   // Output: '11' (string)
-console.log(true + '1'); // Output: 'true1' (string)
 
 
 
@@ -687,6 +369,22 @@ if (a && x) {
 let isMember = true;
 let isVIP = false;
 console.log(!(isMember && isVIP)); // true, because NOT of true && false is true
+
+In JavaScript, operator precedence refers to the order in which operators are 
+evaluated in an expression. When multiple operators appear in an expression, 
+the precedence determines which operator is applied first. If operators have the 
+same precedence, their associativity (whether they are left-to-right or right-to-left) 
+determines the order of evaluation.
+
+Here's a summary of JavaScript operator precedence from highest to lowest:
+
+Parentheses () - Highest precedence, ensures expressions inside are evaluated first.
+Unary operators (++, --, +, -, !, etc.)
+Multiplicative operators (*, /, %)
+Additive operators (+, -)
+Relational operators (<, <=, >, >=, instanceof, in)
+Equality operators (==, !=, ===, !==)
+Logical AND && and Logical OR || - Lowest precedence among logical operators.
 
 
 
@@ -1133,6 +831,814 @@ console.log(age);  // Output: 25
 Global execution Context
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// syllabus 
+
+1. Introduction to JavaScript
+What is JavaScript?
+History of JavaScript
+Importance of JavaScript in web development
+JavaScript environments (Browser vs. Node.js)
+Embedding JavaScript in HTML (inline, internal, and external scripts)
+
+2. Basic JavaScript Syntax
+Comments in JavaScript
+Variables and Constants (var, let, const)
+Data Types (Primitive types: string, number, boolean, null, undefined, symbol, bigint)
+Type Conversion (implicit and explicit casting)
+Operators: Arithmetic, Assignment, Comparison, Logical, Ternary, Bitwise, etc.
+Expressions and Statements
+
+3. Control Structures
+Conditional Statements (if, if-else, switch-case)
+Loops (for, while, do-while, forEach)
+Break and Continue
+
+4. Functions
+Defining Functions (function declarations, function expressions)
+Arrow Functions
+Function Parameters (default parameters, rest parameters)
+Return Values
+Function Scope and Closures
+Higher-order Functions
+Immediately Invoked Function Expressions (IIFE)
+Recursion in JavaScript
+
+5. Objects and Arrays
+Arrays (Creating arrays, accessing elements, array methods)
+Multidimensional Arrays
+Objects (Object literal, creating objects, accessing properties)
+Object Methods and this keyword
+JSON (JavaScript Object Notation): parsing and stringifying
+Array Methods (map, filter, reduce, forEach, etc.)
+Destructuring (arrays and objects)
+Spread and Rest Operators
+
+6. Error Handling
+try-catch Block
+Custom Errors
+Throwing Errors
+Handling Asynchronous Errors
+
+7. Asynchronous JavaScript
+Callbacks
+Promises (Creation, .then(), .catch(), chaining)
+Async/Await
+Event Loop and the Call Stack
+JavaScript Timers (setTimeout, setInterval)
+Debouncing and Throttling
+Working with External APIs (fetch API, AJAX)
+
+8. DOM Manipulation
+Introduction to DOM (Document Object Model)
+Accessing DOM Elements (getElementById, querySelector, etc.)
+Manipulating DOM Elements (changing text, HTML, attributes, styles)
+Event Handling (click, submit, input, etc.)
+Event Delegation
+DOM Traversal (parent, children, siblings)
+Creating Elements Dynamically
+
+9. ES6 and Beyond (Modern JavaScript)
+Template Literals
+Arrow Functions
+Enhanced Object Literals
+Destructuring Assignment
+Default Parameters
+Rest and Spread Operators
+Classes (class syntax, constructors, inheritance)
+Modules (import/export)
+Iterators and Generators
+Maps and Sets
+
+Promises and async/await
+10. JavaScript in the Browser
+Browser Object Model (BOM)
+Window, Navigator, Screen, History, Location
+Local Storage and Session Storage
+Cookies
+Handling Forms (validations, inputs, events)
+Geolocation API
+Web Workers
+WebSockets
+Service Workers
+Fetch API vs XMLHttpRequest
+
+11. JavaScript in Node.js
+Introduction to Node.js
+Installing and Setting Up Node.js
+Node.js Modules (fs, http, path, util, etc.)
+NPM (Node Package Manager)
+Package.json File (dependencies, scripts)
+Using third-party Libraries (express, lodash, etc.)
+Event-driven Programming in Node.js
+File System (reading and writing files)
+Creating a Basic Web Server
+Handling HTTP Requests
+Introduction to REST APIs
+
+12. JavaScript Frameworks and Libraries
+Introduction to Front-end Frameworks (React, Angular, Vue.js)
+Introduction to Node.js Frameworks (Express.js)
+Working with React (components, JSX, state, hooks)
+Vue.js Basics (reactivity, components, directives)
+Angular Basics (Modules, components, services)
+Using jQuery
+Testing in JavaScript (Jest, Mocha, Chai)
+
+13. Advanced Topics
+Design Patterns (Module, Singleton, Observer, Factory, etc.)
+Webpack and Module Bundlers
+Babel (Transpiling ES6+ to ES5)
+Server-side Rendering (SSR) in frameworks
+Webpack, Babel, and NPM Scripts (for frontend bundling)
+Reactive Programming (RxJS)
+Progressive Web Apps (PWAs)
+JavaScript and Web Assembly (WASM)
+GraphQL with JavaScript
+Security Best Practices (XSS, CSRF, HTTPS, Content Security Policy)
+Code Optimization and Performance
+Memory Management in JavaScript
+
+14. Testing and Debugging
+Using Browser Developer Tools
+Debugging JavaScript Code (breakpoints, stack traces)
+Unit Testing Frameworks (Jest, Mocha, Jasmine)
+Writing Unit Tests for JavaScript
+Test-Driven Development (TDD) and Behavior-Driven Development (BDD)
+End-to-End Testing (Cypress, Selenium)
+
+15. Version Control and Deployment
+Git Basics (Commit, Push, Pull, Merge, Branch)
+GitHub or GitLab (Repositories, Collaboration)
+Continuous Integration (CI/CD)
+Deploying JavaScript applications (Netlify, Heroku, AWS, DigitalOcean)
+Deployment Strategies (Docker, Kubernetes)
+
+16. Best Practices
+Writing Clean and Maintainable Code
+Code Reviews
+Refactoring
+Using Linting Tools (ESLint)
+Formatting with Prettier
+Version Control Practices
+Writing Documentation
+Performance Optimization
+
+17. Other Topics
+Mobile Development with JavaScript (React Native, Ionic)
+Electron for Desktop Apps
+Using TypeScript with JavaScript
+JavaScript and Machine Learning (TensorFlow.js)
+
+
+
+// scope 
+
+1. Global Scope
+A variable that is declared outside of any function
+or block is said to have global scope.
+It can be accessed from anywhere in the code.
+
+
+2. Function Scope
+In JavaScript, variables declared inside a function 
+are confined to that function's scope and are not accessible outside.
+
+
+3. Block Scope (let and const)
+Variables declared with let or const inside a block 
+(such as inside a for loop or an if statement) are limited to 
+that block scope. They cannot be accessed outside of the block.
+
+
+What is a Closure in JavaScript?
+In JavaScript, a closure is a function that "remembers" and can access 
+variables from the outer function's scope, even after the outer function has 
+finished execution. This means that a function can have access to variables from 
+its lexical scope (the scope in which it was created), even if the function 
+is executed outside of that scope.
+
+
+What is Hoisting in JavaScript?
+Hoisting is a JavaScript mechanism where variables and 
+function declarations are moved ("hoisted") to the top of their containing 
+scope during the compilation phase, before the code execution begins. However, 
+only the declarations are hoisted, not the initializations.
+
+
+Implicit Type Coercion
+This is when JavaScript automatically converts values to a different type during operations.
+
+const result = '5' + 3;
+console.log(result);  // Output: '53' (string)
+
+
+const isActive = 'false';  // Non-empty string, treated as truthy
+if (isActive) {
+    console.log('The value is truthy!');
+} else {
+    console.log('The value is falsy!');
+}
+// Output: The value is truthy!
+
+
+console.log(1 + '1');   // Output: '11' (string)
+console.log(true + '1'); // Output: 'true1' (string)
 
 
 

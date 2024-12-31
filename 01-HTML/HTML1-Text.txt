@@ -35,7 +35,7 @@ They are useful for explaining sections of code or temporarily removing code.
 
 
 
-// <strong> element   , <b> tag   ,  <em> tag  , <i> tag
+// <strong> element   , <b> tag   ,  <em> tag  , <i> tag , mark tag
 
 <p>In a sentence: <strong>Pay attention to this warning!</strong></p>
 
@@ -44,6 +44,8 @@ They are useful for explaining sections of code or temporarily removing code.
 <p>In a sentence: <em>Don't forget</em> to complete your assignment!</p>
 
 <p>In a sentence: The term <i>HTML</i> stands for HyperText Markup Language.</p>
+
+<p>This is a <mark>highlighted text</mark> with custom styles.</p>
 
 
 
@@ -112,15 +114,40 @@ They are useful for explaining sections of code or temporarily removing code.
 Link to a Specific Section on the Same Page (Anchor Link)
 
 <p><a href="#section1">Go to Section 1</a></p>
-<h2 id="section1">Section 1</h2>
+<h2 id="section1" name="section">Section 1</h2>
 
 
 
 
 
-// image tag
+// <blockquote> tag
 
-<img src="cat.jpg" alt="A cute cat" width="300" height="200">
+<blockquote cite="https://www.example.com/article">
+  "Innovation distinguishes between a leader and a follower."
+  <footer>— Steve Jobs, <cite><a href="https://www.example.com/article">Source</a></cite></footer>
+</blockquote>
+
+
+
+
+
+
+ // abbr tag  , The <acronym> 
+
+<p>The <abbr title="HyperText Markup Language">HTML</abbr> is the standard language for creating web pages.</p>
+
+<acronym title="Full form of acronym">Acronym</acronym>
+
+
+// <address> tag 
+
+<address>
+  Email: <a href="mailto:someone@example.com">someone@example.com</a><br>
+  Phone: <a href="tel:+1234567890">+1 (234) 567-890</a><br>
+  Website: <a href="https://www.example.com">www.example.com</a>
+</address>
+
+
 
 
 
@@ -131,6 +158,116 @@ Link to a Specific Section on the Same Page (Anchor Link)
 
 <h2>Styled <code>&lt;hr&gt; Tag</code></h2>
 
+
+// code tag
+
+<pre><code>
+def greet(name):
+    print(f"Hello, {name}!")
+
+greet("Alice")
+</code></pre>
+
+
+
+
+
+// dl dd dt 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Definition List Example</title>
+</head>
+<body>
+
+<h2>Programming Languages</h2>
+
+<dl>
+  <dt>HTML</dt>
+  <dd>HTML (Hypertext Markup Language) is the standard language used to create web pages.</dd>
+  
+  <dt>CSS</dt>
+  <dd>CSS (Cascading Style Sheets) is used to control the layout and appearance of web pages.</dd>
+  
+  <dt>JavaScript</dt>
+  <dd>JavaScript is a programming language that enables dynamic content on web pages, such as interactive elements.</dd>
+</dl>
+
+</body>
+</html>
+
+
+
+
+
+
+// delete tag
+
+<del>This text is deleted</del>
+
+
+
+// <details> tag 
+
+<details>
+  <summary>Click to view more information</summary>
+  <p>This is the hidden content that will appear when the details are expanded.</p>
+</details>
+
+
+
+
+
+// dfn tag 
+
+<p>The term <dfn title="application programming Interface">API</dfn> stands for Application Programming Interface.</p>
+
+
+
+
+
+// <dialog> tag
+
+<dialog open>
+  <p>This dialog is visible when the page loads because of the "open" attribute.</p>
+</dialog>
+
+
+
+
+// div  and span 
+
+<div>
+  <!-- Content goes here -->
+</div>
+
+<span>
+  <!-- Inline content goes here -->
+</span>
+
+
+
+
+// pre tag 
+
+  <pre>
+  function helloWorld() {
+      console.log("Hello, World!");
+  }
+  </pre>
+
+
+
+// ruby tag
+
+<ruby>
+    Hello <rt>Hola</rt>
+</ruby>
+
+<p>The base text **Hello** has the ruby annotation **Hola** (Spanish translation).</p>
 
 
 
