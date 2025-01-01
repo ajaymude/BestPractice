@@ -1,4 +1,15 @@
-// html boiler plate 
+// introduction
+
+// 1 - html boiler plate 
+// 2 - noscript tag
+// 3 meta tag
+
+
+
+
+
+
+// 1 - html boiler plate 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +34,15 @@
 </html>
 
 
-// noscript tag
+
+
+
+
+
+
+
+
+// 2 - noscript tag
 
 <noscript>
   <!-- Content to display when JavaScript is not supported or is disabled -->
@@ -37,8 +56,7 @@
 
 
 
-
-//  meta tag
+// 3 meta tag
 
 <!DOCTYPE html>
 <html lang="en">
