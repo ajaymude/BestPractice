@@ -2,7 +2,7 @@
 
 // 1 - html boiler plate 
 // 2 - noscript tag
-// 3 meta tag
+// 3 - meta tag
 
 
 
