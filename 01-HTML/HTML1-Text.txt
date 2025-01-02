@@ -1,26 +1,26 @@
 // Text tags in html 
 
+// 01 - paragraph tag <p></p>
+// 02 - Heading tag <h1></h1>
+// 03 - Comments
+// 04 - <strong>, <b>, <em>, <i>, <mark>
+// 05 - <sup>, <sub> 
+// 06 - <ul> , <ol> 
+// 07 - Links tag <a></a>
+// 08 - <blockquote> tag  ////
+// 09 - abbr tag  , The <acronym> 
+// 10 - <address> tag 
+// 3 - 
+// 3 - 
+// 3 - 
+// 3 - 
+// 3 - 
+// 3 - 
+
+
+
+
 // 1 - paragraph tag
-// 2 - Heading tag
-// 3 - Comments
-// 3 - 
-// 3 - 
-// 3 - 
-// 3 - 
-// 3 - 
-// 3 - 
-// 3 - 
-// 3 - 
-// 3 - 
-// 3 - 
-// 3 - 
-// 3 - 
-// 3 - 
-
-
-
-
-//paragraph tag
 
 <p>This is a basic HTML boilerplate structure.</p>
 
@@ -35,7 +35,7 @@
 
 
 
-// Heading Example
+// 2 - Heading Example
 <h1>This is the Main Heading (h1)</h1>  // it should be the single      
 <h2>This is a Subheading (h2)</h2>
 <h3>This is a Sub-subheading (h3)</h3>
@@ -60,7 +60,7 @@
 
 
 
-// HTML comments
+// 3 - HTML comments
 
 <!-- This is a single-line comment -->
 <p>This paragraph will be visible on the webpage.</p>
@@ -80,7 +80,7 @@ They are useful for explaining sections of code or temporarily removing code.
 
 
 
-// <strong> element   , <b> tag   ,  <em> tag  , <i> tag , mark tag
+// 4 - <strong>, <b>, <em>, <i>, <mark>
 
 <p>In a sentence: <strong>Pay attention to this warning!</strong></p>
 
@@ -96,7 +96,7 @@ They are useful for explaining sections of code or temporarily removing code.
 
 
 
-// <sup> and <sub> tags 
+// 5 - <sup>, <sub> 
 
 <p>The number <sup>2</sup> is the exponent in <b>3<sup>2</sup></b>.</p>
 
@@ -106,8 +106,12 @@ They are useful for explaining sections of code or temporarily removing code.
 
 
 
-// <ul> tag , Ordered List (<ol>)
 
+
+
+
+
+// 6 - <ul> , <ol>
 
 <ul>
 <li>Apple</li>
@@ -132,17 +136,7 @@ They are useful for explaining sections of code or temporarily removing code.
 
 
 
-
-
-
-
-
-
-
-
-
-
-// Links 
+// 7 - Links 
 
 <a href="URL">Link Text</a>
 <a href="https://www.example.com" target="_blank">Open in New Tab</a>
@@ -165,7 +159,12 @@ Link to a Specific Section on the Same Page (Anchor Link)
 
 
 
-// <blockquote> tag
+
+
+
+
+
+// 8 - <blockquote> tag
 
 <blockquote cite="https://www.example.com/article">
   "Innovation distinguishes between a leader and a follower."
@@ -177,14 +176,22 @@ Link to a Specific Section on the Same Page (Anchor Link)
 
 
 
- // abbr tag  , The <acronym> 
+// 9 - abbr tag  , The <acronym> 
 
 <p>The <abbr title="HyperText Markup Language">HTML</abbr> is the standard language for creating web pages.</p>
 
 <acronym title="Full form of acronym">Acronym</acronym>
 
 
-// <address> tag 
+
+
+
+
+
+
+
+
+// 10 - <address> tag 
 
 <address>
   Email: <a href="mailto:someone@example.com">someone@example.com</a><br>
