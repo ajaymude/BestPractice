@@ -1,8 +1,35 @@
 // Text tags in html 
 
+// 1 - paragraph tag
+// 2 - Heading tag
+// 3 - Comments
+// 3 - 
+// 3 - 
+// 3 - 
+// 3 - 
+// 3 - 
+// 3 - 
+// 3 - 
+// 3 - 
+// 3 - 
+// 3 - 
+// 3 - 
+// 3 - 
+// 3 - 
+
+
+
+
 //paragraph tag
 
 <p>This is a basic HTML boilerplate structure.</p>
+
+
+
+
+
+
+
 
 
 
@@ -15,6 +42,19 @@
 <h4>This is a Smaller Heading (h4)</h4>
 <h5>This is an Even Smaller Heading (h5)</h5>
 <h6>This is the Smallest Heading (h6)</h6>
+
+<h1>: Typically around 2em (about 32px to 36px)
+<h2>: Typically around 1.5em (about 24px to 30px)
+<h3>: Typically around 1.17em (about 18px to 24px)
+<h4>: Typically around 1em (about 16px to 20px)
+<h5>: Typically around 0.83em (about 14px)
+<h6>: Typically around 0.67em (about 12px)
+
+
+
+
+
+
 
 
 
@@ -30,6 +70,11 @@ This is a multi-line comment.
 Comments can span across multiple lines.
 They are useful for explaining sections of code or temporarily removing code.
 -->
+
+
+
+
+
 
 
 
