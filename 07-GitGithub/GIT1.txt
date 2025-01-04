@@ -112,6 +112,7 @@ git status
 git add .
 
 git add text.txt
+git add text.txt text1.txt 
 
 git commit -m "message"
 
@@ -126,6 +127,17 @@ add .
 git commit 
 
 /// repository ///
+
+
+git log 
+
+git log --oneline 
+
+
+// amending the commit  // with this we can amend previous commit 
+
+git commit --amend
+
 
 
 
