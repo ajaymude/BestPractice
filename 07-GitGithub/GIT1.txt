@@ -1,6 +1,7 @@
 // content 
 
-// 1 - git introduction - vcs  
+// 1 terminal command 
+// 2 - git introduction - vcs  
 
 
 
@@ -11,31 +12,12 @@
 
 
 
-// 1 - git introduction - vcs  
 
-git --version 
-
-git config --global user.name "Your Name"
-git config --global user.email "youremail@example.com"
-
-git config --global user.name
-git config --global user.email
-
-git config --list
-
-
-
-
-
-
-
-
-
-
-// terminal command 
+// 1 terminal command 
 
 ### **File and Directory Navigation**
-ls                          # List directory contents
+explorer.exe .              # Open current path in file explorer 
+ls  , ls -a                 # List directory contents , -a show the hidden folder
 cd <directory>              # Change directory
 cd ..                       # Go up one directory
 pwd                         # Print current working directory
@@ -95,6 +77,66 @@ fg                          # Bring a background job to the foreground
 history                    # Display command history
 clear                      # Clear the terminal screen
 exit                       # Exit the terminal session
+
+
+
+
+
+
+
+
+
+
+// 2 - git introduction - vcs  
+
+git --version 
+
+
+
+git config --global user.name "Your Name"
+git config --global user.email "youremail@example.com"
+
+git config --global user.name
+git config --global user.email
+
+git config --list
+
+
+
+// initialize git repo
+
+git init 
+
+git status 
+
+git add .
+
+git add text.txt
+
+git commit -m "message"
+
+
+
+/// working directories ///
+
+add . 
+
+/// staging area ///
+
+git commit 
+
+/// repository ///
+
+
+
+
+
+
+
+
+
+
+
 
 
 
