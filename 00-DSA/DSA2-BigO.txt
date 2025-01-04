@@ -1,6 +1,7 @@
 readable and scalable code should have 
 
 // big o notation
+// time complexity
 
 // worst case 
 

@@ -4,6 +4,7 @@
 // 2 - git introduction - vcs  
 // 3 gitignore 
 // 4 Branch 
+// 5 - Diff
 
 
 
@@ -177,6 +178,7 @@ git switch branchName
 git switch -c branchName
 
 git checkout branchName 
+git checkout -b branchName
 
 
 // it delete the branch , but this command give the 
@@ -211,6 +213,10 @@ git push origin new-branch-name
 
 / types of merge 
 / 1 - fast farward merge - parent have no additional commit 
+/ 2 - recursive merge - both branch have the change but not in same file , if it have the have the
+      change in the same file but not in the same line of code . thats why it will not create any 
+      merge conflict   , it give the message of auto merge by the git 
+/ 3 - you will get conflict when changes have on same file and same line 
 
 
 // merge in current branch , otherBranch 
@@ -220,3 +226,10 @@ git push origin new-branch-name
 
 
 
+
+
+
+
+
+
+// 5 - Diff
