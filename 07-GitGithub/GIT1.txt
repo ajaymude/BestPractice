@@ -209,6 +209,9 @@ git push origin new-branch-name
 
 // Merge 
 
+/ types of merge 
+/ 1 - fast farward merge - parent have no additional commit 
+
 
 
 
