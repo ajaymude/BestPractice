@@ -3,6 +3,7 @@
 // 1 terminal command 
 // 2 - git introduction - vcs  
 // 3 gitignore 
+// 4 Branch 
 
 
 
@@ -162,7 +163,7 @@ git commit --amend
 
 
 
-// Branch 
+// 4 Branch 
 
 // main head branch 
 
@@ -176,4 +177,40 @@ git switch branchName
 git switch -c branchName
 
 git checkout branchName 
+
+
+// it delete the branch , but this command give the 
+   warning if the code is not merge  
+git branch -d branch_name
+
+// force full delete 
+git branch -D branch_name
+git push origin --delete branch_name
+
+git branch -r
+
+
+
+// rename the branch 
+git branch -m new-branch-name
+
+git branch -m old-branch-name new-branch-name
+
+git push origin new-branch-name
+
+
+
+
+
+
+
+
+
+
+// Merge 
+
+
+
+
+
 
