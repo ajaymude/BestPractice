@@ -2,6 +2,8 @@
 
 // 1 terminal command 
 // 2 - git introduction - vcs  
+// 3 gitignore 
+
 
 
 
@@ -116,6 +118,8 @@ git add text.txt text1.txt
 
 git commit -m "message"
 
+git commit -a -m "Update file.txt with new content"
+
 
 
 /// working directories ///
@@ -147,9 +151,22 @@ git commit --amend
 
 
 
+// 3 gitignore 
 
 
 
 
 
 
+
+
+
+
+// Branch 
+
+// main head branch 
+
+/ create new branch or the switch 
+git branch newBranchName     
+
+git switch branchName 
