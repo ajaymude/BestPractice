@@ -169,9 +169,11 @@ git commit --amend
 / create new branch or the switch 
 git branch newBranchName     
 
+
 git switch branchName 
+
+// it create the branch and the switch the branch 
+git switch -c branchName
 
 git checkout branchName 
 
-// it create the branch and the switch the branch 
-git checkout -c branchName 
