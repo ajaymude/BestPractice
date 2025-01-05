@@ -125,22 +125,17 @@ git commit -a -m "Update file.txt with new content"
 
 
 /// working directories ///
-
 add . 
-
 /// staging area ///
-
 git commit 
-
 /// repository ///
 
 
 git log 
-
 git log --oneline 
 
 
-// amending the commit  // with this we can amend previous commit 
+/ amending the commit  // with this we can amend previous commit 
 
 git commit --amend
 
@@ -166,7 +161,7 @@ git commit --amend
 
 // 4 Branch 
 
-// main head branch 
+/ main head branch 
 
 / create new branch or the switch 
 git branch newBranchName     

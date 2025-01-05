@@ -47,6 +47,9 @@ git fetch origin
 git push <remote-name> <branch-name>
 git push origin main
 
+git push <remote-name> <source-branch>:<destination-branch>
+
+
 
 
 / Pulling Changes from a Remote Repository
