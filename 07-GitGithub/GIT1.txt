@@ -233,3 +233,36 @@ git push origin new-branch-name
 
 
 // 5 - Diff
+
+// compare staging area to working directories
+git diff 
+
+git diff --cached
+
+git diff branch1..branch2
+
+git diff <commit1> <commit2> -- <file_path>
+
+git diff a1b2c3d4 e5f6g7h8 -- src/app.js
+
+
+
+
+
+
+
+
+
+
+// Stash 
+
+git stash 
+
+git stash pop
+
+git stash list
+
+git stash apply stash@{1}
+
+git stash clear
+
