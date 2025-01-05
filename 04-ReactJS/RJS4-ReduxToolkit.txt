@@ -1,22 +1,7 @@
-// Introduction 
+// Redux toolkit
 
-
-
-// 1 - steps  installation 
-// 2 - step  create  reducer.js
-// 3 - step create store 
-// 4 - use provider  index.js or App.js
-// 5 - connecting dispatch
-
-
-
-
-
-
-
-// 1 - steps  installation 
-// npm install redux react-redux
-// mutable premitive  , immutable non premitive
+// 1 - installation
+// 2 - setup
 
 
 
@@ -27,64 +12,83 @@
 
 
 
-//2 - step  create  reducer.js
+// 1 - installation
+
+npm install @reduxjs/toolkit react-redux
+
+
+
+
+
+
+
+
+
+
+
+// 2 - setup
+
+import React from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App'
+import { store } from './app/store'
+import { Provider } from 'react-redux'
+
+const container = document.getElementById('root')
+
+if (container) {
+  const root = createRoot(container)
+
+  root.render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+  )
+} else {
+  throw new Error(
+    "Root element with ID 'root' was not found in the document. Ensure
+     there is a corresponding HTML element with the ID 'root' in your HTML file.",
+  )
+}
+
+
+
+
+
+
+
+
+
+
+// 3 - Create a Redux State Slice
+
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    count: 0,
-  };
-  
-  const counterReducer = (state = initialState, action) => {
-    switch (action.type) {
-      case 'INCREMENT':
-        return { ...state, count: state.count + 1 };
-      case 'DECREMENT':
-        return { ...state, count: state.count - 1 };
-      default:
-        return state;
-    }
-  };
-  
-  export default counterReducer;
+  value: 0,
+}
 
+export const counterSlice = createSlice({
+  name: 'counter',
+  initialState,
+  reducers: {
+    increment: (state) => {
+      state.value += 1
+    },
+    decrement: (state) => {
+      state.value -= 1
+    },
+    incrementByAmount: (state, action) => {
+      state.value += action.payload
+    },
+  },
+})
 
+// Action creators are generated for each case reducer function
+export const { increment, decrement, incrementByAmount } = counterSlice.actions
 
-
-
-
-
-
-
-  
-// 3 - step create store 
-
-import { createStore } from 'redux';
-import counterReducer from './reducer';
-
-const store = createStore(counterReducer);
-
-export default store;
-
-
-
-
-
-
-
-
- // 4 - use provider  index.js or App.js
-
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import store from './store';
-import App from './App';
-
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('root')
-);
+export default counterSlice.reducer
 
 
 
@@ -95,34 +99,57 @@ ReactDOM.render(
 
 
 
-// 5 - connecting dispatch 
+// 4 - 
 
-// App.js
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit'
+import counterReducer from '../features/counter/counterSlice'
 
-function App() {
-  const count = useSelector(state => state.count);
-  const dispatch = useDispatch();
+export const store = configureStore({
+  reducer: {
+    counter: counterReducer,
+  },
+})
 
-  const increment = () => {
-    dispatch({ type: 'INCREMENT' });
-  };
 
-  const decrement = () => {
-    dispatch({ type: 'DECREMENT' });
-  };
+
+
+
+
+
+
+
+
+// 5 -  
+
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { decrement, increment } from './counterSlice'
+
+export function Counter() {
+  const count = useSelector((state) => state.counter.value)
+  const dispatch = useDispatch()
 
   return (
     <div>
-      <h1>Count: {count}</h1>
-      <button onClick={increment}>Increment</button>
-      <button onClick={decrement}>Decrement</button>
+      <div>
+        <button
+          aria-label="Increment value"
+          onClick={() => dispatch(increment())}
+        >
+          Increment
+        </button>
+        <span>{count}</span>
+        <button
+          aria-label="Decrement value"
+          onClick={() => dispatch(decrement())}
+        >
+          Decrement
+        </button>
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
 
 
 
@@ -133,4 +160,3 @@ export default App;
 
 
 
-// 
