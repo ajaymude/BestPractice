@@ -190,10 +190,14 @@ git branch -r
 
 // rename the branch 
 git branch -m new-branch-name
+git branch -M <new-branch-name>  // force full 
+
+
 
 git branch -m old-branch-name new-branch-name
 
 git push origin new-branch-name
+mm
 
 
 
