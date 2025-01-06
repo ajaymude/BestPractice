@@ -1,4 +1,22 @@
-// 1 Linking a JavaScript File
+// Topic 
+
+// 1 - Linking a JavaScript File
+// 2 - variable
+// 3 - Data Types in Variables
+// 4 - comments 
+// 5 - operator 
+
+
+
+
+
+
+
+
+
+
+
+// 1 - Linking a JavaScript File
 
 // a - internal html
 
@@ -48,17 +66,29 @@
 
 
 
-// 2 variable
-
-var name = "Alice";
-let city = "New York";
-const pi = 3.14159;
 
 
 
 
 
-// 3  Data Types in Variables
+// 2 - variable
+
+var name = "Alice";      // declare y // redeclare y // reassign  y   //
+let city = "New York";   // declare y // redeclare n // reassign  y
+const pi = 3.14159;      // declare y // redeclare n // reassign  n
+
+
+
+
+
+
+
+
+
+
+// 3 - Data Types in Variables
+
+/ primitive data type 
 
 // Boolean
 // Number
@@ -71,3 +101,1373 @@ const pi = 3.14159;
 
 // Array
 // Object
+
+
+
+
+
+
+
+
+
+
+// 4 - comments 
+
+// This is a single-line comment
+let x = 10; // This is an inline comment
+
+/*
+  This is a multi-line comment.
+  It can span multiple lines.
+*/
+
+  
+
+
+
+
+
+
+
+// 5 - operator 
+
+/ Arithmetic operator
+console.log(a + b);   // 15 (Addition)
+console.log(a - b);   // 5  (Subtraction)
+console.log(a * b);   // 50 (Multiplication)
+console.log(a / b);   // 2  (Division)
+console.log(a % b);   // 0  (Modulo)
+
+
+/ assignment operator
+a += b;  // a = a + b, so a becomes 7
+a -= 3;  // a = a - 3, so a becomes 4
+a *= 2;  // a = a * 2, so a becomes 8
+a /= 4;  // a = a / 4, so a becomes 2
+a %= 2;  // a = a % 2, so a becomes 0
+a **= 3; // a = a ** 3, so a becomes 0 (0 raised to any power is still 0)
+
+
+/ comparison operator
+
+let a = 10;
+let b = "10";
+let c = 5;
+
+console.log(a == b);   // true (type coercion, both are 10)
+console.log(a === b);  // false (strict equality, different types)
+console.log(a != b);   // false (because 10 == "10" is true)
+console.log(a !== b);  // true (strict inequality, different types)
+
+console.log(a > c);    // true (10 is greater than 5)
+console.log(a < c);    // false (10 is not less than 5)
+console.log(a >= 10);  // true (10 is equal to 10)
+console.log(a <= 5);   // false (10 is not less than or equal to 5)
+
+
+// logical operator
+
+// Logical AND (&&)
+let a = true;
+let b = false;
+
+console.log(a && b);  // false (because b is false)
+console.log(true && true);   // true (both are true)
+console.log(true && false);  // false (one is false)
+console.log(false && false); // false (both are false)
+
+// Logical OR (||)
+console.log(a || b);   // true (at least one is true)
+console.log(false || false); // false (both are false)
+console.log(true || true);   // true (both are true)
+console.log(false || true);  // true (one is true)
+
+// Logical NOT (!)
+console.log(!a);      // false (a is true, NOT makes it false)
+console.log(!b);      // true (b is false, NOT makes it true)
+
+// Short-circuiting with AND (&&)
+let x = 0;
+let y = 5;
+
+console.log(x && y);  // 0 (x is falsy, so short-circuits, doesn't evaluate y)
+
+// Short-circuiting with OR (||)
+console.log(x || y);  // 5 (x is falsy, so evaluates y)
+
+// More Logical AND (&&) Examples:
+console.log(true && 1);  // 1 (truthy value, returns second operand)
+console.log(0 && true);  // 0 (falsy value, returns first operand)
+
+// More Logical OR (||) Examples:
+console.log(false || "hello");  // "hello" (first is falsy, returns second operand)
+console.log(undefined || "world"); // "world" (first is falsy, returns second operand)
+
+// Mixing AND & OR:
+console.log(true || false && false);  // true (OR is evaluated first)
+console.log(false && true || true);  // true (AND is evaluated first)
+
+// Logical NOT Examples:
+console.log(!0);         // true (0 is falsy)
+console.log(!"hello");   // false (non-empty string is truthy)
+console.log(!!"text");   // true (double NOT converts it to boolean)
+console.log(!!0);        // false (double NOT converts it to boolean)
+
+
+
+
+
+
+
+
+
+
+
+// 9 - if else 
+
+// Example variables
+let score = 85;
+
+// Using if, else if, and else
+if (score >= 90) {
+  console.log('Grade: A');  // If score is 90 or greater
+} else if (score >= 80) {
+  console.log('Grade: B');  // If score is between 80 and 89
+} else if (score >= 70) {
+  console.log('Grade: C');  // If score is between 70 and 79
+} else if (score >= 60) {
+  console.log('Grade: D');  // If score is between 60 and 69
+} else {
+  console.log('Grade: F');  // If score is less than 60
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// 10 -ternary operator 
+
+// Example variable
+let age = 20;
+
+// Using the ternary operator
+let result = age >= 18 ? 'Adult' : 'Minor';
+
+console.log(result);  // Output: 'Adult'
+
+
+
+
+
+
+
+
+
+
+// 11 -  switch statements
+let day = 3;
+let dayName;
+
+switch (day) {
+  case 1:
+    dayName = 'Monday';
+    break;
+  case 2:
+    dayName = 'Tuesday';
+    break;
+  case 3:
+    dayName = 'Wednesday';
+    break;
+  case 4:
+    dayName = 'Thursday';
+    break;
+  case 5:
+    dayName = 'Friday';
+    break;
+  case 6:
+    dayName = 'Saturday';
+    break;
+  case 7:
+    dayName = 'Sunday';
+    break;
+  default:
+    dayName = 'Invalid day';
+}
+
+console.log(dayName);  // Output: 'Wednesday'
+
+
+
+
+
+
+
+
+
+// 12 -  alert , prompt , confirm
+
+let age = 16;
+
+if (age < 18) {
+  alert("You are a minor.");
+} else {
+  alert("You are an adult.");
+}
+
+
+
+let userChoice = confirm("Do you want to proceed?");
+if (userChoice) {
+  alert("You clicked OK!");
+} else {
+  alert("You clicked Cancel!");
+}
+
+
+
+let age = prompt("How old are you?", "25");
+alert("You are " + age + " years old.");
+
+
+
+
+
+
+
+
+
+
+// 13 - function 
+
+
+function greet() {
+  console.log("Hello, world!");
+}
+
+greet();  // Output: Hello, world!
+
+
+
+
+function add(a, b) {   // parameters
+  return a + b;
+}
+
+let result = add(5, 3); // arguments
+console.log(result);  // Output: 8
+
+
+
+
+
+function greet(name = "Guest") {
+  console.log("Hello, " + name + "!");
+}
+
+greet();           // Output: Hello, Guest!
+greet("Alice");    // Output: Hello, Alice!
+
+
+
+// a arrow function 
+const add = (a, b) => a + b;
+
+let result = add(2, 3);
+console.log(result);  // Output: 5
+
+
+
+// b iffe function
+(function() {
+  console.log("This is an IIFE!");
+})();
+
+
+
+
+function sum(...numbers) {
+  return numbers.reduce((total, num) => total + num, 0);
+}
+
+let result = sum(1, 2, 3, 4, 5);
+console.log(result);  // Output: 15
+
+
+
+
+
+
+
+
+
+
+// 14 - setInterval  clearInterval
+
+// 1. setInterval() example
+let counter = 0;
+
+// Using setInterval to execute a function every 1 second (1000 milliseconds)
+let intervalId = setInterval(function() {
+    counter++;
+    console.log('Counter:', counter);
+
+    // After 5 seconds, clear the interval
+    if (counter === 5) {
+        clearInterval(intervalId); // This stops the interval
+        console.log('Interval cleared after 5 counts');
+    }
+}, 1000);  // The function is called every 1000 milliseconds (1 second)
+
+// Output:
+// Counter: 1
+// Counter: 2
+// Counter: 3
+// Counter: 4
+// Counter: 5
+// Interval cleared after 5 counts
+
+
+
+
+
+
+
+
+
+
+
+// 15 setTimeout clearTimeout
+
+
+// 1. Using setTimeout() to execute a function after a delay
+
+let timeoutId = setTimeout(function() {
+    console.log("This message will appear after 3 seconds.");
+}, 3000); // 3000 milliseconds (3 seconds)
+
+// 2. Using clearTimeout() to cancel the timeout before it executes
+
+// Let's cancel the timeout after 1 second
+setTimeout(function() {
+    clearTimeout(timeoutId);  // Clears the first setTimeout
+    console.log("Timeout has been cleared before it ran.");
+}, 1000); // 1000 milliseconds (1 second)
+
+// Output:
+// "Timeout has been cleared before it ran."
+// (The first message won't appear because it was cleared before running)
+
+
+
+
+
+
+
+
+
+
+
+
+// 16 -  Template String
+
+const x = 5;
+const y = 10;
+const sum = `The sum of ${x} and ${y} is ${x + y}.`;
+console.log(sum); // Output: The sum of 5 and 10 is 15.
+
+
+function getYear() {
+  return new Date().getFullYear();
+}
+
+const message = `The current year is ${getYear()}.`;
+console.log(message); // Output: The current year is 2024 (or the current year).
+
+
+
+
+
+
+
+
+
+
+
+// 17 rest operator 
+
+
+
+function sum(...numbers) {
+  return numbers.reduce((acc, num) => acc + num, 0);
+}
+
+console.log(sum(1, 2, 3)); // Output: 6
+console.log(sum(10, 20, 30, 40)); // Output: 100
+
+
+
+
+
+const arr = [1, 2, 3, 4, 5];
+const [first, second, ...rest] = arr;
+
+console.log(first);  // Output: 1
+console.log(second); // Output: 2
+console.log(rest);   // Output: [3, 4, 5]
+
+
+
+
+
+const person = {
+  name: "Alice",
+  age: 25,
+  country: "USA",
+  city: "New York"
+};
+
+const { name, age, ...address } = person;
+
+console.log(name);   // Output: Alice
+console.log(age);    // Output: 25
+console.log(address); // Output: { country: 'USA', city: 'New York' }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 18 -  Spread Operator (...) 
+
+const arr1 = [1, 2, 3];
+const arr2 = [...arr1, 4, 5];
+console.log(arr2); // Output: [1, 2, 3, 4, 5]
+
+
+const arr1 = [1, 2, 3];
+const arr2 = [4, 5, 6];
+const mergedArray = [...arr1, ...arr2];
+console.log(mergedArray); // Output: [1, 2, 3, 4, 5, 6]
+
+
+const person = { name: "Jane", age: 25 };
+const clonedPerson = { ...person };
+clonedPerson.age = 26;
+
+console.log(person); // Output: { name: "Jane", age: 25 }
+console.log(clonedPerson); // Output: { name: "Jane", age: 26 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 20 - object literals 
+
+1. Basic Object Literal
+const person = {
+  name: "Alice",
+  age: 25,
+  country: "USA"
+};
+
+console.log(person.name);   // Output: Alice
+console.log(person.age);    // Output: 25
+console.log(person.country); // Output: USA
+
+
+// short hand 
+const name = "Alice";
+const age = 25;
+const person = {
+  name,
+  age
+};
+
+console.log(person);  // Output: { name: 'Alice', age: 25 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 21 - Destrucuring 
+
+const arr = [1, 2, 3];
+const [a, b, c] = arr;
+console.log(a); // Output: 1
+console.log(b); // Output: 2
+console.log(c); // Output: 3
+
+
+const arr = [1];
+const [a, b = 2] = arr;
+console.log(a); // Output: 1
+console.log(b); // Output: 2
+
+
+const person = { name: "Alice", age: 25 };
+const { name, age } = person;
+console.log(name); // Output: Alice
+console.log(age);  // Output: 25
+
+
+
+
+
+
+
+// JavaScript executed Context
+
+Global execution Context
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// syllabus 
+
+1. Introduction to JavaScript
+What is JavaScript?
+History of JavaScript
+Importance of JavaScript in web development
+JavaScript environments (Browser vs. Node.js)
+Embedding JavaScript in HTML (inline, internal, and external scripts)
+
+2. Basic JavaScript Syntax
+Comments in JavaScript
+Variables and Constants (var, let, const)
+Data Types (Primitive types: string, number, boolean, null, undefined, symbol, bigint)
+Type Conversion (implicit and explicit casting)
+Operators: Arithmetic, Assignment, Comparison, Logical, Ternary, Bitwise, etc.
+Expressions and Statements
+
+3. Control Structures
+Conditional Statements (if, if-else, switch-case)
+Loops (for, while, do-while, forEach)
+Break and Continue
+
+4. Functions
+Defining Functions (function declarations, function expressions)
+Arrow Functions
+Function Parameters (default parameters, rest parameters)
+Return Values
+Function Scope and Closures
+Higher-order Functions
+Immediately Invoked Function Expressions (IIFE)
+Recursion in JavaScript
+
+5. Objects and Arrays
+Arrays (Creating arrays, accessing elements, array methods)
+Multidimensional Arrays
+Objects (Object literal, creating objects, accessing properties)
+Object Methods and this keyword
+JSON (JavaScript Object Notation): parsing and stringifying
+Array Methods (map, filter, reduce, forEach, etc.)
+Destructuring (arrays and objects)
+Spread and Rest Operators
+
+6. Error Handling
+try-catch Block
+Custom Errors
+Throwing Errors
+Handling Asynchronous Errors
+
+7. Asynchronous JavaScript
+Callbacks
+Promises (Creation, .then(), .catch(), chaining)
+Async/Await
+Event Loop and the Call Stack
+JavaScript Timers (setTimeout, setInterval)
+Debouncing and Throttling
+Working with External APIs (fetch API, AJAX)
+
+8. DOM Manipulation
+Introduction to DOM (Document Object Model)
+Accessing DOM Elements (getElementById, querySelector, etc.)
+Manipulating DOM Elements (changing text, HTML, attributes, styles)
+Event Handling (click, submit, input, etc.)
+Event Delegation
+DOM Traversal (parent, children, siblings)
+Creating Elements Dynamically
+
+9. ES6 and Beyond (Modern JavaScript)
+Template Literals
+Arrow Functions
+Enhanced Object Literals
+Destructuring Assignment
+Default Parameters
+Rest and Spread Operators
+Classes (class syntax, constructors, inheritance)
+Modules (import/export)
+Iterators and Generators
+Maps and Sets
+
+Promises and async/await
+10. JavaScript in the Browser
+Browser Object Model (BOM)
+Window, Navigator, Screen, History, Location
+Local Storage and Session Storage
+Cookies
+Handling Forms (validations, inputs, events)
+Geolocation API
+Web Workers
+WebSockets
+Service Workers
+Fetch API vs XMLHttpRequest
+
+11. JavaScript in Node.js
+Introduction to Node.js
+Installing and Setting Up Node.js
+Node.js Modules (fs, http, path, util, etc.)
+NPM (Node Package Manager)
+Package.json File (dependencies, scripts)
+Using third-party Libraries (express, lodash, etc.)
+Event-driven Programming in Node.js
+File System (reading and writing files)
+Creating a Basic Web Server
+Handling HTTP Requests
+Introduction to REST APIs
+
+12. JavaScript Frameworks and Libraries
+Introduction to Front-end Frameworks (React, Angular, Vue.js)
+Introduction to Node.js Frameworks (Express.js)
+Working with React (components, JSX, state, hooks)
+Vue.js Basics (reactivity, components, directives)
+Angular Basics (Modules, components, services)
+Using jQuery
+Testing in JavaScript (Jest, Mocha, Chai)
+
+13. Advanced Topics
+Design Patterns (Module, Singleton, Observer, Factory, etc.)
+Webpack and Module Bundlers
+Babel (Transpiling ES6+ to ES5)
+Server-side Rendering (SSR) in frameworks
+Webpack, Babel, and NPM Scripts (for frontend bundling)
+Reactive Programming (RxJS)
+Progressive Web Apps (PWAs)
+JavaScript and Web Assembly (WASM)
+GraphQL with JavaScript
+Security Best Practices (XSS, CSRF, HTTPS, Content Security Policy)
+Code Optimization and Performance
+Memory Management in JavaScript
+
+14. Testing and Debugging
+Using Browser Developer Tools
+Debugging JavaScript Code (breakpoints, stack traces)
+Unit Testing Frameworks (Jest, Mocha, Jasmine)
+Writing Unit Tests for JavaScript
+Test-Driven Development (TDD) and Behavior-Driven Development (BDD)
+End-to-End Testing (Cypress, Selenium)
+
+15. Version Control and Deployment
+Git Basics (Commit, Push, Pull, Merge, Branch)
+GitHub or GitLab (Repositories, Collaboration)
+Continuous Integration (CI/CD)
+Deploying JavaScript applications (Netlify, Heroku, AWS, DigitalOcean)
+Deployment Strategies (Docker, Kubernetes)
+
+16. Best Practices
+Writing Clean and Maintainable Code
+Code Reviews
+Refactoring
+Using Linting Tools (ESLint)
+Formatting with Prettier
+Version Control Practices
+Writing Documentation
+Performance Optimization
+
+17. Other Topics
+Mobile Development with JavaScript (React Native, Ionic)
+Electron for Desktop Apps
+Using TypeScript with JavaScript
+JavaScript and Machine Learning (TensorFlow.js)
+
+
+
+// scope 
+
+1. Global Scope
+A variable that is declared outside of any function
+or block is said to have global scope.
+It can be accessed from anywhere in the code.
+
+
+2. Function Scope
+In JavaScript, variables declared inside a function 
+are confined to that function's scope and are not accessible outside.
+
+
+3. Block Scope (let and const)
+Variables declared with let or const inside a block 
+(such as inside a for loop or an if statement) are limited to 
+that block scope. They cannot be accessed outside of the block.
+
+
+What is a Closure in JavaScript?
+In JavaScript, a closure is a function that "remembers" and can access 
+variables from the outer function's scope, even after the outer function has 
+finished execution. This means that a function can have access to variables from 
+its lexical scope (the scope in which it was created), even if the function 
+is executed outside of that scope.
+
+
+What is Hoisting in JavaScript?
+Hoisting is a JavaScript mechanism where variables and 
+function declarations are moved ("hoisted") to the top of their containing 
+scope during the compilation phase, before the code execution begins. However, 
+only the declarations are hoisted, not the initializations.
+
+
+Implicit Type Coercion
+This is when JavaScript automatically converts values to a different type during operations.
+
+const result = '5' + 3;
+console.log(result);  // Output: '53' (string)
+
+
+const isActive = 'false';  // Non-empty string, treated as truthy
+if (isActive) {
+    console.log('The value is truthy!');
+} else {
+    console.log('The value is falsy!');
+}
+// Output: The value is truthy!
+
+
+console.log(1 + '1');   // Output: '11' (string)
+console.log(true + '1'); // Output: 'true1' (string)
+
+
+
+
+
