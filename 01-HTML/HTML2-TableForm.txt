@@ -1,4 +1,27 @@
-// table
+// 1 - table
+     - thead 
+     - tbody
+     - tfoot
+     - tr
+     - th 
+     - td 
+     - caption
+     - colgroup
+
+
+// 2 - form 
+     - <label></label>
+     - input
+
+
+
+
+
+
+
+
+
+// 1 - table
 
 <table border="1">
   <caption>List of Students</caption>
