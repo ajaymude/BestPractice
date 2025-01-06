@@ -88,7 +88,7 @@ const pi = 3.14159;      // declare y // redeclare n // reassign  n
 
 // 3 - Data Types in Variables
 
-/ primitive data type 
+/ primitive data type  
 
 // Boolean
 // Number
@@ -101,6 +101,32 @@ const pi = 3.14159;      // declare y // redeclare n // reassign  n
 
 // Array
 // Object
+
+
+/ falsy value 
+1. false
+2. 0
+3. -0
+4. ""
+5. null
+6. undefined
+7. NaN
+
+/ == vs  ===
+
+console.log(5 == "5");        // true  (String "5" is coerced to number 5)
+console.log(0 == false);      // true  (0 is coerced to false)
+console.log(null == undefined); // true  (null and undefined are considered equal with ==)
+console.log(true == 1);       // true  (true is coerced to 1)
+console.log("1" == 1);        // true  (String "1" is coerced to number 1)
+
+console.log(5 === "5");       // false (different types: number vs string)
+console.log(0 === false);     // false (different types: number vs boolean)
+console.log(null === undefined);  // false (null and undefined are not strictly equal)
+console.log(true === 1);      // false (different types: boolean vs number)
+console.log("1" === 1);       // false (different types: string vs number)
+
+
 
 
 
@@ -222,13 +248,56 @@ console.log(!!0);        // false (double NOT converts it to boolean)
 
 
 
+// 6 - Operator Precedence in JavaScript (Highest to Lowest)
 
-// 9 - if else 
+1. ()                   // Grouping expression
+2. ++ (Post-increment), -- (Post-decrement)   // Postfix operators
+3. ++ (Pre-increment), -- (Pre-decrement), +, -, !, ~, typeof, void   // Unary operators
+4. **                    // Exponentiation
+5. *, /, %               // Multiplication, Division, Modulo
+6. +, -                  // Addition, Subtraction
+7. <<, >>, >>>           // Bitwise shift operators
+8. <, <=, >, >=, in, instanceof  // Relational operators
+9. ==, !=, ===, !==      // Equality and inequality operators
+10. &                    // Bitwise AND
+11. ^                    // Bitwise XOR
+12. |                    // Bitwise OR
+13. &&                   // Logical AND
+14. ||                   // Logical OR
+15. ? :                  // Ternary conditional operator
+16. =, +=, -=, *=, /=, %= // Assignment operators
+17. ,                    // Comma operator
 
-// Example variables
+
+
+
+
+
+
+
+
+
+// 7 -  Template String
+
+const x = 5;
+const y = 10;
+const sum = `The sum of ${x} and ${y} is ${x + y}.`;
+
+const message = `The current year is ${getYear()}.`;
+
+
+
+
+
+
+
+
+
+
+// 8 - if else statement
+
 let score = 85;
 
-// Using if, else if, and else
 if (score >= 90) {
   console.log('Grade: A');  // If score is 90 or greater
 } else if (score >= 80) {
@@ -250,17 +319,32 @@ if (score >= 90) {
 
 
 
+// 9 -  type conversion and type coercion
+
+// Type Conversion Example , by us
+let str = "456";
+let num = Number(str);  // Explicit conversion
+console.log(num); // Output: 456 (number)
+
+// Type Coercion Example , by js
+let str2 = "5";
+let num2 = 5;
+console.log(str2 == num2);  // Output: true (string is coerced to number)
+
+
+
+
+
+
+
+
 
 
 // 10 -ternary operator 
 
 // Example variable
 let age = 20;
-
-// Using the ternary operator
 let result = age >= 18 ? 'Adult' : 'Minor';
-
-console.log(result);  // Output: 'Adult'
 
 
 
@@ -302,6 +386,7 @@ switch (day) {
 }
 
 console.log(dayName);  // Output: 'Wednesday'
+
 
 
 
@@ -473,22 +558,6 @@ setTimeout(function() {
 
 
 
-
-
-// 16 -  Template String
-
-const x = 5;
-const y = 10;
-const sum = `The sum of ${x} and ${y} is ${x + y}.`;
-console.log(sum); // Output: The sum of 5 and 10 is 15.
-
-
-function getYear() {
-  return new Date().getFullYear();
-}
-
-const message = `The current year is ${getYear()}.`;
-console.log(message); // Output: The current year is 2024 (or the current year).
 
 
 
