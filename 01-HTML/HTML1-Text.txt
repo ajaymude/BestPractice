@@ -3,14 +3,20 @@
 // 01 - paragraph tag <p></p>
 // 02 - Heading tag <h1></h1>
 // 03 - Comments
-// 04 - <strong>, <b>, <em>, <i>, <mark>
+// 4 - <strong>, <b>, <em>, <i>, <mark>, <del>
 // 05 - <sup>, <sub> 
 // 06 - <ul> , <ol> 
 // 07 - Links tag <a></a>
 // 08 - <blockquote> tag  ////
 // 09 - abbr tag  , The <acronym> 
 // 10 - <address> tag 
-// 3 - 
+// 11 - <hr> and <br>
+// 12 - code tag
+// 13 - dl dd dt  dfn
+// 14 - <details> tag 
+// 16 - div  and span 
+// 17 - pre tag 
+// 18 - ruby tag
 // 3 - 
 // 3 - 
 // 3 - 
@@ -80,7 +86,7 @@ They are useful for explaining sections of code or temporarily removing code.
 
 
 
-// 4 - <strong>, <b>, <em>, <i>, <mark>
+// 4 - <strong>, <b>, <em>, <i>, <mark>, <del>
 
 <p>In a sentence: <strong>Pay attention to this warning!</strong></p>
 
@@ -92,7 +98,9 @@ They are useful for explaining sections of code or temporarily removing code.
 
 <p>This is a <mark>highlighted text</mark> with custom styles.</p>
 
+// delete tag
 
+<del>This text is deleted</del>
 
 
 
@@ -206,12 +214,22 @@ Link to a Specific Section on the Same Page (Anchor Link)
 
 
 
-// <hr> Tag (Horizontal Rule)  <hr> and <br>
+
+
+// 11 - <hr> and <br>
 
 <h2>Styled <code>&lt;hr&gt; Tag</code></h2>
 
 
-// code tag
+
+
+
+
+
+
+
+
+// 12 - code tag
 
 <pre><code>
 def greet(name):
@@ -224,7 +242,12 @@ greet("Alice")
 
 
 
-// dl dd dt 
+
+
+
+
+
+// 13 - dl dd dt  dfn
 
 <!DOCTYPE html>
 <html lang="en">
@@ -248,6 +271,11 @@ greet("Alice")
   <dd>JavaScript is a programming language that enables dynamic content on web pages, such as interactive elements.</dd>
 </dl>
 
+// dfn tag 
+
+<p>The term <dfn title="application programming Interface">API</dfn> stands for Application Programming Interface.</p>
+
+
 </body>
 </html>
 
@@ -256,13 +284,11 @@ greet("Alice")
 
 
 
-// delete tag
-
-<del>This text is deleted</del>
 
 
 
-// <details> tag 
+
+// 14 - <details> tag 
 
 <details>
   <summary>Click to view more information</summary>
@@ -273,15 +299,12 @@ greet("Alice")
 
 
 
-// dfn tag 
-
-<p>The term <dfn title="application programming Interface">API</dfn> stands for Application Programming Interface.</p>
 
 
 
 
 
-// <dialog> tag
+// 15 - <dialog> tag
 
 <dialog open>
   <p>This dialog is visible when the page loads because of the "open" attribute.</p>
@@ -290,7 +313,13 @@ greet("Alice")
 
 
 
-// div  and span 
+
+
+
+
+
+
+// 16 - div  and span 
 
 <div>
   <!-- Content goes here -->
@@ -303,7 +332,13 @@ greet("Alice")
 
 
 
-// pre tag 
+
+
+
+
+
+
+// 17 - pre tag 
 
   <pre>
   function helloWorld() {
@@ -313,7 +348,14 @@ greet("Alice")
 
 
 
-// ruby tag
+
+
+
+
+
+
+
+// 18 - ruby tag
 
 <ruby>
     Hello <rt>Hola</rt>
