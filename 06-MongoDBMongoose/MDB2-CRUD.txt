@@ -49,36 +49,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Create  data 
 // learn about the ordered method to insert 
 // writeConcern
@@ -116,7 +86,7 @@ const result = await collection.bulkWrite([
   },
 ]);
 
-// Insert multiple documents and continue the operation even if one document fails (ordered: false)
+// Insert multiple documents and continue the operation even if one document fails (ordered: false)  // default it true
 db.collname.insertMany(
   [
     { field1: "value1", field2: "value2" },
