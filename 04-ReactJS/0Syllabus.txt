@@ -1,0 +1,14 @@
+// folder structure 
+
+// - src 
+       - public 
+       - assets 
+       - utils 
+            - constant.js 
+       - store
+            - api 
+            - slice
+            -store.js 
+       - pages 
+       - components 
+       - Layout.js 
