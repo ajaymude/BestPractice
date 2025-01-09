@@ -1,0 +1,250 @@
+// 1 - function
+     - simple function 
+     - function with parameters
+     - function with default parameters
+     - a arrow function
+     - function with spread operator
+     - function declarations and function expressions
+
+// 2 - for loop
+
+
+
+
+// 1 - function 
+
+/ function 
+function greet() {
+  console.log("Hello, world!");
+}
+
+greet();  // Output: Hello, world!
+
+
+/ function with parameters
+function add(a, b) {   
+  return a + b;
+}
+
+let result = add(5, 3); // arguments
+console.log(result);  // Output: 8
+
+
+/ function with default parameters
+function greet(name = "Guest") {
+  console.log("Hello, " + name + "!");
+}
+
+greet();           // Output: Hello, Guest!
+greet("Alice");    // Output: Hello, Alice!
+
+
+
+/ a arrow function 
+const add = (a, b) => a + b;
+
+let result = add(2, 3);
+console.log(result);  // Output: 5
+
+
+
+/ b iffe function
+(function() {
+  console.log("This is an IIFE!");
+})();
+
+
+
+/ function with spread operator
+function sum(...numbers) {
+  return numbers.reduce((total, num) => total + num, 0);
+}
+
+let result = sum(1, 2, 3, 4, 5);
+console.log(result);  // Output: 15
+
+
+
+/ function declarations and function expressions
+
+// Function Declaration
+function greet() {
+  console.log("Hello, World!");
+}
+
+greet(); // Output: Hello, World!
+
+
+// Function Expression
+const greet = function() {
+  console.log("Hello, World!");
+};
+
+greet(); // Output: Hello, World!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 1 for loop
+
+for (initialization; condition; increment/decrement) {
+  // Code to execute
+}
+
+for (let i = 0; i < 5; i++) {
+  console.log(i);  // Output: 0, 1, 2, 3, 4
+}
+
+
+
+
+
+
+
+// 2. while Loop
+
+let i = 0;
+while (i < 5) {
+  console.log(i);  // Output: 0, 1, 2, 3, 4
+  i++;
+}
+
+
+// 3 do...while Loop
+
+let i = 0;
+do {
+  console.log(i);  // Output: 0, 1, 2, 3, 4
+  i++;
+} while (i < 5);
+
+
+// 4. for...in Loop
+
+const person = {
+  name: "Alice",
+  age: 25,
+  city: "New York"
+};
+
+for (let key in person) {
+  console.log(key + ": " + person[key]);
+}
+// Output:
+// name: Alice
+// age: 25
+// city: New York
+
+
+
+// 5. for...of Loop
+const numbers = [1, 2, 3, 4, 5];
+
+for (let number of numbers) {
+  console.log(number);  // Output: 1, 2, 3, 4, 5
+}
+
+
+// 6. forEach() Method
+
+const fruits = ["apple", "banana", "cherry"];
+
+fruits.forEach(function(fruit, index) {
+  console.log(index + ": " + fruit);  // Output: 0: apple, 1: banana, 2: cherry
+});
+
+
+
+// 7  break 
+for (let i = 0; i < 10; i++) {
+  if (i === 5) {
+    break;  // Exit the loop when i equals 5
+  }
+  console.log(i);  // Output: 0, 1, 2, 3, 4
+}
+
+// 8 
+for (let i = 0; i < 5; i++) {
+  if (i === 3) {
+    continue;  // Skip the current iteration when i equals 3
+  }
+  console.log(i);  // Output: 0, 1, 2, 4
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
