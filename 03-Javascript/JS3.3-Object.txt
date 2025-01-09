@@ -1,5 +1,151 @@
-// singleton 
-// Object.createU
+// Object
+
+/ create the objects
+/ Object Constructor
+
+
+
+
+/ create the objects
+
+let person = {
+  name: "Alice",
+  age: 25,
+  gender: "female"
+};
+console.log(person);  // Output: { name: "Alice", age: 25, gender: "female" }
+
+
+
+/ Object Constructor
+
+let person = new Object();
+person.name = "Alice";
+person.age = 25;
+person.gender = "female";
+console.log(person);  // Output: { name: "Alice", age: 25, gender: "female" }
+
+
+
+/  Accessing Properties in an Object
+
+let person = {
+  name: "Alice",
+  age: 25
+};
+
+console.log(person.name);  // Output: "Alice"
+console.log(person.age);   // Output: 25
+
+
+
+/ Bracket Notation
+
+let person = {
+  name: "Alice",
+  age: 25
+};
+
+console.log(person["name"]);  // Output: "Alice"
+console.log(person["age"]);   // Output: 25
+
+
+
+/  Modifying Properties in an Object
+
+let person = {
+  name: "Alice",
+  age: 25
+};
+
+// Modify using dot notation
+person.name = "Bob";
+
+// Modify using bracket notation
+person["age"] = 30;
+
+console.log(person);  // Output: { name: "Bob", age: 30 }
+
+
+
+/ Adding Properties to an Object
+
+let person = {
+  name: "Alice",
+  age: 25
+};
+
+// Add a new property using dot notation
+person.gender = "female";
+
+// Add a new property using bracket notation
+person["country"] = "USA";
+
+console.log(person);
+// Output: { name: "Alice", age: 25, gender: "female", country: "USA" }
+
+
+
+
+/ Deleting Properties from an Object
+
+let person = {
+  name: "Alice",
+  age: 25
+};
+
+// Remove the 'age' property
+delete person.age;
+
+console.log(person);  // Output: { name: "Alice" }
+
+
+
+
+/ Object Methods
+
+let person = {
+  name: "Alice",
+  age: 25,
+  greet: function() {
+    console.log("Hello, " + this.name);
+  }
+};
+
+person.greet();  // Output: "Hello, Alice"
+
+
+
+/ Object Properties and Values
+
+let person = {
+  name: "Alice",
+  age: 25,
+  gender: "female"
+};
+
+console.log(Object.keys(person));
+// Output: ["name", "age", "gender"]
+
+
+console.log(Object.values(person));
+// Output: ["Alice", 25, "female"]
+
+ 
+console.log(Object.entries(person));
+// Output: [["name", "Alice"], ["age", 25], ["gender", "female"]]
+
+
+
+
+
+
+
+
+
+
+
+
 
 // object literals
 

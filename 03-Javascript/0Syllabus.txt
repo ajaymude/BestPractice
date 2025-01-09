@@ -1,3 +1,8 @@
+// use DRY
+// don't break previous logic
+
+
+
 
 
 1. Introduction to JavaScript

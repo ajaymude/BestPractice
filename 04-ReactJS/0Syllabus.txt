@@ -12,3 +12,39 @@
        - pages 
        - components 
        - Layout.js 
+
+
+
+
+
+
+
+
+
+
+// notes
+
+- Keep Your Components Small and Focused.
+
+- component only has a single responsibility.
+
+- Use React Fragments to Avoid Unnecessary Wrappers.
+
+- Leverage the Power of React Hooks
+
+- create seperate file for the route 
+
+- create a variable for the css 
+
+- create seperate file for the react router dom 
+
+- In react screen handdle 3 conditions
+  1- loading screen or waiting for api response 
+  2 - error screen  or error in api response 
+  3 - api response or data from the api
+
+- use axios with abort 
+
+- Never mix UI with the logic 
+
+- 

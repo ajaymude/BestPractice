@@ -5,6 +5,17 @@
 // 3 - Data Types in Variables
 // 4 - comments 
 // 5 - operator 
+// 6 - Operator Precedence in JavaScript (Highest to Lowest)
+// 7 -  Template String
+// 8 - if else statement
+// 9 - type conversion and type coercion
+// 10 - ternary operator
+// 11 - switch statements
+// 12 - alert , prompt , confirm
+// 13 - setInterval  clearInterval
+// 14 - setTimeout clearTimeout
+// 15 - rest operator 
+// 16 -  Spread Operator (...) 
 
 
 
@@ -429,71 +440,7 @@ alert("You are " + age + " years old.");
 
 
 
-// 13 - function 
-
-
-function greet() {
-  console.log("Hello, world!");
-}
-
-greet();  // Output: Hello, world!
-
-
-
-
-function add(a, b) {   // parameters
-  return a + b;
-}
-
-let result = add(5, 3); // arguments
-console.log(result);  // Output: 8
-
-
-
-
-
-function greet(name = "Guest") {
-  console.log("Hello, " + name + "!");
-}
-
-greet();           // Output: Hello, Guest!
-greet("Alice");    // Output: Hello, Alice!
-
-
-
-// a arrow function 
-const add = (a, b) => a + b;
-
-let result = add(2, 3);
-console.log(result);  // Output: 5
-
-
-
-// b iffe function
-(function() {
-  console.log("This is an IIFE!");
-})();
-
-
-
-
-function sum(...numbers) {
-  return numbers.reduce((total, num) => total + num, 0);
-}
-
-let result = sum(1, 2, 3, 4, 5);
-console.log(result);  // Output: 15
-
-
-
-
-
-
-
-
-
-
-// 14 - setInterval  clearInterval
+// 13 - setInterval  clearInterval
 
 // 1. setInterval() example
 let counter = 0;
@@ -527,8 +474,7 @@ let intervalId = setInterval(function() {
 
 
 
-
-// 15 setTimeout clearTimeout
+// 14 - setTimeout clearTimeout
 
 
 // 1. Using setTimeout() to execute a function after a delay
@@ -558,20 +504,7 @@ setTimeout(function() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-// 17 rest operator 
-
-
+// 15 - rest operator 
 
 function sum(...numbers) {
   return numbers.reduce((acc, num) => acc + num, 0);
@@ -582,16 +515,12 @@ console.log(sum(10, 20, 30, 40)); // Output: 100
 
 
 
-
-
 const arr = [1, 2, 3, 4, 5];
 const [first, second, ...rest] = arr;
 
 console.log(first);  // Output: 1
 console.log(second); // Output: 2
 console.log(rest);   // Output: [3, 4, 5]
-
-
 
 
 
@@ -617,12 +546,7 @@ console.log(address); // Output: { country: 'USA', city: 'New York' }
 
 
 
-
-
-
-
-
-// 18 -  Spread Operator (...) 
+// 16 -  Spread Operator (...) 
 
 const arr1 = [1, 2, 3];
 const arr2 = [...arr1, 4, 5];
@@ -645,6 +569,20 @@ console.log(clonedPerson); // Output: { name: "Jane", age: 26 }
 
 
 
+
+
+
+
+ 
+
+// 17 - strict mode in JavaScript
+
+var obj = { a: 1, a: 2 }; // Error in strict mode
+
+"use strict";
+var obj = {};
+Object.defineProperty(obj, 'x', { value: 42, writable: false });
+obj.x = 17; // Error in strict mode
 
 
 
