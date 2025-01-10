@@ -88,7 +88,9 @@ input: Fired when a user interacts with an <input> or <textarea> field.
 
 
 
-// methods 
+// Dom  methods  
+
+/ select the elements
 
 // 1. getElementById()
 let element = document.getElementById('myId');
@@ -109,6 +111,15 @@ console.log(element);  // Output: First element with class "myClass"
 // 5. querySelectorAll()
 let elements = document.querySelectorAll('p.myClass');
 console.log(elements);  // Output: NodeList of all <p> elements with class "myClass"
+
+
+
+
+
+
+
+
+/ get attribute 
 
 // 6. getAttribute()
 let element = document.getElementById('myId');

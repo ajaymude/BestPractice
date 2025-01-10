@@ -8,10 +8,12 @@
        - store
             - api 
             - slice
+            - rootReducer.js
             -store.js 
        - pages 
        - components 
        - Layout.js 
+       - MainRoute.js
 
 
 
