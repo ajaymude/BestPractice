@@ -10,8 +10,44 @@
 
 
 // 2 - form 
-     - <label></label>
-     - input
+     - <label></label
+     - <input type="text"/>
+     - <input type="email"/>
+     - <input type="password"/>
+     - <input type="radio"/>
+     - <input type="checkbox"/>
+     - <input type="submit"/>
+     - <input type="number"/>
+     - <input type="tel"/>
+     - <input type="url"/>
+     - <input type="search"/>
+     - <input type="date"/>
+     - <input type="month"/>
+     - <input type="week"/>
+     - <input type="time"/>
+     - <input type="datetime-local"/>
+     - <input type="color"/>
+     - <input type="range"/>
+     - <input type="file"/>
+     - <input type="text"/>
+     - <input type="text"/>
+     - <input type="text"/>
+     - <input type="text"/>
+     - Dropdown
+     - select
+     - datalist
+     - textarea
+     - meter tag
+     - form method action 
+     - fieldset  , legend
+
+     - id , name , value , required , placeholder
+       maxlength , minlength  , min , step ,  max , autocomplete
+       autofocus , disabled , multiple , checked
+       formnovalidate formtarget="_blank"
+
+    - 
+
 
 
 
@@ -177,9 +213,6 @@
 <label for="message">Message:</label><br>
 <textarea id="message" name="message" rows="4" cols="50"></textarea><br><br>
 
-<!-- Submit Button -->
-<button type="submit">Submit</button>
-</form>
 
 
 
@@ -188,9 +221,6 @@
 // input  type
 
 <form action="/submit" method="POST">
-<!-- Text Input -->
-<label for="name">Name:</label>
-<input type="text" id="name" name="name"><br><br>
 
 <!-- Password Input -->
 <label for="password">Password:</label>
@@ -248,110 +278,9 @@
 <label for="file">Upload File:</label>
 <input type="file" id="file" name="file"><br><br>
 
-<!-- Checkbox Input -->
-<label for="subscribe">Subscribe to Newsletter:</label>
-<input type="checkbox" id="subscribe" name="subscribe"><br><br>
 
-<!-- Radio Button Input -->
-<label>Gender:</label><br>
-<input type="radio" id="male" name="gender" value="male">
-<label for="male">Male</label><br>
-<input type="radio" id="female" name="gender" value="female">
-<label for="female">Female</label><br><br>
-
-<!-- Submit Button -->
-<input type="submit" value="Submit">
 </form>
 
-
-
-// input attributes 
-
-<h1>Form with All Input Attributes</h1>
-
-<form action="/submit" method="POST">
-    
-    <!-- Text Input -->
-    <label for="textInput">Text Input (type="text"):</label>
-    <input type="text" id="textInput" name="textInput" value="Default Text" placeholder="Enter text" required maxlength="20" minlength="5" autocomplete="on" autofocus>
-    <br><br>
-
-    <!-- Disabled Radio Button -->
-    <label for="disabledRadio">Disabled Radio Button:</label>
-    <input type="radio" id="disabledRadio" name="disabledRadio" value="disabled" disabled>
-    <br><br>
-
-    <!-- Password Input -->
-    <label for="passwordInput">Password Input (type="password"):</label>
-    <input type="password" id="passwordInput" name="passwordInput" placeholder="Enter password" required>
-    <br><br>
-
-    <!-- Email Input -->
-    <label for="emailInput">Email Input (type="email"):</label>
-    <input type="email" id="emailInput" name="emailInput" placeholder="Enter email" required autocomplete="on">
-    <br><br>
-
-    <!-- Number Input -->
-    <label for="numberInput">Number Input (type="number"):</label>
-    <input type="number" id="numberInput" name="numberInput" min="1" max="100" step="1" required>
-    <br><br>
-
-    <!-- Tel Input -->
-    <label for="telInput">Tel Input (type="tel"):</label>
-    <input type="tel" id="telInput" name="telInput" placeholder="Enter phone number">
-    <br><br>
-
-    <!-- URL Input -->
-    <label for="urlInput">URL Input (type="url"):</label>
-    <input type="url" id="urlInput" name="urlInput" placeholder="Enter website URL">
-    <br><br>
-
-    <!-- Search Input -->
-    <label for="searchInput">Search Input (type="search"):</label>
-    <input type="search" id="searchInput" name="searchInput" placeholder="Search here">
-    <br><br>
-
-    <!-- Date Input -->
-    <label for="dateInput">Date Input (type="date"):</label>
-    <input type="date" id="dateInput" name="dateInput">
-    <br><br>
-
-    <!-- Color Input -->
-    <label for="colorInput">Color Input (type="color"):</label>
-    <input type="color" id="colorInput" name="colorInput">
-    <br><br>
-
-    <!-- File Input -->
-    <label for="fileInput">File Input (type="file"):</label>
-    <input type="file" id="fileInput" name="fileInput" accept=".jpg,.png" multiple>
-    <br><br>
-
-    <!-- Checkbox Input -->
-    <label for="checkboxInput">Checkbox Input (type="checkbox"):</label>
-    <input type="checkbox" id="checkboxInput" name="checkboxInput" value="Subscribe" checked>
-    <br><br>
-
-    <!-- Radio Button Input -->
-    <label>Radio Button Input (type="radio"):</label><br>
-    <input type="radio" id="radioMale" name="gender" value="male">
-    <label for="radioMale">Male</label>
-    <input type="radio" id="radioFemale" name="gender" value="female">
-    <label for="radioFemale">Female</label>
-    <br><br>
-
-    <!-- Range Input -->
-    <label for="rangeInput">Range Input (type="range"):</label>
-    <input type="range" id="rangeInput" value='5' name="rangeInput" min="0" max="100" step="10">
-    <br><br>
-
-    <!-- DateTime Local Input -->
-    <label for="datetimeLocalInput">DateTime Local Input (type="datetime-local"):</label>
-    <input type="datetime-local" id="datetimeLocalInput" name="datetimeLocalInput">
-    <br><br>
-
-    <!-- Submit Button with Additional Attributes -->
-    <input type="submit" value="Submit" formaction="/submit" formmethod="POST" formnovalidate formtarget="_blank">
-</form>
 
 
 

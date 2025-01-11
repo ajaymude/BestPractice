@@ -1,4 +1,25 @@
-// <audio> Tag
+// 1 - <audio> Tag
+// 2 - <Video> tag
+// 3 - <embed> tag
+// 4 - iframe tag
+// 5 - image tag
+// 6 - figure figcaption tag
+// 7 - map tag
+// 8 - base tag
+// 9 - <object> tag 
+// 10 - <picture> Tag
+// 11 - svg tag 
+
+
+
+
+
+
+
+
+
+
+// 1 - <audio> Tag
 
 <!-- Audio Tag -->
 <audio controls>
@@ -8,7 +29,15 @@
 </audio>
 
 
-    <h2>Video Example</h2>
+
+
+
+
+
+
+
+
+// 2 - <h2>Video Example</h2>
 
 <!-- Video Tag -->
 <video width="600" controls>
@@ -21,7 +50,13 @@
 
 
 
-// <embed> tag
+
+
+
+
+
+
+// 3 - <embed> tag
 
 <embed src="audio.mp3" type="audio/mp3" width="300" height="40">
 
@@ -29,14 +64,21 @@
 
 
 
-//  iframe tag
+// 4 - iframe tag
 
 <iframe src="https://www.example.com" width="800" height="600" title="Example Website"></iframe>
 
 
 
 
-// image tag
+
+
+
+
+
+
+
+// 5 - image tag
 
 <img src="cat.jpg" alt="A cute cat" width="300" height="200">
 
@@ -55,7 +97,16 @@
   <img src="path-to-your-image.jpg" alt="Description of image">
 </a>
 
-// figure figcaption tag
+
+
+
+
+
+
+
+
+
+// 6 - figure figcaption tag
 
 <figure>
   <img src="nature.jpg" alt="Beautiful view of a mountain landscape" width="600">
@@ -64,7 +115,14 @@
 
 
 
-// map tag
+
+
+
+
+
+
+
+// 7 - map tag
 
 <img src="world-map.jpg" alt="World Map" usemap="#worldmap">
 
@@ -73,6 +131,7 @@
   <area shape="circle" coords="450,150,60" href="https://example.com/france" alt="France" title="Visit France">
   <area shape="poly" coords="500,250,550,300,600,250" href="https://example.com/spain" alt="Spain" title="Visit Spain">
 </map>
+
 
 
 <img src="world-map.jpg" ismap alt="World Map" usemap="#worldmap">
@@ -87,7 +146,12 @@
 
 
 
-// base tag
+
+
+
+
+
+// 8 - base tag
 
 <!DOCTYPE html>
 <html lang="en">
@@ -107,7 +171,13 @@
 
 
 
-// <object> tag 
+
+
+
+
+
+
+// 9 - <object> tag 
 
 <object data="image.jpg" type="image/jpeg" width="500" height="300">
   <p>Your browser does not support displaying images using the <code>&lt;object&gt;</code> tag.</p>
@@ -115,7 +185,14 @@
 
 
 
-// <picture> Tag
+
+
+
+
+
+
+
+// 10 - <picture> Tag
 
 <picture>
   <source srcset="image-large.jpg" media="(min-width: 800px)">
@@ -125,11 +202,26 @@
 
 
 
-// svg tag 
+
+
+
+
+
+
+
+// 11 - svg tag 
 
   <svg width="200" height="200">
     <circle cx="100" cy="100" r="50" stroke="black" stroke-width="3" fill="blue" />
   </svg>
+
+
+
+
+
+
+
+
 
 
   

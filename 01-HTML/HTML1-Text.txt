@@ -1,27 +1,27 @@
-// Text tags in html 
-
 // 01 - paragraph tag <p></p>
 // 02 - Heading tag <h1></h1>
 // 03 - Comments
-// 4 - <strong>, <b>, <em>, <i>, <mark>, <del>
+// 04 - <strong>, <b>, <em>, <i>, <mark>, <del>, <q>, <small>, <s>, <u>
 // 05 - <sup>, <sub> 
 // 06 - <ul> , <ol> 
 // 07 - Links tag <a></a>
-// 08 - <blockquote> tag  ////
+// 08 - <blockquote> tag  
 // 09 - abbr tag  , The <acronym> 
 // 10 - <address> tag 
 // 11 - <hr> and <br>
 // 12 - code tag
 // 13 - dl dd dt  dfn
 // 14 - <details> tag 
+// 15 - <dialog> tag
 // 16 - div  and span 
 // 17 - pre tag 
 // 18 - ruby tag
-// 3 - 
-// 3 - 
-// 3 - 
-// 3 - 
-// 3 - 
+// 19 - <kbd>
+// 20 - <samp>
+// 21 - <var>
+// 22 - <code>
+// 23 - <ins>
+
 
 
 
@@ -86,7 +86,7 @@ They are useful for explaining sections of code or temporarily removing code.
 
 
 
-// 4 - <strong>, <b>, <em>, <i>, <mark>, <del>
+// 4 - <strong>, <b>, <em>, <i>, <mark>, <del>, <q>, <small>, <s>, <u>
 
 <p>In a sentence: <strong>Pay attention to this warning!</strong></p>
 
@@ -98,9 +98,16 @@ They are useful for explaining sections of code or temporarily removing code.
 
 <p>This is a <mark>highlighted text</mark> with custom styles.</p>
 
-// delete tag
-
 <del>This text is deleted</del>
+
+<p>He said, <q>This is an example of a quotation.</q> and then walked away.</p>
+
+<small>Terms and conditions apply.</small>
+
+<s>This text is outdated</s>
+
+<u>Underlined Text</u>
+
 
 
 
@@ -374,6 +381,10 @@ greet("Alice")
 
 
 
+// 19 - <kbd>
+
+Represents user input, typically in the form of keyboard input.
+Example: <kbd>Ctrl + C</kbd>
 
 
 
@@ -385,10 +396,64 @@ greet("Alice")
 
 
 
+// 20 - <samp>
+
+Represents sample output from a computer program or script.
+Example: <samp>Program finished successfully</samp>
 
 
 
 
+
+
+
+
+
+
+// 21 - <var>
+
+Represents a variable in a mathematical expression or programming code.
+Example: <p>The equation is <var>x</var> + 5 = 10.</p>
+
+
+
+
+
+
+
+
+
+
+// 22 - <code>
+
+Represents a fragment of computer code.
+Typically used to display inline code in documents.
+Example: <code>console.log('Hello, World!');</code>
+
+
+
+
+
+// 23 - <ins>
+
+Represents text that has been inserted into the document.
+Typically shown with an underline.
+Example: <ins>New text added here</ins>
+
+
+
+
+
+
+
+
+
+
+
+Additional Semantic Tags:
+<bdi>: Represents text that should be isolated from surrounding text for bidirectional text formatting.
+<bdo>: Represents a change in the direction of text (e.g., right-to-left or left-to-right).
+<wbr>: Suggests a line break opportunity for long words.
 
 
 

@@ -119,7 +119,7 @@ console.log(elements);  // Output: NodeList of all <p> elements with class "myCl
 
 
 
-/ get attribute 
+/ get and set remove  attribute 
 
 // 6. getAttribute()
 let element = document.getElementById('myId');
@@ -258,40 +258,7 @@ input.blur();
 
 
 
-// 1. setAttribute()
-let element = document.getElementById('myId');
-element.setAttribute('class', 'newClass');
-console.log(element);  // Output: <div id="myId" class="newClass">...</div>
 
-// 2. innerHTML
-let element = document.getElementById('myId');
-element.innerHTML = '<p>New content inside the div</p>';
-console.log(element.innerHTML);  // Output: <p>New content inside the div</p>
-
-// 3. textContent
-let element = document.getElementById('myId');
-element.textContent = 'This is some text content';
-console.log(element.textContent);  // Output: This is some text content
-
-// 4. classList.add()
-let element = document.getElementById('myId');
-element.classList.add('newClass');
-console.log(element.classList);  // Output: DOMTokenList ["existingClass", "newClass"]
-
-// 5. classList.remove()
-let element = document.getElementById('myId');
-element.classList.remove('oldClass');
-console.log(element.classList);  // Output: DOMTokenList ["existingClass"]
-
-// 6. classList.toggle()
-let element = document.getElementById('myId');
-element.classList.toggle('active');
-console.log(element.classList);  // Output: DOMTokenList ["existingClass", "active"]
-
-// 7. classList.contains()
-let element = document.getElementById('myId');
-let hasClass = element.classList.contains('active');
-console.log(hasClass);  // Output: true or false
 
 // 8. style
 let element = document.getElementById('myId');
@@ -299,64 +266,8 @@ element.style.backgroundColor = 'blue';
 element.style.color = 'white';
 console.log(element.style.backgroundColor);  // Output: blue
 
-// 9. setInterval()
-let counter = 0;
-let intervalId = setInterval(() => {
-    counter++;
-    console.log('Interval:', counter);
-    if (counter === 5) clearInterval(intervalId);
-}, 1000);
 
-// 10. setTimeout()
-setTimeout(() => {
-    console.log('This message appears after 2 seconds');
-}, 2000);
-
-// 11. appendChild()
-let parent = document.getElementById('parent');
-let newElement = document.createElement('p');
-newElement.textContent = 'New Paragraph';
-parent.appendChild(newElement);
-
-// 12. insertBefore()
-let parent = document.getElementById('parent');
-let newElement = document.createElement('p');
-newElement.textContent = 'New Paragraph';
-let referenceElement = document.getElementById('reference');
-parent.insertBefore(newElement, referenceElement);
-
-// 13. replaceChild()
-let parent = document.getElementById('parent');
-let newElement = document.createElement('p');
-newElement.textContent = 'Replaced Paragraph';
-let oldElement = document.getElementById('child');
-parent.replaceChild(newElement, oldElement);
-
-// 14. removeChild()
-let parent = document.getElementById('parent');
-let child = document.getElementById('child');
-parent.removeChild(child);
-
-// 15. remove()
-let element = document.getElementById('myId');
-element.remove();
-
-// 16. createElement()
-let newElement = document.createElement('div');
-newElement.textContent = 'This is a new div element';
-document.body.appendChild(newElement);
-
-// 17. createTextNode()
-let textNode = document.createTextNode('This is a new text node');
-document.body.appendChild(textNode);
-
-// 18. focus()
-let input = document.getElementById('myInput');
-input.focus();
-
-// 19. blur()
-let input = document.getElementById('myInput');
-input.blur();
+`
 
 // 20. scrollIntoView()
 let element = document.getElementById('myId');

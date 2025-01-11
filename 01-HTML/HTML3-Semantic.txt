@@ -1,5 +1,3 @@
-// Semantic Tags
-
 // 1 - <header></header>
 // 2 - <footer></footer>
 // 3 - <nav></nav>
@@ -11,8 +9,10 @@
 // 9 - <figcaption></figcaption>
 // 10 - <details></details>
 // 11 - <summary></summary>
-// 1 - <header></header>
-// 1 - <header></header>
+// 12 - <time>
+// 13 - <progress>
+// 14 - <meter>
+// 15 - <address>
 
 
 
@@ -187,239 +187,40 @@ Example: <summary>Click to reveal more details</summary>
 
 
 
-
-// 12 - <mark></mark>
-
-Represents text that has been highlighted or marked for reference.
-Often used to highlight search terms or key information.
-Example: <p>Search term: <mark>HTML</mark></p>
-
-
-<time>
+// 12 - <time>
 
 Represents a specific time or a date/time range.
 Useful for machine-readable dates, times, or durations.
 Example: <time datetime="2024-12-29">December 29, 2024</time>
 
 
-<progress>
+
+
+
+
+
+
+
+
+// 13 - <progress>
 
 Represents the progress of a task or process.
 Commonly used to indicate progress in downloading, uploading, or file processing.
 Example: <progress value="50" max="100">50%</progress>
 
 
-<meter>
-
-Represents a scalar value within a known range, typically for displaying measurements, scores, or statistics.
-Example: <meter value="0.6" min="0" max="1">60%</meter>
 
 
-<address>
+
+
+
+
+
+
+// 14 - <address>
 
 Represents contact information for the author or owner of a document or section.
 Example: <address><p>Contact us at: <a href="mailto:info@example.com">info@example.com</a></p></address>
-
-
-<strong>
-
-Represents important text or text with strong emphasis.
-Typically displayed in bold.
-Example: <strong>This is important</strong>
-
-
-<em>
-
-Represents emphasized text, typically displayed in italic.
-Example: <em>This is emphasized</em>
-
-
-<small>
-
-Represents small print text, often for legal disclaimers or footnotes.
-Example: <small>Terms and conditions apply.</small>
-
-
-<kbd>
-
-Represents user input, typically in the form of keyboard input.
-Example: <kbd>Ctrl + C</kbd>
-
-
-<samp>
-
-Represents sample output from a computer program or script.
-Example: <samp>Program finished successfully</samp>
-
-
-<var>
-
-Represents a variable in a mathematical expression or programming code.
-Example: <p>The equation is <var>x</var> + 5 = 10.</p>
-
-
-<b>
-
-Represents bold text, typically used for styling purposes.
-Example: <b>Bold Text</b>
-
-
-<i>
-
-Represents italic text, typically used for styling purposes.
-Example: <i>Italic Text</i>
-
-
-<code>
-
-Represents a fragment of computer code.
-Typically used to display inline code in documents.
-Example: <code>console.log('Hello, World!');</code>
-
-
-<s>
-
-Represents text that is no longer accurate or relevant, usually indicating deletion.
-Example: <s>This text is outdated</s>
-
-
-<del>
-
-Represents text that has been deleted from the document.
-Typically shown with a strikethrough.
-Example: <del>This text is deleted</del>
-
-
-<ins>
-
-Represents text that has been inserted into the document.
-Typically shown with an underline.
-Example: <ins>New text added here</ins>
-
-
-<u>
-
-Represents text that is styled with an underline.
-Example: <u>Underlined Text</u>
-
-
-<blockquote>
-
-Represents a section of content that is quoted from another source.
-Typically indented from the rest of the content.
-Example: <blockquote>HTML is awesome!</blockquote>
-
-
-<cite>
-
-Represents the source of a citation or reference.
-Usually placed inside a <blockquote> or when referencing external content.
-Example: <cite>John Doe, Web Development Expert</cite>
-
-
-Additional Semantic Tags:
-<bdi>: Represents text that should be isolated from surrounding text for bidirectional text formatting.
-<bdo>: Represents a change in the direction of text (e.g., right-to-left or left-to-right).
-<wbr>: Suggests a line break opportunity for long words.
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Semantic HTML Tags Example</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        header, footer, section, article, aside, nav, figure, figcaption {
-            margin-bottom: 20px;
-        }
-        header, footer {
-            background-color: #f2f2f2;
-            padding: 10px;
-        }
-        section, article {
-            padding: 15px;
-            border: 1px solid #ccc;
-        }
-        h2 {
-            color: #333;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Header -->
-    <header>
-        <h1>My Website</h1>
-        <p>Welcome to my website, where I share articles and resources.</p>
-    </header>
-
-    <!-- Navigation -->
-    <nav>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-
-    <!-- Main Content -->
-    <main>
-
-        <!-- Article Section -->
-        <section>
-            <h2>Article Title</h2>
-            <article>
-                <h3>Article Heading</h3>
-                <p>This is an example of an article. Articles contain independent content that can be distributed on its own.</p>
-            </article>
-            <article>
-                <h3>Another Article Heading</h3>
-                <p>Here is another article, providing more content. Articles are often used for blog posts, news, etc.</p>
-            </article>
-        </section>
-
-        <!-- Aside Section -->
-        <aside>
-            <h2>Related Links</h2>
-            <ul>
-                <li><a href="#">Link 1</a></li>
-                <li><a href="#">Link 2</a></li>
-                <li><a href="#">Link 3</a></li>
-            </ul>
-        </aside>
-
-        <!-- Section -->
-        <section>
-            <h2>About Us</h2>
-            <p>This is a section of the webpage dedicated to the About Us content.</p>
-        </section>
-
-        <!-- Figure and Figcaption -->
-        <figure>
-            <img src="https://via.placeholder.com/150" alt="Example Image">
-            <figcaption>Example Image with a caption.</figcaption>
-        </figure>
-
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <p>© 2024 My Website. All rights reserved.</p>
-    </footer>
-
-</body>
-</html>
-
 
 
 
