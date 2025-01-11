@@ -1,11 +1,39 @@
-// intro
+// 1 - inline css 
+// 2 - <style> tag Internal css 
+// 3 - CSS selectors
+// 4 - root variable
+// 5 - Specificity Calculation
+// 6 - css counter 
+// 7 - @supports 
 
-// inline CSS:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 1 - inline css 
 
 <p style="font-size: 18px; color: green;">This is a paragraph with inline CSS styling.</p>
 
 
-// <style> tag
+
+
+
+
+
+
+// 2 - <style> tag Internal css 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -57,7 +85,11 @@
 
 
 
-//  CSS selectors
+
+
+
+
+// 3 - CSS selectors
 
 
  /* Basic Selectors */
@@ -87,8 +119,6 @@ h1 {
  color: red;
  font-size: 20px;
 }
-
-
 
 
 
@@ -174,182 +204,105 @@ Pseudo-Elements:
 ::first-line: Makes the first line of a paragraph bold.
 ::selection: Changes the background to yellow and the text to black when text is selected.
 
+input::placeholder
+input:placeholder-shown
 
-Styling:
-
-Some general styles are applied to ensure readability and keep the layout simple.
-The ::selection pseudo-element is used to change the selected text's appearance.
-
-
-  <style>
-    /* Pseudo-Classes */
-    a:hover {
-      color: red;
-    }
-
-    input:focus {
-      background-color: yellow;
-    }
-
-    button:active {
-      background-color: green;
-    }
-
-    p:first-child {
-      font-weight: bold;
-    }
-
-    p:last-child {
-      color: blue;
-    }
-
-    li:nth-child(2) {
-      color: red;
-    }
-
-    p:not(.special) {
-      color: gray;
-    }
-
-    input:checked {
-      background-color: yellow;
-    }
-
-    input:disabled {
-      background-color: lightgray;
-    }
-
-    /* Pseudo-Elements */
-    p::before {
-      content: "Note: ";
-      font-weight: bold;
-      color: red;
-    }
-
-    p::after {
-      content: " (End)";
-      color: green;
-    }
-
-    p::first-letter {
-      font-size: 3em;
-      color: red;
-    }
-
-    p::first-line {
-      font-weight: bold;
-    }
-
-    ::selection {
-      background-color: yellow;
-      color: black;
-    }
-
-
-    ul::marker {
-    color: red;          /* Change the color of the bullet */
-    font-size: 20px;     /* Increase the size of the bullet */
-    }
-
-
-    /* General Styling */
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
-
-    a {
-      text-decoration: none;
-    }
-
-    button {
-      margin-top: 20px;
-    }
-
-    .special {
-      color: blue;
-    }
-
-    /* To ensure content fits on screen */
-    .container {
-      max-width: 100%;
-      overflow-x: hidden;
-    }
-
-    p, a, li {
-      margin: 10px 0;
-    }
-  </style>
-
-
-
-
+<style>
+/* Pseudo-Classes */
 a:hover {
- color: red;
+  color: red;
 }
 
 input:focus {
- background-color: lightyellow;
+  background-color: yellow;
 }
 
 button:active {
- background-color: gray;
+  background-color: green;
 }
 
-div:first-child {
- font-size: 20px;
+p:first-child {
+  font-weight: bold;
 }
 
 p:last-child {
- margin-bottom: 0;
+  color: blue;
 }
 
-p:nth-child(odd) {
- background-color: lightblue;
+li:nth-child(2) {
+  color: red;
 }
 
-p:nth-of-type(2) {
- color: darkgreen;
+p:not(.special) {
+  color: gray;
 }
 
-div:not(.highlight) {
- background-color: lightgray;
+input:checked {
+  background-color: yellow;
 }
 
-/* Pseudo-elements */
+input:disabled {
+  background-color: lightgray;
+}
+
+/* Pseudo-Elements */
 p::before {
- content: "Note: ";
- font-weight: bold;
+  content: "Note: ";
+  font-weight: bold;
+  color: red;
 }
 
 p::after {
- content: ".";
+  content: " (End)";
+  color: green;
 }
 
 p::first-letter {
- font-size: 2em;
- font-weight: bold;
+  font-size: 3em;
+  color: red;
 }
 
 p::first-line {
- color: green;
+  font-weight: bold;
 }
 
-/* Grouping Selectors */
-h1, h2, h3 {
- font-family: 'Georgia', serif;
+::selection {
+  background-color: yellow;
+  color: black;
 }
 
-/* ID and Class Selector Combination */
-#container .highlight {
- color: white;
- background-color: darkgreen;
+
+ul::marker {
+color: red;          /* Change the color of the bullet */
+font-size: 20px;     /* Increase the size of the bullet */
 }
 
-/* General Sibling Selector */
-h1 ~ p {
- font-style: italic;
+
+input::placeholder {
+  color: gray;
+  font-style: italic;
+  font-size: 16px;
 }
+
+
+
+input:placeholder-shown {
+background-color: #f0f0f0;  /* Light background color when placeholder is visible */
+border: 2px solid #ccc;     /* Border color */
+}
+
+</style>
+
+
+
+
+
+
+
+
+
+
+// 4 - root variable
 
 /* :root for CSS Variables */
 :root {
@@ -363,89 +316,6 @@ h1 ~ p {
 
 
 
- Summary of Common Pseudo-Elements:
-::before: Inserts content before the element's content.
-::after: Inserts content after the element's content.
-::first-letter: Styles the first letter of a block element (like a paragraph).
-::first-line: Styles the first line of a block element's text.
-::selection: Styles the portion of an element that is selected by the user (like highlighted text).
-
-
-  <style>
-    /* Styling for the page */
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
-
-    h1 {
-      text-align: center;
-    }
-
-    /* ::before pseudo-element */
-    p::before {
-      content: "Note: ";
-      font-weight: bold;
-      color: red;
-    }
-
-    /* ::after pseudo-element */
-    p::after {
-      content: " (End)";
-      color: green;
-    }
-
-    /* ::first-letter pseudo-element */
-    p::first-letter {
-      font-size: 3em;
-      color: red;
-      font-weight: bold;
-    }
-
-    /* ::first-line pseudo-element */
-    p::first-line {
-      font-weight: bold;
-      color: blue;
-    }
-
-    /* ::selection pseudo-element */
-    ::selection {
-      background-color: yellow;
-      color: black;
-    }
-
-    /* Ensuring all content fits on the screen */
-    .container {
-      max-width: 100%;
-      overflow-x: hidden;
-    }
-
-    p {
-      margin: 20px 0;
-    }
-
-
-    input::placeholder {
-      color: gray;
-      font-style: italic;
-      font-size: 16px;
-    }
-
-    selector:placeholder-shown {
-    /* styles to apply when the placeholder is shown */
-    }
-
-
-    input:placeholder-shown {
-    background-color: #f0f0f0;  /* Light background color when placeholder is visible */
-    border: 2px solid #ccc;     /* Border color */
-    }
-
-
-
-
-
-  </style>
 
 
 
@@ -453,40 +323,8 @@ h1 ~ p {
 
 
 
+// 5 - Specificity Calculation
 
-
-
-// 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    /* Selects all elements with a 'type' attribute equal to 'text' */
-    input[type="text"] {
-      background-color: yellow;
-    }
-  </style>
-  <title>Attribute Selector Example</title>
-</head>
-<body>
-
-  <input type="text" placeholder="Enter text">
-  <input type="password" placeholder="Enter password">
-  
-</body>
-</html>
-
-
-
-
-
-// Specificity Calculation
-
-
-Specificity is calculated based on four components, which are represented in a four-part value:
 
 p {
   color: blue !important; /* This will override any other color rule for <p> elements */
@@ -507,7 +345,7 @@ Elements and pseudo-elements (div, h1, ::before, ::after) - the least specific.
 
 
 
-// css counter 
+// 6 - css counter 
 
 Basic Syntax:
 To use CSS counters, you need two main functions:
@@ -625,7 +463,7 @@ counter-increment: Increments the counter by a specified value.
 
 
 
-// @supports 
+// 7 - @supports 
 
 @supports (property: value) {
   /* Styles to apply if the property is supported */

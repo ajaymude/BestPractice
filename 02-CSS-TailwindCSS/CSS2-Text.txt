@@ -1,13 +1,35 @@
-// color 
+// 1 - color ,  current color 
+// 2 - background
+// 3 - border 
+// 4 - outline 
+// 5 - padding
+// 6 - margin
+// 7 - height and width, min-width max-width , min-height , max-height , min-content min-content;
+// 8 - box-sizing
+// 9 - aspect ratio
+// 10 - overflow
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 1 - color ,  current color 
 element {
   color: red;
 }
 
-
-
-
-
-// current color 
+/ current color 
 
 /* Set the text color to blue */
 p {
@@ -22,7 +44,7 @@ p {
 
 
 
-// background color
+// 2 - background
 
 element {
   background-color: #ff6347;
@@ -32,7 +54,12 @@ element {
 
 
 
-// border 
+
+
+
+
+
+// 3 - border 
 
 element {
   border-width: 2px;        /* Thickness */
@@ -67,30 +94,6 @@ element {
 }
 
 
-.container {
-  width: 200px;
-  height: 200px;
-  background-color: lightblue;
-  border-radius: 20px;  /* All four corners have a radius of 20px */
-}
-
-
-.container {
-  width: 200px;
-  height: 100px;
-  background-color: lightgreen;
-  border-radius: 30px 10px;  /* Horizontal radius 30px, vertical radius 10px */
-}
-
-
-.container {
-  width: 200px;
-  height: 200px;
-  background-color: lightcoral;
-  border-radius: 20px 30px 40px 50px;  /* Top-left 20px, top-right 30px, bottom-right 40px, bottom-left 50px */
-}
-
-
 
 border-image: <source> <slice> <width> <outset> <repeat>;
 
@@ -112,7 +115,9 @@ border-image: url('border-image.png') 30%;
 
 
 
-// outline 
+
+
+// 4 - outline 
 
 element {
   outline-width: 2px;        /* Thickness of the outline */
@@ -157,7 +162,12 @@ element {
 
 
 
-// padding
+
+
+
+
+
+// 5 - padding
 
 element {
   padding: 20px; /* 20px padding on all four sides */
@@ -196,7 +206,7 @@ element {
 
 
 
-// margin
+// 6 - margin
 
 element {
   margin: 20px; /* 20px margin on all four sides */
@@ -221,12 +231,6 @@ element {
 }
 
 
-.container {
-  width: 80%;
-  margin: 0 auto;  /* Top and bottom margin 0, left and right margin auto */
-}
-
-
 element {
   margin-top: -10px;   /* Pulls the element 10px upwards */
   margin-left: -20px;  /* Pulls the element 20px to the left */
@@ -237,7 +241,7 @@ element {
 
 
 
-// height and width 
+// 7 - height and width, min-width max-width , min-height , max-height , min-content min-content;
 
 element {
   height: 200px;  /* 200px height */
@@ -254,6 +258,20 @@ element {
   min-height: 150px;     /* Minimum height 150px */
 }
 
+element {
+  width: fit-content;  /* Width adjusts to fit content */
+  height: min-content; /* Height adjusts to the minimum required for content */
+}
+
+
+
+
+
+
+
+
+
+// 8 - box-sizing
 
 element {
   box-sizing: border-box;
@@ -263,25 +281,6 @@ element {
   border: 5px solid black;  /* 5px border */
 }
 
-
-element {
-  width: fit-content;  /* Width adjusts to fit content */
-  height: min-content; /* Height adjusts to the minimum required for content */
-}
-
-
-.element {
-  width: 100%;
-  height: auto;      /* Let the height adjust automatically */
-  aspect-ratio: 16/9; /* Maintain a 16:9 aspect ratio */
-}
-
-
-
-
-
-
-// box sizing 
 
 .element {
   width: 200px;  /* Total width including padding and border */
@@ -299,7 +298,29 @@ element {
 
 
 
-// overflow
+
+
+
+
+
+
+// 9 - aspect ratio
+
+.element {
+  width: 100%;
+  height: auto;      /* Let the height adjust automatically */
+  aspect-ratio: 16/9; /* Maintain a 16:9 aspect ratio */
+}
+
+
+
+
+
+
+
+
+
+// 10 - overflow
 
 overflow: visible | hidden | scroll | auto | inherit;
 
