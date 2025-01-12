@@ -1,0 +1,152 @@
+// Images 
+
+// Container 
+
+
+
+
+
+
+
+
+
+# Basic Information
+docker --version                   # Show Docker version
+docker info                        # Show system-wide information
+
+# Images
+docker images                      # List all images
+docker pull <image>                 # Pull an image from Docker Hub
+docker build -t <image-name> <path> # Build an image from Dockerfile
+docker rmi <image-id>               # Remove an image
+
+# Containers
+docker ps                          # List running containers
+docker ps -a                       # List all containers (running and stopped)
+docker run <options> <image>        # Run a container from an image
+docker exec -it <container-id> <cmd># Execute a command in a running container
+docker stop <container-id>         # Stop a running container
+docker start <container-id>        # Start a stopped container
+docker restart <container-id>      # Restart a container
+docker rm <container-id>           # Remove a stopped container
+docker logs <container-id>         # View container logs
+
+# Volumes
+docker volume ls                   # List all volumes
+docker volume create <name>         # Create a volume
+docker volume rm <name>             # Remove a volume
+
+# Networks
+docker network ls                  # List all networks
+docker network create <name>        # Create a network
+docker network rm <name>            # Remove a network
+
+# Docker Compose
+docker-compose up                  # Start services defined in docker-compose.yml
+docker-compose down                # Stop and remove services
+docker-compose build               # Build or rebuild services
+docker-compose logs                # View logs of services
+
+# System Cleanup
+docker system prune                # Remove unused data (images, containers, volumes)
+docker image prune                 # Remove unused images
+docker container prune             # Remove stopped containers
+docker volume prune                # Remove unused volumes
+
+# Docker Hub
+docker login                       # Log in to Docker Hub
+docker logout                      # Log out of Docker Hub
+docker tag <image> <tag>            # Tag an image
+docker push <image>                 # Push an image to Docker Hub
+
+# Docker Network Commands
+docker network inspect <network>    # Inspect a network
+
+# Container Stats and Metrics
+docker stats                       # Show container resource usage stats
+docker top <container-id>          # Show running processes in a container
+
+
+
+
+
+
+
+
+
+
+
+
+// all important command related to the docker run 
+
+# Run a container interactively (with terminal)
+docker run -it <image> <command>
+
+# Run a container in detached mode (background)
+docker run -d <image>
+
+# Map container ports to host ports
+docker run -p <host-port>:<container-port> <image>
+
+# Set environment variables
+docker run -e <env-var>=<value> <image>
+
+# Mount volumes (host to container)
+docker run -v <host-path>:<container-path> <image>
+
+# Name the container
+docker run --name <container-name> <image>
+
+# Set resource limits (memory, CPU, etc.)
+docker run --memory <memory-limit> --cpus <cpu-limit> <image>
+
+# Link containers (deprecated)
+docker run --link <container-name>:<alias> <image>
+
+# Run with a specific user
+docker run --user <username-or-id> <image>
+
+# Run with a specific working directory
+docker run -w <directory> <image> <command>
+
+# Run with a custom hostname
+docker run --hostname <hostname> <image>
+
+# Allocate a pseudo-TTY and keep stdin open (interactive mode)
+docker run -it <image> <command>
+
+# Set the container's restart policy
+docker run --restart <policy> <image>
+
+# Run with a custom entry point
+docker run --entrypoint <entrypoint> <image> <command>
+
+# Run with additional security options
+docker run --security-opt <option> <image>
+
+# Run with a specific DNS server
+docker run --dns <dns-server> <image>
+
+# Run with privileged mode (elevated permissions)
+docker run --privileged <image>
+
+# Run with a specific log driver
+docker run --log-driver=<driver> <image>
+
+# Limit the number of container processes
+docker run --ulimit <option> <image>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
