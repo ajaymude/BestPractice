@@ -1,108 +1,3 @@
-// Array methods list
-// shallow copy and deep copy 
-
-
-
-
-
-
-// how to create the array 
-const arr2 = new Array(1,3,4,5)
-
-
-
-/ const arr = [2,3,4,56,5]
-access array 
-arr[0]
-
-
-/ if the index is not exist   
-console.log(fruits[3]); // Output: undefined
-
-
-
-/ modifiy the array 
-
-let fruits = ["apple", "banana", "orange"];
-fruits[1] = "grape";  // Change the second element
-console.log(fruits);   // Output: ["apple", "grape", "orange"]
-
-
-
-
-/  array properties to calculate the length
-let fruits = ["apple", "banana", "orange"];
-console.log(fruits.length); // Output: 3
-
-
-
-
-/  Array Iteration
-let fruits = ["apple", "banana", "orange"];
-for (let i = 0; i < fruits.length; i++) {
-  console.log(fruits[i]);
-}
-// Output:
-// apple
-// banana
-// orange
-
-
-
-/ forEach() - A more modern way to iterate over arrays.
-
-let fruits = ["apple", "banana", "orange"];
-fruits.forEach(function(fruit) {
-  console.log(fruit);
-});
-// Output:
-// apple
-// banana
-// orange
-
-
-
-
-/ Multidimensional array
-
-let matrix = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9]
-];
-
-console.log(matrix[0][0]); // Output: 1
-console.log(matrix[2][1]); // Output: 8
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ### 1. **`push()`**  X  unshift()
@@ -227,6 +122,47 @@ console.log(matrix[2][1]); // Output: 8
 
 
 
+
+
+
+// basics
+// shallow copy and deep copy 
+
+
+// how to create the array 
+const arr2 = new Array(1,3,4,5)
+
+
+/ const arr = [2,3,4,56,5]
+access array 
+arr[0]
+
+
+/ if the index is not exist   
+console.log(fruits[3]); // Output: undefined
+
+/ modifiy the array 
+
+let fruits = ["apple", "banana", "orange"];
+fruits[1] = "grape";  // Change the second element
+console.log(fruits);   // Output: ["apple", "grape", "orange"]
+
+
+/  array properties to calculate the length
+let fruits = ["apple", "banana", "orange"];
+console.log(fruits.length); // Output: 3
+
+
+/ Multidimensional array
+
+let matrix = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9]
+];
+
+console.log(matrix[0][0]); // Output: 1
+console.log(matrix[2][1]); // Output: 8
 
 
 
@@ -1076,6 +1012,94 @@ The maximum number is: 40
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 12. **`map()`**
+   - Creates a new array by applying a function to each element.
+
+
+let newArray = array.map(function(element, index, array) {
+    // Return a new value to be added to the new array
+}, thisArg);
+
+
+// 1 
+
+let numbers = [1, 2, 3, 4, 5];
+let doubled = numbers.map(function(num) {
+    return num * 2;
+});
+console.log(doubled);
+
+[2, 4, 6, 8, 10]
+
+
+
+
+// 2 
+
+let numbers = [1, 2, 3];
+let squared = numbers.map(num => num * num);
+console.log(squared);
+
+[1, 4, 9]
+
+
+// 3 
+
+let products = [
+    { name: 'Apple', price: 1.5 },
+    { name: 'Banana', price: 0.5 },
+    { name: 'Orange', price: 0.8 }
+];
+
+let discountedPrices = products.map(product => ({
+    name: product.name,
+    price: product.price * 0.9  // Applying 10% discount
+}));
+
+console.log(discountedPrices);
+
+[
+    { name: 'Apple', price: 1.35 },
+    { name: 'Banana', price: 0.45 },
+    { name: 'Orange', price: 0.72 }
+]
+
+
+
+// 4 
+
+let numbers = [1, 2, 3, 4, 5];
+let result = numbers
+    .map(num => num * 2)     // Double each number
+    .filter(num => num > 5); // Keep only numbers greater than 5
+
+console.log(result);
+
+[6, 8, 10]
+
+
+// 5 
+let nestedArrays = [[1, 2], [3, 4], [5, 6]];
+let flattened = nestedArrays.map(arr => arr).flat();
+console.log(flattened);
+
+[1, 2, 3, 4, 5, 6]
 
 
 
