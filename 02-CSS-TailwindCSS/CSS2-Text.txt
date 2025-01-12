@@ -8,7 +8,19 @@
 // 8 - box-sizing
 // 9 - aspect ratio
 // 10 - overflow
-
+// 11 - shadow , box-shadow 
+// 12 - float 
+// 13 - font
+// 14 - text
+// 15 - column
+// 16 -  caret color 
+// 17 -  import rule 
+// 18 - scrollbar
+// 19 - display table 
+// 20 -  accent color 
+// 22 - back drop filter 
+// 24 - video 
+// 25 - min max clamp calc
 
 
 
@@ -353,10 +365,9 @@ overflow: visible | hidden | scroll | auto | inherit;
 
 
 
-// box shadow
+// 11 - shadow , box-shadow 
 
 box-shadow: h-offset v-offset blur spread color inset;
-
 
 .container {
   width: 300px;
@@ -370,12 +381,14 @@ box-shadow: h-offset v-offset blur spread color inset;
 
 
 
-// float 
+
+
+
+
+
+// 12 - float 
 
 float: left | right | none | inherit;
-
-
-}
 
 .image {
   width: 200px;
@@ -393,7 +406,7 @@ float: left | right | none | inherit;
 
 
 
-// font
+// 13 - font
 
 font: [font-style] [font-variant] [font-weight] [font-size] [line-height] [font-family];
 
@@ -444,10 +457,6 @@ p {
 }
 
 
-
-
-
-
 // google font 
 
 <!DOCTYPE html>
@@ -473,27 +482,22 @@ p {
 
 
 
-// text
+// 14 - text
 
 h1 {
   text-align: center;
 }
 
 
-
-// text decoration
+/ text decoration
 
 text-decoration: none | underline | overline | line-through | blink;
-
 
 h2 {
   text-decoration: underline double green;
   text-decoration-thickness: 4px; /* Set thickness of underline */
   text-decoration-thickness: 4px;            /* Sets the thickness of the underline */
   text-decoration-offset: 5px; /* Moves the underline 5px below the text */
-
-
-
 }
 
 
@@ -504,10 +508,6 @@ a {
   text-decoration-style: dashed;
 }
 
-
-a {
-  text-decoration: underline; /* Underlines the text */
-}
 
 
 h2 {
@@ -560,20 +560,6 @@ div {
 }
 
 
-h1 {
-
-  color: #ff6347; /* Tomato color */
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* Shadow effect */
-}
-
-
-
-
-
-
 // text overflow
 
 text-overflow: clip | ellipsis | string;
@@ -588,12 +574,6 @@ p {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-
-
-
-
-
 
 
 // word wrap and word-break
@@ -631,11 +611,26 @@ div {
 }
 
 
+// text orientation
+
+text-orientation: mixed | upright;
+
+
+div {
+  writing-mode: vertical-rl; /* Vertical writing mode (right to left) */
+  text-orientation: mixed;   /* Characters are rotated, but punctuation remains upright */
+}
+
+
+div {
+  writing-mode: vertical-rl;  /* Vertical writing mode (right to left) */
+  text-orientation: upright;  /* All characters remain upright */
+}
 
 
 
 
-// white space
+//white space
 
 
 
@@ -643,33 +638,20 @@ div {
 
 
 
+
+
+
+
+// 15 - column
 
 // column-count: <number>;
 // column-rule: <width> <style> <color>;
 
-
 div {
   column-count: 3;
-}
-
-div {
   column-width: 200px;
-}
-
-div {
   columns: 3 200px;
-}
-
-div {
-  column-count: 2;
   column-gap: 15px;
-}
-
-column-rule: <width> <style> <color>;
-
-div {
-  column-count: 3;
-  column-gap: 20px;
   column-rule: 2px solid black;
 }
 
@@ -678,30 +660,24 @@ div {
 
 
 
-// caret color 
 
+
+
+
+// 16 -  caret color 
+/ input or textarea caret color 
 
 input, textarea {
   caret-color: color;
 }
 
 
-input, textarea {
-    caret-color: blue; /* Set the caret color to blue */
-    padding: 8px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-  }
 
 
+// 17 -  import rule 
+/ how to import the css
 
-
-
-
-
-  // import rule 
-
-  @import url("path/to/stylesheet.css");
+@import url("path/to/stylesheet.css");
 
 
 @import "path/to/stylesheet.css";
@@ -710,17 +686,12 @@ input, textarea {
 
 
 
-// icon font 
 
 
 
 
 
-
-
-
-
-// scrollbar
+// 18 - scrollbar
 
 
 Key CSS Properties for Custom Scrollbars
@@ -731,8 +702,6 @@ scrollbar-color: Allows you to define the color of the scrollbar thumb and track
 ::-webkit-scrollbar-track: Styles the track (the part the thumb moves within) (for WebKit-based browsers).
 ::-webkit-scrollbar-button: Styles the buttons at the ends of the scrollbar (for WebKit-based browsers).
 ::-webkit-scrollbar-corner: Styles the bottom corner of the scrollbar when both horizontal and vertical scrollbars appear (for WebKit-based browsers).
-
-
 
 
 <!DOCTYPE html>
@@ -800,305 +769,6 @@ scrollbar-color: Allows you to define the color of the scrollbar thumb and track
 
 </body>
 </html>
-
-
-
-// file selector button 
-
-input[type="file"]::file-selector-button {
-  background-color: #4CAF50;       /* Green background */
-  color: white;                    /* White text */
-  border: none;                    /* Remove default border */
-  padding: 10px 20px;               /* Add padding */
-  font-size: 16px;                  /* Set font size */
-  cursor: pointer;                 /* Change cursor to pointer */
-  border-radius: 5px;               /* Add rounded corners */
-}
-
-input[type="file"]::file-selector-button:hover {
-  background-color: #45a049;       /* Darker green on hover */
-}
-
-
-
-
-
-
-
-// is pseudo 
-
-/* The following applies to any element that is either a p, h1, or div */
-:is(p, h1, div) {
-  color: blue;
-}
-
-
-/* Selects <p>, <h1>, or <h2> elements inside .content that are not disabled */
-.content :is(p, h1, h2):not([disabled]) {
-  font-size: 16px;
-}
-
-
-
-
-
-
-
-// focus-within
-
-parent-element:focus-within {
-  /* styles */
-}
-
-
-.form-group:focus-within {
-  border: 2px solid #4CAF50; /* Green border when any child is focused */
-  background-color: #f0f8f0; /* Light background color when any child is focused */
-}
-
-input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-
-.form-group:focus-within {
-  background-color: #e0ffe0;  /* Light green background when any input is focused */
-  border: 2px solid #008000;  /* Green border */
-}
-
-label {
-  font-size: 16px;
-  color: #333;
-  transition: color 0.3s ease;
-}
-
-.form-group:focus-within label {
-  color: #008000;  /* Change label color when input is focused */
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// display table 
-
-element {
-  display: table;
-}
-
-
-<div class="table">
-  <div class="row">
-    <div class="cell">Row 1, Cell 1</div>
-    <div class="cell">Row 1, Cell 2</div>
-  </div>
-  <div class="row">
-    <div class="cell">Row 2, Cell 1</div>
-    <div class="cell">Row 2, Cell 2</div>
-  </div>
-</div>
-
-
-
-
-.table {
-  display: table; /* Behaves like a <table> element */
-  width: 100%;    /* Full width */
-  border-collapse: collapse; /* Optional, for controlling table borders */
-}
-
-.row {
-  display: table-row; /* Behaves like a <tr> element */
-}
-
-.cell {
-  display: table-cell; /* Behaves like a <td> element */
-  padding: 10px;
-  border: 1px solid black;
-}
-
-
-
-
-
-
-// accent color 
-
-accent-color: <color>;
-
-
-:root {
-  --accent-color: #FF6347; /* Tomato Red */
-}
-
-input[type="checkbox"],
-input[type="radio"] {
-  accent-color: var(--accent-color);
-}
-
-
-
-
-
-
-
-
-// prefers-color-scheme
-
-@media (prefers-color-scheme: light) {
-  /* Styles for light mode */
-}
-
-@media (prefers-color-scheme: dark) {
-  /* Styles for dark mode */
-}
-
-
-/* Default styles (for light mode) */
-body {
-  background-color: white;
-  color: black;
-}
-
-/* Dark mode styles */
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #121212;
-    color: white;
-  }
-
-  a {
-    color: #BB86FC;
-  }
-}
-
-
-
-/* Light Mode */
-@media (prefers-color-scheme: light) {
-  body {
-    background-color: #f0f0f0;
-    color: #333;
-  }
-  button {
-    background-color: #007BFF;
-    color: white;
-  }
-}
-
-/* Dark Mode */
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #181818;
-    color: #e0e0e0;
-  }
-  button {
-    background-color: #6200EE;
-    color: white;
-  }
-}
-
-
-
-
-
-
-:root {
-  --background-color-light: #ffffff;
-  --background-color-dark: #121212;
-  --text-color-light: #000000;
-  --text-color-dark: #ffffff;
-}
-
-body {
-  background-color: var(--background-color-light);
-  color: var(--text-color-light);
-}
-
-/* Dark mode */
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: var(--background-color-dark);
-    color: var(--text-color-dark);
-  }
-}
-
-
-
-
-if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-  console.log('User prefers dark mode');
-} else {
-  console.log('User prefers light mode');
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// back drop filter 
-
-element {
-  backdrop-filter: none | <filter-function> [<filter-function>]*;
-}
-
-
-body {
-  background-image: url('background.jpg');
-  background-size: cover;
-  height: 100vh;
-  margin: 0;
-}
-
-.backdrop-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);  /* Semi-transparent black background */
-}
-
-.content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 20px;
-  text-align: center;
-  color: white;
-  backdrop-filter: blur(10px);  /* Apply backdrop blur effect */
-  border-radius: 10px;
-}
-
-
-
-
-
-
-
-
 
 
 // scroll behavior
@@ -1178,69 +848,43 @@ scroll-snap-margin: (Optional) Provides space around the snap area for better co
 
 
 
-// text orientation
-
-text-orientation: mixed | upright;
 
 
-div {
-  writing-mode: vertical-rl; /* Vertical writing mode (right to left) */
-  text-orientation: mixed;   /* Characters are rotated, but punctuation remains upright */
+// 19 - display table 
+
+element {
+  display: table;
 }
 
 
-div {
-  writing-mode: vertical-rl;  /* Vertical writing mode (right to left) */
-  text-orientation: upright;  /* All characters remain upright */
+<div class="table">
+  <div class="row">
+    <div class="cell">Row 1, Cell 1</div>
+    <div class="cell">Row 1, Cell 2</div>
+  </div>
+  <div class="row">
+    <div class="cell">Row 2, Cell 1</div>
+    <div class="cell">Row 2, Cell 2</div>
+  </div>
+</div>
+
+
+
+
+.table {
+  display: table; /* Behaves like a <table> element */
+  width: 100%;    /* Full width */
+  border-collapse: collapse; /* Optional, for controlling table borders */
 }
 
-
-
-
-
-
-
-
-
-// display mode 
-
-@media (display-mode: <mode>) {
-  /* Styles to apply when the app is in the specified display mode */
+.row {
+  display: table-row; /* Behaves like a <tr> element */
 }
 
-
-
-
-@media (display-mode: fullscreen) {
-  header, footer {
-    display: none; /* Hide header and footer in full-screen mode */
-  }
-}
-
-
-
-
-@media (display-mode: standalone) {
-  body {
-    background-color: #f4f4f4;
-    font-family: 'Arial', sans-serif;
-  }
-
-  .nav-bar {
-    display: none; /* Hide the nav bar in standalone mode */
-  }
-}
-
-
-
-@media (display-mode: minimal-ui) {
-  .header {
-    font-size: 14px;
-  }
-
-  .footer {
-    padding: 5px;
-  }
+.cell {
+  display: table-cell; /* Behaves like a <td> element */
+  padding: 10px;
+  border: 1px solid black;
 }
 
 
@@ -1252,29 +896,73 @@ div {
 
 
 
+// 20 -  accent color 
+
+accent-color: <color>;
 
 
-// fullscreen 
-
-/* Default styles */
-div {
-  width: 50%;
-  height: 50%;
-  background-color: lightblue;
-  transition: all 0.3s ease;
+:root {
+  --accent-color: #FF6347; /* Tomato Red */
 }
 
-/* Styles when the div is in full-screen mode */
-div:fullscreen {
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--accent-color);
+}
+
+
+
+
+
+
+
+
+
+
+
+// 22 - back drop filter 
+
+element {
+  backdrop-filter: none | <filter-function> [<filter-function>]*;
+}
+
+
+body {
+  background-image: url('background.jpg');
+  background-size: cover;
+  height: 100vh;
+  margin: 0;
+}
+
+.backdrop-container {
+  position: relative;
   width: 100%;
   height: 100%;
-  background-color: #3498db;
+  background: rgba(0, 0, 0, 0.5);  /* Semi-transparent black background */
+}
+
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  text-align: center;
+  color: white;
+  backdrop-filter: blur(10px);  /* Apply backdrop blur effect */
+  border-radius: 10px;
 }
 
 
 
 
 
+
+
+
+
+
+// 24 - video 
 
 video {
   width: 100%;
@@ -1323,7 +1011,7 @@ document.addEventListener('fullscreenchange', () => {
 
 
 
-// min max clamp 
+// 25 - min max clamp  calc
 
 
 div {
@@ -1343,42 +1031,24 @@ div {
 }
 
 
+// calc function 
+
+property: calc(expression);
 
 
-
-
-
-
-// orientation
-
-
-@media (orientation: portrait) {
-  /* Styles for portrait mode */
-}
-
-@media (orientation: landscape) {
-  /* Styles for landscape mode */
+div {
+  width: calc(100% - 50px); /* The width is 100% of the parent minus 50px */
+  height: calc(50vh - 20px); /* The height is 50% of the viewport height minus 20px */
 }
 
 
-
-/* Default image size */
-img {
-  width: 100%;
-  height: auto;
+div {
+  width: calc(50% - 20px); /* Half of the parent width minus 20px */
 }
 
-/* Styles for landscape orientation */
-@media (orientation: landscape) {
-  img {
-    width: 80%;  /* In landscape, make the image smaller */
-  }
-}
-
-/* Styles for portrait orientation */
-@media (orientation: portrait) {
-  img {
-    width: 100%;  /* In portrait, use full width */
+@media (max-width: 600px) {
+  div {
+    width: calc(100% - 30px); /* On smaller screens, take full width minus 30px */
   }
 }
 
@@ -1387,133 +1057,6 @@ img {
 
 
 
-
-
-// : has pseudo 
-
-parent:has(child) {
-  /* Styles to apply to the parent element if it contains the child */
-}
-
-
-
-
-/* Style the parent div if it contains an input field */
-div:has(input) {
-  background-color: lightblue;
-}
-
-
-/* Style the parent div if it contains both a button and a p tag */
-div:has(button, p) {
-  border: 2px solid red;
-}
-
-
-
-
-
-
-// print media 
-
-
-@media print {
-  /* Styles for printing */
-}
-
-
-@media print {
-  body {
-    font-size: 12pt;
-    line-height: 1.5;
-    color: black;
-    background-color: white;
-  }
-
-  /* Hide navigation links on print */
-  nav, .no-print {
-    display: none;
-  }
-
-  /* Ensure images are not too large */
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-}
-
-
-
-
-@media print {
-  /* Add a page break before certain elements */
-  h1 {
-    page-break-before: always;
-  }
-
-  /* Prevent page breaks inside specific elements */
-  .no-break {
-    page-break-inside: avoid;
-  }
-
-  /* Control page breaks after elements */
-  p {
-    page-break-after: auto;
-  }
-}
-
-
-
-
-
-// @page 
-
-@page {
-  /* Styles for the printed page */
-}
-
-
-
-@page {
-  margin: 1in;  /* Sets a 1-inch margin on all sides */
-}
-
-
-@page {
-  size: A4 landscape;  /* Set the page size to A4 and the orientation to landscape */
-}
-
-
-@media print {
-  .no-break {
-    break-before: avoid; /* Prevent a page break before this element */
-    break-after: avoid;  /* Prevent a page break after this element */
-  }
-}
-
-
-.container {
-  column-count: 3; /* Create a 3-column layout */
-  column-gap: 1rem;
-}
-
-h2 {
-  break-before: always; /* Force a column break before each <h2> */
-}
-
-p {
-  break-after: always; /* Force a column break after each <p> */
-}
-
-
-.container {
-  column-count: 3;  /* Create a 3-column layout */
-  column-gap: 1rem;
-}
-
-.item {
-  break-inside: avoid-column; /* Prevent the item from being split across columns */
-}
 
 
 

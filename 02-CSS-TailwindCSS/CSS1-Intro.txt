@@ -4,7 +4,7 @@
 // 4 - root variable
 // 5 - Specificity Calculation
 // 6 - css counter 
-// 7 - @supports 
+
 
 
 
@@ -296,6 +296,98 @@ border: 2px solid #ccc;     /* Border color */
 
 
 
+// file selector button 
+
+input[type="file"]::file-selector-button {
+  background-color: #4CAF50;       /* Green background */
+  color: white;                    /* White text */
+  border: none;                    /* Remove default border */
+  padding: 10px 20px;               /* Add padding */
+  font-size: 16px;                  /* Set font size */
+  cursor: pointer;                 /* Change cursor to pointer */
+  border-radius: 5px;               /* Add rounded corners */
+}
+
+input[type="file"]::file-selector-button:hover {
+  background-color: #45a049;       /* Darker green on hover */
+}
+
+
+// is pseudo 
+
+/* The following applies to any element that is either a p, h1, or div */
+:is(p, h1, div) {
+  color: blue;
+}
+
+
+/* Selects <p>, <h1>, or <h2> elements inside .content that are not disabled */
+.content :is(p, h1, h2):not([disabled]) {
+  font-size: 16px;
+}
+
+
+
+
+// focus-within
+
+parent-element:focus-within {
+  /* styles */
+}
+
+
+.form-group:focus-within {
+  border: 2px solid #4CAF50; /* Green border when any child is focused */
+  background-color: #f0f8f0; /* Light background color when any child is focused */
+}
+
+input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+
+.form-group:focus-within {
+  background-color: #e0ffe0;  /* Light green background when any input is focused */
+  border: 2px solid #008000;  /* Green border */
+}
+
+label {
+  font-size: 16px;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.form-group:focus-within label {
+  color: #008000;  /* Change label color when input is focused */
+}
+
+
+
+// : has pseudo 
+
+parent:has(child) {
+  /* Styles to apply to the parent element if it contains the child */
+}
+
+
+
+
+/* Style the parent div if it contains an input field */
+div:has(input) {
+  background-color: lightblue;
+}
+
+
+/* Style the parent div if it contains both a button and a p tag */
+div:has(button, p) {
+  border: 2px solid red;
+}
+
+
+
+
 
 
 
@@ -455,75 +547,6 @@ counter-increment: Increments the counter by a specified value.
 </body>
 </html>
 
-
-
-
-
-
-
-
-
-// 7 - @supports 
-
-@supports (property: value) {
-  /* Styles to apply if the property is supported */
-}
-
-@supports not (property: value) {
-  /* Styles to apply if the property is not supported */
-}
-
-
-
-
-@supports (display: grid) {
-  .container {
-    display: grid; /* If the browser supports CSS Grid, apply this */
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@supports not (display: grid) {
-  .container {
-    display: flex; /* If the browser does not support CSS Grid, use Flexbox instead */
-    justify-content: space-between;
-  }
-}
-
-
-
-
-@supports (--css: variables) {
-  :root {
-    --primary-color: blue;
-  }
-  .button {
-    background-color: var(--primary-color);
-  }
-}
-
-
-
-
-@supports (display: grid) and (width: 100%) {
-  /* Apply styles if both conditions are supported */
-}
-
-
-
-@supports (display: grid) {
-  .grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@supports (display: flex) {
-  .grid-container {
-    display: flex;
-    justify-content: space-between;
-  }
-}
 
 
 

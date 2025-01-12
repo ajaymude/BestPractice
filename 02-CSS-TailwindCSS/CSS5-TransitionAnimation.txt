@@ -1,4 +1,11 @@
-// transition
+// 1 - transition
+// 2 - transform 2d, transform 3d
+// 3 - animation
+// 4 - backface-visibility: visible | hidden;
+
+
+
+// 1 - transition
 
 property: Specifies the CSS property you want to animate (e.g., width, background-color, opacity). Use all to apply transitions to all properties.
 duration: Defines the time over which the transition will occur (e.g., 2s, 500ms).
@@ -6,21 +13,6 @@ timing-function: Specifies the speed curve of the transition (e.g., ease, linear
 delay: Defines how long to wait before starting the transition (e.g., 0s, 1s).
 
 // transition: [property] [duration] [timing-function] [delay];
-
-
-
-button {
-  background-color: blue;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease; /* Transition for background color */
-}
-
-button:hover {
-  background-color: red;
-}
 
 
 div {
@@ -53,7 +45,12 @@ div:hover {
 
 
 
-// transform 2d 
+
+
+
+
+
+// 2 - transform 2d, transform 3d
 
 2D Transform Functions:
 Here are the most commonly used 2D transform functions in CSS:
@@ -374,7 +371,98 @@ div:nth-child(3) {
 
 
 
-// backface-visibility: visible | hidden;
+
+
+
+
+// 3 - animation
+
+animation: [animation-name] [animation-duration] [animation-timing-function] [animation-delay] [animation-iteration-count] [animation-direction] [animation-fill-mode] [animation-play-state];
+
+
+animation-timing-function
+
+linear: Constant speed from start to finish.
+ease: Starts slow, speeds up, and slows down again (default).
+ease-in: Starts slow and speeds up.
+ease-out: Starts fast and slows down.
+ease-in-out: Starts slow, speeds up, then slows down.
+cubic-bezier(n, n, n, n): Custom timing function.
+
+
+animation-direction:
+
+normal: Animation runs as defined (default).
+reverse: Animation runs in reverse (from last keyframe to first).
+alternate: The animation alternates between forwards and backwards.
+alternate-reverse: Alternates, but starts in reverse on the first cycle.
+
+animation-fill-mode
+
+none: No styles are applied before or after (default).
+forwards: The styles defined in the last keyframe are applied after the animation ends.
+backwards: The styles defined in the first keyframe are applied before the animation starts.
+both: Combines forwards and backwards (both pre- and post-animation styles are applied).
+
+
+animation-play-state:
+
+running: The animation is currently running.
+paused: The animation is paused (animation does not run).
+
+
+
+@keyframes moveAndColorChange {
+    0% {
+        background-color: blue;
+        transform: translateX(0);
+    }
+    50% {
+        background-color: green;
+        transform: translateX(300px);
+    }
+    100% {
+        background-color: red;
+        transform: translateX(0);
+    }
+}
+
+
+.animated-box {
+    width: 100px;
+    height: 100px;
+    animation: moveAndColorChange 5s infinite;
+}
+
+
+@keyframes moveAndColorChange {
+    from {
+        background-color: blue;
+        transform: translateX(0);
+    }
+    to {
+        background-color: red;
+        transform: translateX(300px);
+    }
+}
+
+
+.animated-box {
+    width: 100px;
+    height: 100px;
+    animation: moveAndColorChange 5s ease-in-out infinite alternate;
+}
+
+
+
+
+
+
+
+
+
+
+// 4 - backface-visibility: visible | hidden;
 
 
 <!DOCTYPE html>

@@ -1,4 +1,16 @@
-// flex
+// 1 - flex
+// 2 - grid 
+
+
+
+
+
+
+
+
+
+
+// 1 - flex
 
 
   <div class="container">
@@ -131,7 +143,7 @@ stretch: Stretches the item to fill the container.
 
 
 
-// css grid 
+// 2 - grid 
 
 <div class="grid-container">
 <div class="grid-item">Item 1</div>
@@ -184,17 +196,6 @@ stretch: Stretches the item to fill the container.
   grid-column: 3; /* Positioned in column 3 */
   grid-row: 1 / 3; /* Spans across row 1 to row 3 */
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

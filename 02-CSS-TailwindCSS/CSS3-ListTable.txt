@@ -1,4 +1,56 @@
-// list style
+// 1 - table list style
+// 2 - background 
+// 3 - gradient 
+// 4 - opacity , visibility 
+// 5 - display
+// 6 -css position
+// 7 - z index
+// 8 - resize: <value>;
+// 9 - cursor: <value>;
+// 10 - units
+// 11 - variable in css 
+// 12 - clip path 
+// 13 - filter
+
+
+
+
+
+
+
+// 1 - table  list style
+
+// table 
+
+table {
+    width: 100%;
+    border-collapse: collapse; /* Ensures borders are collapsed into a single line */
+    border-collapse: separate; /* Keeps table borders separate */
+    border-spacing: 5px; /* Adds space between cells */
+    table-layout: auto; /* Default */
+}
+
+th, td {
+    padding: 8px 12px;
+    border: 1px solid #ccc; /* Light gray border */
+    text-align: left; /* Align text to the left in cells */
+}
+
+th {
+    background-color: #f2f2f2; /* Light gray background for headers */
+    vertical-align: middle; /* Align span vertically */
+}
+
+
+caption {
+    font-size: 1.5em; /* Larger font size */
+    font-weight: bold; /* Make the caption bold */
+    text-align: center; /* Center the caption */
+    padding: 10px; /* Add padding around the caption */
+    background-color: #f2f2f2; /* Light background color */
+    color: #333; /* Dark text color */
+    border: 2px solid #ccc; /* Border around the caption */
+}
 
 list-style: <list-style-type> <list-style-position> <list-style-image>;
 
@@ -58,17 +110,18 @@ ul {
 
 
 
-// background 
+
+
+
+
+// 2 - background 
 
 background: <background-color> <background-image> <background-position> <background-size> <background-repeat> <background-attachment> <background-origin> <background-clip>;
-
 
 
 background-color: red;
 
 background-image: url('image.jpg');
-
-
 
 background-position: center center; /* Center of the element */
 
@@ -91,122 +144,12 @@ div {
 
 
 
-// color mode 
-
-
-<style>
-/* Default Light Mode */
-:root {
-    --primary-bg-color: white;
-    --primary-text-color: black;
-    --link-color: blue;
-    --button-bg-color: #ff6347; /* Tomato */
-}
-
-/* Dark Mode */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --primary-bg-color: #121212;
-        --primary-text-color: white;
-        --link-color: lightblue;
-        --button-bg-color: #ff4500; /* Darker Tomato */
-    }
-}
-
-/* Applying the color scheme */
-body {
-    background-color: var(--primary-bg-color);
-    color: var(--primary-text-color);
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    margin: 0;
-}
-
-h1 {
-    color: var(--primary-text-color);
-}
-
-p {
-    color: var(--primary-text-color);
-}
-
-a {
-    color: var(--link-color);
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-button {
-    background-color: var(--button-bg-color);
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-button:hover {
-    background-color: darkorange;
-}
-
-/* Color Representation Examples */
-.color-example {
-    margin-top: 30px;
-}
-
-.color-example div {
-    padding: 20px;
-    margin: 10px 0;
-    border-radius: 8px;
-}
-
-.hex-color {
-    background-color: #ff6347;
-}
-
-.rgb-color {
-    background-color: rgb(255, 99, 71); /* Tomato */
-}
-
-.rgba-color {
-    background-color: rgba(255, 99, 71, 0.5); /* Semi-transparent Tomato */
-}
-
-.hsl-color {
-    background-color: hsl(9, 100%, 64%); /* Tomato */
-}
-
-.hsla-color {
-    background-color: hsla(9, 100%, 64%, 0.5); /* Semi-transparent Tomato */
-}
-
-/* Gradient Color Example */
-.gradient-color {
-    background: linear-gradient(to right, #ff7e5f, #feb47b); /* Gradient from red to yellow */
-}
-
-/* Background Color with Image */
-.background-image {
-    background: url('https://via.placeholder.com/150') no-repeat center center;
-    background-size: cover;
-    height: 150px;
-    color: white;
-    text-align: center;
-    padding-top: 50px;
-}
-
-</style>
 
 
 
 
 
-
-//  gradient 
+// 3 - gradient 
 
 background: linear-gradient(direction, color-stop1, color-stop2, ...);
 
@@ -268,37 +211,15 @@ element {
 
 
 
-// opacity 
+// 4 - opacity , visibility 
 
 element {
     opacity: value;
 }
 
-
 div {
     opacity: 0.5; /* 50% transparent */
 }
-
-
-
-
-
-// display
-
-block, inline, inline-block, flex, grid, none,
-
-element {
-    display: value;
-}
-
-div {
-    display: block;
-}
-
-
-
-
-
 
 // visiblity
 
@@ -315,7 +236,33 @@ element {
 
 
 
-// css position
+
+
+
+
+
+// 5 - display
+
+block, inline, inline-block, flex, grid, none,
+
+element {
+    display: value;
+}
+
+div {
+    display: block;
+}
+
+
+
+
+
+
+
+
+
+
+// 6 -css position
 
 static, relative, absolute, fixed, and sticky.
 
@@ -360,7 +307,7 @@ div {
 
 
 
-// z index
+// 7 - z index
 
 // this property used with postion 
 
@@ -389,44 +336,12 @@ element {
 
 
 
-// table 
-
-table {
-    width: 100%;
-    border-collapse: collapse; /* Ensures borders are collapsed into a single line */
-    border-collapse: separate; /* Keeps table borders separate */
-    border-spacing: 5px; /* Adds space between cells */
-    table-layout: auto; /* Default */
-}
-
-th, td {
-    padding: 8px 12px;
-    border: 1px solid #ccc; /* Light gray border */
-    text-align: left; /* Align text to the left in cells */
-}
-
-th {
-    background-color: #f2f2f2; /* Light gray background for headers */
-    vertical-align: middle; /* Align span vertically */
-}
-
-
-caption {
-    font-size: 1.5em; /* Larger font size */
-    font-weight: bold; /* Make the caption bold */
-    text-align: center; /* Center the caption */
-    padding: 10px; /* Add padding around the caption */
-    background-color: #f2f2f2; /* Light background color */
-    color: #333; /* Dark text color */
-    border: 2px solid #ccc; /* Border around the caption */
-}
 
 
 
 
 
-
-// resize: <value>;
+// 8 - resize: <value>;
 
 none: The element is not resizable. This is the default value for most elements.
 both: Allows the element to be resized both horizontally and vertically.
@@ -456,7 +371,7 @@ textarea {
 
 
 
-// cursor: <value>;
+// 9 - cursor: <value>;
 
 Default Values:
 
@@ -510,7 +425,10 @@ div {
 
 
 
-// units
+
+
+
+// 10 - units
 
 In CSS, measurement units are used to define the size, spacing, and positioning of elements on a webpage. CSS supports various units, which can be broadly categorized into absolute units, relative units, and viewport units. Below is a breakdown of the most commonly used measurement units in CSS.
 
@@ -609,7 +527,11 @@ div {
 
 
 
-// variable in css 
+
+
+
+
+// 11 - variable in css 
 
 
 --variable-name: value;
@@ -636,33 +558,12 @@ h1 {
 
 
 
-// calc function 
-
-property: calc(expression);
-
-
-div {
-  width: calc(100% - 50px); /* The width is 100% of the parent minus 50px */
-  height: calc(50vh - 20px); /* The height is 50% of the viewport height minus 20px */
-}
-
-
-div {
-  width: calc(50% - 20px); /* Half of the parent width minus 20px */
-}
-
-@media (max-width: 600px) {
-  div {
-    width: calc(100% - 30px); /* On smaller screens, take full width minus 30px */
-  }
-}
 
 
 
 
 
-
-// clip path 
+// 12 - clip path 
 
 https://bennettfeely.com/clippy/
 
@@ -690,9 +591,6 @@ clip-path: shape;
   height: 200px;
   background-color: green;
 }
-
-
-
 
 
 
@@ -731,7 +629,7 @@ img {
 
 
 
-// filter
+// 13 - filter
 
 filter: filter-function(value);
 
@@ -765,16 +663,6 @@ img {
 img {
   filter: hue-rotate(90deg);
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
