@@ -1,0 +1,101 @@
+General Shortcuts:
+- Undo: Ctrl + Z
+- Redo: Ctrl + Shift + Z
+- Copy: Ctrl + C
+- Paste: Ctrl + V
+- Duplicate: Ctrl + D
+- Delete: Delete or Backspace
+- Select All: Ctrl + A
+- Group Layers: Ctrl + G
+- Ungroup Layers: Ctrl + Shift + G
+
+Selection & Navigation:
+- Select the Move Tool: V
+- Zoom In: Ctrl + +
+- Zoom Out: Ctrl + -
+- Zoom to Fit: Shift + 1
+- Zoom to 100%: Ctrl + 0
+- Pan/Move Canvas: Spacebar + Click & Drag
+
+Shape and Object Tools:
+- Frame Tool: F
+- Rectangle Tool: R
+- Ellipse Tool: O
+- Line Tool: L
+- Pen Tool: P
+- Text Tool: T
+
+Layers and Alignment:
+- Bring Forward: Ctrl + ]
+- Send Backward: Ctrl + [
+- Align Left: Shift + A
+- Align Center: Shift + C
+- Align Right: Shift + D
+
+Miscellaneous:
+- Show/Hide UI: Ctrl + \
+- Inspect Panel: Ctrl + Shift + I
+- Open the Quick Actions: Ctrl + /
+- Toggle Layers Panel: Ctrl + \
+
+
+
+
+
+
+
+
+// type
+
+/text 
+/ width and height 
+
+
+
+
+
+
+
+
+
+
+/ shape 
+c r = rectangle 
+c l = line 
+s l = arrow 
+c o = ellipse 
+c s k = image 
+
+
+
+
+
+
+
+
+
+
+// color 
+/
+
+
+
+
+// icon
+
+
+
+
+// stroke 
+/ its like the border 
+
+
+
+
+// scale 
+
+
+
+// group 
+c g = group 
+

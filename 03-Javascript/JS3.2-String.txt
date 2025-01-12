@@ -1,0 +1,81 @@
+// 1 - String length
+
+
+
+
+
+
+
+
+
+
+// 1 - String length
+
+
+// 1 
+
+// defining a string
+let sentence = "I love Programiz.";
+
+// returns number of characters in the sentence string
+let len = sentence.length;
+
+console.log(len);
+
+// Output:
+// 17
+
+let str = "Hello, World!";
+console.log(str.length);  // Output: 13
+
+
+
+
+
+
+
+
+
+
+// 2 - JavaScript String replace()
+
+// 1 
+
+let str = "Hello, world!";
+let newStr = str.replace("world", "JavaScript");
+console.log(newStr);  // Output: "Hello, JavaScript!"
+
+
+// 2 
+
+let str = "Hello, world!";
+let newStr = str.replace("world", "JavaScript");
+console.log(newStr);  // Output: "Hello, JavaScript!"
+
+
+// 3 
+
+let str = "apple, apple, apple";
+let newStr = str.replace(/apple/g, "orange");
+console.log(newStr);  // Output: "orange, orange, orange"
+
+
+// 4 
+
+let str = "Hello, World!";
+let newStr = str.replace(/world/i, "JavaScript");
+console.log(newStr);  // Output: "Hello, JavaScript!"
+
+
+// 5 
+
+
+
+
+
+
+
+
+
+
+// 
