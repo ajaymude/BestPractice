@@ -1,0 +1,195 @@
+
+
+// set key value 
+// get key 
+// del key 
+
+
+
+
+# SET commands
+SET key value                        # Set the value of a key
+SETEX key seconds value              # Set the value of a key with expiration (seconds)
+SETNX key value                      # Set the value of a key if it does not exist
+GETSET key value                     # Set the value of a key and return its old value
+MSET key1 value1 key2 value2 ...     # Set multiple keys to multiple values
+MSETNX key1 value1 key2 value2 ...   # Set multiple keys to multiple values if none exist
+PSETEX key milliseconds value        # Set the value of a key with expiration (milliseconds)
+SETRANGE key offset value            # Overwrite part of a string at a specific offset
+
+# GET commands
+GET key                              # Get the value of a key
+MGET key1 key2 key3 ...              # Get the values of multiple keys
+GETRANGE key start end               # Get a substring from the string stored at a key
+STRLEN key                           # Get the length of the string stored at a key
+
+# Increment/Decrement commands
+INCR key                             # Increment the integer value of a key by 1
+INCRBY key increment                 # Increment the integer value of a key by a specific number
+DECR key                             # Decrement the integer value of a key by 1
+DECRBY key decrement                 # Decrement the integer value of a key by a specific number
+
+# Append command
+APPEND key value                     # Append a value to the end of a string
+
+# Other string commands
+SETBIT key offset value              # Set or clear a bit at a specific offset in a string
+GETBIT key offset                    # Get the bit value at a specific offset in a string
+BITCOUNT key                         # Count the number of set bits in a string
+BITOP operation destkey key1 key2 ... # Perform bitwise operations between multiple keys
+
+
+
+
+
+
+
+
+
+
+// set 
+
+# 1. Simple SET command (set a key-value pair)
+SET mykey "Hello"
+# This will set the key "mykey" to the value "Hello".
+
+# 2. SETEX command (set a key with an expiration time in seconds)
+SETEX mykey 60 "Hello" 
+# This will set the key "mykey" to "Hello" with an expiration time of 60 seconds.
+
+# 3. SETNX command (set a key only if it does not already exist)
+SETNX mykey "Hello"
+# This will only set the key "mykey" to "Hello" if it doesn't already exist.
+
+# 4. GETSET command (set a new value and return the old value)
+GETSET mykey "NewValue"
+# This will set "mykey" to "NewValue" and return its old value.
+
+# 5. MSET command (set multiple keys to multiple values)
+MSET key1 "Hello" key2 "World"
+# This will set "key1" to "Hello" and "key2" to "World" in a single operation.
+
+# 6. PSETEX command (set a key with an expiration time in milliseconds)
+PSETEX mykey 3000 "Hello"
+# This will set the key "mykey" to "Hello" with an expiration time of 3000 milliseconds.
+
+# 7. SETBIT command (set a bit at a specific offset)
+SETBIT mykey 7 1
+# This will set the bit at offset 7 of the string stored in "mykey" to 1.
+
+# 8. SETRANGE command (overwrite part of a string starting at a specific offset)
+SETRANGE mykey 5 "World"
+# This will overwrite the value of "mykey" starting at offset 5 with "World".
+
+# 9. SET with XX option (set a key only if it already exists)
+SET mykey "NewValue" XX
+# This will set the value of "mykey" to "NewValue" only if the key already exists. 
+# If the key doesn't exist, the command will do nothing.
+
+# 10. SET with NX option (set a key only if it does not already exist)
+SET mykey "NewValue" NX
+# This will set the value of "mykey" to "NewValue" only if the key does not already exist.
+# If the key exists, the command will do nothing.
+
+# 11. SET with EX and NX option (set with expiration only if the key does not exist)
+SET mykey "NewValue" EX 60 NX
+# This will set the key "mykey" to "NewValue" with a 60 seconds expiration only if the key doesn't already exist.
+# If the key exists, the command will do nothing.
+
+# 12. SET with PX option (set with expiration in milliseconds)
+SET mykey "NewValue" PX 5000
+# This will set the key "mykey" to "NewValue" with an expiration time of 5000 milliseconds.
+
+# 13. SET with EXAT option (set with an absolute expiration timestamp)
+SET mykey "NewValue" EXAT 1673488865
+# This will set the key "mykey" to "NewValue" with an absolute expiration timestamp.
+
+# 14. SET with PXAT option (set with an absolute expiration timestamp in milliseconds)
+SET mykey "NewValue" PXAT 1673488865000
+# This will set the key "mykey" to "NewValue" with an absolute expiration timestamp in milliseconds.
+
+
+GETRANGE mykey 0 4
+# This will return the substring from "mykey" starting at index 0 and ending at index 4 (inclusive).
+# For example, if "mykey" is "Hello, World!", the result will be "Hello".
+
+
+
+
+
+// Redis Commands Related to Numbers
+
+# 1. INCR command - Increment the integer value of a key by 1
+INCR mycounter
+# This will increment the value of "mycounter" by 1. If "mycounter" doesn't exist, it will be set to 0 first.
+
+# 2. INCRBY command - Increment the integer value of a key by a specified number
+INCRBY mycounter 5
+# This will increment the value of "mycounter" by 5.
+
+# 3. DECR command - Decrement the integer value of a key by 1
+DECR mycounter
+# This will decrement the value of "mycounter" by 1. If "mycounter" doesn't exist, it will be set to 0 first.
+
+# 4. DECRBY command - Decrement the integer value of a key by a specified number
+DECRBY mycounter 3
+# This will decrement the value of "mycounter" by 3.
+
+# 5. SET command with NX option - Set the value only if the key does not already exist
+SET mykey 10 NX
+# This will set "mykey" to 10 only if it doesn't already exist.
+
+# 6. GET command - Get the current value of the key
+GET mykey
+# This will return the current value stored in "mykey", which can be a number.
+
+# 7. GETSET command - Set a new value and return the old value (useful with numbers)
+GETSET mykey 100
+# This will set "mykey" to 100 and return the old value stored in "mykey".
+
+# 8. SETEX command - Set the value of a key with an expiration time (in seconds)
+SETEX mykey 60 25
+# This will set "mykey" to 25 with a 60-second expiration.
+
+# 9. BITCOUNT command - Count the number of set bits (1's) in a string
+BITCOUNT mykey
+# This will count the number of bits set to 1 in the binary representation of the string stored at "mykey".
+
+# 10. BITOP command - Perform bitwise operations between multiple keys
+BITOP AND destkey key1 key2
+# This will perform a bitwise AND operation between the values stored in "key1" and "key2", and store the result in "destkey".
+
+# 11. SETBIT command - Set or clear a bit at a specific offset in a string
+SETBIT mykey 7 1
+# This will set the bit at offset 7 in the string stored at "mykey" to 1.
+
+# 12. GETBIT command - Get the value of a bit at a specific offset in a string
+GETBIT mykey 7
+# This will return the value of the bit at offset 7 in the string stored at "mykey" (either 0 or 1).
+
+# 13. INCRBYFLOAT command - Increment the floating point value of a key by a specified amount
+INCRBYFLOAT mykey 2.5
+# This will increment the floating point value stored at "mykey" by 2.5.
+
+# 14. SETRANGE command - Overwrite part of a string at a specific offset
+SETRANGE mykey 5 "World"
+# This will overwrite the value of "mykey" starting at offset 5 with "World". Useful for number-based strings.
+
+# 15. HINCRBY command (for Hash) - Increment the integer value of a field in a hash by a specified number
+HINCRBY myhash field 10
+# This will increment the value of the "field" in the hash "myhash" by 10.
+
+# 16. HINCRBYFLOAT command (for Hash) - Increment the floating point value of a field in a hash by a specified amount
+HINCRBYFLOAT myhash field 2.5
+# This will increment the floating-point value of "field" in the hash "myhash" by 2.5.
+
+# 17. GETRANGE command (for string) - Get a substring from a string stored at a key (can work with numbers in string format)
+GETRANGE mykey 0 4
+# This will return the substring starting from index 0 to 4 (inclusive) in the string stored at "mykey".
+
+
+
+
+
+
+
