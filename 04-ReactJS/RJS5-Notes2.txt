@@ -1,0 +1,14 @@
+
+
+// how to write query in react js 
+
+const navigate = useNavigate();
+  const searchHandler = (e) => {
+    e.preventDefault();
+    if(searchQuery.trim() !== ""){
+      navigate(`/course/search?query=${searchQuery}`)
+    }
+    setSearchQuery("");
+  }
+
+  

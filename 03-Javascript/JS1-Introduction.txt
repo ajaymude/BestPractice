@@ -1,5 +1,6 @@
 // Topic 
 
+// 0 - console
 // 1 - Linking a JavaScript File
 // 2 - variable
 // 3 - Data Types in Variables
@@ -16,6 +17,103 @@
 // 14 - setTimeout clearTimeout
 // 15 - rest operator 
 // 16 -  Spread Operator (...) 
+
+
+
+
+
+
+
+
+// 0 - console
+
+
+// 1. console.log()
+console.log("Hello, world!");
+
+// 2. console.info()
+console.info("This is an informational message.");
+
+// 3. console.warn()
+console.warn("This is a warning message.");
+
+// 4. console.error()
+console.error("This is an error message.");
+
+// 5. console.table()
+const people = [
+  { name: 'John', age: 28 },
+  { name: 'Jane', age: 32 },
+  { name: 'Alice', age: 25 }
+];
+console.table(people);
+
+// 6. console.group() and console.groupEnd()
+console.group("User Information");
+console.log("Name: John Doe");
+console.log("Age: 30");
+console.groupEnd();
+
+// 7. console.groupCollapsed()
+console.groupCollapsed("Collapsed Group");
+console.log("This is inside the collapsed group.");
+console.groupEnd();
+
+// 8. console.count()
+console.count("Counter");
+console.count("Counter");
+console.count("Counter");
+
+// 9. console.countReset()
+console.count("Counter");
+console.countReset("Counter");
+console.count("Counter");
+
+// 10. console.assert()
+console.assert(1 === 2, "This assertion failed!"); 
+
+// 11. console.dir()
+const person = { name: "John", age: 30, profession: "Developer" };
+console.dir(person);
+
+// 12. console.trace()
+function foo() {
+  bar();
+}
+
+function bar() {
+  console.trace("Trace of the function call.");
+}
+
+foo();
+
+// 13. console.time() and console.timeEnd()
+console.time("My Timer");
+for (let i = 0; i < 1000000; i++) {
+  // Some loop operation
+}
+console.timeEnd("My Timer");
+
+// 14. console.trace() with a label
+function a() {
+  b();
+}
+
+function b() {
+  c();
+}
+
+function c() {
+  console.trace("Tracing the functions");
+}
+
+a();
+
+// 15. console.memory (Only works in Chrome DevTools)
+console.memory;
+
+// 16. console.clear()
+console.clear();
 
 
 
@@ -109,12 +207,12 @@ const pi = 3.14159;      // declare y // redeclare n // reassign  n
 // Symbol
 // BigInt
 
-
+/ non primitive data / reference type data 
 // Array
 // Object
 
 
-/ falsy value 
+/ falsy value  
 1. false
 2. 0
 3. -0
@@ -139,7 +237,7 @@ console.log("1" === 1);       // false (different types: string vs number)
 
 
 
-
+// stack and heap memory 
 
 
 
@@ -167,6 +265,10 @@ let x = 10; // This is an inline comment
 
 
 // 5 - operator 
+
+++  increment operator
+--  decrement operator
+
 
 / Arithmetic operator
 console.log(a + b);   // 15 (Addition)

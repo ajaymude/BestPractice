@@ -50,3 +50,143 @@
 - Never mix UI with the logic 
 
 - 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// creating the component 
+handle the loading 
+handle error 
+handle data 
+
+// calling the api handle 
+loading 
+error 
+is data correct commign 
+
+
+
+ (
+            Array.from({ length: 8 }).map((_, index) => (
+              <CourseSkeleton key={index} />
+            ))
+
+
+
+
+const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <MainLayout />,
+    children: [
+      {
+        path: "/",
+        element: (
+          <>
+            <HeroSection />
+            <Courses />
+          </>
+        ),
+      },
+      {
+        path: "login",
+        element: (
+          <AuthenticatedUser>
+            <Login />
+          </AuthenticatedUser>
+        ),
+      },
+      {
+        path: "my-learning",
+        element: (
+          <ProtectedRoute>
+            <MyLearning />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "profile",
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "course/search",
+        element: (
+          <ProtectedRoute>
+            <SearchPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "course-detail/:courseId",
+        element: (
+          <ProtectedRoute>
+            <CourseDetail />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "course-progress/:courseId",
+        element: (
+          <ProtectedRoute>
+            <PurchaseCourseProtectedRoute>
+            <CourseProgress />
+            </PurchaseCourseProtectedRoute>
+          </ProtectedRoute>
+        ),
+      },
+
+      // admin routes start from here
+      {
+        path: "admin",
+        element: (
+          <AdminRoute>
+            <Sidebar />
+          </AdminRoute>
+        ),
+        children: [
+          {
+            path: "dashboard",
+            element: <Dashboard />,
+          },
+          {
+            path: "course",
+            element: <CourseTable />,
+          },
+          {
+            path: "course/create",
+            element: <AddCourse />,
+          },
+          {
+            path: "course/:courseId",
+            element: <EditCourse />,
+          },
+          {
+            path: "course/:courseId/lecture",
+            element: <CreateLecture />,
+          },
+          {
+            path: "course/:courseId/lecture/:lectureId",
+            element: <EditLecture />,
+          },
+        ],
+      },
+    ],
+  },
+]);

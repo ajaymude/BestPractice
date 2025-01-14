@@ -128,10 +128,14 @@
 // basics
 // shallow copy and deep copy 
 
+/ array constructor
 
 // how to create the array 
 const arr2 = new Array(1,3,4,5)
 
+
+
+/ array literal 
 
 / const arr = [2,3,4,56,5]
 access array 

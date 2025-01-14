@@ -1,0 +1,182 @@
+// learn about import and export 
+
+
+Named exports: You can export multiple variables, functions, or classes by specifying their names.
+Default export: A module can have one default export, and you can import it without curly braces.
+
+
+// Exporting a variable
+export const name = 'John Doe';
+
+// Exporting a function
+export function greet() {
+  console.log('Hello, world!');
+}
+
+// Exporting a class
+export class Person {
+  constructor(name) {
+    this.name = name;
+  }
+
+  sayHello() {
+    console.log(`Hello, my name is ${this.name}`);
+  }
+}
+
+
+
+
+
+// Importing specific items from the module
+import { name, greet, Person } from './module.js';
+
+console.log(name);  // Output: John Doe
+greet();  // Output: Hello, world!
+
+const person = new Person('Alice');
+person.sayHello();  // Output: Hello, my name is Alice
+
+
+
+// Importing and renaming variables using `as`
+import { name, age as personAge } from './module.js';
+
+console.log(name);        // Output: John Doe
+console.log(personAge);   // Output: 30
+
+
+
+
+// Importing everything from module.js using * as
+import * as myModule from './module.js';
+
+console.log(myModule.name);    // Output: John Doe
+console.log(myModule.age);     // Output: 30
+myModule.greet();              // Output: Hello, world!
+
+const person = new myModule.Person('Alice');
+person.sayHello();             // Output: Hello, my name is Alice
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Example: Combining Named and Default Exports
+
+
+
+// Named exports
+export const name = 'John Doe';
+export const age = 30;
+
+export function greet() {
+  console.log('Hello, world!');
+}
+
+export class Person {
+  constructor(name) {
+    this.name = name;
+  }
+  
+  sayHello() {
+    console.log(`Hello, my name is ${this.name}`);
+  }
+}
+
+// Default export
+export default function() {
+  console.log('This is the default export!');
+}
+
+
+
+
+// 
+
+
+// Importing both named and default exports from module.js
+import defaultFunction, { name, age, greet, Person } from './module.js';
+
+console.log(name);    // Output: John Doe
+console.log(age);     // Output: 30
+greet();              // Output: Hello, world!
+
+const person = new Person('Alice');
+person.sayHello();    // Output: Hello, my name is Alice
+
+defaultFunction();    // Output: This is the default export!
+
+
+
+
+
+
+
+
+
+
+
+
+// static import and export 
+
+// dynamic import and exports 
+
+
+export function greet() {
+  console.log('Hello from the dynamic import!');
+}
+
+
+
+async function loadAndRun() {
+  const module = await import('./module.js');
+  module.greet();
+}
+
+loadAndRun();
+
+
+
+
+// Dynamic import using the `import()` syntax
+document.getElementById('loadButton').addEventListener('click', async () => {
+  const module = await import('./module.js'); // Dynamically load the module
+  module.greet(); // Call the greet function after loading the module
+});
+
+
+
+
+
+
+
+
+
+
+
+// Exporting a default value
+export default function() {
+  console.log('This is the default export!');
+}
+
+
+// Importing the default export
+import myFunction from './module.js';
+
+myFunction();  // Output: This is the default export!
+
+
+

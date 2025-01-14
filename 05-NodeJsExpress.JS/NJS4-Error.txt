@@ -1,0 +1,324 @@
+
+
+
+// error handling in node.js 
+
+
+// create express app 
+
+const express = require('express');
+const app = express();
+
+// Example route that throws an error
+app.get('/error', (req, res) => {
+  throw new Error('Something went wrong');
+});
+
+// Global error-handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(err.status || 500).json({
+    message: err.message || 'Internal Server Error',
+    details: err.details || null
+  });
+});
+
+app.listen(3000, () => {
+  console.log('Server running on http://localhost:3000');
+});
+
+
+
+
+
+
+
+
+
+
+//  Custom Error Handling Classes
+
+
+class CustomError extends Error {
+  constructor(message, statusCode) {
+    super(message);
+    this.statusCode = statusCode;
+  }
+}
+
+app.get('/custom-error', (req, res, next) => {
+  throw new CustomError('This is a custom error', 400);  // Throwing custom error
+});
+
+// Global error-handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(err.statusCode || 500).json({
+    message: err.message || 'Internal Server Error',
+    status: err.statusCode || 500
+  });
+});
+
+
+
+
+
+
+// errorHandler.js
+
+
+const errorHandler = (err, req, res, next) => {
+  console.error(err.stack);
+  res.status(err.statusCode || 500).json({
+    message: err.message || 'Internal Server Error',
+    status: err.statusCode || 500
+  });
+}
+
+
+next(error)
+
+app.use(errorHandler)
+
+
+const trycatch = (cont)=> async (req , res , next)=>{
+    try{
+        await cont(req ,res )
+    }catch(error){
+        return next(error)
+    }
+}
+
+
+const app.get("/test", trycatch((req,res )=>{
+
+}))
+
+
+
+function checkEvenNumber(num) {
+  if (num % 2 !== 0) {
+    throw new Error("The number is not even");
+  } else {
+    console.log("The number is even");
+  }
+}
+
+try {
+  checkEvenNumber(3); // This will throw an error because 3 is not even
+} catch (error) {
+  console.error("Error message:", error.message);  // Logs: The number is not even
+  console.error("Error name:", error.name);        // Logs: Error
+  console.error("Error stack:", error.stack);      // Logs the stack trace (location of the error)
+}
+
+
+
+// if try catch is not define the after error part
+    will not run thats why hanlde the error properly
+
+
+
+
+
+
+
+
+// 
+
+
+//Normal Middleware function
+middlewareFn(req,res,next){
+  //code
+}
+
+// Middleware function that takes err as first argument.
+errHandlingMiddleware(err,req,res,next){
+
+}
+//passing middleware function to instance of express through .use 
+app.use(middlewareFn)
+
+
+
+
+
+
+
+
+
+
+// error handler 
+
+on index js 
+
+app.use(errorHandler);
+
+
+export const errorHandler: ErrorRequestHandler = (
+  error: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {};
+
+function httpSignIn() {
+  throw new Error('Bad request');
+}
+
+
+
+
+function checkAge(age) {
+  if (age < 18) {
+    throw new Error("Age must be 18 or older.");
+  } else {
+    console.log("You are old enough!");
+  }
+}
+
+try {
+  checkAge(16); // This will throw an error
+} catch (error) {
+  console.error("Error caught: ", error.message);
+}
+
+
+
+Error caught: Age must be 18 or older.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// error types 
+
+try {
+  if (!user) {
+    throw new Error("User is not define ");
+  }
+} catch (error) {
+  console.error("Error message:", error.message); // Logs: The number is not even
+  console.error("Error name:", error.name); // Logs: Error
+  console.error("Error stack:", error.stack); // Logs the stack trace (location of the error)
+}finally{
+    console.log('finnaly called ')
+}
+
+
+
+
+
+
+// error types 
+
+
+// 1. SyntaxError - Incorrect Syntax
+try {
+    eval('let x = 5'); // Missing closing parenthesis would cause a syntax error
+  } catch (error) {
+    console.error("SyntaxError:", error.message);
+  }
+  
+  // 2. ReferenceError - Undefined variable
+  try {
+    console.log(undeclaredVar);  // ReferenceError: undeclaredVar is not defined
+  } catch (error) {
+    console.error("ReferenceError:", error.message);
+  }
+  
+  // 3. TypeError - Invalid operation for type
+  try {
+    let num = 5;
+    num.toUpperCase();  // TypeError: num.toUpperCase is not a function
+  } catch (error) {
+    console.error("TypeError:", error.message);
+  }
+  
+  // 4. RangeError - Value out of range
+  try {
+    let arr = new Array(-1);  // RangeError: Invalid array length
+  } catch (error) {
+    console.error("RangeError:", error.message);
+  }
+  
+  // 5. EvalError - Misuse of eval
+  try {
+    eval('console.log("Hello World"');  // EvalError: Invalid regular expression
+  } catch (error) {
+    console.error("EvalError:", error.message);
+  }
+  
+  // 6. URIError - Invalid URI encoding/decoding
+  try {
+    decodeURIComponent('%');  // URIError: URI malformed
+  } catch (error) {
+    console.error("URIError:", error.message);
+  }
+  
+  // 7. AssertionError - Assertion failed (Using Node.js assert module)
+  const assert = require('assert');
+  try {
+    assert.strictEqual(1, 2);  // AssertionError: 1 === 2
+  } catch (error) {
+    console.error("AssertionError:", error.message);
+  }
+  
+  // 8. InternalError - Stack overflow / recursion limit exceeded
+  function recurse() {
+    recurse(); // Causes InternalError due to too much recursion
+  }
+  try {
+    recurse();
+  } catch (error) {
+    console.error("InternalError:", error.message);
+  }
+  
+  // 9. Custom Error - Creating and throwing a custom error
+  class ValidationError extends Error {
+    constructor(message) {
+      super(message);
+      this.name = 'ValidationError';
+    }
+  }
+  try {
+    throw new ValidationError('Invalid input data');
+  } catch (error) {
+    console.error(`${error.name}: ${error.message}`);
+  }
+  
+  // 10. System Error - File system related (Node.js example)
+  const fs = require('fs');
+  try {
+    fs.readFileSync('/nonexistent/file');  // Error: ENOENT: no such file or directory
+  } catch (error) {
+    console.error("SystemError:", error.message);
+  }
+  
+  // 11. Unhandled Promise Rejection
+  new Promise((resolve, reject) => {
+    reject('Promise Rejected');
+  })
+    .catch(error => console.error("Unhandled Promise Rejection:", error));
+  
+  // 12. EventEmitter Error - Emitting error from EventEmitter
+  const EventEmitter = require('events');
+  const emitter = new EventEmitter();
+  emitter.on('error', (err) => {
+    console.error('EventEmitter Error:', err.message);
+  });
+  try {
+    emitter.emit('error', new Error('An event error occurred'));
+  } catch (error) {
+    console.error("EventEmitter Error:", error.message);
+  }
+  
