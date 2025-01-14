@@ -12,6 +12,9 @@
 / 12 -  bind, call, apply
 / 13 - assign
 / 14 - hasOwnProperty
+/ 15 - json 
+/ 16 - JSON.parse()
+/ 17 - JSON.stringify()
 
 
 
@@ -523,5 +526,51 @@ greet(person);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/ 15 - json 
+
+{
+  "name": "John Doe",
+  "age": 30,
+  "isStudent": false,
+  "address": {
+    "street": "123 Main St",
+    "city": "Anytown",
+    "state": "CA"
+  },
+  "courses": ["Math", "Science", "History"]
+}
+
+
+
+/ 16 - JSON.parse()
+
+const jsonString = '{"name": "John", "age": 30}';
+const jsonObject = JSON.parse(jsonString);
+console.log(jsonObject); // { name: "John", age: 30 }
+
+
+
+/ 17 - JSON.stringify()
+
+const obj = { name: "John", age: 30 };
+const jsonString = JSON.stringify(obj);
+console.log(jsonString); // '{"name":"John","age":30}'
 
 
