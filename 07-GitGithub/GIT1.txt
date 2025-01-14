@@ -334,3 +334,107 @@ git pull origin main
 
 
 
+
+
+// git time travellig
+
+git checkout dfd43g  // detach head
+
+
+/ one commit back 
+git checkout HEAD~1
+
+/ back to top at current branch 
+git switch - 
+
+
+// it remove the all unadded changes  like before the git add .
+
+git checkout head index.js
+
+
+
+/ restore 
+
+git restore index.js
+
+git restore --staged <file_name>
+
+git restore .
+
+git restore --source=<commit_hash> <file_name>
+
+
+/ if you accidently added a file by git add . and want to remove from the staging area 
+
+git restore --staged <file_name>
+git restore --staged example.txt
+
+
+
+
+// reset 
+
+/ want to remove the only commits not changes 
+git reset --soft <commit_hash>
+
+
+/mix
+
+git reset <commit_hash>
+
+
+/ hard
+
+git reset --hard <commit_hash>
+
+
+git reset --hard abc1234
+
+git reset --hard feature-branch
+
+git reset <file_name>
+
+
+
+
+// revert 
+
+git revert HEAD
+
+
+git revert abc1234
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
