@@ -1,3 +1,77 @@
+create 
+      -bulkWrite
+      -insertOne
+      -insertMany
+      -insert 
+
+          attributes 
+            - {ordered:false}
+            - { writeConcern: { w: "majority" } }
+            - { bypassDocumentValidation: true }
+
+
+
+
+
+
+reade 
+      -find
+      -findOne
+      -findOneAndUpdate
+      -findOneAndReplace
+      -findOneAndDelete 
+
+
+          attributes 
+              -Projection,
+              -sort() 
+              -limit()
+              -skip()
+              -count()
+              -toArray()
+              - 
+
+              - logic operator
+                  -$and
+                  -$or
+                  -$not
+                  -$nor
+                  -$exists
+                  -$type
+
+
+
+
+                - comparison operator
+                    -$gt
+                    -$lt
+                    -$gte
+                    -$lte-
+                    -$ne
+
+
+                - array operator
+                    -$in
+                    -$all
+                    -$size-
+                    -$elemMatch
+
+
+                - expression operator
+                      -$regex
+
+
+
+
+
+
+
+
+
+
+
+
+
 // create DB and collection 
 
 // to make mongo connection 
@@ -98,7 +172,7 @@ db.collname.insertMany(
     { field1: "value1", field2: "value2" },
     { field1: "value3", field2: "value4" },
   ],
-  { ordered: false }
+  { ordered: false }  // default is true 
 );
 
 
