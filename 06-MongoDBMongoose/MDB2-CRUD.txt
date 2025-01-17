@@ -1,70 +1,79 @@
 create 
-      -bulkWrite
-      -insertOne
-      -insertMany
-      -insert 
+      - bulkWrite
+      - insertOne
+      - insertMany
+      - insert 
+      - create 
 
           attributes 
             - {ordered:false}
             - { writeConcern: { w: "majority" } }
             - { bypassDocumentValidation: true }
+            - { lean: true }
+            - { strict: false }
+            - 
 
 
 
 
 
 
-reade 
-      -find
-      -findOne
-      -findById
-      -findByIdAndDelete
-      -findByIdAndUpdate
-      -findOneAndDelete
-      -findOneAndUpdate
-      -findOneAndReplace
+
+
+read 
+      - find
+      - findOne
+      - findById
+      - findByIdAndDelete
+      - findByIdAndUpdate
+      - findOneAndDelete
+      - findOneAndUpdate
+      - findOneAndReplace
       
 
-
           attributes 
-              -Projection,
+              -Projection, 
               -sort() 
               -limit()
               -skip()
               -count()
               -toArray()
-              -select("name age -_id)
 
-              - logic operator
-                  -$and
-                  -$or
-                  -$not
-                  -$nor
-                  -$exists
-                  -$type
-
-
-
+                - logic operator
+                      - $and
+                      - $or
+                      - $not
+                      - $nor
+                      - $exists
+                      - $type
 
                 - comparison operator
-                    -$gt
-                    -$lt
-                    -$gte
-                    -$lte-
-                    -$ne
-                    -$in
-                    -$nin
+                      - $gt
+                      - $lt
+                      - $gte
+                      - $lte-
+                      - $ne
+                      - $in
+                      - $nin
+
+                - Element Operators
+                    - $exists
+                    - "$type"
+
 
 
 
                 - array operator
-                    -$in
-                    -$all
-                    -$size-
-                    -$elemMatch
+                    - $all
+                    - $size-
+                    - $elemMatch
+                    - $addToSet
+                    - $pullAll 
+                    - $pop
 
 
-                - expression operator
+
+                - expression operator / Text Search Operators
                       -$regex
                       -$text
 
@@ -89,11 +98,18 @@ update
 
 
 
+schema 
 
 
 
 
 
+
+
+
+error 
+          - error.name
+          - error.message
 
 
 
@@ -104,11 +120,6 @@ update
 
 
 // create DB and collection 
-
-
-if you created schema and trying to save the extra 
-field then it will not save  it save the only that perticular field which is 
-in exist in shcema
 
 // to make mongo connection 
 >mongosh 
@@ -159,9 +170,7 @@ in exist in shcema
 
 
 
-// Create  data 
-// learn about the ordered method to insert 
-// writeConcern
+// Create 
 
 a-insertOne()
 b-insertMany()
@@ -178,6 +187,8 @@ const result = await collection.insertOne({
   email: "johndoe@example.com",
 });
 
+
+
 const users = await User.create({
     name: "David",
     age: 40,
@@ -193,18 +204,12 @@ const result = await collection.insertMany([
 ]);
 
 
+
 const users = await User.insertMany([
-    { name: "Alice", age: 25 },
-    { name: "Bob", age: 30 },
-    { name: "Charlie", age: 22 }
-  ]);
-  console.log("Saved Users:", users);
+    { name: 'Alice', age: 25 },
+    { name: 'Bob', age: 30 },
+  ], { lean: true });
 
-
-      const users = await User.insertMany([
-      { name: 'Alice', age: 25 },
-      { name: 'Bob', age: 30 },
-    ], { lean: true });
 
 
 
@@ -222,6 +227,7 @@ const result = await collection.bulkWrite([
 
 
 
+
 // Insert multiple documents and continue the operation even if one document fails (ordered: false)  // default it true
 db.collname.insertMany(
   [
@@ -233,11 +239,13 @@ db.collname.insertMany(
 
 
 
+
 // Insert a single document with write concern (waiting for majority acknowledgment from replica set members)
 db.collname.insertOne(
   { field1: "value1", field2: "value2" },
   { writeConcern: { w: "majority" } }
 );
+
 
 
 
@@ -249,8 +257,12 @@ db.collname.insertOne(
 
 
 
+
 // Insert a document with a custom `_id` (you can specify the _id manually)
 db.collname.insertOne({ _id: 1001, name: "ajay" });
+
+
+
 
 // Insert multiple documents with a custom `_id`
 db.collname.insertMany([
@@ -260,96 +272,13 @@ db.collname.insertMany([
 
 
 
+
 // Insert a document with embedded arrays or objects
 db.collname.insertOne({
   name: "ajay",
   hobbies: ["reading", "coding"],
   address: { city: "Delhi", country: "India" },
 });
-
-
-
-// strict false 
-
-const mongoose = require("mongoose");
-
-const userSchema = new mongoose.Schema(
-  {
-    name: { type: String, required: true },
-    brand: String,
-    specs: {
-      processor: String,
-      memory: String,
-      storage: String
-    },
-    tags: [String]
-  },
-  { strict: false } // This allows extra fields
-);
-
-const User = mongoose.model("User", userSchema);
-
-
-// error 
-error.name 
-error.message
-
-
-
-
-
-
-
-
-
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, 'Name is required'],
-    minlength: [3, 'Name must be at least 3 characters'],
-    maxlength: [50, 'Name cannot exceed 50 characters'],
-  },
-  email: {
-    type: String,
-    required: [true, 'Email is required'],
-    unique: true,
-    match: [/^\S+@\S+\.\S+$/, 'Please provide a valid email address'],
-  },
-  age: {
-    type: Number,
-    min: [18, 'Age must be at least 18'],
-    max: [100, 'Age cannot be more than 100'],
-  },
-  status: {
-    type: String,
-    enum: ['active', 'inactive', 'banned'],
-    required: true,
-  },
-  password: {
-    type: String,
-    required: true,
-    set: (value) => value.toUpperCase(), // Just an example
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-    immutable: true, // Date can't be updated after the initial creation
-  },
-});
-
-const User = mongoose.model('User', userSchema);
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -398,30 +327,38 @@ db.collection.find({status.hobbies:["cricket"]} )  // it search exact array  arr
 
 Example with Projection:
 db.users.find({ age:  18  }, { name: 1, age: 1 })
-
 db.users.find({}, { password: 0 })
 
-db.collection.find().sort({ field: 1 or -1 })
 
+db.collection.find().sort({ field: 1 or -1 })
 db.users.find().sort({ age: 1 }).count()
 
+
 db.users.find().limit(5)
+
 
 db.users.find().skip(5)
 
 db.users.find({ status: 'active' }).count();
 
 
-db.users.findOne({ email: "johndoe@example.com" })
-
 // Find all documents and return them as an array
 db.users.find().toArray();
+
+
+db.users.findOne({ email: "johndoe@example.com" })
+
+
+
+
 
 // Find all documents and apply a function to each of them
 db.users.find().toArray().forEach(function(doc) {
     // Your logic here, for example:
     print(doc.name);
 });
+
+
 
 
 const user = await User.findOneAndUpdate(
@@ -443,83 +380,62 @@ console.log(distinctNames);
 
 
 
-// Get only the name and age of all users
-const users = await User.find({}, 'name age');
-console.log(users);
+
+// Logical operator 
 
 
+// Sample Data for Reference
+/*
+[
+  { name: "Alice", age: 25, email: "alice@example.com", isActive: true },
+  { name: "Bob", age: 30, email: "bob@example.com" },
+  { name: "Charlie", age: 35, isActive: false },
+  { name: "David", age: 40, isActive: true, email: "david@example.com" },
+  { name: "Eve", age: 28, email: "eve@example.com" },
+  { name: "Frank", age: 33, phone: "1234567890" },
+]
+*
+// 1. $and: Matches documents that satisfy all conditions
+console.log("1. $and Examples:");
+console.log(await collection.find({ $and: [{ age: { $gte: 30 } }, { isActive: true }] }).toArray()); // Active users aged 30+
+console.log(await collection.find({ $and: [{ name: "Alice" }, { email: { $exists: true } }] }).toArray()); // Users named Alice with an email
+console.log(await collection.find({ $and: [{ age: { $lte: 35 } }, { phone: { $exists: true } }] }).toArray()); // Users with phone and age <= 3
 
 
-// Get users whose name starts with 'A'
-const users = await User.find({ name: { $regex: /^A/, $options: 'i' } });
-console.log(users); // 'i' makes the regex case-insensitive
+// 2. $or: Matches documents that satisfy at least one condition
+console.log("\n2. $or Examples:");
+console.log(await collection.find({ $or: [{ name: "Alice" }, { isActive: false }] }).toArray()); // Users named Alice or inactive
+console.log(await collection.find({ $or: [{ age: { $lt: 30 } }, { email: { $exists: false } }] }).toArray()); // Users aged < 30 or without email
+console.log(await collection.find({ $or: [{ isActive: true }, { phone: { $exists: true } }] }).toArray()); // Active users or those with phon
 
 
-
-// Get users who are older than 25 and have the name "Alice"
-const users = await User.find({ age: { $gt: 25 }, name: "Alice" });
-console.log(users);
-
-
-
-// Get users created in the last 7 days
-const users = await User.find({
-  createdAt: { $gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) }
-});
-console.log(users);
+// 3. $not: Negates a query condition
+console.log("\n3. $not Examples:");
+console.log(await collection.find({ age: { $not: { $lt: 30 } } }).toArray()); // Users aged >= 30
+console.log(await collection.find({ isActive: { $not: { $eq: true } } }).toArray()); // Users who are not active
+console.log(await collection.find({ email: { $not: { $exists: true } } }).toArray()); // Users without an emai
 
 
+// 4. $nor: Matches documents that do not satisfy any condition
+console.log("\n4. $nor Examples:");
+console.log(await collection.find({ $nor: [{ name: "Alice" }, { isActive: true }] }).toArray()); // Not Alice and not active
+console.log(await collection.find({ $nor: [{ age: { $gte: 30 } }, { email: { $exists: true } }] }).toArray()); // Users aged < 30 and without email
+console.log(await collection.find({ $nor: [{ phone: { $exists: true } }, { isActive: false }] }).toArray()); // No phone and not inactiv
 
 
+// 5. $exists: Matches documents where a field exists or does not exist
+console.log("\n5. $exists Examples:");
+console.log(await collection.find({ email: { $exists: true } }).toArray()); // Users with an email
+console.log(await collection.find({ phone: { $exists: false } }).toArray()); // Users without a phone
+console.log(await collection.find({ isActive: { $exists: true } }).toArray()); // Users with `isActive` fiel
 
 
+// 6. $type: Matches documents where a field is of a specified BSON type
+console.log("\n6. $type Examples:");
+console.log(await collection.find({ age: { $type: "int" } }).toArray()); // Users with `age` as integer
+console.log(await collection.find({ email: { $type: "string" } }).toArray()); // Users with `email` as string
+console.log(await collection.find({ isActive: { $type: "bool" } }).toArray()); // Users with `isActive` as boolean
 
-
-
-
-
-logical Operator 
-
-/ logical operator
-
-// $and: All conditions must be true
-{
-  "$and": [
-    { "age": { "$gte": 25 } },
-    { "status": "active" }
-  ]
-}
-
-// $or: At least one condition must be true
-{
-  "$or": [
-    { "age": { "$lte": 20 } },
-    { "status": "inactive" }
-  ]
-}
-
-// $nor: None of the conditions must be true
-{
-  "$nor": [
-    { "age": { "$lte": 20 } },
-    { "status": "inactive" }
-  ]
-}
-
-// $not: Negates the condition
-{
-  "age": { "$not": { "$gte": 30 } }
-}
-
-// $exists: Checks if a field exists
-{
-  "address": { "$exists": true }
-}
-
-// $type: Checks the type of a field
-{
-  "age": { "$type": "int" }
-}
 
 // Combining $and and $or
 {
@@ -536,32 +452,22 @@ logical Operator
 
 
 
-db.users.find({
-  $and: [
-    { age: { $gt: 25 } },
-    { status: "active" }
-  ]
-})
 
 
-db.users.find({
-  $or: [
-    { age: { $lt: 18 } },
-    { status: "inactive" }
-  ]
-})
 
-db.users.find({
-  $nor: [
-    { age: { $gt: 25 } },
-    { status: "active" }
-  ]
-})
+// comparison operator
 
 
-db.users.find({
-  age: { $not: { $gt: 25 } }
-})
+{
+  "$eq": { "age": { "$eq": 30 } },            // Equal
+  "$ne": { "age": { "$ne": 30 } },            // Not Equal
+  "$gt": { "age": { "$gt": 30 } },            // Greater Than
+  "$gte": { "age": { "$gte": 30 } },          // Greater Than or Equal
+  "$lt": { "age": { "$lt": 30 } },            // Less Than
+  "$lte": { "age": { "$lte": 30 } },          // Less Than or Equal
+  "$in": { "status": { "$in": ["active", "pending"] } }, // In Array
+  "$nin": { "status": { "$nin": ["inactive", "suspended"] } }, // Not In Array
+}
 
 
 
@@ -569,9 +475,10 @@ db.users.find({
 
 
 
-// elements operator
 
-/ element operator
+// Element Operators
+
+
 {
   "$exists": { "age": { "$exists": true } },  // Field Existence
   "$type": { "age": { "$type": "int" } }      // Field Type
@@ -604,102 +511,7 @@ db.articles.find({
 
 
 
-
-comparison operator
-
-
-/ comparison operator 
-
-{
-  "$eq": { "age": { "$eq": 30 } },            // Equal
-  "$ne": { "age": { "$ne": 30 } },            // Not Equal
-  "$gt": { "age": { "$gt": 30 } },            // Greater Than
-  "$gte": { "age": { "$gte": 30 } },          // Greater Than or Equal
-  "$lt": { "age": { "$lt": 30 } },            // Less Than
-  "$lte": { "age": { "$lte": 30 } },          // Less Than or Equal
-  "$in": { "status": { "$in": ["active", "pending"] } }, // In Array
-  "$nin": { "status": { "$nin": ["inactive", "suspended"] } }, // Not In Array
-}
-
-
-
-db.users.find({
-  status: { $eq: "active" }
-})
-
-
-db.users.find({
-  status: { $ne: "inactive" }
-})
-
-
-db.users.find({
-  age: { $gt: 25 }
-})
-
-
-db.users.find({
-  age: { $gte: 18 }
-})
-
-
-db.users.find({
-  age: { $lt: 30 }
-})
-
-
-db.users.find({
-  age: { $lte: 60 }
-})
-
-
-db.users.find({
-  status: { $in: ["active", "pending"] }
-})
-
-db.users.find({
-  status: { $nin: ["active", "inactive"] }
-})
-
-db.users.find({
-  name: { $regex: /John/ }
-})
-
-
-db.users.find({
-  name: { $regex: /^John/ }
-})
-
-
-db.posts.find({
-  tags: { $all: ["mongodb", "database"] }
-})
-
-
-db.posts.find({
-  comments: { $elemMatch: { author: "John", message: /great/ } }
-})
-
-
-
-
-
-db.users.find({
-  score: { $mod: [5, 0] }
-})
-
-
-
-
-
-
-
-
-// array operator
-
-
-
-/ array operator
+// Array Operators
 
 // $elemMatch: Match array elements that meet specific criteria
 {
@@ -716,10 +528,7 @@ db.users.find({
   "orders": { "$size": 2 }
 }
 
-// $slice: Limit the number of array elements returned in a query or projection
-{
-  "orders": { "$slice": 2 }
-}
+
 
 // $push: Append a value to an array
 {
@@ -751,78 +560,42 @@ db.users.find({
   "$pullAll": { "tags": ["electronics", "sale"] }
 }
 
-// $unwind: Deconstruct an array into separate documents (aggregation)
-[
-  { "$unwind": "$orders" }
-]
 
-// $arrayElemAt: Get an element at a specified index in an array (aggregation)
-[
-  { "$project": { "firstOrder": { "$arrayElemAt": ["$orders", 0] } } }
-]
 
-// $filter: Filter elements in an array based on a condition (aggregation)
-[
-  {
-    "$project": {
-      "filteredOrders": {
-        "$filter": {
-          "input": "$orders",
-          "as": "order",
-          "cond": { "$gt": ["$$order.quantity", 1] }
-        }
-      }
-    }
-  }
-]
 
-// $map: Apply an expression to each element in an array (aggregation)
-[
-  {
-    "$project": {
-      "orderPrices": {
-        "$map": {
-          "input": "$orders",
-          "as": "order",
-          "in": { "$multiply": ["$$order.price", "$$order.quantity"] }
-        }
-      }
-    }
-  }
-]
 
-// $reduce: Accumulate a single value by iterating over an array (aggregation)
-[
-  {
-    "$project": {
-      "totalQuantity": {
-        "$reduce": {
-          "input": "$orders",
-          "initialValue": 0,
-          "in": { "$add": ["$$value", "$$this.quantity"] }
-        }
-      }
-    }
-  }
-]
 
-// $concatArrays: Concatenate two or more arrays (aggregation)
-[
-  {
-    "$project": {
-      "allTags": { "$concatArrays": ["$tags", ["sale", "electronics"]] }
-    }
-  }
-]
 
-// $arrayToObject: Convert an array of key-value pairs into an object (aggregation)
-[
-  {
-    "$project": {
-      "orderObject": { "$arrayToObject": "$orders" }
-    }
-  }
-]
+
+// expression operator / Text Search Operators
+
+
+// Get users whose name starts with 'A'
+const users = await User.find({ name: { $regex: /^A/, $options: 'i' } });
+console.log(users); // 'i' makes the regex case-insensitive
+
+
+db.users.find({
+  name: { $regex: /John/ }
+})
+
+
+
+
+
+// Get users created in the last 7 days
+const users = await User.find({
+  createdAt: { $gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) }
+});
+console.log(users);
+
+
+db.users.find({
+  score: { $mod: [5, 0] }
+})
+
+
+
 
 
 
@@ -833,201 +606,6 @@ db.collection.find({status.hobbies:{title:sport , test:2 }} )  // if array conta
 db.collection.find({status.hobbies:{title:sport  }} )  // if array contains objects  , it check same 
 
 
-
-db.users.find({
-  status: { $in: ["active", "pending"] }  // acitve or pending it find 
-})
-
-
-db.users.find({
-  status: { $nin: ["inactive", "banned"] }   // it will find the value don't it have 
-})
-
-
-db.orders.find({
-  items: { $elemMatch: { productId: "1234", quantity: { $gte: 2 } } } // it search same object which match these quontion 
-})
-
-
-db.posts.find({
-  tags: { $size: 3 }  // it find the length equal 3 
-})
-
-
-
-db.users.find({
-  roles: { $all: ["admin", "editor"] }  // it find the array which have two this value order is not matter 
-})
-
-
-
-
-// evalution operator 
-
-
-/ evalution operator 
-
-
-// $expr: Use aggregation expressions within a query
-{
-  "$expr": { "$gt": ["$price", "$cost"] }
-}
-
-// $jsonSchema: Validate documents against a JSON schema
-{
-  "$jsonSchema": {
-    "bsonType": "object",
-    "required": ["name", "age"],
-    "properties": {
-      "name": { "bsonType": "string" },
-      "age": { "bsonType": "int" }
-    }
-  }
-}
-
-// $text: Perform a text search on text-indexed fields
-{
-  "$text": { "$search": "MongoDB" }
-}
-
-// $mod: Perform a modulo operation
-{
-  "number": { "$mod": [3, 0] }
-}
-
-// $regex: Match strings against a regular expression
-{
-  "name": { "$regex": "^Alice" }
-}
-
-// $where: Use JavaScript expressions for evaluation
-{
-  "$where": "this.price > this.cost"
-}
-
-// $textScore: Sort documents by text search relevance score
-{
-  "$text": { "$search": "MongoDB" },
-  "$sort": { "score": { "$meta": "textScore" } }
-}
-
-// $elemMatch: Query embedded arrays with multiple conditions
-{
-  "orders": { "$elemMatch": { "item": "Laptop", "quantity": { "$gt": 1 } } }
-}
-
-// $all: Match documents where an array contains all specified values
-{
-  "tags": { "$all": ["electronics", "sale"] }
-}
-
-// $size: Match documents where the size of an array is equal to a specified value
-{
-  "orders": { "$size": 2 }
-}
-
-// $geoIntersects: Match documents where a geometry intersects a specified geometry
-{
-  "location": { "$geoIntersects": { "$geometry": { "type": "Polygon", "coordinates": [[[-73.97, 40.77], [-73.95, 40.77], [-73.95, 40.75], [-73.97, 40.75], [-73.97, 40.77]]] } } }
-}
-
-// $geoWithin: Match documents where a geometry is within a specified geometry
-{
-  "location": { "$geoWithin": { "$geometry": { "type": "Polygon", "coordinates": [[[-73.97, 40.77], [-73.95, 40.77], [-73.95, 40.75], [-73.97, 40.75], [-73.97, 40.77]]] } } }
-}
-
-// $sum (Aggregation operator): Calculate the sum of numeric values in an array
-[
-  { "$unwind": "$orders" },
-  { "$group": { "_id": null, "totalPrice": { "$sum": "$orders.price" } } }
-]
-
-// $avg (Aggregation operator): Calculate the average of numeric values in an array
-[
-  { "$unwind": "$orders" },
-  { "$group": { "_id": null, "averagePrice": { "$avg": "$orders.price" } } }
-]
-
-
-
-db.users.find({ $text: { $search: "Alice" } });
-
-
-
-
-
-db.orders.find({
-  $expr: { $gt: ["$totalAmount", "$discount"] }   // it use to compare two field inside the document 
-})
-
-
-db.users.find({
-  name: { $regex: "^John", $options: "i" }  // search for the text , not efficient 
-})
-
-db.users.find({
-  name: { $regex: /^john/i }
-})
-
-
-db.articles.find({
-  $text: { $search: "mongodb database" }
-})
-
-
-db.articles.find({
-  $text: { $search: "MongoDB database" }
-})
-
-
-
-db.numbers.find({
-  number: { $mod: [3, 0] }
-})
-
-
-
-db.products.find({
-  $where: "this.price > this.discountedPrice"
-})
-
-
-
-$add: Adds numbers.
-$subtract: Subtracts numbers.
-$multiply: Multiplies numbers.
-$divide: Divides numbers.
-
-
-db.transactions.find({db.users.find({
-  $expr: { $eq: [{ $ifNull: ["$middleName", ""] }, ""] }
-})
-
-  $expr: { $gt: [{ $add: ["$amount", "$tax"] }, 100] }
-})
-
-
-
-db.products.find({
-  $expr: { $lte: [{ $multiply: ["$price", "$quantity"] }, 500] }
-})
-
-
-
-db.orders.find({
-  $expr: { $eq: [{ $arrayElemAt: ["$items", 0] }, "item123"] }
-})
-
-
-db.orders.find({
-  $expr: { $eq: [{ $literal: 100 }, "$totalAmount"] }
-})
-
-
-
-db.products.aggregate([
-  { $project: { randomScore: { $rand: {} } } }
-])
 
 
 
@@ -1062,18 +640,6 @@ db.users.findOneAndDelete(
 
 
 
-
-
-// array operator 
-
-db.users.find({ tags: { $all: ["electronics", "computer"] } });
-
-
-db.users.find({ specs: { $elemMatch: { processor: "Intel i7", memory: "16GB" } } });
-
-
-
-db.users.find({ tags: { $size: 3 } }); // Matches arrays with exactly 3 elements
 
 
 
@@ -1419,6 +985,21 @@ db.users.find({ specs: { $elemMatch: { processor: "Intel i7", memory: "16GB" } }
       }, { $set: { "orders.$.payment": "6000" , "orders.$.status": false } }, {new:true})
 
 
+    const updateData = await User.findOneAndUpdate(
+      {
+        orders: {
+          $elemMatch: {
+            name: "raj",
+            payment: "6000",
+            "date":'333'
+          },
+        },
+      },
+      { $set: { "orders.$.payment": "6000", "orders.$.status": false } },
+      { new: true }
+    );
+
+
 
 
 
@@ -1492,6 +1073,7 @@ db.users.bulkWrite([
 ]);
 
 
+
 db.users.drop();  // Deletes the entire "users" collection
 
 
@@ -1515,3 +1097,92 @@ db.users.drop();  // Deletes the entire "users" collection
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+// strict false 
+
+const mongoose = require("mongoose");
+
+const userSchema = new mongoose.Schema(
+  {
+    name: { type: String, required: true },
+    brand: String,
+    specs: {
+      processor: String,
+      memory: String,
+      storage: String
+    },
+    tags: [String]
+  },
+  { strict: false } // This allows extra fields
+);
+
+const User = mongoose.model("User", userSchema);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, 'Name is required'],
+    minlength: [3, 'Name must be at least 3 characters'],
+    maxlength: [50, 'Name cannot exceed 50 characters'],
+  },
+  email: {
+    type: String,
+    required: [true, 'Email is required'],
+    unique: true,
+    match: [/^\S+@\S+\.\S+$/, 'Please provide a valid email address'],
+  },
+  age: {
+    type: Number,
+    min: [18, 'Age must be at least 18'],
+    max: [100, 'Age cannot be more than 100'],
+  },
+  status: {
+    type: String,
+    enum: ['active', 'inactive', 'banned'],
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+    set: (value) => value.toUpperCase(), // Just an example
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    immutable: true, // Date can't be updated after the initial creation
+  },
+});
+
+const User = mongoose.model('User', userSchema);
+
+
+
+
+// error 
+error.name 
+error.message
