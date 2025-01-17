@@ -17,9 +17,13 @@ create
 reade 
       -find
       -findOne
+      -findById
+      -findByIdAndDelete
+      -findByIdAndUpdate
+      -findOneAndDelete
       -findOneAndUpdate
       -findOneAndReplace
-      -findOneAndDelete 
+      
 
 
           attributes 
@@ -29,7 +33,7 @@ reade
               -skip()
               -count()
               -toArray()
-              - 
+              -select("name age -_id)
 
               - logic operator
                   -$and
@@ -48,6 +52,9 @@ reade
                     -$gte
                     -$lte-
                     -$ne
+                    -$in
+                    -$nin
+
 
 
                 - array operator
@@ -59,6 +66,30 @@ reade
 
                 - expression operator
                       -$regex
+                      -$text
+
+                - evalution operator
+
+
+
+
+
+
+
+update   
+        -$set
+        -$unset
+        -$inc
+        -$push
+        -$pop
+        -$pull
+        -$rename
+        $setOnInsert
+
+        
+
+
+
 
 
 
@@ -73,6 +104,11 @@ reade
 
 
 // create DB and collection 
+
+
+if you created schema and trying to save the extra 
+field then it will not save  it save the only that perticular field which is 
+in exist in shcema
 
 // to make mongo connection 
 >mongosh 
@@ -142,6 +178,12 @@ const result = await collection.insertOne({
   email: "johndoe@example.com",
 });
 
+const users = await User.create({
+    name: "David",
+    age: 40,
+  });
+  console.log("Created User:", users);
+
 
 
 // Insert multiple documents
@@ -149,6 +191,20 @@ const result = await collection.insertMany([
   { name: "Alice", age: 25, email: "alice@example.com" },
   { name: "Bob", age: 35, email: "bob@example.com" },
 ]);
+
+
+const users = await User.insertMany([
+    { name: "Alice", age: 25 },
+    { name: "Bob", age: 30 },
+    { name: "Charlie", age: 22 }
+  ]);
+  console.log("Saved Users:", users);
+
+
+      const users = await User.insertMany([
+      { name: 'Alice', age: 25 },
+      { name: 'Bob', age: 30 },
+    ], { lean: true });
 
 
 
@@ -213,7 +269,75 @@ db.collname.insertOne({
 
 
 
+// strict false 
 
+const mongoose = require("mongoose");
+
+const userSchema = new mongoose.Schema(
+  {
+    name: { type: String, required: true },
+    brand: String,
+    specs: {
+      processor: String,
+      memory: String,
+      storage: String
+    },
+    tags: [String]
+  },
+  { strict: false } // This allows extra fields
+);
+
+const User = mongoose.model("User", userSchema);
+
+
+// error 
+error.name 
+error.message
+
+
+
+
+
+
+
+
+
+const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, 'Name is required'],
+    minlength: [3, 'Name must be at least 3 characters'],
+    maxlength: [50, 'Name cannot exceed 50 characters'],
+  },
+  email: {
+    type: String,
+    required: [true, 'Email is required'],
+    unique: true,
+    match: [/^\S+@\S+\.\S+$/, 'Please provide a valid email address'],
+  },
+  age: {
+    type: Number,
+    min: [18, 'Age must be at least 18'],
+    max: [100, 'Age cannot be more than 100'],
+  },
+  status: {
+    type: String,
+    enum: ['active', 'inactive', 'banned'],
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+    set: (value) => value.toUpperCase(), // Just an example
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    immutable: true, // Date can't be updated after the initial creation
+  },
+});
+
+const User = mongoose.model('User', userSchema);
 
 
 
@@ -298,6 +422,54 @@ db.users.find().toArray().forEach(function(doc) {
     // Your logic here, for example:
     print(doc.name);
 });
+
+
+const user = await User.findOneAndUpdate(
+  { name: 'raj' }, 
+  { $set: { age: 35 } },
+  { new: true }
+);
+console.log(user);
+
+
+
+
+const count = await User.countDocuments({ age: { $gt: 30 } });
+console.log(count);
+
+
+const distinctNames = await User.distinct('name');
+console.log(distinctNames);
+
+
+
+// Get only the name and age of all users
+const users = await User.find({}, 'name age');
+console.log(users);
+
+
+
+
+// Get users whose name starts with 'A'
+const users = await User.find({ name: { $regex: /^A/, $options: 'i' } });
+console.log(users); // 'i' makes the regex case-insensitive
+
+
+
+// Get users who are older than 25 and have the name "Alice"
+const users = await User.find({ age: { $gt: 25 }, name: "Alice" });
+console.log(users);
+
+
+
+// Get users created in the last 7 days
+const users = await User.find({
+  createdAt: { $gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) }
+});
+console.log(users);
+
+
+
 
 
 
@@ -778,6 +950,11 @@ db.users.find({
 
 
 
+db.users.find({ $text: { $search: "Alice" } });
+
+
+
+
 
 db.orders.find({
   $expr: { $gt: ["$totalAmount", "$discount"] }   // it use to compare two field inside the document 
@@ -882,6 +1059,21 @@ db.users.findOneAndDelete(
 
 
 
+
+
+
+
+
+// array operator 
+
+db.users.find({ tags: { $all: ["electronics", "computer"] } });
+
+
+db.users.find({ specs: { $elemMatch: { processor: "Intel i7", memory: "16GB" } } });
+
+
+
+db.users.find({ tags: { $size: 3 } }); // Matches arrays with exactly 3 elements
 
 
 
