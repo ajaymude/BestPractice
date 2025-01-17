@@ -86,7 +86,7 @@ update
         -$rename
         $setOnInsert
 
-        
+
 
 
 
@@ -1345,6 +1345,79 @@ db.collection.update(
   { _id: 1 },
   { $max: { age: 40 } }
 );
+
+
+
+
+db.users.find({ tags: { $size: 3 } }); // Matches arrays with exactly 3 elements
+
+
+
+const updateData = await User.findOneAndUpdate({"orders.payment": "yes"}, { $set: { "orders.$.payment": "no" } }, {new:true});
+
+
+
+    const updateData = await User.findOneAndUpdate(
+        { 
+          name: "raj" 
+        },
+        { 
+          $pull: {
+            orders: { 
+              name: "raj",
+              payment: { $exists: false } // Ensure it doesn't have the 'payment' field
+            }
+          }
+        },
+        { new: true }  // This ensures the document is returned after the update
+      )
+
+
+db.users.find({ specs: { $elemMatch: { processor: "Intel i7", memory: "16GB" } } });
+
+
+
+
+
+    const updateData = await User.findOneAndUpdate(  { 
+        orders: { 
+          $elemMatch: { 
+            name:"raj",
+            "payment":"3000"
+
+          }
+        }
+      }, { $set: { "orders.$.payment": "4500" } }, {new:true})
+
+
+
+
+          const updateData = await User.findOneAndUpdate(
+        { 
+          name: "raj" 
+        },
+        { 
+          $push: {
+            orders: { 
+              name: "raj",
+              payment: "3000"
+            }
+          }
+        },
+        { new: true }  // This ensures the document is returned after the update
+      )
+
+
+    const updateData = await User.findOneAndUpdate(  { 
+        orders: { 
+          $elemMatch: { 
+            name:"raj",
+            "payment":"6000"
+
+          }
+        }
+      }, { $set: { "orders.$.payment": "6000" , "orders.$.status": false } }, {new:true})
+
 
 
 
