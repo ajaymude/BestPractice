@@ -73,27 +73,88 @@ read
 
 
 
-                - expression operator / Text Search Operators
-                      -$regex
-                      -$text
-
-                - evalution operator
-
-
-
-
+                - EvaluationOperators
+                      - $regex
+                      - $text
+                      - $expr
+                      - $jsonSchema
+                      - $mod
+                      - $where 
 
 
 
-update   
-        -$set
-        -$unset
-        -$inc
-        -$push
-        -$pop
-        -$pull
-        -$rename
-        $setOnInsert
+
+                - 
+
+
+
+
+
+
+update  
+
+  - updateOne
+  - updateMany
+  - replaceOne
+  -
+
+    -attributes
+        - $set
+        - $unset
+        - $inc
+        - $push
+        - $pull
+        - $pop
+        - $rename
+        - $setOnInsert
+        - $addToSet
+        - $pullAll
+        - $slice
+        - $mul
+        - $min
+        - $max
+        - $currentDate
+        - $inc
+        - $inc
+        - $cond
+        - 
+
+
+        - { upsert: true }
+        - { returnDocument: "after" }
+
+
+
+
+
+
+delete 
+
+      -deleteOne
+      -deleteMany
+      -findOneAndDelete
+
+
+
+
+
+// error 
+
+    error.name
+    error.messagge
+
+
+
+
+
+
+
+// schema 
+
+      - { strict: false }
+      - 
+
+
 
 
 
@@ -666,10 +727,7 @@ db.users.findOneAndDelete(
 a-updateOne()
 b-updateMany()
 
-// learn about the array updation 
 
-MongoDB provides several update operators to modify specific fields in a document.
- Common update operators include:
 
 $set: Sets the value of a field.
 $unset: Removes a field.
@@ -998,38 +1056,6 @@ db.users.find({ specs: { $elemMatch: { processor: "Intel i7", memory: "16GB" } }
       { $set: { "orders.$.payment": "6000", "orders.$.status": false } },
       { new: true }
     );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
