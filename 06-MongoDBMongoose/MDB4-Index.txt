@@ -1,0 +1,101 @@
+
+
+db.collection.find(query, projection).explain(verbosity)
+
+db.contact.find({ age: { $gte: 30 } }).explain();
+
+{
+  "queryPlanner": {
+    "plannerVersion": 1,
+    "namespace": "test.contact",
+    "indexFilterSet": false,
+    "parsedQuery": { "age": { "$gte": 30 } },
+    "winningPlan": {
+      "stage": "COLLSCAN",  // Collection scan
+      "filter": { "age": { "$gte": 30 } },
+      "direction": "forward"
+    },
+    "rejectedPlans": []
+  },
+  "ok": 1
+}
+
+
+db.contact.find({ city: "San Francisco" }).explain("executionStats");
+
+{
+  "queryPlanner": { /* similar to queryPlanner output above */ },
+  "executionStats": {
+    "executionSuccess": true,
+    "nReturned": 1,  // Number of documents returned
+    "executionTimeMillis": 0,
+    "totalKeysExamined": 0, // No indexes used
+    "totalDocsExamined": 3  // Scanned all 3 documents
+  },
+  "ok": 1
+}
+
+
+
+
+// create index 
+
+db.contact.createIndex({ age: 1 });
+
+db.contact.find({ age: { $gte: 30 } }).explain("executionStats");
+
+{
+  "queryPlanner": {
+    "winningPlan": {
+      "stage": "IXSCAN",  // Index scan
+      "keyPattern": { "age": 1 },
+      "indexName": "age_1",
+      "direction": "forward"
+    }
+  },
+  "executionStats": {
+    "totalKeysExamined": 2, // Only 2 index entries were scanned
+    "totalDocsExamined": 2,
+    "executionTimeMillis": 0
+  },
+  "ok": 1
+}
+
+
+// dropindex
+
+
+
+
+
+
+
+
+
+
+
+// compound index 
+
+db.collection.createIndex({ field1: order, field2: order, ... });
+
+
+db.products.createIndex({ category: 1, price: -1 });
+
+
+db.products.find({ category: "Electronics" }).sort({ price: -1 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -31,3 +31,39 @@ JavaScript with Scope: JavaScript code with variable scope.
 
 
 
+
+
+// atlas 
+chart 
+realm 
+
+
+shell 
+driver 
+compass
+bi connector 
+
+
+
+// replica set  // copy of data base 
+
+// sharded // partition of database 
+
+shard key 
+
+
+// import export 
+
+
+
+// database - collection - documents - fields 
+
+
+json - 2001  - 6 datatypes it accepts 
+bson -  it supports extra data type 
+
+
+
+// mongoshell , mongoexport , mongoinport  , mongodumps , mongorestore , mongostat,  mongo-connector
+
+mongod

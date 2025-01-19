@@ -38,6 +38,10 @@ read
               -skip()
               -count()
               -toArray()
+              -next()
+
+
+              -cursor
 
                 - logic operator
                       - $and
@@ -73,7 +77,7 @@ read
 
 
 
-                - EvaluationOperators
+                - Evaluation Operators
                       - $regex
                       - $text
                       - $expr
@@ -82,9 +86,6 @@ read
                       - $where 
 
 
-
-
-                - 
 
 
 
@@ -114,7 +115,6 @@ update
         - $min
         - $max
         - $currentDate
-        - $inc
         - $inc
         - $cond
         - 
@@ -363,10 +363,30 @@ db.collname.insertOne({
 
 // Read 
 
+/query selector 
+
+logical
+comparison
+element
+Evaluation
+Array
+comment
+geospatial
+
+
+
+
+/ projection 
+$
+$elemMatch
+$meta
+$slice
+
+
 
 find(): Retrieves all matching documents.
 findOne(): Retrieves the first matching document.
-
+ 
 Projection, sort(), limit(), skip(), count(), toArray() 
 
 $and, $or, $not, $nor, $exists, $type: Logical operators to combine multiple conditions.
@@ -418,7 +438,6 @@ db.users.find().toArray().forEach(function(doc) {
     // Your logic here, for example:
     print(doc.name);
 });
-
 
 
 
@@ -518,7 +537,6 @@ console.log(await collection.find({ isActive: { $type: "bool" } }).toArray()); /
 
 // comparison operator
 
-
 {
   "$eq": { "age": { "$eq": 30 } },            // Equal
   "$ne": { "age": { "$ne": 30 } },            // Not Equal
@@ -529,8 +547,6 @@ console.log(await collection.find({ isActive: { $type: "bool" } }).toArray()); /
   "$in": { "status": { "$in": ["active", "pending"] } }, // In Array
   "$nin": { "status": { "$nin": ["inactive", "suspended"] } }, // Not In Array
 }
-
-
 
 
 
@@ -573,6 +589,11 @@ db.articles.find({
 
 
 // Array Operators
+
+array of object , hobbies hold object 
+user.find({hobbies:{title:'hero'}})
+user.find({hobbies.title:'hero'})
+user.find({hobbies : {$size :3}})
 
 // $elemMatch: Match array elements that meet specific criteria
 {
@@ -623,12 +644,43 @@ db.articles.find({
 
 
 
+// projection in array 
+
+db.collection.find(
+  { /* query */ },
+  { arrayField: { $slice: <number or array> } }
+);
+
+
+{
+  "_id": 1,
+  "name": "John",
+  "scores": [85, 90, 78, 92, 88, 76]
+}
+
+
+db.collection.find(
+  { name: "John" },
+  { scores: { $slice: 3 } }
+);
+
+
+
 
 
 
 
 
 // expression operator / Text Search Operators
+
+
+                - EvaluationOperators
+                      - $regex / test search with 
+                      - $text
+                      - $expr  / calculagtion
+                      - $jsonSchema
+                      - $mod
+                      - $where 
 
 
 // Get users whose name starts with 'A'
@@ -695,6 +747,7 @@ db.users.findOneAndReplace(
 db.users.findOneAndDelete(
   { username: "john_doe" } // Filter to find the document to delete
 )
+
 
 
 
@@ -1056,6 +1109,26 @@ db.users.find({ specs: { $elemMatch: { processor: "Intel i7", memory: "16GB" } }
       { $set: { "orders.$.payment": "6000", "orders.$.status": false } },
       { new: true }
     );
+
+
+    const updateData = await User.findOneAndUpdate(
+      {
+        order: {
+          $elemMatch: {
+            name: "raj3",
+            payment: { $exists: true } 
+          },
+        },
+      },
+      {
+        $set: {
+          "order.$.payment": "33000",
+        },
+      },
+      { new: true }
+    );
+
+
 
 
 
