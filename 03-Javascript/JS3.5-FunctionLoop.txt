@@ -101,6 +101,15 @@ greet(); // Output: Hello, World!
 
 
 
+
+
+
+
+
+
+
+
+
 // 1 for loop
 
 for (initialization; condition; increment/decrement) {

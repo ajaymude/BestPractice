@@ -666,6 +666,323 @@ db.collection.find(
 
 
 
+// how to find the specific value in the array of object 
+
+
+To find values in an array of objects in MongoDB, you can use various query operators such as
+1 - $elemMatch 
+2 - dot notation
+3 - array-specific operators
+
+example of the array of object
+
+db.products.insertMany([
+  { name: "Laptop", specs: [{ key: "RAM", value: "16GB" }, { key: "Storage", value: "512GB" }] },
+  { name: "Phone", specs: [{ key: "RAM", value: "8GB" }, { key: "Storage", value: "128GB" }] },
+  { name: "Tablet", specs: [{ key: "RAM", value: "4GB" }, { key: "Storage", value: "64GB" }] }
+]);
+
+
+
+/1. Find Objects with a Specific Key-Value Pair ($elemMatch) 
+
+db.products.find({
+  specs: { $elemMatch: { key: "RAM", value: "16GB" } }
+});
+
+[
+  {
+    "name": "Laptop",
+    "specs": [
+      { "key": "RAM", "value": "16GB" },
+      { "key": "Storage", "value": "512GB" }
+    ]
+  }
+]
+
+
+
+/2. Using Dot Notation
+
+db.products.find({ "specs.key": "RAM" });
+
+
+[
+  {
+    "name": "Laptop",
+    "specs": [
+      { "key": "RAM", "value": "16GB" },
+      { "key": "Storage", "value": "512GB" }
+    ]
+  },
+  {
+    "name": "Phone",
+    "specs": [
+      { "key": "RAM", "value": "8GB" },
+      { "key": "Storage", "value": "128GB" }
+    ]
+  },
+  {
+    "name": "Tablet",
+    "specs": [
+      { "key": "RAM", "value": "4GB" },
+      { "key": "Storage", "value": "64GB" }
+    ]
+  }
+]
+
+
+
+/3. Using $size
+
+db.products.find({ specs: { $size: 2 } });
+
+[
+  {
+    "name": "Laptop",
+    "specs": [
+      { "key": "RAM", "value": "16GB" },
+      { "key": "Storage", "value": "512GB" }
+    ]
+  },
+  {
+    "name": "Phone",
+    "specs": [
+      { "key": "RAM", "value": "8GB" },
+      { "key": "Storage", "value": "128GB" }
+    ]
+  },
+  {
+    "name": "Tablet",
+    "specs": [
+      { "key": "RAM", "value": "4GB" },
+      { "key": "Storage", "value": "64GB" }
+    ]
+  }
+]
+
+
+/
+
+
+
+// update the array 
+
+db.products.updateOne(
+  { "specs.key": "RAM" },
+  { $set: { "specs.$.value": "32GB" } }
+);
+
+
+{
+  "name": "Laptop",
+  "specs": [
+    { "key": "RAM", "value": "32GB" },
+    { "key": "Storage", "value": "512GB" }
+  ]
+}
+
+
+
+
+// how to update all document in array of object 
+
+db.users.updateMany(
+  { }, // Match condition (empty to update all documents)
+  { 
+    $set: { 
+      "orders.$[].status": "updated" 
+    }
+  }
+);
+
+
+db.users.updateMany(
+  { "name": "User1" },
+  { $set: { "orders.$[].status": "updated" } }
+);
+
+
+
+
+// array filter method 
+
+{
+  "_id": 1,
+  "name": "User1",
+  "orders": [
+    { "name": "order1", "payment": 1000 },
+    { "name": "order2", "payment": 2000 },
+    { "name": "order3", "payment": 3000 }
+  ]
+}
+
+
+
+
+{
+  "_id": 1,
+  "name": "User1",
+  "orders": [
+    { "name": "order1", "payment": 1000 },
+    { "name": "order2", "payment": 2000 },
+    { "name": "order3", "payment": 3000 }
+  ]
+}
+
+
+
+
+db.users.updateMany(
+  { }, // Match condition (empty to update all documents)
+  {
+    $set: { "orders.$[element].status": "updated" }
+  },
+  {
+    arrayFilters: [
+      { "element.payment": { $gt: 1500 } } // Condition for matching array elements
+    ]
+  }
+);
+
+
+
+
+
+{
+  "_id": 1,
+  "name": "User1",
+  "orders": [
+    { "name": "order1", "payment": 1000 },
+    { "name": "order2", "payment": 2000, "status": "updated" },
+    { "name": "order3", "payment": 3000, "status": "updated" }
+  ]
+}
+
+
+
+db.users.updateMany(
+  { },
+  {
+    $set: { "orders.$[element].status": "filtered" }
+  },
+  {
+    arrayFilters: [
+      { 
+        $or: [
+          { "element.name": { $regex: /^order2/ } }, // Name starts with "order2"
+          { "element.payment": 3000 } // Payment is 3000
+        ]
+      }
+    ]
+  }
+);
+
+
+
+{
+  "_id": 1,
+  "name": "User1",
+  "orders": [
+    { "name": "order1", "payment": 1000 },
+    { "name": "order2", "payment": 2000, "status": "filtered" },
+    { "name": "order3", "payment": 3000, "status": "filtered" }
+  ]
+}
+
+
+
+
+
+
+
+// each
+
+
+The $each operator in MongoDB is used with $push to add multiple elements to an array. 
+It allows for more control, like specifying the order of elements added or limiting the size of the array.
+
+
+
+{
+  "_id": 1,
+  "name": "User1",
+  "orders": [
+    { "name": "order1", "payment": 1000 },
+    { "name": "order2", "payment": 2000 }
+  ]
+}
+
+
+db.users.updateOne(
+  { _id: 1 }, // Match condition
+  {
+    $push: {
+      orders: {
+        $each: [
+          { "name": "order3", "payment": 3000 },
+          { "name": "order4", "payment": 4000 }
+        ]
+      }
+    }
+  }
+);
+
+
+
+{
+  "_id": 1,
+  "name": "User1",
+  "orders": [
+    { "name": "order1", "payment": 1000 },
+    { "name": "order2", "payment": 2000 },
+    { "name": "order3", "payment": 3000 },
+    { "name": "order4", "payment": 4000 }
+  ]
+}
+
+
+
+
+db.users.updateOne(
+  { _id: 1 },
+  {
+    $push: {
+      orders: {
+        $each: [
+          { "name": "order5", "payment": 5000 },
+          { "name": "order6", "payment": 6000 }
+        ],
+        $position: 0 // Adds elements at the beginning
+      }
+    }
+  }
+);
+
+
+
+{
+  "_id": 1,
+  "name": "User1",
+  "orders": [
+    { "name": "order5", "payment": 5000 },
+    { "name": "order6", "payment": 6000 },
+    { "name": "order1", "payment": 1000 },
+    { "name": "order2", "payment": 2000 },
+    { "name": "order3", "payment": 3000 },
+    { "name": "order4", "payment": 4000 }
+  ]
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
