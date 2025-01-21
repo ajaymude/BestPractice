@@ -240,6 +240,34 @@ console.log("1" === 1);       // false (different types: string vs number)
 // stack and heap memory 
 
 
+// Example 1: Using nullish coalescing operator
+const userAge = null;
+const defaultAge = 25;
+
+const age = userAge ?? defaultAge;
+console.log(age); // Output: 25 (because userAge is null)
+
+// Example 2: When left-hand side is not null or undefined
+const userName = "John";
+const defaultName = "Anonymous";
+
+const name = userName ?? defaultName;
+console.log(name); // Output: John (because userName is not null or undefined)
+
+// Example 3: Comparing with OR (||) operator
+const userScore = 0; // Intentionally 0 (falsy value)
+const defaultScore = 10;
+
+// Using OR (||) operator
+const scoreUsingOr = userScore || defaultScore;
+console.log(scoreUsingOr); // Output: 10 (0 is treated as falsy)
+
+// Using nullish coalescing operator (??)
+const scoreUsingNullish = userScore ?? defaultScore;
+console.log(scoreUsingNullish); //
+
+
+
 
 
 
