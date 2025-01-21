@@ -1,96 +1,69 @@
-// list of event 
 
-1. Mouse Events
-click: Fired when the mouse is clicked on an element.
-dblclick: Fired when the mouse is double-clicked on an element.
-mousedown: Fired when a mouse button is pressed on an element.
-mouseup: Fired when a mouse button is released on an element.
-mouseenter: Fired when the mouse enters an element (does not bubble).
-mouseleave: Fired when the mouse leaves an element (does not bubble).
-mousemove: Fired when the mouse pointer moves over an element.
-mouseover: Fired when the mouse enters an element or its child elements.
-mouseout: Fired when the mouse leaves an element or its child elements.
-contextmenu: Fired when the right mouse button is clicked.
-
-2. Keyboard Events
-keydown: Fired when a key is pressed down.
-keypress: Fired when a key is pressed (deprecated in some cases).
-keyup: Fired when a key is released.
-
-3. Focus Events
-focus: Fired when an element gains focus.
-blur: Fired when an element loses focus.
-focusin: Fired when an element or its children gain focus (bubbles).
-focusout: Fired when an element or its children lose focus (bubbles).
-
-4. Form Events
-submit: Fired when a form is submitted.
-change: Fired when the value of an input element is changed.
-input: Fired when the value of an input element is being modified.
-reset: Fired when a form is reset.
-select: Fired when some text inside an input or textarea is selected.
-invalid: Fired when an input element's value is invalid.
-
-5. Window Events
-load: Fired when the entire page and its resources have finished loading.
-resize: Fired when the window is resized.
-scroll: Fired when the user scrolls the page or an element.
-unload: Fired when the document or a child resource is being unloaded.
-beforeunload: Fired before the page is unloaded (used to warn users).
-orientationchange: Fired when the orientation of the device changes.
-
-6. Touch Events (for mobile devices)
-touchstart: Fired when the user touches an element.
-touchmove: Fired when the user moves their finger across the screen.
-touchend: Fired when the user stops touching an element.
-touchcancel: Fired when the touch event is interrupted.
-
-7. Clipboard Events
-copy: Fired when the user copies content to the clipboard.
-cut: Fired when the user cuts content to the clipboard.
-paste: Fired when the user pastes content from the clipboard.
-8. Media Events
-play: Fired when a media element starts playing.
-pause: Fired when the media element is paused.
-ended: Fired when the media element has finished playing.
-volumechange: Fired when the volume is changed.
-timeupdate: Fired when the current playback position is updated.
-
-9. Drag and Drop Events
-drag: Fired when an element is being dragged.
-dragstart: Fired when the drag operation starts.
-dragend: Fired when the drag operation ends.
-dragenter: Fired when the dragged element enters a valid drop target.
-dragover: Fired when the dragged element is over a valid drop target.
-dragleave: Fired when the dragged element leaves a valid drop target.
-drop: Fired when the dragged element is dropped onto a valid drop target.
-
-10. Animation Events
-animationstart: Fired when a CSS animation starts.
-animationend: Fired when a CSS animation ends.
-animationiteration: Fired when a CSS animation repeats.
-
-11. Transition Events
-transitionstart: Fired when a CSS transition starts.
-transitionend: Fired when a CSS transition ends.
-transitioncancel: Fired when a CSS transition is canceled.
-
-12. Other Events
-error: Fired when an error occurs while loading a resource (e.g., image or script).
-resize: Fired when an element or window is resized.
-input: Fired when a user interacts with an <input> or <textarea> field.
-
-
-
-
-
-
+// 1 - DOM
+// 2 - BOM 
+// 3 - Events
 
 
 
 // Dom  methods  
 
-/ select the elements
+
+
+
+// Accessing the entire document structure
+const allElements = document.all; // Deprecated: Returns all elements in the document
+
+// Accessing specific parts of the document
+const rootElement = document.documentElement; // The <html> element
+const headElement = document.head;           // The <head> element
+const bodyElement = document.body;           // The <body> element
+
+// Children of the body
+const bodyChildren = document.body.children; // All child elements of the <body>
+
+// Accessing specific elements
+const firstElement = document.body.firstElementChild; // First child of <body>
+const lastElement = document.body.lastElementChild;   // Last child of <body>
+
+// Accessing elements by ID, Class, or Tag
+const elementById = document.getElementById("exampleId");          // Element with a specific ID
+const elementsByClass = document.getElementsByClassName("exampleClass"); // Elements with a specific class
+const elementsByTag = document.getElementsByTagName("div");        // All <div> elements
+const elementQuery = document.querySelector(".exampleClass");      // First element matching CSS selector
+const elementsQueryAll = document.querySelectorAll(".exampleClass"); // All elements matching CSS selector
+
+// Forms and Inputs
+const forms = document.forms;                // All <form> elements
+const formInputs = document.forms[0].elements; // Input elements of the first form
+
+// Links and Anchors
+const links = document.links;                // All <a> elements with href attribute
+const anchors = document.anchors;            // All <a> elements with name attribute
+
+// Images and Media
+const images = document.images;              // All <img> elements
+
+// Scripts and Stylesheets
+const scripts = document.scripts;            // All <script> elements
+const stylesheets = document.styleSheets;    // All linked or embedded stylesheets
+
+// Document metadata
+const title = document.title;                // The content of the <title> tag
+const URL = document.URL;                    // The full URL of the document
+const domain = document.domain;              // The domain name of the document
+const referrer = document.referrer;          // The URL of the referring document
+
+// Other useful properties and methods
+const doctype = document.doctype;            // The document's doctype declaration
+const lastModified = document.lastModified;  // Date and time the document was last modified
+const readyState = document.readyState;      // The loading state of the document
+const cookie = document.cookie;              // Document's cookies
+
+
+
+
+
+
 
 // 1. getElementById()
 let element = document.getElementById('myId');
@@ -120,6 +93,30 @@ console.log(elements);  // Output: NodeList of all <p> elements with class "myCl
 
 
 / get and set remove  attribute 
+
+
+
+const element = document.getElementById("example1");
+console.log(element.innerText); // Output: "Hello, !" (ignores hidden text)
+
+// Update innerText
+element.innerText = "This is new text!";
+console.log(element.innerText); // Output: "This is new text!"
+
+
+
+const element = document.getElementById("example2");
+console.log(element.innerHTML); 
+// Output: "Hello, <span style="display: none;">World</span>!"
+
+// Update innerHTML
+element.innerHTML = "<strong>New HTML Content</strong>";
+console.log(element.innerHTML); // Output: "<strong>New HTML Content</strong>"
+
+
+
+
+
 
 // 6. getAttribute()
 let element = document.getElementById('myId');
@@ -251,6 +248,94 @@ input.focus();
 // 31. blur()
 let input = document.getElementById('myInput');
 input.blur();
+
+
+
+
+
+
+
+
+
+
+
+// dom nodes 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>DOM Node Types Example</title>
+</head>
+<body>
+    <!-- Comment Node -->
+    <!-- This is a comment -->
+
+    <!-- Element Node -->
+    <div id="example" class="container">
+        <!-- Text Node -->
+        Hello, World!
+    </div>
+
+    <script>
+        // 1. Element Node (Node.ELEMENT_NODE)
+        const elementNode = document.getElementById("example");
+        console.log("Element Node:");
+        console.log("Type:", elementNode.nodeType); // Output: 1
+        console.log("Name:", elementNode.nodeName); // Output: "DIV"
+
+        // 2. Attribute Node (Node.ATTRIBUTE_NODE)
+        const attributeNode = elementNode.attributes[0]; // First attribute: id="example"
+        console.log("\nAttribute Node:");
+        console.log("Type:", attributeNode.nodeType); // Output: 2
+        console.log("Name:", attributeNode.nodeName); // Output: "id"
+        console.log("Value:", attributeNode.nodeValue); // Output: "example"
+
+        // 3. Text Node (Node.TEXT_NODE)
+        const textNode = elementNode.firstChild;
+        console.log("\nText Node:");
+        console.log("Type:", textNode.nodeType); // Output: 3
+        console.log("Value:", textNode.nodeValue); // Output: "Hello, World!"
+
+        // 4. Comment Node (Node.COMMENT_NODE)
+        const commentNode = document.body.firstChild;
+        console.log("\nComment Node:");
+        console.log("Type:", commentNode.nodeType); // Output: 8
+        console.log("Value:", commentNode.nodeValue.trim()); // Output: "This is a comment"
+
+        // 5. Document Node (Node.DOCUMENT_NODE)
+        const documentNode = document;
+        console.log("\nDocument Node:");
+        console.log("Type:", documentNode.nodeType); // Output: 9
+        console.log("Name:", documentNode.nodeName); // Output: "#document"
+
+        // 6. DocumentType Node (Node.DOCUMENT_TYPE_NODE)
+        const docTypeNode = document.doctype;
+        console.log("\nDocumentType Node:");
+        console.log("Type:", docTypeNode.nodeType); // Output: 10
+        console.log("Name:", docTypeNode.nodeName); // Output: "html"
+
+        // 7. Document Fragment Node (Node.DOCUMENT_FRAGMENT_NODE)
+        const fragmentNode = document.createDocumentFragment();
+        const newDiv = document.createElement("div");
+        newDiv.textContent = "Content from Document Fragment";
+        fragmentNode.appendChild(newDiv);
+        console.log("\nDocument Fragment Node:");
+        console.log("Type:", fragmentNode.nodeType); // Output: 11
+        console.log("Name:", fragmentNode.nodeName); // Output: "#document-fragment"
+
+        // 8. Processing Instruction Node (Node.PROCESSING_INSTRUCTION_NODE)
+        const processingInstruction = document.createProcessingInstruction(
+            "xml-stylesheet",
+            "type='text/css' href='style.css'"
+        );
+        console.log("\nProcessing Instruction Node:");
+        console.log("Type:", processingInstruction.nodeType); // Output: 7
+        console.log("Name:", processingInstruction.nodeName); // Output: "xml-stylesheet"
+        console.log("Value:", processingInstruction.nodeValue); // Output: "type='text/css' href='style.css'"
+    </script>
+</body>
+</html>
 
 
 
@@ -1937,3 +2022,217 @@ e.key
 </html>
 
 navigator.online // to is network is on 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// list of event 
+
+1. Mouse Events
+click: Fired when the mouse is clicked on an element.
+dblclick: Fired when the mouse is double-clicked on an element.
+mousedown: Fired when a mouse button is pressed on an element.
+mouseup: Fired when a mouse button is released on an element.
+mouseenter: Fired when the mouse enters an element (does not bubble).
+mouseleave: Fired when the mouse leaves an element (does not bubble).
+mousemove: Fired when the mouse pointer moves over an element.
+mouseover: Fired when the mouse enters an element or its child elements.
+mouseout: Fired when the mouse leaves an element or its child elements.
+contextmenu: Fired when the right mouse button is clicked.
+
+2. Keyboard Events
+keydown: Fired when a key is pressed down.
+keypress: Fired when a key is pressed (deprecated in some cases).
+keyup: Fired when a key is released.
+
+3. Focus Events
+focus: Fired when an element gains focus.
+blur: Fired when an element loses focus.
+focusin: Fired when an element or its children gain focus (bubbles).
+focusout: Fired when an element or its children lose focus (bubbles).
+
+4. Form Events
+submit: Fired when a form is submitted.
+change: Fired when the value of an input element is changed.
+input: Fired when the value of an input element is being modified.
+reset: Fired when a form is reset.
+select: Fired when some text inside an input or textarea is selected.
+invalid: Fired when an input element's value is invalid.
+
+5. Window Events
+load: Fired when the entire page and its resources have finished loading.
+resize: Fired when the window is resized.
+scroll: Fired when the user scrolls the page or an element.
+unload: Fired when the document or a child resource is being unloaded.
+beforeunload: Fired before the page is unloaded (used to warn users).
+orientationchange: Fired when the orientation of the device changes.
+
+6. Touch Events (for mobile devices)
+touchstart: Fired when the user touches an element.
+touchmove: Fired when the user moves their finger across the screen.
+touchend: Fired when the user stops touching an element.
+touchcancel: Fired when the touch event is interrupted.
+
+7. Clipboard Events
+copy: Fired when the user copies content to the clipboard.
+cut: Fired when the user cuts content to the clipboard.
+paste: Fired when the user pastes content from the clipboard.
+8. Media Events
+play: Fired when a media element starts playing.
+pause: Fired when the media element is paused.
+ended: Fired when the media element has finished playing.
+volumechange: Fired when the volume is changed.
+timeupdate: Fired when the current playback position is updated.
+
+9. Drag and Drop Events
+drag: Fired when an element is being dragged.
+dragstart: Fired when the drag operation starts.
+dragend: Fired when the drag operation ends.
+dragenter: Fired when the dragged element enters a valid drop target.
+dragover: Fired when the dragged element is over a valid drop target.
+dragleave: Fired when the dragged element leaves a valid drop target.
+drop: Fired when the dragged element is dropped onto a valid drop target.
+
+10. Animation Events
+animationstart: Fired when a CSS animation starts.
+animationend: Fired when a CSS animation ends.
+animationiteration: Fired when a CSS animation repeats.
+
+11. Transition Events
+transitionstart: Fired when a CSS transition starts.
+transitionend: Fired when a CSS transition ends.
+transitioncancel: Fired when a CSS transition is canceled.
+
+12. Other Events
+error: Fired when an error occurs while loading a resource (e.g., image or script).
+resize: Fired when an element or window is resized.
+input: Fired when a user interacts with an <input> or <textarea> field.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<button id="clickButton">Click Me</button>
+<script>
+    const button = document.getElementById("clickButton");
+    button.addEventListener("click", () => {
+        alert("Button Clicked!");
+    });
+</script>
+
+
+
+<div id="hoverDiv" style="width: 100px; height: 100px; background-color: lightblue;">Hover over me</div>
+<script>
+    const div = document.getElementById("hoverDiv");
+    div.addEventListener("mouseover", () => {
+        div.style.backgroundColor = "lightgreen";
+    });
+    div.addEventListener("mouseout", () => {
+        div.style.backgroundColor = "lightblue";
+    });
+</script>
+
+
+
+
+
+<script>
+    window.addEventListener("resize", () => {
+        console.log("Window resized. Width:", window.innerWidth, "Height:", window.innerHeight);
+    });
+</script>
+
+
+
+
+<div id="scrollDiv" style="width: 200px; height: 100px; overflow-y: scroll; border: 1px solid black;">
+    <p>Scroll inside this box to see the event.</p>
+    <p>More content...</p>
+    <p>Even more content...</p>
+</div>
+<script>
+    const scrollDiv = document.getElementById("scrollDiv");
+    scrollDiv.addEventListener("scroll", () => {
+        console.log("Scrolled inside the box!");
+    });
+</script>
+
+
+
+
+
+<input type="text" id="inputField" placeholder="Type something" />
+<script>
+    const inputField = document.getElementById("inputField");
+    inputField.addEventListener("input", (event) => {
+        console.log("Current value:", event.target.value);
+    });
+</script>
+
+
+
+
+<img id="image" src="https://via.placeholder.com/150" alt="Placeholder" />
+<script>
+    const image = document.getElementById("image");
+    image.addEventListener("load", () => {
+        console.log("Image has loaded!");
+    });
+</script>
+
+
+
+
+
+<select id="dropdown">
+    <option value="apple">Apple</option>
+    <option value="banana">Banana</option>
+    <option value="cherry">Cherry</option>
+</select>
+<script>
+    const dropdown = document.getElementById("dropdown");
+    dropdown.addEventListener("change", (event) => {
+        alert("You selected: " + event.target.value);
+    });
+</script>
+
+
+
+
