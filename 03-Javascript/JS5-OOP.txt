@@ -6,15 +6,32 @@
 // Polymorphism
 
 
-// constructor 
-// prototypes 
 // classes
+// constructor 
 // instance
+// super 
+// prototypes 
 
 
 
 class    -------> object 
 inheritance  a to b
+
+// added in the 2015
+
+/ class have method , object also have methods 
+
+
+
+/ how to find the instance of the any data 
+
+[1,2,3] instanceOf Array 
+person1 instanceOf Person // the result with be in true/false
+
+
+// class have the constructor
+// class have the method , one method can call other method 
+// static method and variable in not usable in instance
 
 
 
@@ -26,6 +43,17 @@ class Person {
     this.name = name;
     this.age = age;
   }
+
+    // Define a static variable
+    static count = 0;
+
+
+  // Static method to access the static variable
+    static getCount() {
+    return Counter.count;
+  }
+
+
 
   // Method to introduce the person
   introduce() {
@@ -42,6 +70,8 @@ person2.introduce();  // Output: Hi, my name is Bob and I am 25 years old.
 
 
 
+
+
 class Employee extends Person {
   constructor(name, age, jobTitle) {
     super(name, age);  // Call the parent class constructor
@@ -55,6 +85,17 @@ class Employee extends Person {
 
 const employee = new Employee("Alice", 30, "Software Developer");
 employee.introduce();  // Output: Hi, I am Alice, a Software Developer who is 30 years old.
+
+
+
+
+
+
+
+
+
+
+//  
 
 
 

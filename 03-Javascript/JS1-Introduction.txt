@@ -17,6 +17,7 @@
 // 14 - setTimeout clearTimeout
 // 15 - rest operator 
 // 16 -  Spread Operator (...) 
+// 17 - fetch
 
 
 
@@ -1608,3 +1609,49 @@ console.log(true + '1'); // Output: 'true1' (string)
 
 
 
+
+
+
+
+
+// 17 - fetch
+
+
+// Fetch data from an API endpoint
+fetch('https://api.example.com/data')
+  .then(response => {
+    // Check if the response was successful
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    // Parse the response as JSON
+    return response.json();
+  })
+  .then(data => {
+    // Process the received data
+    console.log('Data received:', data);
+    // Update UI, display data, etc.
+  })
+  .catch(error => {
+    console.error('There has been a problem with your fetch operation:', error);
+  });
+
+// Fetch data with POST request
+fetch('https://api.example.com/data', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ 
+    // Data to send in the request body
+  })
+})
+  .then(response => {
+    // Handle response as in the GET request example
+  })
+  .catch(error => {
+    // Handle errors
+  });
+
+
+  
