@@ -1,3 +1,11 @@
+// 1 - class
+// 2 - promise 
+// 3 - 
+
+
+
+
+
 // Operator
 
 // abstraction 
@@ -92,10 +100,48 @@ employee.introduce();  // Output: Hi, I am Alice, a Software Developer who is 30
 
 
 
+// getter and setter 
 
+class Person {
+  constructor(firstName, lastName) {
+    this._firstName = firstName; // Private-like property (convention to use _ prefix)
+    this._lastName = lastName;
+  }
 
+  // Getter for full name / it acts like property
+  get fullName() {
+    return `${this._firstName} ${this._lastName}`;
+  }
 
-//  
+  // Setter for full name
+  set fullName(name) {
+    const parts = name.split(' ');
+    if (parts.length === 2) {
+      this._firstName = parts[0];
+      this._lastName = parts[1];
+    } else {
+      console.error("Please provide both first and last names.");
+    }
+  }
+}
+
+// Create an instance of the class
+const person = new Person("John", "Doe");
+
+// Access fullName using the getter
+console.log(person.fullName); // Output: John Doe
+
+// Modify fullName using the setter
+person.fullName = "Jane Smith";
+console.log(person.fullName); // Output: Jane Smith
+
+// Access individual properties
+console.log(person._firstName); // Output: Jane
+console.log(person._lastName);  // Output: Smith
+
+// Invalid setter usage
+person.fullName = "SingleName"; // Output: Please provide both first and last names.
+
 
 
 
@@ -237,6 +283,11 @@ Promise.any(): Resolves when the first promise fulfills, or rejects if all promi
 async/await: A more readable way to work with promises, allowing asynchronous code to be written in a synchronous style.
 
 
+
+
+
+
+
 Creating a Promise
 
 // Creating a new promise
@@ -263,38 +314,11 @@ myPromise
 
 
 
-  const fetchData = new Promise((resolve) => {
-  setTimeout(() => {
-    resolve("Data fetched successfully!");
-  }, 1000);
-});
-
-fetchData
-  .then((message) => {
-    console.log(message);  // Output: Data fetched successfully!
-    return "Processing data...";
-  })
-  .then((message) => {
-    console.log(message);  // Output: Processing data...
-  });
 
 
 
-const faultyPromise = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    reject("Something went wrong!");
-  }, 1000);
-});
 
-faultyPromise
-  .then((message) => {
-    console.log(message);
-  })
-  .catch((error) => {
-    console.log(error);  // Output: Something went wrong!
-  });
-
-
+// then catch finally example 
 
 const taskPromise = new Promise((resolve, reject) => {
   let taskCompleted = true;
@@ -319,6 +343,152 @@ taskPromise
 
 
 
+
+
+
+
+
+// promise chaining 
+
+// A function that returns a promise to simulate a delay
+function fetchData(url) {
+    return new Promise((resolve, reject) => {
+        console.log(`Fetching data from ${url}...`);
+        setTimeout(() => {
+            if (url) {
+                resolve(`Data from ${url}`);
+            } else {
+                reject("Invalid URL");
+            }
+        }, 1000);
+    });
+}
+
+// Another function to process the fetched data
+function processData(data) {
+    return new Promise((resolve, reject) => {
+        console.log("Processing data...");
+        setTimeout(() => {
+            if (data) {
+                resolve(`Processed: ${data}`);
+            } else {
+                reject("No data to process");
+            }
+        }, 1000);
+    });
+}
+
+// Final function to display the result
+function displayResult(result) {
+    return new Promise((resolve) => {
+        console.log("Displaying result...");
+        setTimeout(() => {
+            console.log(`Result: ${result}`);
+            resolve("Done");
+        }, 1000);
+    });
+}
+
+// Chaining the promises
+fetchData("https://example.com/api")
+    .then((data) => processData(data))   // Pass fetched data to processData
+    .then((processedData) => displayResult(processedData)) // Pass processed data to displayResult
+    .then(() => console.log("All tasks completed successfully"))
+    .catch((error) => console.error("Error:", error)); // Catch any error in the chain
+
+
+/Output 
+
+Fetching data from https://example.com/api...
+Processing data...
+Displaying result...
+Result: Processed: Data from https://example.com/api
+All tasks completed successfully
+
+
+
+
+
+
+// async await 
+
+
+// A function that simulates fetching data
+function fetchData(url) {
+    return new Promise((resolve, reject) => {
+        console.log(`Fetching data from ${url}...`);
+        setTimeout(() => {
+            if (url) {
+                resolve(`Data from ${url}`);
+            } else {
+                reject("Invalid URL");
+            }
+        }, 1000);
+    });
+}
+
+// A function that simulates processing data
+function processData(data) {
+    return new Promise((resolve, reject) => {
+        console.log("Processing data...");
+        setTimeout(() => {
+            if (data) {
+                resolve(`Processed: ${data}`);
+            } else {
+                reject("No data to process");
+            }
+        }, 1000);
+    });
+}
+
+// A function to simulate displaying the result
+function displayResult(result) {
+    return new Promise((resolve) => {
+        console.log("Displaying result...");
+        setTimeout(() => {
+            console.log(`Result: ${result}`);
+            resolve("Done");
+        }, 1000);
+    });
+}
+
+// Using async/await to handle the tasks
+async function handleAsyncTasks() {
+    try {
+        const data = await fetchData("https://example.com/api");
+        const processedData = await processData(data);
+        await displayResult(processedData);
+        console.log("All tasks completed successfully");
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+// Call the async function
+handleAsyncTasks();
+
+
+
+/ output 
+
+Fetching data from https://example.com/api...
+Processing data...
+Displaying result...
+Result: Processed: Data from https://example.com/api
+All tasks completed successfully
+
+
+
+
+
+
+
+
+
+
+// promise.all
+
+
 const promise1 = new Promise((resolve) => {
   setTimeout(() => resolve("First promise resolved"), 1000);
 });
@@ -337,6 +507,10 @@ Promise.all([promise1, promise2])
 
 
 
+
+
+// promise.race
+
 const promise1 = new Promise((resolve) => {
   setTimeout(() => resolve("First promise resolved"), 1000);
 });
@@ -354,8 +528,13 @@ Promise.race([promise1, promise2])
 
 
 
+
+
+// promise,allSettled
+
 const promise1 = Promise.resolve(42);
 const promise2 = Promise.reject("Error");
+
 
 Promise.allSettled([promise1, promise2])
   .then((results) => {
@@ -369,6 +548,10 @@ Promise.allSettled([promise1, promise2])
 
 
 
+
+
+
+// promise.any
 
 const promise1 = Promise.reject("Failure");
 const promise2 = Promise.resolve("Success");
@@ -384,23 +567,6 @@ Promise.any([promise1, promise2])
 
 
 
-
-const fetchData = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve("Data fetched!"), 1000);
-  });
-};
-
-async function fetchDataAsync() {
-  try {
-    const result = await fetchData();
-    console.log(result);  // Output: Data fetched!
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-fetchDataAsync();
 
 
 

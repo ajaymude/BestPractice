@@ -93,6 +93,45 @@ greet(); // Output: Hello, World!
 
 
 
+// 
+
+// function for the export 
+
+function calculateArea(width, height) {
+    return width * height;  // Multiplies width and height to return the area
+}
+
+let area = calculateArea(4, 6);
+console.log(area);  // Outputs: 24
+
+
+
+// in node.js 
+
+
+// In file: user.js
+function getUserDetails(name, age) {
+    return {
+        name: name,
+        age: age
+    };
+}
+
+module.exports = getUserDetails;  // Exporting the function (for Node.js)
+
+
+
+// In another file: main.js
+const getUserDetails = require('./user');  // Importing the function
+
+const user = getUserDetails('Alice', 30);  // Calling the function and getting the object
+
+console.log(user);  // Outputs: { name: 'Alice', age: 30 }
+
+
+
+
+
 // scope 
 globle scope 
 function scope 
