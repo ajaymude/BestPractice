@@ -7,7 +7,7 @@
 // 4 - comments 
 // 5 - operator 
 // 6 - Operator Precedence in JavaScript (Highest to Lowest)
-// 7 -  Template String
+// 7 - Template String
 // 8 - if else statement
 // 9 - type conversion and type coercion
 // 10 - ternary operator
@@ -17,7 +17,8 @@
 // 14 - setTimeout clearTimeout
 // 15 - rest operator 
 // 16 -  Spread Operator (...) 
-// 17 - fetch
+// 17 - Destrucuring 
+// 18 - strict mode in JavaScript
 
 
 
@@ -704,68 +705,9 @@ console.log(clonedPerson); // Output: { name: "Jane", age: 26 }
 
 
 
+
  
-
-// 17 - strict mode in JavaScript
-
-var obj = { a: 1, a: 2 }; // Error in strict mode
-
-"use strict";
-var obj = {};
-Object.defineProperty(obj, 'x', { value: 42, writable: false });
-obj.x = 17; // Error in strict mode
-
-
-
-
-
-
-
-
-
-
-
-
-// 20 - object literals 
-
-1. Basic Object Literal
-const person = {
-  name: "Alice",
-  age: 25,
-  country: "USA"
-};
-
-console.log(person.name);   // Output: Alice
-console.log(person.age);    // Output: 25
-console.log(person.country); // Output: USA
-
-
-// short hand 
-const name = "Alice";
-const age = 25;
-const person = {
-  name,
-  age
-};
-
-console.log(person);  // Output: { name: 'Alice', age: 25 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// 21 - Destrucuring 
+// 17 - Destrucuring 
 
 const arr = [1, 2, 3];
 const [a, b, c] = arr;
@@ -791,119 +733,23 @@ console.log(age);  // Output: 25
 
 
 
-// JavaScript executed Context
-
-Global execution Context
 
 
 
 
 
+// 18 - strict mode in JavaScript
+
+var obj = { a: 1, a: 2 }; // Error in strict mode
+
+"use strict";
+var obj = {};
+Object.defineProperty(obj, 'x', { value: 42, writable: false });
+obj.x = 17; // Error in strict mode
 
 
 
 
-
-// scope 
-
-1. Global Scope
-A variable that is declared outside of any function
-or block is said to have global scope.
-It can be accessed from anywhere in the code.
-
-
-2. Function Scope
-In JavaScript, variables declared inside a function 
-are confined to that function's scope and are not accessible outside.
-
-
-3. Block Scope (let and const)
-Variables declared with let or const inside a block 
-(such as inside a for loop or an if statement) are limited to 
-that block scope. They cannot be accessed outside of the block.
-
-
-What is a Closure in JavaScript?
-In JavaScript, a closure is a function that "remembers" and can access 
-variables from the outer function's scope, even after the outer function has 
-finished execution. This means that a function can have access to variables from 
-its lexical scope (the scope in which it was created), even if the function 
-is executed outside of that scope.
-
-
-What is Hoisting in JavaScript?
-Hoisting is a JavaScript mechanism where variables and 
-function declarations are moved ("hoisted") to the top of their containing 
-scope during the compilation phase, before the code execution begins. However, 
-only the declarations are hoisted, not the initializations.
-
-
-Implicit Type Coercion
-This is when JavaScript automatically converts values to a different type during operations.
-
-const result = '5' + 3;
-console.log(result);  // Output: '53' (string)
-
-
-const isActive = 'false';  // Non-empty string, treated as truthy
-if (isActive) {
-    console.log('The value is truthy!');
-} else {
-    console.log('The value is falsy!');
-}
-// Output: The value is truthy!
-
-
-console.log(1 + '1');   // Output: '11' (string)
-console.log(true + '1'); // Output: 'true1' (string)
-
-
-
-
-
-
-
-
-
-
-// 17 - fetch
-
-
-// Fetch data from an API endpoint
-fetch('https://api.example.com/data')
-  .then(response => {
-    // Check if the response was successful
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    // Parse the response as JSON
-    return response.json();
-  })
-  .then(data => {
-    // Process the received data
-    console.log('Data received:', data);
-    // Update UI, display data, etc.
-  })
-  .catch(error => {
-    console.error('There has been a problem with your fetch operation:', error);
-  });
-
-// Fetch data with POST request
-fetch('https://api.example.com/data', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({ 
-    // Data to send in the request body
-  })
-})
-  .then(response => {
-    // Handle response as in the GET request example
-  })
-  .catch(error => {
-    // Handle errors
-  });
 
 
   

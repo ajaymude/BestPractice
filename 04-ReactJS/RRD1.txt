@@ -1,0 +1,138 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 
+
+
+// package import 
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
+
+
+
+
+// 
+
+
+
+
+
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import About from './pages/About';
+import Profile from './pages/Profile';
+import Header from './components/Header';
+import PrivateRoute from './components/PrivateRoute';
+import CreateListing from './pages/CreateListing';
+import UpdateListing from './pages/UpdateListing';
+import Listing from './pages/Listing';
+import Search from './pages/Search';
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/sign-in' element={<SignIn />} />
+        <Route path='/sign-up' element={<SignUp />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/search' element={<Search />} />
+        <Route path='/listing/:listingId' element={<Listing />} />
+
+        <Route element={<PrivateRoute />}>
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/create-listing' element={<CreateListing />} />
+          <Route
+            path='/update-listing/:listingId'
+            element={<UpdateListing />}
+          />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+
+
+
+
+
+
+
+// react conditional rendering 
+
+        {offerListings && offerListings.length > 0 && (
+          <div className=''>
+            <div className='my-3'>
+              <h2 className='text-2xl font-semibold text-slate-600'>Recent offers</h2>
+              <Link className='text-sm text-blue-800 hover:underline' to={'/search?offer=true'}>Show more offers</Link>
+            </div>
+            <div className='flex flex-wrap gap-4'>
+              {offerListings.map((listing) => (
+                <ListingItem listing={listing} key={listing._id} />
+              ))}
+            </div>
+          </div>
+        )}
+        
+        
+        
+        
+        
+import { useSelector } from 'react-redux';
+import { Outlet, Navigate } from 'react-router-dom';
+
+export default function PrivateRoute() {
+  const { currentUser } = useSelector((state) => state.user);
+  return currentUser ? <Outlet /> : <Navigate to='/sign-in' />;
+}        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+           <p className='text-slate-500 mt-2 font-semibold '>
+            $
+            {listing.offer
+              ? listing.discountPrice.toLocaleString('en-US')
+              : listing.regularPrice.toLocaleString('en-US')}
+            {listing.type === 'rent' && ' / month'}
+          </p>
+          
+          
+          
+              const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get('searchTerm');
+    const typeFromUrl = urlParams.get('type');
+    const parkingFromUrl = urlParams.get('parking');
+    const furnishedFromUrl = urlParams.get('furnished');
+    const offerFromUrl = urlParams.get('offer');
+    const sortFromUrl = urlParams.get('sort');
+    const orderFromUrl = urlParams.get('order');
+
+
+
+
+
