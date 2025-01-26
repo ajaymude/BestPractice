@@ -83,6 +83,15 @@ import storage from 'redux-persist/lib/storage';
 
 const rootReducer = combineReducers({ user: userReducer });
 
+
+const rootReducer = combineReducers({
+  user: userReducer,
+  theme: themeReducer,
+});
+
+
+
+
 const persistConfig = {
   key: 'root',
   storage,
@@ -206,5 +215,26 @@ export default userSlice.reducer;
 
 
 
+
+
+import {createSlice} from '@reduxjs/toolkit';
+
+const initialState = {
+    theme: 'light',
+};
+
+const themeSlice = createSlice({
+    name: 'theme',
+    initialState,
+    reducers: {
+        toggleTheme: (state) => {
+            state.theme = state.theme === 'light' ? 'dark' : 'light';
+        },
+        }
+});
+
+export const {toggleTheme} = themeSlice.actions;
+
+export default themeSlice.reducer;
 
 
