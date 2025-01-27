@@ -8,8 +8,7 @@
 // 6 - clone
 
 
-
-
+working dir -add- staging dir -commit- repo dir
 
 
 
@@ -167,8 +166,18 @@ git commit --amend
 
 / main head branch 
 
+/ to the branch 
+git branch 
+
 / create new branch or the switch 
 git branch newBranchName     
+
+// it delete the branch , but this command give the 
+   warning if the code is not merge  
+git branch -d branch_name
+git branch -r 
+
+
 
 
 git switch branchName 
@@ -176,16 +185,21 @@ git switch branchName
 // it create the branch and the switch the branch 
 git switch -c branchName
 
+
+
+
+
+
+
 git checkout branchName 
+
+/create and switch
 git checkout -b branchName
 
  git checkout origin/main 
 
 
-// it delete the branch , but this command give the 
-   warning if the code is not merge  
-git branch -d branch_name
-git branch -r 
+
 
 
 // force full delete 
@@ -218,6 +232,7 @@ mm
 
 // Merge 
 
+
 / types of merge 
 / 1 - fast farward merge - parent have no additional commit 
 / 2 - recursive merge - both branch have the change but not in same file , if it have the have the
@@ -226,8 +241,8 @@ mm
 / 3 - you will get conflict when changes have on same file and same line 
 
 
-// merge in current branch , otherBranch 
-// git merge otherBranch
+/ merge in current branch , otherBranch 
+git merge otherBranch
 
 
 
