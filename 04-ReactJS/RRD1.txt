@@ -151,3 +151,53 @@ export default function OnlyAdminPrivateRoute() {
 
 
 
+
+
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import SignIn from "./page/SignIn";
+import PrivateRoute from "./component/PrivateRoute";
+import SignUp from "./page/SignUp";
+import NotFound from "./page/NotFound";
+import Super from "./page/Super";
+import Test from "./page/Test";
+
+const MainRoute = () => {
+  const { currentUser } = useSelector((state) => state.user);
+
+  console.log(currentUser?.email, "user");
+
+  return (
+    <>
+      <Routes>
+        {!currentUser && (
+          <>
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/signin" element={<SignIn />} />
+          </>
+        )}
+
+        <Route element={<PrivateRoute />}>
+          {currentUser?.email === "aaaa@gmail.com" ? (
+            <>
+              <Route path="/signup" element={<Navigate to="/home22" />} />
+              <Route path="/signin" element={<Navigate to="/home22" />} />
+              <Route path="/home22" element={<Super />} />
+            </>
+          ) : (
+            <>
+              <Route path="/signup" element={<Navigate to="/home" />} />
+              <Route path="/signin" element={<Navigate to="/home" />} />
+              <Route path="/home" element={<Test />} />
+            </>
+          )}
+        </Route>
+
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
+  );
+};
+
+export default MainRoute;

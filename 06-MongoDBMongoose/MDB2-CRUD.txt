@@ -33,15 +33,18 @@ read
 
           attributes 
               -Projection, 
+              -select()
               -sort() 
               -limit()
               -skip()
               -count()
               -toArray()
               -next()
-
+              -countDocuments()
+              -pretty()
 
               -cursor
+
 
                 - logic operator
                       - $and
@@ -57,8 +60,8 @@ read
                       - $gte
                       - $lte-
                       - $ne
-                      - $in
-                      - $nin
+                      - $eq
+
 
                 - Element Operators
                     - $exists
@@ -74,6 +77,8 @@ read
                     - $addToSet
                     - $pullAll 
                     - $pop
+                    - $in
+                    - $nin
 
 
 
@@ -102,22 +107,24 @@ update
     -attributes
         - $set
         - $unset
-        - $inc
+        - $rename
+
+        - $setOnInsert
         - $push
         - $pull
         - $pop
-        - $rename
-        - $setOnInsert
         - $addToSet
         - $pullAll
         - $slice
+
         - $mul
         - $min
         - $max
-        - $currentDate
         - $inc
+
+        - $currentDate
         - $cond
-        - 
+        - $bit
 
 
         - { upsert: true }
@@ -363,72 +370,41 @@ db.collname.insertOne({
 
 // Read 
 
-/query selector 
 
-logical
-comparison
-element
-Evaluation
-Array
-comment
-geospatial
-
-
-
-
-/ projection 
-$
-$elemMatch
-$meta
-$slice
-
-
-
-find(): Retrieves all matching documents.
-findOne(): Retrieves the first matching document.
- 
-Projection, sort(), limit(), skip(), count(), toArray() 
-
-$and, $or, $not, $nor, $exists, $type: Logical operators to combine multiple conditions.
-$gt, $lt, $gte, $lte, $ne: Comparison operators for range queries.
-$in, $all, $size, $elemMatch: Array query operators.
-$regex: Performs regular expression search on string fields.
-
-
-
-db.users.find({ age:  18  })
+/find
 
 db.users.find().pretty();
-
+db.users.find({ age:  18  })
 db.users.find({ age:  18 , status: "active" })
-
 db.collection.find({status.desc:"on time"}) 
 db.collection.find({status.hobbies:"cricket"} )  // it search in array 
 db.collection.find({status.hobbies:["cricket"]} )  // it search exact array  array
+
 
 Example with Projection:
 db.users.find({ age:  18  }, { name: 1, age: 1 })
 db.users.find({}, { password: 0 })
 
 
+/sort 
 db.collection.find().sort({ field: 1 or -1 })
 db.users.find().sort({ age: 1 }).count()
 
 
+/limit
 db.users.find().limit(5)
 
 
+/skip()
 db.users.find().skip(5)
 
+
+/count 
 db.users.find({ status: 'active' }).count();
 
 
-// Find all documents and return them as an array
+/ Find all documents and return them as an array
 db.users.find().toArray();
-
-
-db.users.findOne({ email: "johndoe@example.com" })
-
 
 
 
@@ -441,6 +417,17 @@ db.users.find().toArray().forEach(function(doc) {
 
 
 
+
+
+
+/findOne
+db.users.findOne({ email: "johndoe@example.com" })
+
+
+
+
+
+/findOneAndUpdate
 const user = await User.findOneAndUpdate(
   { name: 'raj' }, 
   { $set: { age: 35 } },
@@ -451,10 +438,16 @@ console.log(user);
 
 
 
+
+/countDocuments
 const count = await User.countDocuments({ age: { $gt: 30 } });
 console.log(count);
 
 
+
+
+
+/distinct
 const distinctNames = await User.distinct('name');
 console.log(distinctNames);
 
@@ -463,9 +456,6 @@ console.log(distinctNames);
 
 // Logical operator 
 
-
-// Sample Data for Reference
-/*
 [
   { name: "Alice", age: 25, email: "alice@example.com", isActive: true },
   { name: "Bob", age: 30, email: "bob@example.com" },
@@ -1094,50 +1084,19 @@ db.users.findOneAndDelete(
 
 // update 
 
-a-updateOne()
-b-updateMany()
-
-
-
-$set: Sets the value of a field.
-$unset: Removes a field.
-$rename: Renames a field in a document.
-$setOnInsert: Sets the value of a field only if the document is being inserted (used in upserts).
-
-$push: Adds an element to an array.
-$pull: Removes an element from an array.
-$addToSet: Adds a value to an array only if it doesn't already exist.
-$pop: Removes the first or last element from an array.
-$pullAll: Removes multiple specific values from an array.
-$slice: Limits the number of elements in an array.
-
-$inc: Increments a numeric field.
-$mul: Multiplies the value of a field by a specified number.
-$min: Updates the field only if the specified value is less than the current value.
-$max: Updates the field only if the specified value is greater than the current value.
-
-$currentDate: Sets the value of a field to the current date or timestamp.
-
-$bit: Performs a bitwise operation on an integer field (AND, OR, XOR).
-
-
-
-
-
-
-
-
-
-
-
-
-// Update a single document
+/ Update a single document
 const result = await collection.updateOne(
   { email: "johndoe@example.com" }, // Filter
   { $set: { age: 31 } } // Update operation
 );
 
+
+
+
 db.users.updateOne({ name: "Alice" }, { $unset: { address: "" } });
+
+
+
 
 // Update multiple documents
 const result = await collection.updateMany(
@@ -1145,12 +1104,18 @@ const result = await collection.updateMany(
   { $set: { status: "Senior" } } // Update operation: add status field
 );
 
+
+
+
 // Update a document or insert if not exists
 const result = await collection.updateOne(
   { email: "johndoe@example.com" }, // Query
   { $set: { name: "John Doe", age: 30 } }, // Update
   { upsert: true } // Create if not exists
 );
+
+
+
 
 // Replace a document completely
 const result = await collection.replaceOne(
@@ -1163,16 +1128,25 @@ const result = await collection.replaceOne(
   } // New document
 );
 
+
+
+
 db.users.findOneAndUpdate(
   { _id: ObjectId("5f9d9f7c8c5f3b6db7d6f0c5") },
   { $set: { age: 35 } }
 );
 
 
+
+
+
 db.users.bulkWrite([
   { updateOne: { filter: { name: "John Doe" }, update: { $set: { age: 40 } } } },
   { updateMany: { filter: { status: "inactive" }, update: { $set: { status: "active" } } } }
 ]);
+
+
+
 
 db.collection.update(
   { _id: 1 },
@@ -1186,11 +1160,16 @@ db.collection.update(
 // If the document exists, only "name" will be updated.
 
 
+
+
 db.collection.update(
   { _id: 1 },
   { $currentDate: { lastModified: true } }
 );
 // Sets "lastModified" to the current date and time.
+
+
+
 
 
 db.users.findOneAndUpdate(
@@ -1210,11 +1189,16 @@ db.users.findOneAndUpdate(
 
 
 
+
+
 db.collection.update(
   { _id: 1 },
   { $rename: { "oldFieldName": "newFieldName" } }
 );
 // Renames "oldFieldName" to "newFieldName" in the document.
+
+
+
 
 
 // Update a field with a condition using the `$cond` operator (e.g., conditionally set a value based on another field)
