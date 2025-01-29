@@ -1,0 +1,18 @@
+
+
+What is Recursion?
+Recursion is a method where a function calls itself in order to solve a problem. 
+The key idea is that a problem can often be broken down into smaller, simpler versions of the same problem.
+
+
+
+function factorial(n) {
+  // Base Case: Factorial of 0 is 1
+  if (n === 0) {
+    return 1;
+  }
+  // Recursive Case: n * factorial of n-1
+  return n * factorial(n - 1);
+}
+
+console.log(factorial(5)); // Output: 120
