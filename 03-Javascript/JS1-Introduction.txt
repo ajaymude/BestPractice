@@ -1,3 +1,5 @@
+
+
 // Topic 
 
 // 0 - console
@@ -27,7 +29,10 @@
 
 
 
-// 0 - console
+// 0 - console , introduction 
+
+// 1994 by netscape livescript , later know as javascript 
+
 
 
 // 1. console.log()
@@ -184,9 +189,12 @@ console.clear();
 
 // 2 - variable
 
-var name = "Alice";      // declare y // redeclare y // reassign  y   //
-let city = "New York";   // declare y // redeclare n // reassign  y
-const pi = 3.14159;      // declare y // redeclare n // reassign  n
+var name = "Alice";      // declare y // redeclare y // reassign  y   // glolbe scope  
+let city = "New York";   // declare y // redeclare n // reassign  y   // block scope
+const pi = 3.14159;      // declare y // redeclare n // reassign  n   // block scope   
+
+if block will always replace the glolbe scope 
+
 
 
 
@@ -223,23 +231,49 @@ const pi = 3.14159;      // declare y // redeclare n // reassign  n
 6. undefined
 7. NaN
 
-/ == vs  ===
+// Truthy and Falsy Values:
+// Truthy values: (Considered "true" in boolean context)
+console.log(Boolean(1)); // true
+console.log(Boolean("hello")); // true
+console.log(Boolean([])); // true
+console.log(Boolean({})); // true
+console.log(Boolean(Infinity)); // true
 
-console.log(5 == "5");        // true  (String "5" is coerced to number 5)
-console.log(0 == false);      // true  (0 is coerced to false)
-console.log(null == undefined); // true  (null and undefined are considered equal with ==)
-console.log(true == 1);       // true  (true is coerced to 1)
-console.log("1" == 1);        // true  (String "1" is coerced to number 1)
-
-console.log(5 === "5");       // false (different types: number vs string)
-console.log(0 === false);     // false (different types: number vs boolean)
-console.log(null === undefined);  // false (null and undefined are not strictly equal)
-console.log(true === 1);      // false (different types: boolean vs number)
-console.log("1" === 1);       // false (different types: string vs number)
+// Falsy values: (Considered "false" in boolean context)
+console.log(Boolean(0)); // false
+console.log(Boolean("")); // false
+console.log(Boolean(null)); // false
+console.log(Boolean(undefined)); // false
+console.log(Boolean(NaN)); // false
+console.log(Boolean(false)); // false
 
 
 
-// stack and heap memory 
+
+
+
+// Short-circuit evaluation examples
+
+// 1. AND (&&) Short-circuit
+let a = false && "Hello";
+console.log("AND Short-circuit:", a); // false (stops at first false value) or return the last true value 
+
+let b = true && "Hello";
+console.log("AND Short-circuit:", b); // "Hello" (returns last truthy value)
+
+// 2. OR (||) Short-circuit
+let c = true || "World";
+console.log("OR Short-circuit:", c); // true (stops at first truthy value) or the last false value 
+
+let d = false || "World";
+console.log("OR Short-circuit:", d); // "World" (returns last truthy value)
+
+// 3. Nullish Coalescing Operator (??)
+let e = null ?? "Default Value";
+console.log("Nullish Coalescing:", e); // "Default Value"
+
+
+
 
 
 // Example 1: Using nullish coalescing operator
@@ -296,91 +330,178 @@ let x = 10; // This is an inline comment
 
 // 5 - operator 
 
-++  increment operator
---  decrement operator
 
 
-/ Arithmetic operator
-console.log(a + b);   // 15 (Addition)
-console.log(a - b);   // 5  (Subtraction)
-console.log(a * b);   // 50 (Multiplication)
-console.log(a / b);   // 2  (Division)
-console.log(a % b);   // 0  (Modulo)
+// List of JavaScript Arithmetic Operators:
+// 1. Addition (+)
+// 2. Subtraction (-)
+// 3. Multiplication (*)
+// 4. Division (/)
+// 5. Modulus (%)
+// 6. Exponentiation (**)
+// 7. Increment (++): Post & Pre
+// 8. Decrement (--): Post & Pre
+
+// Examples:
+
+// 1. Addition (+)
+let sum = 10 + 5;
+console.log("Addition:", sum); // 15
+
+// 2. Subtraction (-)
+let difference = 10 - 5;
+console.log("Subtraction:", difference); // 5
+
+// 3. Multiplication (*)
+let product = 10 * 5;
+console.log("Multiplication:", product); // 50
+
+// 4. Division (/)
+let quotient = 10 / 2;
+console.log("Division:", quotient); // 5
+
+// 5. Modulus (%)
+let remainder = 10 % 3;
+console.log("Modulus:", remainder); // 1
+
+// 6. Exponentiation (**)
+let power = 2 ** 3;
+console.log("Exponentiation:", power); // 8
+
+// 7. Increment (++): Post & Pre
+let num1 = 5;
+console.log("Post-Increment:", num1++); // 5 (uses first, then increments)
+console.log("After Post-Increment:", num1); // 6
+
+let num2 = 5;
+console.log("Pre-Increment:", ++num2); // 6 (increments first, then uses)
+
+// 8. Decrement (--): Post & Pre
+let num3 = 5;
+console.log("Post-Decrement:", num3--); // 5 (uses first, then decrements)
+console.log("After Post-Decrement:", num3); // 4
+
+let num4 = 5;
+console.log("Pre-Decrement:", --num4); // 4 (decrements first, then uses)
+
+// Real-world example: Calculate total price including tax
+let price = 100;
+let tax = 10;
+let total = price + tax;
+console.log("Total Price:", total); // 110
+
+// Check if a number is even or odd using modulus
+let number = 7;
+console.log("Number is:", number % 2 === 0 ? "Even" : "Odd"); // Odd
 
 
-/ assignment operator
-a += b;  // a = a + b, so a becomes 7
-a -= 3;  // a = a - 3, so a becomes 4
-a *= 2;  // a = a * 2, so a becomes 8
-a /= 4;  // a = a / 4, so a becomes 2
-a %= 2;  // a = a % 2, so a becomes 0
-a **= 3; // a = a ** 3, so a becomes 0 (0 raised to any power is still 0)
 
 
-/ comparison operator
-
-let a = 10;
-let b = "10";
-let c = 5;
-
-console.log(a == b);   // true (type coercion, both are 10)
-console.log(a === b);  // false (strict equality, different types)
-console.log(a != b);   // false (because 10 == "10" is true)
-console.log(a !== b);  // true (strict inequality, different types)
-
-console.log(a > c);    // true (10 is greater than 5)
-console.log(a < c);    // false (10 is not less than 5)
-console.log(a >= 10);  // true (10 is equal to 10)
-console.log(a <= 5);   // false (10 is not less than or equal to 5)
 
 
-// logical operator
 
-// Logical AND (&&)
-let a = true;
-let b = false;
 
-console.log(a && b);  // false (because b is false)
-console.log(true && true);   // true (both are true)
-console.log(true && false);  // false (one is false)
-console.log(false && false); // false (both are false)
 
-// Logical OR (||)
-console.log(a || b);   // true (at least one is true)
-console.log(false || false); // false (both are false)
-console.log(true || true);   // true (both are true)
-console.log(false || true);  // true (one is true)
 
-// Logical NOT (!)
-console.log(!a);      // false (a is true, NOT makes it false)
-console.log(!b);      // true (b is false, NOT makes it true)
+// List of JavaScript Assignment Operators:
+// 1. Assign (=)
+// 2. Add and Assign (+=)
+// 3. Subtract and Assign (-=)
+// 4. Multiply and Assign (*=)
+// 5. Divide and Assign (/=)
+// 6. Modulus and Assign (%=)
+// 7. Exponentiation and Assign (**=)
 
-// Short-circuiting with AND (&&)
-let x = 0;
-let y = 5;
+// Examples:
 
-console.log(x && y);  // 0 (x is falsy, so short-circuits, doesn't evaluate y)
+// 1. Assign (=)
+let x = 10;
+console.log("Assign:", x); // 10
 
-// Short-circuiting with OR (||)
-console.log(x || y);  // 5 (x is falsy, so evaluates y)
+// 2. Add and Assign (+=)
+x += 5;
+console.log("Add and Assign:", x); // 15
 
-// More Logical AND (&&) Examples:
-console.log(true && 1);  // 1 (truthy value, returns second operand)
-console.log(0 && true);  // 0 (falsy value, returns first operand)
+// 3. Subtract and Assign (-=)
+x -= 3;
+console.log("Subtract and Assign:", x); // 12
 
-// More Logical OR (||) Examples:
-console.log(false || "hello");  // "hello" (first is falsy, returns second operand)
-console.log(undefined || "world"); // "world" (first is falsy, returns second operand)
+// 4. Multiply and Assign (*=)
+x *= 2;
+console.log("Multiply and Assign:", x); // 24
 
-// Mixing AND & OR:
-console.log(true || false && false);  // true (OR is evaluated first)
-console.log(false && true || true);  // true (AND is evaluated first)
+// 5. Divide and Assign (/=)
+x /= 4;
+console.log("Divide and Assign:", x); // 6
 
-// Logical NOT Examples:
-console.log(!0);         // true (0 is falsy)
-console.log(!"hello");   // false (non-empty string is truthy)
-console.log(!!"text");   // true (double NOT converts it to boolean)
-console.log(!!0);        // false (double NOT converts it to boolean)
+// 6. Modulus and Assign (%=)
+x %= 5;
+console.log("Modulus and Assign:", x); // 1
+
+// 7. Exponentiation and Assign (**=)
+x **= 3;
+console.log("Exponentiation and Assign:", x); // 1
+
+
+
+
+
+
+// List of JavaScript Comparison Operators:
+// 1. Equal (==)
+// 2. Strict Equal (===)
+// 3. Not Equal (!=)
+// 4. Strict Not Equal (!==)
+// 5. Greater Than (>)
+// 6. Greater Than or Equal (>=)
+// 7. Less Than (<)
+// 8. Less Than or Equal (<=)
+
+// Examples:
+
+console.log("Equal:", 5 == "5"); // true (loose comparison)
+console.log("Strict Equal:", 5 === "5"); // false (strict comparison)
+console.log("Not Equal:", 5 != "5"); // false (loose comparison)
+console.log("Strict Not Equal:", 5 !== "5"); // true (strict comparison)
+console.log("Greater Than:", 10 > 5); // true
+console.log("Greater Than or Equal:", 10 >= 10); // true
+console.log("Less Than:", 3 < 5); // true
+console.log("Less Than or Equal:", 3 <= 3); // true
+
+
+
+
+// Ternary Operator Example
+let age = 18;
+let access = age >= 18 ? "Allowed" : "Denied";
+console.log("Access:", access); // "Allowed"
+
+
+
+
+
+
+// List of JavaScript Logical Operators:
+// 1. AND (&&)
+// 2. OR (||)
+// 3. NOT (!)
+
+// Examples:
+
+// 1. AND (&&)
+let isAdult = true;
+let hasID = false;
+console.log("Can enter club:", isAdult && hasID); // false
+
+// 2. OR (||)
+let hasTicket = false;
+let isVIP = true;
+console.log("Can enter event:", hasTicket || isVIP); // true
+
+// 3. NOT (!)
+let isRaining = false;
+console.log("Is it sunny?", !isRaining); // true
+
 
 
 

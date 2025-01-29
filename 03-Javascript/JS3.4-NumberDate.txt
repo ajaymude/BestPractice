@@ -1,103 +1,162 @@
+
+
 // Number 
 
-// 1. Converts a value to a number
-let num1 = Number("123");  // Output: 123
+// JavaScript Number Methods
 
-// 2. Parses a string and returns an integer
-let num2 = parseInt("123.45");  // Output: 123
+let num = 123.456;
 
-// 3. Parses a string and returns a floating point number
-let num3 = parseFloat("123.45");  // Output: 123.45
+// 1. toString() - Converts number to string
+console.log(num.toString());  // "123.456"
 
-// 4. Determines if the value is NaN
-console.log(isNaN("123"));   // Output: false
-console.log(isNaN("Hello")); // Output: true
+// 2. toFixed(n) - Formats number with n decimal places
+console.log(num.toFixed(2));  // "123.46"
 
-// 5. Checks if a value is a finite number
-console.log(isFinite(123));  // Output: true
-console.log(isFinite(Infinity));  // Output: false
+// 3. toPrecision(n) - Formats number with specified length
+console.log(num.toPrecision(4));  // "123.5"
 
-// 6. Returns a string representation of the number
-let num4 = 123;
-console.log(num4.toString());  // Output: "123"
+// 4. toExponential(n) - Converts to exponential notation
+console.log(num.toExponential(2));  // "1.23e+2"
 
-// 7. Formats a number to a fixed number of decimal places
-let num5 = 3.14159;
-console.log(num5.toFixed(2));  // Output: "3.14"
+// 5. valueOf() - Returns primitive value of number
+console.log(num.valueOf());  // 123.456
 
-// 8. Formats a number to a specified length
-let num6 = 3.14159;
-console.log(num6.toPrecision(4));  // Output: "3.142"
+// 6. Number() - Converts a value to a number
+console.log(Number("100"));  // 100
+console.log(Number(true));  // 1
 
-// 9. Returns the absolute value of a number
-let num7 = -5;
-console.log(Math.abs(num7));  // Output: 5
+// 7. Number.isInteger(x) - Checks if x is an integer
+console.log(Number.isInteger(10));  // true
+console.log(Number.isInteger(10.5));  // false
 
-// 10. Returns the smallest integer greater than or equal to the number
-let num8 = 3.14;
-console.log(Math.ceil(num8));  // Output: 4
+// 8. Number.isFinite(x) - Checks if x is a finite number
+console.log(Number.isFinite(1000));  // true
+console.log(Number.isFinite(Infinity));  // false
 
-// 11. Returns the largest integer less than or equal to the number
-let num9 = 3.99;
-console.log(Math.floor(num9));  // Output: 3
+// 9. Number.isNaN(x) - Checks if x is NaN
+console.log(Number.isNaN("hello" / 2));  // true
+console.log(Number.isNaN(10));  // false
 
-// 12. Rounds a number to the nearest integer
-let num10 = 3.5;
-console.log(Math.round(num10));  // Output: 4
+// 10. parseInt(x) - Converts string to integer
+console.log(parseInt("100px"));  // 100
+console.log(parseInt("10.55"));  // 10
 
-// 13. Returns a random floating point number between 0 and 1
-console.log(Math.random());  // Output: a random number between 0 and 1
+// 11. parseFloat(x) - Converts string to float
+console.log(parseFloat("10.55kg"));  // 10.55
 
-// 14. Returns the largest of the numbers passed as arguments
-console.log(Math.max(1, 3, 7, 5));  // Output: 7
+// Math Object Methods
 
-// 15. Returns the smallest of the numbers passed as arguments
-console.log(Math.min(1, 3, 7, 5));  // Output: 1
+// 12. Math.abs(x) - Returns absolute value
+console.log(Math.abs(-5));  // 5
 
-// 16. Returns the base to the exponent power
-console.log(Math.pow(2, 3));  // Output: 8
+// 13. Math.round(x) - Rounds to nearest integer
+console.log(Math.round(4.6));  // 5
 
-// 17. Returns the square root of a number
-console.log(Math.sqrt(9));  // Output: 3
+// 14. Math.floor(x) - Rounds down
+console.log(Math.floor(4.9));  // 4
 
-// 18. Returns the natural logarithm (base e) of a number
-console.log(Math.log(10));  // Output: 2.302585092994046
+// 15. Math.ceil(x) - Rounds up
+console.log(Math.ceil(4.1));  // 5
 
-// 19. Returns e raised to the power of a number
-console.log(Math.exp(1));  // Output: 2.718281828459045
+// 16. Math.trunc(x) - Returns integer part
+console.log(Math.trunc(4.9));  // 4
 
-// 20. Trigonometric functions
-let angle = Math.PI / 4;  // 45 degrees in radians
-console.log(Math.sin(angle));  // Output: 0.7071067811865475
-console.log(Math.cos(angle));  // Output: 0.7071067811865475
-console.log(Math.tan(angle));  // Output: 1
+// 17. Math.sqrt(x) - Square root
+console.log(Math.sqrt(16));  // 4
 
-// 21. Checks whether the value is an integer
-console.log(Number.isInteger(4));    // Output: true
-console.log(Number.isInteger(4.5));  // Output: false
+// 18. Math.cbrt(x) - Cube root
+console.log(Math.cbrt(27));  // 3
 
-// 24. Checks whether the value is a safe integer
-console.log(Number.isSafeInteger(9007199254740991));  // Output: true
-console.log(Number.isSafeInteger(9007199254740992));  // Output: false
+// 19. Math.pow(x, y) - Power
+console.log(Math.pow(2, 3));  // 8
+
+// 20. Math.max(a, b, ...) - Returns maximum value
+console.log(Math.max(10, 20, 30));  // 30
+
+// 21. Math.min(a, b, ...) - Returns minimum value
+console.log(Math.min(10, 20, 30));  // 10
+
+// 22. Math.random() - Random number between 0 and 1
+console.log(Math.random());  
+
+// 23. Math.sign(x) - Returns 1 for positive, -1 for negative, 0 for zero
+console.log(Math.sign(-5));  // -1
+console.log(Math.sign(5));   // 1
+
+// 24. Math.log(x) - Natural logarithm (base e)
+console.log(Math.log(10));  
+
+// 25. Math.log10(x) - Base-10 logarithm
+console.log(Math.log10(100));  // 2
+
+// 26. Math.log2(x) - Base-2 logarithm
+console.log(Math.log2(8));  // 3
+
+// 27. Math.sin(x), Math.cos(x), Math.tan(x) - Trigonometric functions
+console.log(Math.sin(Math.PI / 2));  // 1
+console.log(Math.cos(0));  // 1
+console.log(Math.tan(Math.PI / 4));  // 1
+
+// 28. Math.sinh(x), Math.cosh(x), Math.tanh(x) - Hyperbolic functions
+console.log(Math.sinh(1));  
+console.log(Math.cosh(1));  
+console.log(Math.tanh(1));  
+
+// 29. Math.hypot(a, b, ...) - Returns square root of sum of squares
+console.log(Math.hypot(3, 4));  // 5
+
+// 30. Math.fround(x) - Returns the nearest single precision float
+console.log(Math.fround(1.337));  
+
+// 31. Math.clz32(x) - Count leading zero bits in 32-bit integer
+console.log(Math.clz32(1));  // 31
+
+// 32. Math.imul(a, b) - Performs 32-bit integer multiplication
+console.log(Math.imul(2, 3));  // 6
+
+// 33. Number.EPSILON - Smallest difference between two numbers
+console.log(Number.EPSILON);  
+
+// 34. Number.MAX_SAFE_INTEGER - Largest exact integer in JS
+console.log(Number.MAX_SAFE_INTEGER);  
+
+// 35. Number.MIN_SAFE_INTEGER - Smallest exact integer in JS
+console.log(Number.MIN_SAFE_INTEGER);  
+
+// 36. Number.MAX_VALUE - Largest possible number in JS
+console.log(Number.MAX_VALUE);  
+
+// 37. Number.MIN_VALUE - Smallest possible number in JS
+console.log(Number.MIN_VALUE);  
 
 
-let number = 1234567.89;
 
-// Using toLocaleString() to format the number with default locale
-console.log(number.toLocaleString());  
-// Output (in US locale): "1,234,567.89"
 
-// You can also specify a specific locale
-console.log(number.toLocaleString('de-DE'));  
-// Output (in German locale): "1.234.567,89"
 
-// Format it as currency (USD)
-console.log(number.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
-// Output (in US locale): "$1,234,567.89"
 
-// Format it as currency (Euro)
-console.log(number.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' }));
-// Output (in German locale): "1.234.567,89 €"
+Special Number Properties:
+Number.POSITIVE_INFINITY → Represents positive infinity.
+Number.NEGATIVE_INFINITY → Represents negative infinity.
+Number.MAX_VALUE → The largest positive number JavaScript can represent.
+Number.MIN_VALUE → The smallest positive number greater than zero.
+Number.MAX_SAFE_INTEGER → The largest integer JavaScript can safely represent.
+Number.MIN_SAFE_INTEGER → The smallest integer JavaScript can safely represent.
+Number.EPSILON → The smallest possible difference between two floating-point numbers.
+NaN (Not a Number) → Represents an invalid number.
+
+
+
+console.log(Number.POSITIVE_INFINITY);  // Infinity
+console.log(Number.NEGATIVE_INFINITY);  // -Infinity
+console.log(Number.MAX_VALUE);          // 1.7976931348623157e+308
+console.log(Number.MIN_VALUE);          // 5e-324
+console.log(Number.MAX_SAFE_INTEGER);   // 9007199254740991
+console.log(Number.MIN_SAFE_INTEGER);   // -9007199254740991
+console.log(Number.EPSILON);            // 2.220446049250313e-16
+console.log(Number.isNaN(NaN));         // true
+
+
+
 
 
 
