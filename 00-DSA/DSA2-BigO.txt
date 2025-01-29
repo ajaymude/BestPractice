@@ -130,3 +130,16 @@ console.log(getFirstElement(arr));  // Output: 1
 
 
 
+
+
+
+const startTime = performance.now();
+
+for (let i = 0; i < 1000000; i++) {
+  // Simulate some work
+  Math.sqrt(i);
+}
+
+const endTime = performance.now();
+
+console.log(`Execution time: ${(endTime - startTime).toFixed(3)} milliseconds`);

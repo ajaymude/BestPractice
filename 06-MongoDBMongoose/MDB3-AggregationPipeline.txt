@@ -17,15 +17,153 @@ $count	Counts the number of documents in the pipeline and outputs the count.
 
 
 db.orders.aggregate([
+  { $match: { status: "completed" } }
+]);
 
-    db.orders.aggregate([
-  { $skip: 10 }, // Skip the first 10 documents
-  { $limit: 5 }   // Limit the result to the next 5 documents
+
+db.orders.aggregate([
+  { $group: { _id: "$status", totalAmount: { $sum: "$amount" } } }
+]);
+
+
+
+// example 
+
+{
+  "_id": ObjectId("..."),
+  "item": "ABC Widget",
+  "price": 10,
+  "quantity": 5,
+  "date": ISODate("2024-01-15T10:00:00Z"),
+  "region": "East"
+}
+
+
+
+db.sales.aggregate([
+  {
+    $match: {
+      region: "East"
+    }
+  },
+  {
+    $group: {
+      _id: "$item",  // Group by item name
+      totalRevenue: { $sum: { $multiply: ["$price", "$quantity"] } } // Calculate total revenue
+    }
+  }
 ])
 
-  { $match: { status: "completed" } }, // Filter orders with 'completed' status
-  { $group: { _id: "$status", totalAmount: { $sum: "$totalAmount" } } } // Group by status and sum the totalAmount
+
+
+[
+  { "item": "ABC Widget", "price": 10, "quantity": 5, "region": "East" },
+  { "item": "XYZ Gadget", "price": 20, "quantity": 2, "region": "East" },
+  { "item": "ABC Widget", "price": 10, "quantity": 3, "region": "East" },
+  { "item": "PQR Thing", "price": 5, "quantity": 10, "region": "West" }, // Not in "East"
+  { "item": "XYZ Gadget", "price": 20, "quantity": 1, "region": "East" }
+]
+
+
+[
+  { "_id": "ABC Widget", "totalRevenue": 80 }, // (10 * 5) + (10 * 3)
+  { "_id": "XYZ Gadget", "totalRevenue": 60 }  // (20 * 2) + (20 * 1)
+]
+
+
+
+
+db.sales.aggregate([
+  {
+    $match: {
+      region: "East"
+    }
+  },
+  {
+    $group: {
+      _id: "$item",
+      totalRevenue: { $sum: { $multiply: ["$price", "$quantity"] } }
+    }
+  },
+  {
+    $sort: {
+      totalRevenue: -1 // -1 for descending order, 1 for ascending
+    }
+  }
 ])
+
+
+
+[
+  { "item": "ABC Widget", "price": 10, "quantity": 5, "region": "East" },
+  { "item": "XYZ Gadget", "price": 20, "quantity": 2, "region": "East" },
+  { "item": "ABC Widget", "price": 10, "quantity": 3, "region": "East" },
+  { "item": "PQR Thing", "price": 5, "quantity": 10, "region": "West" }, // Not in "East"
+  { "item": "XYZ Gadget", "price": 20, "quantity": 1, "region": "East" }
+]
+
+
+[
+  { "_id": "XYZ Gadget", "totalRevenue": 60 },  // (20 * 2) + (20 * 1)
+  { "_id": "ABC Widget", "totalRevenue": 50 }   // (10 * 2) + (10 * 3)
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+db.orders.aggregate([
+  { $sort: { amount: -1 } } // Sort by `amount` in descending order
+]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 db.orders.aggregate([

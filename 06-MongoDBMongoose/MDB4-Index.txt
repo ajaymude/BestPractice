@@ -1,5 +1,118 @@
 
 
+// create index 
+
+db.collection.createIndex({ fieldName: 1 }); // 1 for ascending, -1 for descending
+
+db.collection.dropIndex({ field: 1 });
+
+// compound index  
+
+db.collection.createIndex({ field1: 1, field2: -1 });
+
+
+// multikey index
+
+db.collection.createIndex({ arrayField: 1 });
+
+
+
+
+
+// default index 
+
+When you create a collection, MongoDB automatically adds the _id index. 
+You can see it using the getIndexes() method:
+
+db.collection.getIndexes();
+
+
+
+// partial index 
+
+db.users.createIndex(
+  { email: 1 }, // Index on the `email` field
+  { partialFilterExpression: { isActive: true } } // Only include active users
+);
+
+
+
+
+
+
+
+
+
+
+
+
+// Basic Usage of explain()
+
+The explain() method in MongoDB is a powerful tool for analyzing query performance. 
+It provides detailed information about how MongoDB executes a query, including whether 
+it uses an index, how many documents it scans, and how long it takes to execute. This information 
+is crucial for optimizing queries and improving database performance.
+
+
+db.collection.find({ fieldName: "value" }).explain();
+
+Verbosity Modes
+
+The explain() method supports different verbosity modes to control the amount of information returned:
+
+queryPlanner (default): Provides information about the query plan without executing the query.
+
+executionStats: Executes the query and returns statistics about its execution.
+
+allPlansExecution: Provides detailed information about all possible query plans.
+
+
+db.collection.find({ fieldName: "value" }).explain("executionStats");
+
+
+
+
+7. Tips for Using explain()
+Always use executionStats or allPlansExecution for accurate performance analysis.
+
+Compare the output before and after adding indexes to measure their impact.
+
+Use hint() to force MongoDB to use a specific index and analyze its performance.
+
+
+
+
+db.users.find({ age: 25 }).hint({ age: 1 }).explain("executionStats");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 db.collection.find(query, projection).explain(verbosity)
 
 db.contact.find({ age: { $gte: 30 } }).explain();
