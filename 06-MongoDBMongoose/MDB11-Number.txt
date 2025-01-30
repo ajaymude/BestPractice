@@ -1,0 +1,96 @@
+
+
+
+Common Types of Numbers in MongoDB:
+Integer: A whole number, can be positive or negative.
+Floating-point: A number with decimals.
+
+
+
+1. Integer
+In MongoDB, an integer is just a normal Number type. If you're working with integers, 
+the standard Number type will suffice. For 32-bit integers, you use int32, and for 64-bit integers, you use int64.
+
+32-bit integer (int32): MongoDB will automatically use this when you store small integers. You can specify this 
+when you need to limit it to 32 bits.
+
+
+64-bit integer (int64): For large integers, MongoDB can store them as 64-bit long integers (Long type). 
+This is useful when you deal with very large numbers (e.g., for counting).
+
+
+2. Floating-point (Double)
+Floating-point numbers in MongoDB are represented using the double type, which corresponds to JavaScript's Number (64-bit IEEE 754 floating point). This type is used for decimal numbers.
+
+3. Long (64-bit integers)
+MongoDB has a Long type, which stores 64-bit integers. In Mongoose, you can use the mongoose.Schema.
+Types.Long type for this, though it's more commonly used when working with very large integers.
+
+You’ll need to install bson if you want to use the Long type explicitly.
+
+4. Decimal128
+MongoDB also supports high-precision decimal numbers (useful for financial calculations) via the Decimal128 type. 
+This is used when you need more precision than a floating-point number can provide.
+
+
+
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+const { Types } = mongoose.Schema;
+
+// Define the schema with different number types
+const numberTypesSchema = new Schema({
+  smallInteger: { type: Number }, // 32-bit integer by default (Integer)
+  largeInteger: { type: Types.Long }, // 64-bit Long integer (Large Integer)
+  price: { type: Number }, // Double (Floating-point number)
+  balance: { type: Types.Decimal128 }, // High precision decimal (Decimal128)
+  stock: { type: Number }, // Another Integer (for stock quantity)
+});
+
+// Create a model for the schema
+const NumberTypesModel = mongoose.model('NumberTypesModel', numberTypesSchema);
+
+// Connect to MongoDB (make sure you have MongoDB running locally or using a service)
+mongoose.connect('mongodb://localhost:27017/your_database', { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.log('Failed to connect to MongoDB:', err));
+
+// Example usage: inserting data into the database
+const createExampleData = async () => {
+  const newRecord = new NumberTypesModel({
+    smallInteger: 100, // 32-bit integer (small integer)
+    largeInteger: Types.Long.fromString("1234567890123456789"), // 64-bit Long integer (large integer)
+    price: 199.99, // Double (floating-point number)
+    balance: mongoose.Types.Decimal128.fromString("12345.67890123456789"), // High precision decimal
+    stock: 50, // Integer (stock quantity)
+  });
+
+  try {
+    const savedRecord = await newRecord.save();
+    console.log('Data saved successfully:', savedRecord);
+  } catch (err) {
+    console.log('Error saving data:', err);
+  }
+};
+
+// Call the function to insert example data
+createExampleData();
+
+
+
+
+{
+  "smallInteger": 2147483647, 
+  "largeInteger": 9223372036854775807, 
+  "price": 1.7999999999999999, 
+  "balance": "1234567890123456789012345678901234.5678", 
+  "stock": 50
+}
+
+
+
+Summary of Limits:
+32-bit Integer: Ranges from -2,147,483,648 to 2,147,483,647.
+64-bit Long: Ranges from -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807.
+Double: Can store values from approximately -1.8 x 10^308 to 1.8 x 10^308 with 15-17 digits of precision.
+Decimal128: Can store values from -10^38 +1 to 10^38 -1 with up to 34 digits of precision.
