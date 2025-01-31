@@ -1,0 +1,21 @@
+
+
+atom , molicules , organism , template , page 
+
+
+https://www.figma.com/file/EX8VxcTtAatzI2PBLb361g/designsystems.engineering?node-id=99%3A0
+
+https://github.com/bahdcoder/ds.e
+
+
+
+use  css variable 
+
+it should have a global css 
+
+color
+typography 
+variable
+
+
+create the break point 

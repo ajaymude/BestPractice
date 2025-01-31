@@ -244,3 +244,184 @@ for (let i = 0; i < 5; i++) {
   console.log(i);  // Output: 0, 1, 2, 4
 }
 
+
+
+
+
+
+
+
+
+
+
+// 
+
+
+Basic Function Properties
+Function.prototype.constructor
+
+Type: Property
+Description: Returns the function that created the Function object.
+Function.prototype.name
+
+Type: Property
+Description: Returns the name of the function.
+Function.prototype.length
+
+Type: Property
+Description: Returns the number of parameters of the function.
+
+
+
+Method Invocation
+Function.prototype.call()
+
+Type: Method
+Description: Calls the function with a specified this value and arguments provided individually.
+Function.prototype.apply()
+
+Type: Method
+Description: Calls the function with a specified this value and an array (or array-like object) of arguments.
+Function.prototype.bind()
+
+Type: Method
+Description: Returns a new function with a specified this value and initial arguments.
+
+
+
+
+Function Introspection
+Function.prototype.toString()
+
+Type: Method
+Description: Returns the source code of the function as a string.
+Function.prototype[Symbol.hasInstance]()
+
+Type: Method (ES6+)
+Description: Used to determine if an object is an instance of a particular class (via custom instanceof logic).
+
+
+
+Non-standard and Advanced Methods
+Function.prototype.toSource() (Non-standard)
+
+Type: Method
+Description: In older JavaScript engines (non-standard), used to get the source code of a function (now replaced by toString() in modern JavaScript).
+Function.prototype.$$ (Non-standard)
+
+Type: Method
+Description: Some older engines used this method to allow deeper introspection of functions (not widely supported).
+
+
+
+
+Constructor Functions and Prototype Chain
+Function.prototype.prototype
+Type: Property
+Description: Refers to the prototype object that will be used by instances created by the function (for constructor functions).
+Function Behavior in Classes (ES6+)
+class MyClass { constructor() { ... } } (ES6+)
+Type: Class method (via constructor)
+Description: Classes in JavaScript allow you to define a constructor method, which acts similarly to a function constructor.
+
+
+
+
+// 1. Function.prototype.constructor
+function greet() {
+  console.log('Hello!');
+}
+console.log(greet.constructor); // Outputs: [Function: Function]
+
+
+// 2. Function.prototype.name
+function greet() {
+  console.log('Hello!');
+}
+console.log(greet.name); // Outputs: greet
+
+
+// 3. Function.prototype.length
+function greet(name, age) {
+  console.log(`Hello ${name}, you are ${age} years old.`);
+}
+console.log(greet.length); // Outputs: 2 (number of parameters)
+
+
+// 4. Function.prototype.call()
+function greet(name) {
+  console.log(`Hello, ${name}!`);
+}
+greet.call(null, 'John'); // Outputs: Hello, John!
+
+
+// 5. Function.prototype.apply()
+function greet(name, age) {
+  console.log(`Hello ${name}, you are ${age} years old.`);
+}
+greet.apply(null, ['Alice', 25]); // Outputs: Hello Alice, you are 25 years old.
+
+
+// 6. Function.prototype.bind()
+function greet(name) {
+  console.log(`Hello, ${name}!`);
+}
+const greetJohn = greet.bind(null, 'John');
+greetJohn(); // Outputs: Hello, John!
+
+
+// 7. Function.prototype.toString()
+function greet() {
+  console.log('Hello!');
+}
+console.log(greet.toString()); // Outputs the function source code as a string
+
+
+// 8. Function.prototype[Symbol.hasInstance]()
+function Person(name) {
+  this.name = name;
+}
+
+console.log(Person[Symbol.hasInstance]({ name: 'John' })); // Outputs: true
+console.log(Person[Symbol.hasInstance]({ age: 25 })); // Outputs: false
+
+
+// 9. Function.prototype.toSource() (Non-standard)
+function greet() {
+  console.log('Hello!');
+}
+console.log(greet.toSource()); // Outputs: [Function: greet]
+// Note: This is non-standard and may not work in modern engines.
+
+
+// 10. Function.prototype.$$ (Non-standard)
+console.log("Function.prototype.$$ is non-standard and may not be supported in modern engines");
+
+
+// 11. Function.prototype.prototype
+function Person(name) {
+  this.name = name;
+}
+console.log(Person.prototype); // Outputs: Person {}
+
+
+// 12. ES6 class and constructor
+class Person {
+  constructor(name) {
+    this.name = name;
+  }
+
+  greet() {
+    console.log(`Hello, ${this.name}!`);
+  }
+}
+
+const person1 = new Person('Alice');
+person1.greet(); // Outputs: Hello, Alice!
+
+
+
+
+
+
+

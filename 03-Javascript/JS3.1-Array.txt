@@ -1,3 +1,541 @@
+
+
+
+1️⃣ String Length & Character Access
+length – Returns the number of characters in a string.
+charAt(index) – Returns the character at a specified index.
+charCodeAt(index) – Returns the Unicode of the character at a given index.
+codePointAt(index) – Returns the Unicode point value at a given index.
+2️⃣ Case Conversion
+toUpperCase() – Converts the string to uppercase.
+toLowerCase() – Converts the string to lowercase.
+3️⃣ Searching & Indexing
+indexOf(value, start) – Returns the first index of a value.
+lastIndexOf(value, start) – Returns the last index of a value.
+includes(value, start) – Checks if a substring exists inside a string.
+startsWith(value, start) – Checks if a string starts with a specified substring.
+endsWith(value, length) – Checks if a string ends with a specified substring.
+search(regex) – Searches for a match using a regex and returns the first match index.
+4️⃣ String Modification & Replacement
+replace(pattern, replacement) – Replaces a substring or pattern.
+replaceAll(pattern, replacement) – Replaces all occurrences of a substring or pattern.
+padStart(targetLength, padString) – Pads a string at the start to a given length.
+padEnd(targetLength, padString) – Pads a string at the end to a given length.
+trim() – Removes whitespace from both ends of a string.
+trimStart() / trimLeft() – Removes whitespace from the start.
+trimEnd() / trimRight() – Removes whitespace from the end.
+5️⃣ Extracting Substrings
+slice(start, end) – Extracts and returns a portion of a string.
+substring(start, end) – Returns a substring between two indices.
+substr(start, length) (Deprecated but still supported) – Extracts a substring based on start position and length.
+6️⃣ Splitting & Joining
+split(separator, limit) – Splits a string into an array of substrings.
+concat(string1, string2, ...) – Concatenates multiple strings into one.
+7️⃣ Repetition & Formatting
+repeat(count) – Returns a new string repeated a given number of times.
+toLocaleUpperCase(locale) – Converts string to uppercase based on locale.
+toLocaleLowerCase(locale) – Converts string to lowercase based on locale.
+8️⃣ Regular Expressions & Matching
+match(regex) – Returns an array of matches for a regex.
+matchAll(regex) – Returns an iterator of all regex matches.
+9️⃣ Unicode & Character Encoding
+fromCharCode(code1, code2, ...) – Returns a string created from UTF-16 code units.
+fromCodePoint(code1, code2, ...) – Returns a string using the given Unicode code points.
+🔟 String Comparison
+localeCompare(compareString, locales, options) – Compares two strings based on locale rules.
+
+
+
+
+
+
+// 
+
+
+
+
+
+
+
+
+
+
+// 1️⃣ String Length & Character Access
+let str = "Hello, World!";
+console.log(str.length); // 13
+console.log(str.charAt(0)); // H
+console.log(str.charCodeAt(0)); // 72
+console.log(str.codePointAt(0)); // 72
+
+// 2️⃣ Case Conversion
+console.log(str.toUpperCase()); // "HELLO, WORLD!"
+console.log(str.toLowerCase()); // "hello, world!"
+
+// 3️⃣ Searching & Indexing
+console.log(str.indexOf("o")); // 4
+console.log(str.lastIndexOf("o")); // 8
+console.log(str.includes("World")); // true
+console.log(str.startsWith("Hello")); // true
+console.log(str.endsWith("!")); // true
+console.log(str.search(/World/)); // 7
+
+// 4️⃣ String Modification & Replacement
+console.log(str.replace("World", "JavaScript")); // "Hello, JavaScript!"
+console.log(str.replaceAll("o", "0")); // "Hell0, W0rld!"
+console.log(str.padStart(15, "*")); // "**Hello, World!"
+console.log(str.padEnd(15, "*"); // "Hello, World!**"
+console.log("  Hello  ".trim()); // "Hello"
+console.log("  Hello  ".trimStart()); // "Hello  "
+console.log("  Hello  ".trimEnd()); // "  Hello"
+
+// 5️⃣ Extracting Substrings
+console.log(str.slice(0, 5)); // "Hello"
+console.log(str.substring(0, 5)); // "Hello"
+console.log(str.substr(0, 5)); // "Hello" (Deprecated but still works)
+
+// 6️⃣ Splitting & Joining
+console.log(str.split(", ")); // ["Hello", "World!"]
+console.log("Hello".concat(", ", "World!")); // "Hello, World!"
+
+// 7️⃣ Repetition & Formatting
+console.log("Hi ".repeat(3)); // "Hi Hi Hi "
+console.log("hello".toLocaleUpperCase("tr")); // "HELLO" (Locale specific)
+console.log("HELLO".toLocaleLowerCase("tr")); // "hello" (Locale specific)
+
+// 8️⃣ Regular Expressions & Matching
+console.log("Hello 123".match(/\d+/)); // ["123"]
+console.log([..."Hello 123".matchAll(/\d+/g)]); // [["123"]]
+
+// 9️⃣ Unicode & Character Encoding
+console.log(String.fromCharCode(72, 101, 108, 108, 111)); // "Hello"
+console.log(String.fromCodePoint(128512)); // 😀
+
+// 🔟 String Comparison
+console.log("apple".localeCompare("banana")); // -1 (apple comes before banana)
+console.log("banana".localeCompare("apple")); // 1 (banana comes after apple)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1. Array Creation and Conversion
+Array.of(element1, element2, ...): Creates a new array from arguments.
+
+Array.from(arrayLike, mapFunction, thisArg): Creates an array from an iterable or array-like object.
+
+toString(): Converts an array to a string.
+
+toLocaleString(): Returns a localized string representation of the array.
+
+join(separator): Joins all elements into a string.
+
+toJSON(): Used internally by JSON.stringify to convert arrays to JSON.
+
+2. Adding and Removing Elements
+push(element1, element2, ...): Adds elements to the end of the array.
+
+pop(): Removes and returns the last element.
+
+unshift(element1, element2, ...): Adds elements to the beginning of the array.
+
+shift(): Removes and returns the first element.
+
+splice(start, deleteCount, item1, item2, ...): Modifies elements in an array (add/remove).
+
+concat(arr1, arr2, ...): Merges arrays into a new array.
+
+3. Searching and Filtering
+indexOf(value): Returns the first index of a value.
+
+lastIndexOf(value): Returns the last index of a value.
+
+includes(value): Checks if an array contains a specific value.
+
+find(callback): Returns the first element that matches the condition.
+
+findIndex(callback): Returns the index of the first matching element.
+
+findLast(callback): Returns the last element that matches a condition.
+
+findLastIndex(callback): Returns the index of the last matching element.
+
+filter(callback): Returns a new array with elements that pass a condition.
+
+4. Transforming and Iterating
+map(callback): Returns a new array with transformed elements.
+
+forEach(callback): Executes a function for each array element.
+
+flat(depth): Flattens a nested array.
+
+flatMap(callback): Maps and flattens elements in one step.
+
+reduce(callback, initialValue): Reduces the array from left to right.
+
+reduceRight(callback, initialValue): Reduces the array from right to left.
+
+5. Sorting and Reordering
+sort(): Sorts the elements of an array.
+
+reverse(): Reverses the array elements.
+
+toReversed(): (ES2023) Returns a new reversed array without modifying the original.
+
+toSorted(): (ES2023) Returns a new sorted array without modifying the original.
+
+toSpliced(start, deleteCount, ...items): (ES2023) Returns a new spliced array without modifying the original.
+
+6. Copying and Slicing
+slice(start, end): Returns a portion of an array.
+
+copyWithin(target, start, end): Copies array elements to another position.
+
+with(index, value): Returns a new array with an element replaced at a specific index.
+
+7. Checking and Testing
+some(callback): Checks if any element passes a condition.
+
+every(callback): Checks if all elements pass a condition.
+
+isArray(value): Checks if a value is an array.
+
+8. Iterators and Keys/Values
+entries(): Returns an iterator with key/value pairs.
+
+keys(): Returns an iterator with keys of the array.
+
+values(): Returns an iterator with values of the array.
+
+[Symbol.iterator](): Returns an iterator for the array.
+
+9. Filling and Replacing
+fill(value, start, end): Fills elements with a specified value.
+
+with(index, value): Returns a new array with an element replaced at a specific index.
+
+10. Grouping (Upcoming ES Features)
+groupBy(callback): Groups array elements into an object.
+
+groupByToMap(callback): Groups array elements into a Map.
+
+11. Niche and Rarely Used
+[Symbol.unscopables]: Excludes certain methods from with statements.
+
+toSource(): (Non-standard) Returns the source code of the array.
+
+[@@species]: Returns the constructor used to create derived objects.
+
+
+
+
+Total Number of Methods: 48
+Summary Table
+Category	Number of Methods	Method Numbers
+Creation & Conversion	6	1–6
+Adding/Removing	6	7–12
+Searching & Filtering	8	13–20
+Transforming & Iterating	6	21–26
+Sorting & Reordering	5	27–31
+Copying & Slicing	3	32–34
+Checking & Testing	3	35–37
+Iterators & Keys/Values	4	38–41
+Filling & Replacing	2	42–43
+Grouping	2	44–45
+Niche & Rarely Used	3	46–48
+
+
+
+
+
+// 1. Array Creation and Conversion
+
+// Array.of
+const arr1 = Array.of(1, 2, 3); 
+console.log(arr1); // [1, 2, 3]
+
+// Array.from
+const arrayLike = {0: 'a', 1: 'b', 2: 'c', length: 3};
+const arr2 = Array.from(arrayLike);
+console.log(arr2); // ['a', 'b', 'c']
+
+// toString
+const arr3 = [1, 2, 3];
+console.log(arr3.toString()); // "1,2,3"
+
+// toLocaleString
+const arr4 = [1000, 2000, 3000];
+console.log(arr4.toLocaleString()); // "1,000,2,000,3,000" (depends on locale)
+
+// join
+const arr5 = ['apple', 'banana', 'cherry'];
+console.log(arr5.join('-')); // "apple-banana-cherry"
+
+// toJSON
+const arr6 = [1, 2, 3];
+console.log(JSON.stringify(arr6)); // "[1,2,3]"
+
+
+// 2. Adding and Removing Elements
+
+// push
+const arr7 = [1, 2, 3];
+arr7.push(4, 5);
+console.log(arr7); // [1, 2, 3, 4, 5]
+
+// pop
+const arr8 = [1, 2, 3];
+const lastElement = arr8.pop();
+console.log(arr8); // [1, 2]
+console.log(lastElement); // 3
+
+// unshift
+const arr9 = [2, 3];
+arr9.unshift(1);
+console.log(arr9); // [1, 2, 3]
+
+// shift
+const arr10 = [1, 2, 3];
+const firstElement = arr10.shift();
+console.log(arr10); // [2, 3]
+console.log(firstElement); // 1
+
+// splice
+const arr11 = [1, 2, 3, 4, 5];
+arr11.splice(2, 2, 'a', 'b');
+console.log(arr11); // [1, 2, 'a', 'b', 5]
+
+// concat
+const arr12 = [1, 2];
+const arr13 = [3, 4];
+const mergedArray = arr12.concat(arr13);
+console.log(mergedArray); // [1, 2, 3, 4]
+
+
+// 3. Searching and Filtering
+
+// indexOf
+const arr14 = [1, 2, 3, 4];
+console.log(arr14.indexOf(3)); // 2
+
+// lastIndexOf
+const arr15 = [1, 2, 3, 2];
+console.log(arr15.lastIndexOf(2)); // 3
+
+// includes
+const arr16 = [1, 2, 3, 4];
+console.log(arr16.includes(3)); // true
+
+// find
+const arr17 = [5, 10, 15];
+const found = arr17.find(x => x > 8);
+console.log(found); // 10
+
+// findIndex
+const arr18 = [5, 10, 15];
+const foundIndex = arr18.findIndex(x => x > 8);
+console.log(foundIndex); // 1
+
+// filter
+const arr19 = [1, 2, 3, 4, 5];
+const evenNumbers = arr19.filter(x => x % 2 === 0);
+console.log(evenNumbers); // [2, 4]
+
+
+// 4. Transforming and Iterating
+
+// map
+const arr20 = [1, 2, 3];
+const doubled = arr20.map(x => x * 2);
+console.log(doubled); // [2, 4, 6]
+
+// forEach
+const arr21 = ['a', 'b', 'c'];
+arr21.forEach(item => console.log(item)); 
+// "a" "b" "c"
+
+// flat
+const arr22 = [1, [2, [3, 4]]];
+console.log(arr22.flat(2)); // [1, 2, 3, 4]
+
+// reduce
+const arr23 = [1, 2, 3, 4];
+const sum = arr23.reduce((acc, val) => acc + val, 0);
+console.log(sum); // 10
+
+// reduceRight
+const arr24 = [1, 2, 3, 4];
+const sumRight = arr24.reduceRight((acc, val) => acc + val, 0);
+console.log(sumRight); // 10
+
+
+// 5. Sorting and Reordering
+
+// sort
+const arr25 = [3, 1, 4, 1, 2];
+arr25.sort();
+console.log(arr25); // [1, 1, 2, 3, 4]
+
+// reverse
+const arr26 = [1, 2, 3];
+arr26.reverse();
+console.log(arr26); // [3, 2, 1]
+
+// toReversed (ES2023)
+const arr27 = [1, 2, 3];
+const reversedArr = arr27.toReversed();
+console.log(reversedArr); // [3, 2, 1]
+
+// toSorted (ES2023)
+const arr28 = [3, 1, 4, 2];
+const sortedArr = arr28.toSorted();
+console.log(sortedArr); // [1, 2, 3, 4]
+
+
+// 6. Copying and Slicing
+
+// slice
+const arr29 = [1, 2, 3, 4];
+const sliced = arr29.slice(1, 3);
+console.log(sliced); // [2, 3]
+
+// copyWithin
+const arr30 = [1, 2, 3, 4];
+arr30.copyWithin(0, 2);
+console.log(arr30); // [3, 4, 3, 4]
+
+// with (ES2023)
+const arr31 = [1, 2, 3];
+const updatedArr = arr31.with(1, 99);
+console.log(updatedArr); // [1, 99, 3]
+
+
+// 7. Checking and Testing
+
+// some
+const arr32 = [1, 2, 3, 4];
+console.log(arr32.some(x => x > 3)); // true
+
+// every
+console.log(arr32.every(x => x > 0)); // true
+
+// isArray
+console.log(Array.isArray(arr32)); // true
+
+
+// 8. Iterators and Keys/Values
+
+// entries
+const arr33 = ['a', 'b', 'c'];
+for (const [index, value] of arr33.entries()) {
+  console.log(index, value); 
+}
+// 0 "a", 1 "b", 2 "c"
+
+// keys
+for (const key of arr33.keys()) {
+  console.log(key); 
+}
+// 0, 1, 2
+
+// values
+for (const value of arr33.values()) {
+  console.log(value); 
+}
+// "a", "b", "c"
+
+
+// 9. Filling and Replacing
+
+// fill
+const arr34 = [1, 2, 3, 4];
+arr34.fill(0, 2, 4);
+console.log(arr34); // [1, 2, 0, 0]
+
+// with (ES2023)
+const arr35 = [1, 2, 3];
+const replacedArr = arr35.with(1, 99);
+console.log(replacedArr); // [1, 99, 3]
+
+
+// 10. Grouping (Upcoming ES Features)
+
+// groupBy (upcoming)
+const arr36 = [6.1, 4.2, 6.3];
+const grouped = arr36.groupBy(Math.floor);
+console.log(grouped); 
+// { '4': [4.2], '6': [6.1, 6.3] }
+
+
+// 11. Niche and Rarely Used
+
+// [Symbol.unscopables]
+const arr37 = [1, 2, 3];
+console.log(arr37[Symbol.unscopables]); // undefined
+
+// toSource (Non-standard)
+console.log(arr37.toSource()); // "[1,2,3]"
+
+// [@@species]
+const arr38 = [];
+console.log(arr38[Symbol.species]); // function Array() { [native code] }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### 1. **new Array();``**  
 
 ### 1. **`push()`**  X  unshift()

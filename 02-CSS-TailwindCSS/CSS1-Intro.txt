@@ -82,6 +82,25 @@
 
 
 
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Default Styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Styles for Small Screens (Mobile) -->
+  <link rel="stylesheet" href="mobile.css" media="screen and (max-width: 600px)">
+
+  <!-- Styles for Medium Screens (Tablets) -->
+  <link rel="stylesheet" href="tablet.css" media="screen and (min-width: 601px) and (max-width: 1024px)">
+
+  <!-- Styles for Large Screens (Desktops) -->
+  <link rel="stylesheet" href="desktop.css" media="screen and (min-width: 1025px)">
+</head>
+
+
+
+
 
 
 

@@ -1,3 +1,282 @@
+//
+
+
+1. Object Creation and Prototype Management
+These methods are used for creating objects, managing prototypes, and inheritance.
+
+Object.create(proto, propertiesObject)
+Creates a new object with the specified prototype object and properties.
+
+Object.setPrototypeOf(obj, prototype)
+Sets the prototype (i.e., the internal [[Prototype]]) of a specified object.
+
+Object.getPrototypeOf(obj)
+Returns the prototype of the specified object.
+
+Object.isPrototypeOf(obj)
+Checks if an object exists in another object's prototype chain.
+
+Object.assign(target, ...sources)
+Copies all enumerable own properties from one or more source objects to a target object.
+
+Object.fromEntries(iterable)
+Transforms a list of key-value pairs (e.g., from a Map) into an object.
+
+2. Property Management
+These methods are used to define, modify, or inspect object properties.
+
+Object.defineProperty(obj, prop, descriptor)
+Defines a new property directly on an object or modifies an existing property.
+
+Object.defineProperties(obj, props)
+Defines new or modifies existing properties directly on an object.
+
+Object.getOwnPropertyDescriptor(obj, prop)
+Returns a property descriptor for an own property of an object.
+
+Object.getOwnPropertyDescriptors(obj)
+Returns all own property descriptors of an object.
+
+Object.getOwnPropertyNames(obj)
+Returns an array of all properties (including non-enumerable ones) found in an object.
+
+Object.getOwnPropertySymbols(obj)
+Returns an array of all symbol properties found in an object.
+
+Object.propertyIsEnumerable(prop)
+Checks if a property is enumerable.
+
+Object.hasOwnProperty(prop)
+Checks if an object has a specific property as its own (not inherited).
+
+3. Object Immutability and Extensibility
+These methods are used to control object mutability and extensibility.
+
+Object.freeze(obj)
+Freezes an object, preventing new properties from being added and existing properties from being modified or deleted.
+
+Object.isFrozen(obj)
+Determines if an object is frozen.
+
+Object.seal(obj)
+Seals an object, preventing new properties from being added and marking all existing properties as non-configurable.
+
+Object.isSealed(obj)
+Determines if an object is sealed.
+
+Object.preventExtensions(obj)
+Prevents new properties from being added to an object.
+
+Object.isExtensible(obj)
+Determines if an object is extensible (i.e., whether new properties can be added).
+
+4. Object Inspection and Conversion
+These methods are used to inspect or convert objects into other formats.
+
+Object.keys(obj)
+Returns an array of an object's own enumerable property names.
+
+Object.values(obj)
+Returns an array of an object's own enumerable property values.
+
+Object.entries(obj)
+Returns an array of an object's own enumerable property key-value pairs.
+
+Object.toString()
+Returns a string representation of the object.
+
+Object.toLocaleString()
+Returns a localized string representation of the object.
+
+Object.valueOf()
+Returns the primitive value of the specified object.
+
+5. Object Comparison and Equality
+These methods are used to compare objects or check for equality.
+
+Object.is(value1, value2)
+Determines if two values are the same value (strict equality with special handling for NaN and +0/-0).
+
+6. Advanced Object Manipulation
+These methods are used for advanced object manipulation and introspection.
+
+Object.groupBy(array, callback) (Upcoming ES feature)
+Groups elements of an array into an object based on the result of a callback function.
+
+Object.groupByToMap(array, callback) (Upcoming ES feature)
+Groups elements of an array into a Map based on the result of a callback function.
+
+7. Miscellaneous
+These methods don't fit into the above categories but are still useful.
+
+Object.hasOwn(obj, prop) (ES2022)
+Checks if an object has a specific property as its own (modern alternative to hasOwnProperty).
+
+Object.isView(obj) (Non-standard, deprecated)
+Checks if an object is a typed array view (rarely used).
+
+Total Number of Object Methods: 31
+
+
+
+
+
+// 1. Object Creation and Prototype Management
+// (1)
+const person = { name: "Alice" };
+const newPerson = Object.create(person, { age: { value: 25 } });
+console.log(newPerson.name); // Alice
+console.log(newPerson.age); // 25
+
+// (2)
+const obj = {};
+Object.setPrototypeOf(obj, { greeting: "Hello" });
+console.log(obj.greeting); // Hello
+
+// (3)
+console.log(Object.getPrototypeOf(newPerson)); // { name: "Alice" }
+
+// (4)
+console.log(person.isPrototypeOf(newPerson)); // true
+
+// (5)
+const target = { a: 1 };
+const source = { b: 2 };
+Object.assign(target, source);
+console.log(target); // { a: 1, b: 2 }
+
+// (6)
+const entries = new Map([["name", "Alice"], ["age", 25]]);
+const objFromEntries = Object.fromEntries(entries);
+console.log(objFromEntries); // { name: "Alice", age: 25 }
+
+// 2. Property Management
+// (7)
+const user = {};
+Object.defineProperty(user, "id", { value: 101, writable: false });
+console.log(user.id); // 101
+
+// (8)
+Object.defineProperties(user, {
+  name: { value: "Alice", writable: true },
+  age: { value: 25, writable: false }
+});
+console.log(user.name); // Alice
+
+// (9)
+console.log(Object.getOwnPropertyDescriptor(user, "name"));
+
+// (10)
+console.log(Object.getOwnPropertyNames(user)); // [ 'id', 'name', 'age' ]
+
+// (11)
+console.log(Object.getOwnPropertySymbols(user)); // []
+
+// (12)
+console.log(user.propertyIsEnumerable("name")); // true
+
+// (13)
+console.log(user.hasOwnProperty("id")); // true
+
+// 3. Object Immutability and Extensibility
+// (14)
+const car = { brand: "Tesla" };
+Object.freeze(car);
+console.log(Object.isFrozen(car)); // true
+
+// (15)
+const house = { type: "Villa" };
+Object.seal(house);
+console.log(Object.isSealed(house)); // true
+
+// (16)
+const bike = {};
+Object.preventExtensions(bike);
+console.log(Object.isExtensible(bike)); // false
+
+// 4. Object Inspection and Conversion
+// (17)
+const person2 = { name: "Bob", age: 30 };
+console.log(Object.keys(person2)); // [ 'name', 'age' ]
+
+// (18)
+console.log(Object.values(person2)); // [ 'Bob', 30 ]
+
+// (19)
+console.log(Object.entries(person2)); // [ [ 'name', 'Bob' ], [ 'age', 30 ] ]
+
+// (20)
+console.log(person2.toString()); // [object Object]
+
+// (21)
+console.log(person2.valueOf()); // { name: 'Bob', age: 30 }
+
+// 5. Object Comparison and Equality
+// (22)
+console.log(Object.is(0, -0)); // false
+
+// (23)
+console.log(Object.is(NaN, NaN)); // true
+
+// 6. Advanced Object Manipulation (Upcoming Features)
+// groupBy and groupByToMap not yet available in JavaScript
+
+// 7. Miscellaneous
+// (24)
+const data = { x: 10 };
+console.log(Object.hasOwn(data, "x")); // true
+
+// Deprecated methods
+// (25)
+const objDeprecated = {
+  get prop() {
+    return "getter";
+  },
+  set prop(value) {
+    console.log("setter: " + value);
+  }
+};
+console.log(objDeprecated.__lookupGetter__("prop")); // [Function: get prop]
+
+// (26)
+console.log(objDeprecated.__lookupSetter__("prop")); // [Function: set prop]
+
+// (27)
+console.log(person2.constructor === Object); // true
+
+// (28)
+function Person(name) {
+  this.name = name;
+}
+const person3 = new Person("Charlie");
+console.log(Person.prototype.isPrototypeOf(person3)); // true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 / 1 - create the objects
 / 2 - Object Constructor
 / 3 - Accessing Properties in an Object

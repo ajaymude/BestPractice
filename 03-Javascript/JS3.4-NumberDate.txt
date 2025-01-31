@@ -1,3 +1,457 @@
+// 
+
+
+📌 Trigonometric Functions (Work with angles, mostly in radians)
+Math.sin(x) – Returns the sine of x
+Math.cos(x) – Returns the cosine of x
+Math.tan(x) – Returns the tangent of x
+Math.asin(x) – Returns the arcsine of x (in radians)
+Math.acos(x) – Returns the arccosine of x (in radians)
+Math.atan(x) – Returns the arctangent of x (in radians)
+Math.atan2(y, x) – Returns the arctangent of the quotient y/x (in radians)
+🔥 Hyperbolic Functions (Used in advanced mathematics)
+Math.sinh(x) – Returns the hyperbolic sine of x
+Math.cosh(x) – Returns the hyperbolic cosine of x
+Math.tanh(x) – Returns the hyperbolic tangent of x
+Math.asinh(x) – Returns the hyperbolic arcsine of x
+Math.acosh(x) – Returns the hyperbolic arccosine of x
+Math.atanh(x) – Returns the hyperbolic arctangent of x
+🔢 Rounding and Integer Functions
+Math.ceil(x) – Rounds x up to the nearest integer
+Math.floor(x) – Rounds x down to the nearest integer
+Math.round(x) – Rounds x to the nearest integer
+Math.trunc(x) – Removes the decimal part, keeping only the integer
+Math.fround(x) – Returns the nearest 32-bit floating-point representation of x
+✨ Power and Root Functions
+Math.pow(x, y) – Returns x raised to the power y (x^y)
+Math.sqrt(x) – Returns the square root of x
+Math.cbrt(x) – Returns the cube root of x (³√x)
+Math.hypot(...values) – Returns the square root of the sum of squares (√(x² + y² + ...))
+🔡 Logarithmic and Exponential Functions
+Math.log(x) – Returns the natural logarithm (ln x, base e)
+Math.log2(x) – Returns the base 2 logarithm (log₂ x)
+Math.log10(x) – Returns the base 10 logarithm (log₁₀ x)
+Math.log1p(x) – Returns ln(1 + x) (useful for small x values)
+Math.exp(x) – Returns e^x (Euler’s number raised to x)
+Math.expm1(x) – Returns e^x - 1
+🎯 Min, Max, and Sign Functions
+Math.max(...values) – Returns the highest value
+Math.min(...values) – Returns the lowest value
+Math.sign(x) – Returns 1 for positive, -1 for negative, 0 for zero
+🎲 Random and Miscellaneous Functions
+Math.random() – Returns a pseudo-random number between 0 and 1
+Math.abs(x) – Returns the absolute (positive) value of x
+Math.clz32(x) – Returns the number of leading zeros in the 32-bit binary representation of x
+
+
+
+// Trigonometric Functions
+console.log(Math.sin(Math.PI / 2)); // 1
+console.log(Math.cos(0)); // 1
+console.log(Math.tan(Math.PI / 4)); // 1
+console.log(Math.asin(1)); // 1.5707963267948966 (PI/2 in radians)
+console.log(Math.acos(0)); // 1.5707963267948966 (PI/2 in radians)
+console.log(Math.atan(1)); // 0.7853981633974483 (PI/4 in radians)
+console.log(Math.atan2(1, 1)); // 0.7853981633974483 (PI/4 in radians)
+
+// Hyperbolic Functions
+console.log(Math.sinh(1)); // 1.1752011936438014
+console.log(Math.cosh(1)); // 1.5430806348152437
+console.log(Math.tanh(1)); // 0.7615941559557649
+console.log(Math.asinh(1)); // 0.881373587019543
+console.log(Math.acosh(2)); // 1.3169578969248166
+console.log(Math.atanh(0.5)); // 0.5493061443340549
+
+// Rounding and Integer Functions
+console.log(Math.ceil(4.3)); // 5
+console.log(Math.floor(4.9)); // 4
+console.log(Math.round(4.5)); // 5
+console.log(Math.trunc(4.9)); // 4
+console.log(Math.fround(1.337)); // 1.3370000123977661 (32-bit float approximation)
+
+// Power and Root Functions
+console.log(Math.pow(2, 3)); // 8
+console.log(Math.sqrt(16)); // 4
+console.log(Math.cbrt(27)); // 3
+console.log(Math.hypot(3, 4)); // 5 (sqrt(3^2 + 4^2))
+
+// Logarithmic and Exponential Functions
+console.log(Math.log(1)); // 0
+console.log(Math.log2(8)); // 3
+console.log(Math.log10(100)); // 2
+console.log(Math.log1p(0.5)); // 0.4054651081081644
+console.log(Math.exp(1)); // 2.718281828459045 (Euler's number e^1)
+console.log(Math.expm1(1)); // 1.718281828459045 (e^1 - 1)
+
+// Min, Max, and Sign Functions
+console.log(Math.max(10, 20, 5)); // 20
+console.log(Math.min(10, 20, 5)); // 5
+console.log(Math.sign(-10)); // -1 (negative number)
+
+// Random and Miscellaneous Functions
+console.log(Math.random()); // Random number between 0 and 1
+console.log(Math.abs(-42)); // 42
+console.log(Math.clz32(1)); // 31 (leading zeros in 32-bit binary of 1)
+
+
+
+
+
+
+
+// Additional Global Functions
+console.log(isFinite(10)); // true
+console.log(isFinite(Infinity)); // false
+console.log(isFinite("10")); // true (converted to number)
+console.log(isNaN(NaN)); // true
+console.log(isNaN("Hello")); // true (cannot be converted to number)
+console.log(isNaN(123)); // false
+console.log(parseInt("42")); // 42
+console.log(parseInt("1010", 2)); // 10 (binary to decimal)
+console.log(parseFloat("3.14")); // 3.14
+console.log(parseFloat("10.5px")); // 10.5 (extracts number)
+
+
+
+
+
+
+
+
+
+Conversion Methods
+Number()
+Number.parseFloat()
+Number.parseInt()
+Checking Methods
+Number.isNaN()
+Number.isFinite()
+Number.isInteger()
+Number.isSafeInteger()
+Formatting Methods
+Number.toExponential()
+Number.toFixed()
+Number.toPrecision()
+Number.toString()
+Object Methods
+Number.valueOf()
+Special Numeric Constants
+Number.MAX_VALUE
+Number.MIN_VALUE
+Number.NEGATIVE_INFINITY
+Number.POSITIVE_INFINITY
+Number.EPSILON
+Mathematical Constants and Methods
+Math.random()
+Math.abs()
+Math.clz32()
+
+
+
+
+
+// 1. Number()
+console.log(Number("123")); // 123
+
+// 2. Number.parseFloat()
+console.log(Number.parseFloat("3.14abc")); // 3.14
+
+// 3. Number.parseInt()
+console.log(Number.parseInt("123px")); // 123
+
+// 4. Number.isNaN()
+console.log(Number.isNaN(NaN)); // true
+
+// 5. Number.isFinite()
+console.log(Number.isFinite(1)); // true
+console.log(Number.isFinite(Infinity)); // false
+
+// 6. Number.isInteger()
+console.log(Number.isInteger(5)); // true
+console.log(Number.isInteger(5.5)); // false
+
+// 7. Number.isSafeInteger()
+console.log(Number.isSafeInteger(9007199254740991)); // true
+console.log(Number.isSafeInteger(9007199254740992)); // false
+
+// 8. Number.toExponential()
+console.log((12345).toExponential(2)); // "1.23e+4"
+
+// 9. Number.toFixed()
+console.log((3.14159).toFixed(2)); // "3.14"
+
+// 10. Number.toPrecision()
+console.log((123.456).toPrecision(4)); // "123.5"
+
+// 11. Number.toString()
+console.log((255).toString(16)); // "ff"
+
+// 12. Number.valueOf()
+console.log((new Number(123)).valueOf()); // 123
+
+// 13. Number.MAX_VALUE
+console.log(Number.MAX_VALUE); // 1.7976931348623157e+308
+
+// 14. Number.MIN_VALUE
+console.log(Number.MIN_VALUE); // 5e-324
+
+// 15. Number.NEGATIVE_INFINITY
+console.log(Number.NEGATIVE_INFINITY); // -Infinity
+
+// 16. Number.POSITIVE_INFINITY
+console.log(Number.POSITIVE_INFINITY); // Infinity
+
+// 17. Number.EPSILON
+console.log(Number.EPSILON); // 2.220446049250313e-16
+
+// 18. Math.random()
+console.log(Math.random()); // Random number between 0 and 1
+
+// 19. Math.abs()
+console.log(Math.abs(-5)); // 5
+
+// 20. Math.clz32()
+console.log(Math.clz32(5)); // 29 (number of leading zeros in 32-bit binary of 5)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1. Methods for Getting Date and Time Values
+These methods retrieve various parts of a date and time.
+
+Date and Time Values:
+getDate() – Returns the day of the month (1-31).
+getDay() – Returns the day of the week (0-6, where 0 is Sunday).
+getFullYear() – Returns the full year (e.g., 2025).
+getHours() – Returns the hour (0-23).
+getMilliseconds() – Returns the milliseconds (0-999).
+getMinutes() – Returns the minutes (0-59).
+getMonth() – Returns the month (0-11, where 0 is January).
+getSeconds() – Returns the seconds (0-59).
+getTime() – Returns the number of milliseconds since January 1, 1970, 00:00:00 UTC.
+getTimezoneOffset() – Returns the time difference between UTC and the local time, in minutes.
+UTC Date and Time Values:
+getUTCDate() – Returns the day of the month in UTC (1-31).
+getUTCFullYear() – Returns the full year in UTC.
+getUTCMonth() – Returns the month in UTC (0-11).
+getUTCDay() – Returns the day of the week in UTC (0-6).
+getUTCHours() – Returns the hour in UTC (0-23).
+getUTCMinutes() – Returns the minutes in UTC (0-59).
+getUTCSeconds() – Returns the seconds in UTC (0-59).
+getUTCMilliseconds() – Returns the milliseconds in UTC (0-999).
+2. Methods for Setting Date and Time Values
+These methods allow you to set specific parts of a date and time.
+
+Date and Time Values:
+
+setDate(day) – Sets the day of the month (1-31).
+setFullYear(year, month, day) – Sets the full year, month, and day.
+setHours(hour, minute, second, millisecond) – Sets the hour, minute, second, and millisecond.
+setMilliseconds(milliseconds) – Sets the milliseconds (0-999).
+setMinutes(minute, second, millisecond) – Sets the minute, second, and millisecond.
+setMonth(month) – Sets the month (0-11).
+setSeconds(second, millisecond) – Sets the second and millisecond.
+setTime(milliseconds) – Sets the time in milliseconds since January 1, 1970.
+UTC Date and Time Values:
+
+setUTCDate(day) – Sets the day of the month in UTC (1-31).
+setUTCFullYear(year, month, day) – Sets the full year, month, and day in UTC.
+setUTCMonth(month) – Sets the month in UTC (0-11).
+setUTCHours(hour, minute, second, millisecond) – Sets the hour, minute, second, and millisecond in UTC.
+setUTCMinutes(minute, second, millisecond) – Sets the minute, second, and millisecond in UTC.
+setUTCSeconds(second, millisecond) – Sets the second and millisecond in UTC.
+setUTCMilliseconds(milliseconds) – Sets the milliseconds in UTC.
+3. Methods for Formatting Dates and Times
+These methods return the date and time in various string formats.
+
+Standard Formatting:
+toDateString() – Returns the date portion as a readable string.
+toTimeString() – Returns the time portion as a readable string.
+toISOString() – Returns the date and time in ISO 8601 format (e.g., "2025-01-31T14:30:15.000Z").
+toJSON() – Returns a JSON string representation of the date (same as toISOString()).
+toLocaleDateString() – Returns the date in the local date format.
+toLocaleTimeString() – Returns the time in the local time format.
+toLocaleString() – Returns both date and time in the local format.
+toString() – Returns a string representing the date and time.
+toUTCString() – Returns the date and time in UTC format.
+4. Methods for Date Arithmetic
+These methods help with date calculations and operations.
+
+Date.now() – Returns the current time in milliseconds since January 1, 1970.
+Date.parse(dateString) – Parses a date string and returns the corresponding time in milliseconds.
+Date.UTC(year, month, day, hours, minutes, seconds, milliseconds) – Returns the number of milliseconds for a given UTC date.
+Date.prototype.valueOf() – Returns the primitive value of a Date object (i.e., the number of milliseconds since January 1, 1970).
+5. Static Methods
+These methods are available on the Date constructor itself, rather than instances of Date.
+
+Date Parsing and Conversion:
+Date.parse(dateString) – Parses a date string and returns the time in milliseconds.
+Date.UTC(year, month, day, hours, minutes, seconds, milliseconds) – Returns the time in milliseconds for a UTC date.
+Date.now() – Returns the current time in milliseconds since January 1, 1970.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 1. Methods for Getting Date and Time Values
+const date = new Date();
+console.log("1. getDate(): ", date.getDate()); // Returns the day of the month (1-31)
+console.log("2. getDay(): ", date.getDay()); // Returns the day of the week (0-6, where 0 is Sunday)
+console.log("3. getFullYear(): ", date.getFullYear()); // Returns the full year (e.g., 2025)
+console.log("4. getHours(): ", date.getHours()); // Returns the hour (0-23)
+console.log("5. getMilliseconds(): ", date.getMilliseconds()); // Returns the milliseconds (0-999)
+console.log("6. getMinutes(): ", date.getMinutes()); // Returns the minutes (0-59)
+console.log("7. getMonth(): ", date.getMonth()); // Returns the month (0-11, where 0 is January)
+console.log("8. getSeconds(): ", date.getSeconds()); // Returns the seconds (0-59)
+console.log("9. getTime(): ", date.getTime()); // Returns the number of milliseconds since January 1, 1970, 00:00:00 UTC
+console.log("10. getTimezoneOffset(): ", date.getTimezoneOffset()); // Returns the time difference between UTC and the local time, in minutes
+
+console.log("11. getUTCDate(): ", date.getUTCDate()); // Returns the day of the month in UTC (1-31)
+console.log("12. getUTCFullYear(): ", date.getUTCFullYear()); // Returns the full year in UTC
+console.log("13. getUTCMonth(): ", date.getUTCMonth()); // Returns the month in UTC (0-11)
+console.log("14. getUTCDay(): ", date.getUTCDay()); // Returns the day of the week in UTC (0-6)
+console.log("15. getUTCHours(): ", date.getUTCHours()); // Returns the hour in UTC (0-23)
+console.log("16. getUTCMinutes(): ", date.getUTCMinutes()); // Returns the minutes in UTC (0-59)
+console.log("17. getUTCSeconds(): ", date.getUTCSeconds()); // Returns the seconds in UTC (0-59)
+console.log("18. getUTCMilliseconds(): ", date.getUTCMilliseconds()); // Returns the milliseconds in UTC (0-999)
+
+// 2. Methods for Setting Date and Time Values
+date.setDate(15);
+console.log("1. setDate(15): ", date); // Sets the day of the month (1-31)
+date.setFullYear(2026, 5, 10);
+console.log("2. setFullYear(2026, 5, 10): ", date); // Sets the full year, month, and day
+date.setHours(10, 30, 45, 123);
+console.log("3. setHours(10, 30, 45, 123): ", date); // Sets the hour, minute, second, and millisecond
+date.setMilliseconds(500);
+console.log("4. setMilliseconds(500): ", date); // Sets the milliseconds (0-999)
+date.setMinutes(25, 35, 999);
+console.log("5. setMinutes(25, 35, 999): ", date); // Sets the minute, second, and millisecond
+date.setMonth(2);
+console.log("6. setMonth(2): ", date); // Sets the month (0-11)
+date.setSeconds(10, 200);
+console.log("7. setSeconds(10, 200): ", date); // Sets the second and millisecond
+date.setTime(1618704000000);
+console.log("8. setTime(1618704000000): ", date); // Sets the time in milliseconds since January 1, 1970
+
+date.setUTCDate(22);
+console.log("9. setUTCDate(22): ", date); // Sets the day of the month in UTC (1-31)
+date.setUTCFullYear(2027, 7, 30);
+console.log("10. setUTCFullYear(2027, 7, 30): ", date); // Sets the full year, month, and day in UTC
+date.setUTCMonth(8);
+console.log("11. setUTCMonth(8): ", date); // Sets the month in UTC (0-11)
+date.setUTCHours(14, 50, 10, 250);
+console.log("12. setUTCHours(14, 50, 10, 250): ", date); // Sets the hour, minute, second, and millisecond in UTC
+date.setUTCMinutes(45, 15, 100);
+console.log("13. setUTCMinutes(45, 15, 100): ", date); // Sets the minute, second, and millisecond in UTC
+date.setUTCSeconds(55, 500);
+console.log("14. setUTCSeconds(55, 500): ", date); // Sets the second and millisecond in UTC
+date.setUTCMilliseconds(999);
+console.log("15. setUTCMilliseconds(999): ", date); // Sets the milliseconds in UTC
+
+// 3. Methods for Formatting Dates and Times
+console.log("1. toDateString(): ", date.toDateString()); // Returns the date portion as a readable string
+console.log("2. toTimeString(): ", date.toTimeString()); // Returns the time portion as a readable string
+console.log("3. toISOString(): ", date.toISOString()); // Returns the date and time in ISO 8601 format (e.g., "2025-01-31T14:30:15.000Z")
+console.log("4. toJSON(): ", date.toJSON()); // Returns a JSON string representation of the date (same as toISOString())
+console.log("5. toLocaleDateString(): ", date.toLocaleDateString()); // Returns the date in the local date format
+console.log("6. toLocaleTimeString(): ", date.toLocaleTimeString()); // Returns the time in the local time format
+console.log("7. toLocaleString(): ", date.toLocaleString()); // Returns both date and time in the local format
+console.log("8. toString(): ", date.toString()); // Returns a string representing the date and time
+console.log("9. toUTCString(): ", date.toUTCString()); // Returns the date and time in UTC format
+
+// 4. Methods for Date Arithmetic
+console.log("1. Date.now(): ", Date.now()); // Returns the current time in milliseconds since January 1, 1970
+console.log("2. Date.parse('2025-01-31'): ", Date.parse('2025-01-31')); // Parses a date string and returns the time in milliseconds
+console.log("3. Date.UTC(2025, 0, 31): ", Date.UTC(2025, 0, 31)); // Returns the number of milliseconds for a given UTC date
+console.log("4. date.valueOf(): ", date.valueOf()); // Returns the primitive value of a Date object (i.e., the number of milliseconds since January 1, 1970)
+
+// 5. Static Methods
+console.log("1. Date.parse('2025-01-31'): ", Date.parse('2025-01-31')); // Parses a date string and returns the time in milliseconds
+console.log("2. Date.UTC(2025, 0, 31): ", Date.UTC(2025, 0, 31)); // Returns the time in milliseconds for a UTC date
+console.log("3. Date.now(): ", Date.now()); // Returns the current time in milliseconds since January 1, 1970
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // Number 
