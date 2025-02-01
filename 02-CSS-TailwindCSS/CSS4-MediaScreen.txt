@@ -4,6 +4,7 @@
 // 4 - @supports 
 // 5 - prefers-color-scheme
 // 6 - display mode 
+// 7 - break point 
 
 
 
@@ -462,4 +463,77 @@ img {
   img {
     width: 100%;  /* In portrait, use full width */
   }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 7 - break point 
+
+/* Default styles (for mobile-first approach) */
+body {
+  font-size: 14px;
+  background-color: lightblue;
+}
+
+/* Mobile devices (up to 767px) */
+@media (max-width: 767px) {
+  body {
+    background-color: lightcoral;
+    font-size: 14px;
+  }
+  .device-type::after {
+    content: "Mobile";
+  }
+}
+
+/* Tablets (768px to 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  body {
+    background-color: lightgreen;
+    font-size: 16px;
+  }
+  .device-type::after {
+    content: "Tablet";
+  }
+}
+
+/* Desktops (1024px and above) */
+@media (min-width: 1024px) {
+  body {
+    background-color: lightgoldenrodyellow;
+    font-size: 18px;
+  }
+  .device-type::after {
+    content: "Desktop";
+  }
+}
+
+/* Optional: Extra Large Desktops (1200px and above) */
+@media (min-width: 1200px) {
+  body {
+    background-color: lavender;
+    font-size: 20px;
+  }
+  .device-type::after {
+    content: "Large Desktop";
+  }
+}
+
+/* Helper class to display the current device type */
+.device-type::before {
+  content: "Current Device: ";
+  font-weight: bold;
 }

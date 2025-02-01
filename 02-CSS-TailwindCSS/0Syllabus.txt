@@ -1,3 +1,431 @@
+1. Box Model Properties
+These properties control the layout and sizing of elements.
+
+Standard Properties
+width
+
+height
+
+margin
+
+margin-top, margin-right, margin-bottom, margin-left
+
+padding
+
+padding-top, padding-right, padding-bottom, padding-left
+
+border
+
+border-width, border-style, border-color
+
+border-radius
+
+box-sizing
+
+outline
+
+outline-width, outline-style, outline-color
+
+outline-offset
+
+Experimental/Non-Standard
+aspect-ratio (experimental)
+
+gap (shorthand for row-gap and column-gap)
+
+
+
+
+
+
+
+2. Display and Positioning Properties
+These properties control the display behavior and positioning of elements.
+
+Standard Properties
+display
+
+position
+
+top, right, bottom, left
+
+z-index
+
+float
+
+clear
+
+visibility
+
+overflow
+
+overflow-x, overflow-y
+
+clip-path
+
+resize
+
+Experimental/Non-Standard
+backdrop-filter (experimental)
+
+scroll-snap-type (experimental)
+
+scroll-snap-align (experimental)
+
+scroll-behavior (experimental)
+
+
+
+
+
+
+
+
+3. Flexbox Properties
+These properties are used for creating flexible layouts.
+
+Standard Properties
+flex-direction
+
+flex-wrap
+
+flex-flow
+
+justify-content
+
+align-items
+
+align-content
+
+order
+
+flex-grow
+
+flex-shrink
+
+flex-basis
+
+flex
+
+align-self
+
+
+
+
+
+
+
+
+4. Grid Properties
+These properties are used for creating grid-based layouts.
+
+Standard Properties
+display: grid
+
+grid-template-columns
+
+grid-template-rows
+
+grid-template-areas
+
+grid-template
+
+grid-column-gap, grid-row-gap
+
+grid-gap
+
+justify-items
+
+align-items
+
+justify-content
+
+align-content
+
+grid-auto-columns
+
+grid-auto-rows
+
+grid-auto-flow
+
+grid-column-start, grid-column-end
+
+grid-row-start, grid-row-end
+
+grid-column, grid-row
+
+grid-area
+
+
+
+
+
+
+
+
+
+5. Typography Properties
+These properties control the appearance of text.
+
+Standard Properties
+font-family
+
+font-size
+
+font-weight
+
+font-style
+
+font-variant
+
+line-height
+
+text-align
+
+text-decoration
+
+text-transform
+
+letter-spacing
+
+word-spacing
+
+white-space
+
+text-overflow
+
+text-shadow
+
+font
+
+Experimental/Non-Standard
+font-variant-ligatures (deprecated in favor of font-feature-settings)
+
+
+
+
+
+
+
+6. Color and Background Properties
+These properties control colors and backgrounds.
+
+Standard Properties
+color
+
+background-color
+
+background-image
+
+background-repeat
+
+background-position
+
+background-size
+
+background-attachment
+
+background
+
+opacity
+
+box-shadow
+
+Experimental/Non-Standard
+conic-gradient (experimental)
+
+mix-blend-mode (experimental)
+
+
+
+
+
+
+
+7. Animation and Transition Properties
+These properties control animations and transitions.
+
+Standard Properties
+transition
+
+transition-property
+
+transition-duration
+
+transition-timing-function
+
+transition-delay
+
+animation
+
+animation-name
+
+animation-duration
+
+animation-timing-function
+
+animation-delay
+
+animation-iteration-count
+
+animation-direction
+
+animation-fill-mode
+
+animation-play-state
+
+
+
+
+
+
+8. Transform Properties
+These properties control transformations of elements.
+
+Standard Properties
+transform
+
+transform-origin
+
+transform-style
+
+perspective
+
+perspective-origin
+
+backface-visibility
+
+
+
+
+
+
+
+9. Miscellaneous Properties
+These properties don't fit into the above categories.
+
+Standard Properties
+cursor
+
+list-style
+
+content
+
+quotes
+
+counter-reset, counter-increment
+
+user-select
+
+Experimental/Non-Standard
+mask (experimental)
+
+
+
+
+
+
+
+10. CSS Variables (Custom Properties)
+These are not traditional properties but are widely used in modern CSS.
+
+--variable-name: Defines a custom property (e.g., --main-color: red;).
+
+var(): Uses a custom property (e.g., color: var(--main-color);).
+
+
+
+
+
+
+11. Pseudo-Elements and Pseudo-Classes
+These are not properties but are essential for advanced CSS styling.
+
+Pseudo-Elements
+::before
+
+::after
+
+::first-letter
+
+::first-line
+
+::selection
+
+::placeholder
+
+Pseudo-Classes
+:hover
+
+:active
+
+:focus
+
+:nth-child()
+
+:nth-of-type()
+
+:not()
+
+:first-child, :last-child
+
+:first-of-type, :last-of-type
+
+:checked
+
+:disabled
+
+:required
+
+
+
+
+
+
+
+12. Media Query Features
+These are not properties but are crucial for responsive design.
+
+width, height
+
+min-width, max-width
+
+orientation
+
+resolution
+
+prefers-color-scheme
+
+prefers-reduced-motion
+
+
+
+
+
+
+13. Deprecated or Obsolete Properties
+These properties were part of older CSS versions but have been removed or deprecated.
+
+font-variant-ligatures (deprecated in favor of font-feature-settings)
+
+clip (deprecated in favor of clip-path)
+
+text-shadow (deprecated in favor of filter: drop-shadow())
+
+box-shadow (deprecated in favor of filter: drop-shadow())
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 1. Introduction to CSS
