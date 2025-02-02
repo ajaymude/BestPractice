@@ -11,9 +11,20 @@
             - rootReducer.js
             -store.js 
        - pages 
-       - components 
+       - component
+       - sckeleton
        - Layout.js 
        - MainRoute.js
+
+
+
+
+
+// use the react toast to notify the user 
+
+
+
+
 
 
 

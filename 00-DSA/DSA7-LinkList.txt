@@ -1,0 +1,111 @@
+
+
+Link list 
+
+A linked list in JavaScript is a data structure where elements (nodes) are stored 
+in a sequence, and each node points to the next node in the list. Unlike arrays, linked 
+lists do not use contiguous memory locations, making insertions and deletions more efficient.
+
+
+
+🔹 Types of Linked Lists:
+Singly Linked List – Each node has a value and a next pointer.
+Doubly Linked List – Each node has a value, a next pointer, and a prev pointer.
+Circular Linked List – The last node links back to the first node.
+
+
+
+
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
+  }
+
+  // Insert at the end
+  append(value) {
+    const newNode = new Node(value);
+    if (!this.head) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      this.tail.next = newNode;
+      this.tail = newNode;
+    }
+    this.length++;
+  }
+
+  // Insert at the beginning
+  prepend(value) {
+    const newNode = new Node(value);
+    newNode.next = this.head;
+    this.head = newNode;
+    if (!this.tail) this.tail = newNode;
+    this.length++;
+  }
+
+  // Print all nodes
+  print() {
+    let current = this.head;
+    let values = [];
+    while (current) {
+      values.push(current.value);
+      current = current.next;
+    }
+    console.log(values.join(" -> "));
+  }
+
+  // Delete a node by value
+  delete(value) {
+    if (!this.head) return;
+
+    if (this.head.value === value) {
+      this.head = this.head.next;
+      if (!this.head) this.tail = null;
+      this.length--;
+      return;
+    }
+
+    let current = this.head;
+    while (current.next && current.next.value !== value) {
+      current = current.next;
+    }
+
+    if (current.next) {
+      if (current.next === this.tail) this.tail = current;
+      current.next = current.next.next;
+      this.length--;
+    }
+  }
+}
+
+// Example Usage
+const list = new LinkedList();
+list.append(10);
+list.append(20);
+list.append(30);
+list.prepend(5);
+list.print(); // 5 -> 10 -> 20 -> 30
+list.delete(20);
+list.print(); // 5 -> 10 -> 30
+
+
+
+
+
+
+
+🚀 Advantages of Linked Lists:
+Efficient Insertions & Deletions – No need to shift elements like in arrays.
+Dynamic Size – No fixed size like arrays.
+⚠️ Disadvantages:
+More Memory Usage – Extra pointers increase space complexity.
+Slower Access – No direct indexing like arrays (O(n) search).
