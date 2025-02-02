@@ -94,10 +94,21 @@ exit                       # Exit the terminal session
 
 git --version 
 
+
+/ set the user name and email 
 git config --global user.name "Your Name"
 git config --global user.email "youremail@example.com"
 
 git config --list
+
+/ check the  config current user 
+git config --global user.name
+git config --global user.email
+
+git config user.name
+git config user.email
+
+
 
 
 
@@ -137,6 +148,37 @@ git log --oneline
 / amending the commit  // with this we can amend previous commit 
 
 git commit --amend
+
+
+/ to see the remote branch 
+
+git remote -v 
+
+
+
+/ how to rename the remote branch name 
+
+git remote rename <old> <new>
+git remote remove <name>
+
+
+/ how to add the remote origin 
+
+git remote add origin https://url.git
+
+
+/ rename the current branch name 
+
+git branch -M main
+
+
+
+
+/ how to fetch the change from the remote branch 
+
+git fetch <remote> <branch>
+git fetch origin <branch>
+
 
 
 

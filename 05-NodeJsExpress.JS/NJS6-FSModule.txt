@@ -1,0 +1,71 @@
+
+
+
+1. Checking File/Directory Existence
+
+fs.existsSync(path): Checks if a file or directory exists (deprecated, but still works).
+fs.access(path, fs.constants.F_OK, callback): Modern way to check if a file exists.
+
+
+
+
+2. Watching File Changes
+
+fs.watch(filename, (eventType, filename) => { }): Watches for changes in a file.
+fs.watchFile(filename, callback): Similar, but more stable for large files.
+
+
+
+
+3. Reading and Writing Directories
+
+fs.readdir(path, callback): Reads contents of a directory.
+fs.opendir(path): Asynchronously opens a directory for iteration.
+
+
+
+
+4. File Permissions and Ownership
+
+fs.chmod(path, mode, callback): Changes file permissions.
+fs.chown(path, uid, gid, callback): Changes file owner.
+
+
+
+
+
+5. File Copying and Moving
+
+fs.copyFile(src, dest, callback): Copies a file.
+fs.rename(oldPath, newPath, callback): Moves a file or renames it.
+
+
+
+
+6. File System Promises API (fs.promises)
+
+Modern async alternatives for most operations:
+
+fs.promises.readFile()
+fs.promises.writeFile()
+fs.promises.unlink()
+fs.promises.mkdir()
+These return Promises instead of using callbacks.
+
+
+
+
+7. Working with File Descriptors
+
+fs.open(path, flags, callback): Opens a file and returns a file descriptor.
+fs.close(fd, callback): Closes an open file descriptor.
+
+
+
+
+8. File System Streams
+
+For handling large files efficiently:
+
+fs.createReadStream(path): Reads a file in chunks.
+fs.createWriteStream(path): Writes data in chunks.
