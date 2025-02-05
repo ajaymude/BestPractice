@@ -295,4 +295,460 @@ export default App;
 
 
 
-/ 9 - 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/ 9 - rtk query in react , create the api 
+
+
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
+export const usersApi = createApi({
+  reducerPath: 'usersApi',
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://jsonplaceholder.typicode.com/' }),
+  endpoints: (builder) => ({
+    getUsers: builder.query({
+      query: () => 'users',
+      keepUnusedDataFor: 60, // Cache data for 60 seconds before removing it
+    }),
+  }),
+});
+
+export const { useGetUsersQuery } = usersApi;
+
+
+
+
+
+
+/ 10 - add the api to the store 
+
+import { configureStore } from '@reduxjs/toolkit';
+import { usersApi } from './usersApi';
+
+const store = configureStore({
+  reducer: {
+    [usersApi.reducerPath]: usersApi.reducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(usersApi.middleware),
+});
+
+export default store;
+
+
+
+
+
+
+/ 10 - use the data in the react component 
+
+
+import React from 'react';
+import { useGetUsersQuery } from './usersApi';
+
+const UsersList = () => {
+  const { data: users, error, isLoading } = useGetUsersQuery();
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  return (
+    <div>
+      <h2>User List</h2>
+      <ul>
+        {users.map((user) => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default UsersList;
+
+
+
+
+
+
+
+/ 12 -  npm i react-spinners react spinners 
+
+import React from 'react';
+import { useGetUsersQuery } from './usersApi';
+import ClipLoader from 'react-spinners/ClipLoader'; // Import spinner
+
+const UsersList = () => {
+  const { data: users, error, isLoading } = useGetUsersQuery();
+
+  if (isLoading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+        <ClipLoader color="#36d7b7" size={50} />
+      </div>
+    );
+  }
+
+  if (error) return <p style={{ color: 'red' }}>Error: {error.message}</p>;
+
+  return (
+    <div>
+      <h2>User List</h2>
+      <ul>
+        {users.map((user) => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default UsersList;
+
+
+
+
+
+/ 13 - addin the spinner in react component 
+
+
+import React from 'react';
+import { useGetUsersQuery } from './usersApi';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+
+const UsersList = () => {
+  const { data: users, error, isLoading } = useGetUsersQuery();
+
+  if (isLoading) {
+    return (
+      <div>
+        <h2><Skeleton width={200} /></h2>
+        <ul>
+          {[...Array(5)].map((_, index) => (
+            <li key={index} style={{ marginBottom: '10px' }}>
+              <Skeleton width={150} height={20} />
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+
+  if (error) return <p style={{ color: 'red' }}>Error: {error.message}</p>;
+
+  return (
+    <div>
+      <h2>User List</h2>
+      <ul>
+        {users.map((user) => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default UsersList;
+
+
+
+
+
+
+/ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// rtk 
+
+
+
+/ 1 - create the api for fetch the data of the send the data 
+
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
+// Define the API slice
+export const apiSlice = createApi({
+  reducerPath: 'api',  // Name of the slice in the Redux store
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://jsonplaceholder.typicode.com' }), // Base API URL
+  endpoints: (builder) => ({
+    getPosts: builder.query({
+      query: () => '/posts',  // API endpoint
+    }),
+  }),
+});
+
+// Export the generated hook for the query
+export const { useGetPostsQuery } = apiSlice;
+
+
+
+
+
+/ 2 - adding the api to the slice store 
+
+import { configureStore } from '@reduxjs/toolkit';
+import { apiSlice } from './apiSlice';
+
+export const store = configureStore({
+  reducer: {
+    [apiSlice.reducerPath]: apiSlice.reducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(apiSlice.middleware),
+});
+
+
+
+
+
+
+/ 3 - use the api in the react component 
+
+
+import React from 'react';
+import { useGetPostsQuery } from './apiSlice';
+
+const PostsList = () => {
+  const { data: posts, error, isLoading } = useGetPostsQuery();
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error fetching posts.</p>;
+
+  return (
+    <ul>
+      {posts.map((post) => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  );
+};
+
+export default PostsList;
+
+
+
+
+
+
+/ 4 - crud with the rtk create the api for the rtk
+
+
+
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
+// Define the API slice
+export const apiSlice = createApi({
+  reducerPath: 'api',
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://jsonplaceholder.typicode.com' }),
+  endpoints: (builder) => ({
+    // GET request (query)
+    getPosts: builder.query({
+      query: () => '/posts',
+    }),
+
+    // POST request (create new post)
+    addPost: builder.mutation({
+      query: (newPost) => ({
+        url: '/posts',
+        method: 'POST',
+        body: newPost,
+      }),
+    }),
+
+    // PUT request (update post)
+    updatePost: builder.mutation({
+      query: ({ id, ...updatedData }) => ({
+        url: `/posts/${id}`,
+        method: 'PUT',
+        body: updatedData,
+      }),
+    }),
+
+    // DELETE request (delete post)
+    deletePost: builder.mutation({
+      query: (id) => ({
+        url: `/posts/${id}`,
+        method: 'DELETE',
+      }),
+    }),
+  }),
+});
+
+// Export hooks
+export const { 
+  useGetPostsQuery, 
+  useAddPostMutation, 
+  useUpdatePostMutation, 
+  useDeletePostMutation 
+} = apiSlice;
+
+
+
+
+/ 5 - use the api in the react component 
+
+import React, { useState } from 'react';
+import { useAddPostMutation } from './apiSlice';
+
+const AddPost = () => {
+  const [addPost] = useAddPostMutation();
+  const [title, setTitle] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await addPost({ title, body: 'This is a new post', userId: 1 });
+    setTitle('');
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input 
+        type="text" 
+        value={title} 
+        onChange={(e) => setTitle(e.target.value)} 
+        placeholder="Enter title"
+      />
+      <button type="submit">Add Post</button>
+    </form>
+  );
+};
+
+export default AddPost;
+
+
+/ update 
+
+import React, { useState } from 'react';
+import { useUpdatePostMutation } from './apiSlice';
+
+const UpdatePost = () => {
+  const [updatePost] = useUpdatePostMutation();
+  const [postId, setPostId] = useState('');
+  const [newTitle, setNewTitle] = useState('');
+
+  const handleUpdate = async () => {
+    await updatePost({ id: postId, title: newTitle, body: 'Updated post content' });
+    setPostId('');
+    setNewTitle('');
+  };
+
+  return (
+    <div>
+      <input 
+        type="text" 
+        value={postId} 
+        onChange={(e) => setPostId(e.target.value)} 
+        placeholder="Post ID"
+      />
+      <input 
+        type="text" 
+        value={newTitle} 
+        onChange={(e) => setNewTitle(e.target.value)} 
+        placeholder="New Title"
+      />
+      <button onClick={handleUpdate}>Update Post</button>
+    </div>
+  );
+};
+
+export default UpdatePost;
+
+
+
+
+/ delete 
+
+import React, { useState } from 'react';
+import { useDeletePostMutation } from './apiSlice';
+
+const DeletePost = () => {
+  const [deletePost] = useDeletePostMutation();
+  const [postId, setPostId] = useState('');
+
+  const handleDelete = async () => {
+    await deletePost(postId);
+    setPostId('');
+  };
+
+  return (
+    <div>
+      <input 
+        type="text" 
+        value={postId} 
+        onChange={(e) => setPostId(e.target.value)} 
+        placeholder="Post ID to delete"
+      />
+      <button onClick={handleDelete}>Delete Post</button>
+    </div>
+  );
+};
+
+export default DeletePost;
+
+
+
