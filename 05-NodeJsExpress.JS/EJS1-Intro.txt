@@ -1,0 +1,88 @@
+
+
+const express = require("express");
+const app = express()
+
+
+
+const express = require('express');
+const app = express();
+
+app.all('/test', (req, res) => {
+    res.send(`Handled ${req.method} request`);
+});
+
+app.listen(3000, () => {
+    console.log('Server running on port 3000');
+});
+
+
+
+const express = require('express');
+const app = express();
+const port = 3000;
+
+// Middleware to parse JSON body
+app.use(express.json());
+
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
+
+
+
+app.get('/users', (req, res) => {
+    res.send('Fetching all users...');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+// serving the static file to the express
+
+const express = require('express');
+const app = express();
+const port = 3000;
+
+// Serve static files from the 'public' folder
+app.use(express.static('public'));
+
+app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
+});
+
+
+/ create the static folder 
+
+/public
+   /css/style.css
+   /images/logo.png
+   /js/script.js
+   index.html
+
+
+
+Accessing Static Files
+Once the server is running:
+
+http://localhost:3000/index.html → Loads index.html
+http://localhost:3000/css/style.css → Loads style.css
+http://localhost:3000/images/logo.png → Loads logo.png
+http://localhost:3000/js/script.js → Loads script.js
+
+
+
+
+
+
+
+

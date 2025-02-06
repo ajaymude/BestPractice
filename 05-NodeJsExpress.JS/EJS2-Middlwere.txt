@@ -1,0 +1,86 @@
+
+
+
+
+
+
+
+// res.locals 
+
+
+const express = require('express');
+const app = express();
+const port = 3000;
+
+// Middleware to set a variable in res.locals
+app.use((req, res, next) => {
+    res.locals.message = "Hello from res.locals!";
+    next();
+});
+
+app.get('/', (req, res) => {
+    res.send(`<h1>${res.locals.message}</h1>`);
+});
+
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});
+
+
+/ use for  the auth 
+
+app.use((req, res, next) => {
+    res.locals.isAuthenticated = req.session?.user ? true : false;
+    res.locals.username = req.session?.user?.name || "Guest";
+    next();
+});
+
+// In a template (EJS example)
+<% if (isAuthenticated) { %>
+    <h1>Welcome, <%= username %>!</h1>
+<% } else { %>
+    <h1>Welcome, Guest!</h1>
+<% } %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+// use of the helmet 
+
+
+const express = require('express');
+const helmet = require('helmet');
+
+const app = express();
+const port = 3000;
+
+app.use(helmet()); // Enable Helmet for security
+
+app.get('/', (req, res) => {
+    res.send('Hello, secure world!');
+});
+
+app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
+});
+
+
+
+
+app.use(helmet({
+    contentSecurityPolicy: false, // Disable CSP if not needed
+    frameguard: { action: 'deny' }, // Prevent clickjacking
+    referrerPolicy: { policy: 'no-referrer' }, // Hide referrer info
+}));
+
+
+
