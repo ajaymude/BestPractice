@@ -1,0 +1,40 @@
+// 1 - check the node and npm version 
+// 2 - create the npm package 
+// 3 - packange install and uninstall  
+
+
+
+
+
+
+
+
+
+
+
+// 1 - check the node and npm version 
+
+// npm --v 
+// node --v 
+
+
+
+
+// 2 - create the npm package 
+
+npm init 
+npm init -y 
+
+
+
+// 3 - packange install and uninstall  
+
+npm i pacakgeName 
+
+npm i pacakgeName  -D or --save-dev
+
+npm i -g pacakgeName   // global install
+
+npm uninstall pacakgeName
+
+

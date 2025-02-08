@@ -1,6 +1,15 @@
 
 
+// git link of code 
 
+https://github.com/robertbunch/justExpress
+
+
+Winston - https://www.npmjs.com/package/winston
+
+Morgan (what the express generator uses) - https://www.npmjs.com/package/morgan
+
+Express-logging - https://www.npmjs.com/package/express-logging
 
 
 
@@ -81,6 +90,63 @@ app.use(helmet({
     frameguard: { action: 'deny' }, // Prevent clickjacking
     referrerPolicy: { policy: 'no-referrer' }, // Hide referrer info
 }));
+
+
+
+// res.redirect("/welcome");
+// res.render('render')
+
+
+
+
+
+
+// receive the data from the query
+
+http://localhost:3000/user?name=John&age=25
+
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.get('/user', (req, res) => {
+    const name = req.query.name; // Get "name" from query
+    const age = req.query.age;   // Get "age" from query
+
+    res.send(`Hello, ${name}! You are ${age} years old.`);
+});
+
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
+});
+
+
+
+
+
+
+
+// send the data through params 
+
+// send file 
+
+res.sendfiles(path)
+res.download
+res.attachment 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
