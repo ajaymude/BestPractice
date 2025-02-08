@@ -1,0 +1,368 @@
+// 1- capped collection 
+// 2 replica set 
+// 3 - sharding 
+// 4 - Transaction 
+
+
+
+
+
+
+// 1- capped collection 
+
+
+
+const mongoose = require("mongoose");
+
+// MongoDB Connection
+mongoose.connect("mongodb://localhost:27017/cappedDB", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => console.log("MongoDB Connected"))
+.catch(err => console.log(err));
+
+// Get the native MongoDB driver
+const db = mongoose.connection.db;
+
+// Step 1: Create a Capped Collection
+db.createCollection("logs", { capped: true, size: 10240, max: 5 })
+    .then(() => console.log("Capped collection 'logs' created"))
+    .catch(err => console.log("Collection may already exist:", err));
+
+// Step 2: Define a Schema and Model for Logs
+const logSchema = new mongoose.Schema({
+    message: String,
+    level: String,
+    timestamp: { type: Date, default: Date.now }
+}, { capped: { size: 10240, max: 5 } }); // Define it as capped
+
+const Log = mongoose.model("Log", logSchema);
+
+// Step 3: Insert Data into the Capped Collection
+async function insertLogs() {
+    for (let i = 1; i <= 10; i++) { // Insert 10 logs, but only 5 will remain due to cap
+        await Log.create({ message: `Log ${i}`, level: "info" });
+        console.log(`Inserted Log ${i}`);
+    }
+}
+
+// Step 4: Query Latest Logs
+async function fetchLatestLogs() {
+    const logs = await Log.find().sort({ $natural: -1 }).limit(5);
+    console.log("Latest Logs:", logs);
+}
+
+// Step 5: Check if the Collection is Capped
+async function checkCappedCollection() {
+    const isCapped = await db.collection("logs").isCapped();
+    console.log("Is 'logs' a capped collection?", isCapped);
+}
+
+// Step 6: Convert an Existing Collection to Capped (if needed)
+async function convertToCapped() {
+    try {
+        await db.command({ convertToCapped: "logs", size: 10240 });
+        console.log("Converted 'logs' to a capped collection");
+    } catch (err) {
+        console.log("Error converting collection:", err);
+    }
+}
+
+// Run all functions in sequence
+async function run() {
+    await insertLogs();
+    await fetchLatestLogs();
+    await checkCappedCollection();
+    // await convertToCapped(); // Uncomment if you need to convert an existing collection
+    mongoose.connection.close();
+}
+
+run();
+
+
+
+
+
+
+
+
+
+
+
+
+// 2 replica set 
+
+✅ High Availability – Automatic failover to another node if the primary crashes.
+✅ Data Redundancy – Multiple copies of data prevent data loss.
+✅ Read Scalability – Secondary nodes can handle read operations.
+✅ Disaster Recovery – Helps recover data in case of system failure.
+
+
+
+
+const mongoose = require("mongoose");
+
+// MongoDB Replica Set Connection String
+const mongoURI = "mongodb://localhost:27017,localhost:27018,localhost:27019/myReplicaDB?replicaSet=myReplicaSet";
+
+// Connect to MongoDB Replica Set
+mongoose.connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => console.log("Connected to MongoDB Replica Set"))
+.catch(err => console.error("Connection Error:", err));
+
+// Define a Schema and Model
+const userSchema = new mongoose.Schema({
+    name: String,
+    age: Number,
+    city: String
+});
+
+const User = mongoose.model("User", userSchema);
+
+// Insert Data into Primary Node
+async function insertUser() {
+    const user = new User({ name: "Alice", age: 30, city: "New York" });
+    await user.save();
+    console.log("User inserted:", user);
+}
+
+// Read Data from Secondary Node
+async function readFromSecondary() {
+    mongoose.connection.db.admin().command({ setParameter: 1, readPreference: "secondary" });
+    const users = await User.find();
+    console.log("Users from Secondary Node:", users);
+}
+
+// Check Replica Set Status
+async function checkReplicaSetStatus() {
+    const status = await mongoose.connection.db.admin().command({ replSetGetStatus: 1 });
+    console.log("Replica Set Status:", status);
+}
+
+// Run All Functions
+async function run() {
+    await insertUser();
+    await readFromSecondary();
+    await checkReplicaSetStatus();
+    mongoose.connection.close();
+}
+
+run();
+
+
+
+
+
+Step 1: Start Multiple MongoDB Instances
+
+# Start 3 MongoDB instances on different ports
+mongod --replSet "myReplicaSet" --port 27017 --dbpath /data/node1 --bind_ip 127.0.0.1
+mongod --replSet "myReplicaSet" --port 27018 --dbpath /data/node2 --bind_ip 127.0.0.1
+mongod --replSet "myReplicaSet" --port 27019 --dbpath /data/node3 --bind_ip 127.0.0.1
+
+
+Step 2: Connect to MongoDB and Initiate the Replica Set
+
+mongosh --port 27017
+
+
+Run the following command to initiate the replica set
+
+rs.initiate({
+    _id: "myReplicaSet",
+    members: [
+        { _id: 0, host: "localhost:27017" },
+        { _id: 1, host: "localhost:27018" },
+        { _id: 2, host: "localhost:27019" }
+    ]
+});
+
+
+rs.status();
+
+
+
+
+
+
+
+
+
+
+
+
+// 3 - sharding 
+
+
+const mongoose = require("mongoose");
+
+// MongoDB Sharded Cluster Connection String
+const mongoURI = "mongodb://localhost:27025/myShardedDB?readPreference=nearest";
+
+// Connect to MongoDB Sharded Cluster
+mongoose.connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => console.log("Connected to MongoDB Sharded Cluster"))
+.catch(err => console.error("Connection Error:", err));
+
+// Define a Schema and Model
+const userSchema = new mongoose.Schema({
+    userId: Number,
+    name: String,
+    age: Number,
+    city: String
+});
+
+const User = mongoose.model("User", userSchema);
+
+// Insert Data into Sharded Collection
+async function insertUser() {
+    const user = new User({ userId: Math.floor(Math.random() * 10000), name: "Alice", age: 30, city: "New York" });
+    await user.save();
+    console.log("User inserted:", user);
+}
+
+// Read Data from Sharded Collection
+async function readUsers() {
+    const users = await User.find();
+    console.log("Users from Sharded Collection:", users);
+}
+
+// Check Sharding Status
+async function checkShardingStatus() {
+    const status = await mongoose.connection.db.admin().command({ listShards: 1 });
+    console.log("Sharding Status:", status);
+}
+
+// Run All Functions
+async function run() {
+    await insertUser();
+    await readUsers();
+    await checkShardingStatus();
+    mongoose.connection.close();
+}
+
+run();
+
+
+
+
+
+/ how to set the sharding 
+
+Step 1: Start Config Servers
+
+mongod --configsvr --replSet configReplSet --port 27019 --dbpath /data/config1 --bind_ip 127.0.0.1
+mongod --configsvr --replSet configReplSet --port 27020 --dbpath /data/config2 --bind_ip 127.0.0.1
+mongod --configsvr --replSet configReplSet --port 27021 --dbpath /data/config3 --bind_ip 127.0.0.1
+
+
+/ connect the port 
+
+rs.initiate({
+    _id: "configReplSet",
+    configsvr: true,
+    members: [
+        { _id: 0, host: "localhost:27019" },
+        { _id: 1, host: "localhost:27020" },
+        { _id: 2, host: "localhost:27021" }
+    ]
+});
+
+
+Step 2: Start Shard Servers
+
+mongod --shardsvr --replSet shardReplSet1 --port 27022 --dbpath /data/shard1 --bind_ip 127.0.0.1
+mongod --shardsvr --replSet shardReplSet1 --port 27023 --dbpath /data/shard2 --bind_ip 127.0.0.1
+mongod --shardsvr --replSet shardReplSet1 --port 27024 --dbpath /data/shard3 --bind_ip 127.0.0.1
+
+
+rs.initiate({
+    _id: "shardReplSet1",
+    members: [
+        { _id: 0, host: "localhost:27022" },
+        { _id: 1, host: "localhost:27023" },
+        { _id: 2, host: "localhost:27024" }
+    ]
+});
+
+
+/ start the routing 
+
+mongos --configdb configReplSet/localhost:27019,localhost:27020,localhost:27021 --port 27025
+
+
+
+
+
+
+
+
+
+
+// 4 - Transaction 
+
+🔹 MongoDB Transactions
+MongoDB transactions allow multiple operations to be executed as a single atomic unit, 
+ensuring ACID (Atomicity, Consistency, Isolation, Durability) properties, similar to relational databases.
+
+
+
+const mongoose = require("mongoose");
+
+// MongoDB Replica Set Connection URI
+const mongoURI = "mongodb://localhost:27017,localhost:27018,localhost:27019/bankDB?replicaSet=myReplicaSet";
+
+// Connect to MongoDB Replica Set
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log("Connected to MongoDB Replica Set"))
+    .catch(err => console.error("Connection Error:", err));
+
+// Define Account Schema and Model
+const accountSchema = new mongoose.Schema({
+    accountNumber: Number,
+    balance: Number
+});
+const Account = mongoose.model("Account", accountSchema);
+
+// Function to Perform Transaction (Money Transfer)
+async function transferMoney(fromAcc, toAcc, amount) {
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
+    try {
+        // Deduct money from sender
+        const sender = await Account.findOne({ accountNumber: fromAcc }).session(session);
+        if (!sender || sender.balance < amount) throw new Error("Insufficient Funds");
+        sender.balance -= amount;
+        await sender.save();
+
+        // Add money to receiver
+        const receiver = await Account.findOne({ accountNumber: toAcc }).session(session);
+        if (!receiver) throw new Error("Receiver Account Not Found");
+        receiver.balance += amount;
+        await receiver.save();
+
+        // Commit Transaction
+        await session.commitTransaction();
+        session.endSession();
+        console.log(`Transaction Successful: Transferred $${amount} from ${fromAcc} to ${toAcc}`);
+    } catch (error) {
+        // Abort Transaction on Error
+        await session.abortTransaction();
+        session.endSession();
+        console.error("Transaction Failed:", error.message);
+    }
+}
+
+// Run Transaction Example
+async function run() {
+    await transferMoney(1001, 1002, 200);
+    mongoose.connection.close();
+}
+
+run();
