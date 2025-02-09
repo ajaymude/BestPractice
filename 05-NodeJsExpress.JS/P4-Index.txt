@@ -165,3 +165,110 @@ app.use((err, req, res, next) => {
     message,
   });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+// how to set the static file in the express js 
+
+const express = require('express');
+const app = express();
+
+const PORT = 3000;
+
+// Serve static files from the 'public' folder
+app.use(express.static('public'));
+
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+
+
+// restriction on the static file 
+
+app.get('/logo.png', (req, res) => {
+  res.sendFile(__dirname + '/public/images/logo.png');
+});
+
+
+
+
+
+
+
+
+// how to use the multiple clerkMiddleware
+
+const express = require('express');
+const app = express();
+
+const logger = (req, res, next) => {
+    console.log(`${req.method} ${req.url}`);
+    next(); // Move to the next middleware
+};
+
+const checkAuth = (req, res, next) => {
+    const authorized = true; // Change this as needed
+    if (authorized) {
+        console.log('User is authorized');
+        next(); // Proceed to the next middleware
+    } else {
+        res.status(403).send('Unauthorized');
+    }
+};
+
+// Apply multiple middleware globally
+app.use(logger, checkAuth);
+
+app.get('/', (req, res) => {
+    res.send('Home Page');
+});
+
+app.get('/dashboard', (req, res) => {
+    res.send('Dashboard Page');
+});
+
+app.listen(3000, () => {
+    console.log('Server running on http://localhost:3000');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const morgan = require('morgan');
+const cors = require('cors');
+const helmet = require('helmet');
+
+app.use(morgan('dev'));  // Logs HTTP requests
+app.use(cors());         // Enables CORS
+app.use(helmet());       // Adds security headers
+
+
+
+
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something went wrong!');
+});

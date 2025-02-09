@@ -1,3 +1,69 @@
+Type	Size	Range	Use Case
+Int32	4 bytes	-2,147,483,648 to 2,147,483,647	Small integer values
+Int64	8 bytes	-9 quintillion to +9 quintillion	Large integer values
+Double	8 bytes	±1.7976931348623157E+308	General floating-point numbers
+Decimal128	16 bytes	Very large/small high-precision values	Financial calculations
+
+
+
+const mongoose = require("mongoose");
+
+// Connect to MongoDB
+mongoose.connect("mongodb://localhost:27017/testDB", { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log("Connected to MongoDB"))
+    .catch(err => console.error("Connection Error:", err));
+
+// Define Schema with Different Number Types
+const numberSchema = new mongoose.Schema({
+    intValue: Number, // JavaScript stores as Double (64-bit floating point)
+    bigIntValue: mongoose.Schema.Types.Mixed, // Manually handling large integers (Int64)
+    doubleValue: Number, // Floating point number
+    decimalValue: mongoose.Schema.Types.Decimal128 // High-precision decimal
+});
+
+// Create Model
+const NumberModel = mongoose.model("Number", numberSchema);
+
+async function insertNumbers() {
+    const data = new NumberModel({
+        intValue: 2147483647, // Maximum Int32 value
+        bigIntValue: 9223372036854775807n, // Large integer (BigInt)
+        doubleValue: 3.1415926535, // Double (Floating-point)
+        decimalValue: mongoose.Types.Decimal128.fromString("123456789.987654321") // High precision
+    });
+
+    await data.save();
+    console.log("Data Inserted Successfully");
+
+    // Retrieve and Display Data
+    const result = await NumberModel.findOne();
+    console.log("Retrieved Data:", {
+        intValue: result.intValue,
+        bigIntValue: result.bigIntValue.toString(), // Convert BigInt to String for Safe Display
+        doubleValue: result.doubleValue,
+        decimalValue: result.decimalValue.toString() // Convert Decimal128 to String
+    });
+
+    mongoose.connection.close();
+}
+
+// Run Example
+insertNumbers();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
