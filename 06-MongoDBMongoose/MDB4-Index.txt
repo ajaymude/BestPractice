@@ -4,6 +4,21 @@
 
 db.collection.createIndex({ fieldName: 1 }); // 1 for ascending, -1 for descending
 
+db.collection.createIndex({ field: 1 }, { unique: true });
+
+
+db.collection.createIndex({ field: 1 }, { partialFilterExpression: { condition } });
+
+
+db.users.createIndex(
+  { lastLogin: 1 },
+  { partialFilterExpression: { status: "active" } }
+);
+
+
+
+
+
 db.collection.dropIndex({ field: 1 });
 
 // compound index  
@@ -14,6 +29,13 @@ db.collection.createIndex({ field1: 1, field2: -1 });
 // multikey index
 
 db.collection.createIndex({ arrayField: 1 });
+
+
+
+
+// check  the current which index we are using it 
+
+db.collection.getIndexes();
 
 
 
