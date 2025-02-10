@@ -1,0 +1,80 @@
+// keyword identifier 
+
+
+
+/ create the table 
+
+
+
+CREATE TABLE cities (
+	name VARCHAR(50), 
+  country VARCHAR(50),
+  population INTEGER,
+  area INTEGER
+);
+
+
+
+
+-- Step 1: Create Database
+CREATE DATABASE mydb;
+
+-- Step 2: Connect to the Database
+\c mydb;
+
+-- Step 3: Create Table
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    age INT
+);
+
+-- Step 4: Insert Data (CREATE)
+INSERT INTO users (name, email, age) VALUES 
+('Alice', 'alice@example.com', 25),
+('Bob', 'bob@example.com', 30),
+('Charlie', 'charlie@example.com', 28);
+
+-- Step 5: Retrieve Data (READ)
+SELECT * FROM users;  -- Get all users
+SELECT * FROM users WHERE age > 25;  -- Filter by age
+SELECT * FROM users WHERE email = 'alice@example.com';  -- Get specific user
+
+-- Step 6: Update Data (UPDATE)
+UPDATE users SET age = 26 WHERE email = 'alice@example.com';
+UPDATE users SET name = 'Alice Johnson', age = 27 WHERE email = 'alice@example.com';
+
+-- Step 7: Delete Data (DELETE)
+DELETE FROM users WHERE email = 'charlie@example.com'; -- Delete specific user
+DELETE FROM users;  -- Delete all users
+
+
+
+
+// operator 
+math , logical
+
+
+
+
+
+SELECT name || country FROM cities;
+
+SELECT name || ', ' || country FROM cities;
+
+SELECT name || ', ' || country AS location FROM cities;
+
+SELECT CONCAT(name, country) AS location FROM cities;
+
+SELECT CONCAT(name, ', ', country) AS location FROM cities;
+
+SELECT
+  CONCAT(UPPER(name), ', ', UPPER(country)) AS location
+FROM
+  cities;
+
+SELECT
+  UPPER(CONCAT(name, ', ', country)) AS location
+FROM
+  cities;

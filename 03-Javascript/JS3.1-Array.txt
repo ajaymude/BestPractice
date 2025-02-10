@@ -1,158 +1,23 @@
 
-
-
-1️⃣ String Length & Character Access
-length – Returns the number of characters in a string.
-charAt(index) – Returns the character at a specified index.
-charCodeAt(index) – Returns the Unicode of the character at a given index.
-codePointAt(index) – Returns the Unicode point value at a given index.
-2️⃣ Case Conversion
-toUpperCase() – Converts the string to uppercase.
-toLowerCase() – Converts the string to lowercase.
-3️⃣ Searching & Indexing
-indexOf(value, start) – Returns the first index of a value.
-lastIndexOf(value, start) – Returns the last index of a value.
-includes(value, start) – Checks if a substring exists inside a string.
-startsWith(value, start) – Checks if a string starts with a specified substring.
-endsWith(value, length) – Checks if a string ends with a specified substring.
-search(regex) – Searches for a match using a regex and returns the first match index.
-4️⃣ String Modification & Replacement
-replace(pattern, replacement) – Replaces a substring or pattern.
-replaceAll(pattern, replacement) – Replaces all occurrences of a substring or pattern.
-padStart(targetLength, padString) – Pads a string at the start to a given length.
-padEnd(targetLength, padString) – Pads a string at the end to a given length.
-trim() – Removes whitespace from both ends of a string.
-trimStart() / trimLeft() – Removes whitespace from the start.
-trimEnd() / trimRight() – Removes whitespace from the end.
-5️⃣ Extracting Substrings
-slice(start, end) – Extracts and returns a portion of a string.
-substring(start, end) – Returns a substring between two indices.
-substr(start, length) (Deprecated but still supported) – Extracts a substring based on start position and length.
-6️⃣ Splitting & Joining
-split(separator, limit) – Splits a string into an array of substrings.
-concat(string1, string2, ...) – Concatenates multiple strings into one.
-7️⃣ Repetition & Formatting
-repeat(count) – Returns a new string repeated a given number of times.
-toLocaleUpperCase(locale) – Converts string to uppercase based on locale.
-toLocaleLowerCase(locale) – Converts string to lowercase based on locale.
-8️⃣ Regular Expressions & Matching
-match(regex) – Returns an array of matches for a regex.
-matchAll(regex) – Returns an iterator of all regex matches.
-9️⃣ Unicode & Character Encoding
-fromCharCode(code1, code2, ...) – Returns a string created from UTF-16 code units.
-fromCodePoint(code1, code2, ...) – Returns a string using the given Unicode code points.
-🔟 String Comparison
-localeCompare(compareString, locales, options) – Compares two strings based on locale rules.
-
-
-
-
-
-
-// 
-
-
-
-
-
-
-
-
-
-
-// 1️⃣ String Length & Character Access
-let str = "Hello, World!";
-console.log(str.length); // 13
-console.log(str.charAt(0)); // H
-console.log(str.charCodeAt(0)); // 72
-console.log(str.codePointAt(0)); // 72
-
-// 2️⃣ Case Conversion
-console.log(str.toUpperCase()); // "HELLO, WORLD!"
-console.log(str.toLowerCase()); // "hello, world!"
-
-// 3️⃣ Searching & Indexing
-console.log(str.indexOf("o")); // 4
-console.log(str.lastIndexOf("o")); // 8
-console.log(str.includes("World")); // true
-console.log(str.startsWith("Hello")); // true
-console.log(str.endsWith("!")); // true
-console.log(str.search(/World/)); // 7
-
-// 4️⃣ String Modification & Replacement
-console.log(str.replace("World", "JavaScript")); // "Hello, JavaScript!"
-console.log(str.replaceAll("o", "0")); // "Hell0, W0rld!"
-console.log(str.padStart(15, "*")); // "**Hello, World!"
-console.log(str.padEnd(15, "*"); // "Hello, World!**"
-console.log("  Hello  ".trim()); // "Hello"
-console.log("  Hello  ".trimStart()); // "Hello  "
-console.log("  Hello  ".trimEnd()); // "  Hello"
-
-// 5️⃣ Extracting Substrings
-console.log(str.slice(0, 5)); // "Hello"
-console.log(str.substring(0, 5)); // "Hello"
-console.log(str.substr(0, 5)); // "Hello" (Deprecated but still works)
-
-// 6️⃣ Splitting & Joining
-console.log(str.split(", ")); // ["Hello", "World!"]
-console.log("Hello".concat(", ", "World!")); // "Hello, World!"
-
-// 7️⃣ Repetition & Formatting
-console.log("Hi ".repeat(3)); // "Hi Hi Hi "
-console.log("hello".toLocaleUpperCase("tr")); // "HELLO" (Locale specific)
-console.log("HELLO".toLocaleLowerCase("tr")); // "hello" (Locale specific)
-
-// 8️⃣ Regular Expressions & Matching
-console.log("Hello 123".match(/\d+/)); // ["123"]
-console.log([..."Hello 123".matchAll(/\d+/g)]); // [["123"]]
-
-// 9️⃣ Unicode & Character Encoding
-console.log(String.fromCharCode(72, 101, 108, 108, 111)); // "Hello"
-console.log(String.fromCodePoint(128512)); // 😀
-
-// 🔟 String Comparison
-console.log("apple".localeCompare("banana")); // -1 (apple comes before banana)
-console.log("banana".localeCompare("apple")); // 1 (banana comes after apple)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 1. Array Creation and Conversion
-Array.of(element1, element2, ...): Creates a new array from arguments.
 
-Array.from(arrayLike, mapFunction, thisArg): Creates an array from an iterable or array-like object.
+1 - Array.of(element1, element2, ...): Creates a new array from arguments.
 
-toString(): Converts an array to a string.
+2 - Array.from(arrayLike, mapFunction, thisArg): Creates an array from an iterable or array-like object.
 
-toLocaleString(): Returns a localized string representation of the array.
+3 - toString(): Converts an array to a string.
 
-join(separator): Joins all elements into a string.
+4 - toLocaleString(): Returns a localized string representation of the array.
 
-toJSON(): Used internally by JSON.stringify to convert arrays to JSON.
+5 - join(separator): Joins all elements into a string.
+
+6 - toJSON(): Used internally by JSON.stringify to convert arrays to JSON.
+
+
+
+
+
+
 
 2. Adding and Removing Elements
 push(element1, element2, ...): Adds elements to the end of the array.
@@ -501,6 +366,201 @@ console.log(arr37.toSource()); // "[1,2,3]"
 // [@@species]
 const arr38 = [];
 console.log(arr38[Symbol.species]); // function Array() { [native code] }
+
+
+
+
+
+
+
+
+
+
+// array methods 
+
+
+syntax 
+
+array.fill(value, start, end);
+
+// 1️⃣ Fill an entire array with a single value
+console.log(new Array(5).fill(0)); // [0, 0, 0, 0, 0]
+
+// 2️⃣ Fill only part of an array (from index 1 to 3)
+console.log([1, 2, 3, 4, 5].fill(9, 1, 3)); // [1, 9, 9, 4, 5]
+
+// 3️⃣ Fill an array with empty strings
+console.log(new Array(4).fill("")); // ["", "", "", ""]
+
+// 4️⃣ Fill with `true`
+console.log(new Array(3).fill(true)); // [true, true, true]
+
+// 5️⃣ Fill with `null`
+console.log(new Array(3).fill(null)); // [null, null, null]
+
+// 6️⃣ Fill with `undefined`
+console.log(new Array(3).fill(undefined)); // [undefined, undefined, undefined]
+
+// 7️⃣ Fill only the last two elements
+console.log([1, 2, 3, 4, 5].fill(7, -2)); // [1, 2, 3, 7, 7]
+
+// 8️⃣ Fill a portion with boolean values
+console.log([false, false, false, false].fill(true, 1, 3)); // [false, true, true, false]
+
+// 9️⃣ Fill with random numbers (using `.map()`)
+console.log(new Array(5).fill(0).map(() => Math.random())); // Random values
+
+// 🔟 Fill an array with "hello"
+console.log(new Array(3).fill("hello")); // ["hello", "hello", "hello"]
+
+// 1️⃣1️⃣ Reset an array with `0`
+let arr = [1, 2, 3, 4, 5];
+arr.fill(0);
+console.log(arr); // [0, 0, 0, 0, 0]
+
+// 1️⃣2️⃣ Fill an array of objects (references)
+let objArray = new Array(3).fill({ name: "User" });
+console.log(objArray); // [{name: "User"}, {name: "User"}, {name: "User"}]
+
+// 1️⃣3️⃣ Fill an array of arrays (same reference issue)
+let arrArray = new Array(3).fill([]);
+arrArray[0].push(1);
+console.log(arrArray); // [[1], [1], [1]] (All modified!)
+
+
+// 1️⃣4️⃣ Fill an array of unique objects
+let objArray2 = new Array(3).fill(null).map(() => ({ name: "User" }));
+console.log(objArray2); // [{}, {}, {}] (Different objects)
+
+// 1️⃣5️⃣ Fill an array with increasing numbers
+console.log(new Array(5).fill(0).map((_, i) => i + 1)); // [1, 2, 3, 4, 5]
+
+// 1️⃣6️⃣ Fill a sparse array
+console.log(Array(5).fill(2)); // [2, 2, 2, 2, 2]
+
+// 1️⃣7️⃣ Fill only even indices
+let evenFill = new Array(6).fill(0);
+for (let i = 0; i < evenFill.length; i += 2) evenFill[i] = 1;
+console.log(evenFill); // [1, 0, 1, 0, 1, 0]
+
+// 1️⃣8️⃣ Fill an array conditionally
+let conditionalFill = new Array(5).fill("").map((_, i) => (i % 2 === 0 ? "even" : "odd"));
+console.log(conditionalFill); // ["even", "odd", "even", "odd", "even"]
+
+// 1️⃣9️⃣ Partially overwrite an array
+let mixArr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+mixArr.fill("X", 3, 7);
+console.log(mixArr); // [1, 2, 3, "X", "X", "X", "X", 8, 9]
+
+// 2️⃣0️⃣ Reset only the first half
+let halfArr = [1, 2, 3, 4, 5, 6];
+halfArr.fill(0, 0, halfArr.length / 2);
+console.log(halfArr); // [0, 0, 0, 4, 5, 6]
+
+
+
+
+
+
+
+
+
+
+
+
+// sort method 
+
+/syntax 
+array.sort([compareFunction]);
+
+
+// 1️⃣ Default sorting (Lexicographical)
+console.log(["Banana", "Apple", "Cherry"].sort()); // ["Apple", "Banana", "Cherry"]
+
+// 2️⃣ Sorting numbers incorrectly (because default is string-based)
+console.log([10, 2, 15, 1].sort()); // [1, 10, 15, 2] ❌ Wrong order
+
+// 3️⃣ Correct numerical sorting (ascending)
+console.log([10, 2, 15, 1].sort((a, b) => a - b)); // [1, 2, 10, 15] ✅
+
+// 4️⃣ Numerical sorting (descending)
+console.log([10, 2, 15, 1].sort((a, b) => b - a)); // [15, 10, 2, 1]
+
+// 5️⃣ Sorting negative numbers
+console.log([-3, -1, -7, -5].sort((a, b) => a - b)); // [-7, -5, -3, -1]
+
+// 6️⃣ Sorting strings case-insensitively
+console.log(["banana", "Apple", "cherry"].sort((a, b) => a.localeCompare(b))); // ["Apple", "banana", "cherry"]
+
+// 7️⃣ Sorting mixed case (case-sensitive)
+console.log(["banana", "Apple", "cherry"].sort()); // ["Apple", "banana", "cherry"] (Uppercase first)
+
+// 8️⃣ Sorting boolean values
+console.log([true, false, true, false].sort((a, b) => a - b)); // [false, false, true, true]
+
+// 9️⃣ Sorting an array of objects (by age)
+const users = [{name: "Alice", age: 25}, {name: "Bob", age: 20}, {name: "Charlie", age: 30}];
+console.log(users.sort((a, b) => a.age - b.age)); // Sorted by age
+
+// 🔟 Sorting objects by name (alphabetically)
+console.log(users.sort((a, b) => a.name.localeCompare(b))); // Sorted by name
+
+// 1️⃣1️⃣ Sorting decimal numbers
+console.log([3.2, 1.1, 4.5, 2.8].sort((a, b) => a - b)); // [1.1, 2.8, 3.2, 4.5]
+
+// 1️⃣2️⃣ Sorting random numbers
+const randomNumbers = [42, 7, 19, 2, 98];
+console.log(randomNumbers.sort((a, b) => a - b)); // [2, 7, 19, 42, 98]
+
+// 1️⃣3️⃣ Sorting dates (ascending)
+const dates = ["2022-01-01", "2021-12-31", "2023-06-15"];
+console.log(dates.sort((a, b) => new Date(a) - new Date(b))); // Sorted by date
+
+// 1️⃣4️⃣ Sorting words by length
+console.log(["apple", "banana", "kiwi", "grape"].sort((a, b) => a.length - b.length)); // Sorted by word length
+
+// 1️⃣5️⃣ Sorting an array of arrays (by first element)
+const arrayOfArrays = [[3, "C"], [1, "A"], [2, "B"]];
+console.log(arrayOfArrays.sort((a, b) => a[0] - b[0])); // Sorted by first number
+
+// 1️⃣6️⃣ Sorting numbers with NaN values
+console.log([10, NaN, 5, 8, NaN].sort((a, b) => a - b)); // [NaN, NaN, 5, 8, 10] (NaN at the beginning)
+
+// 1️⃣7️⃣ Sorting undefined values (undefined is moved to the end)
+console.log([3, undefined, 1, 5, undefined].sort((a, b) => (a === undefined) - (b === undefined) || a - b)); // [1, 3, 5, undefined, undefined]
+
+// 1️⃣8️⃣ Sorting words in reverse order
+console.log(["cat", "dog", "ant", "bee"].sort().reverse()); // ["dog", "cat", "bee", "ant"]
+
+// 1️⃣9️⃣ Sorting an array with a stable sort (ES2019+)
+console.log([{x:1, y:10}, {x:2, y:10}, {x:3, y:5}, {x:4, y:5}].sort((a, b) => a.y - b.y));
+// Stable sort ensures elements with the same key keep their original order
+
+// 2️⃣0️⃣ Using toSorted() (ES2023, immutable sorting)
+const original = [3, 1, 4, 2];
+console.log(original.toSorted()); // [1, 2, 3, 4] (Doesn't modify original)
+console.log(original); // [3, 1, 4, 2] (Original array remains unchanged)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
