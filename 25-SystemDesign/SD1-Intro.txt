@@ -1,0 +1,167 @@
+
+
+// scaling 
+
+/ 1 - horizontal scaling 
+/ 2 - vertical scaling 
+
+
+// single point of failure 
+
+
+// database replication 
+// sharding of the database 
+
+// data lake - large data is know as the data lake 
+
+
+
+
+// acid 
+
+ACID compliance refers to a set of properties that ensure reliable database transactions. ACID stands for:
+
+Atomicity – Each transaction is either fully completed or fully rolled back. If one part of a transaction fails, the entire transaction fails.
+
+Example: Transferring money between bank accounts—both debit and credit operations must succeed together.
+
+
+
+Consistency – The database remains in a valid state before and after a transaction. Transactions cannot violate database constraints.
+
+Example: If a database enforces a rule that prevents negative balances, a transaction reducing a balance below zero will be rejected.
+
+
+
+Isolation – Transactions are executed independently and do not interfere with each other.
+
+Example: If two users try to book the last available seat in a movie theater simultaneously, only one transaction should succeed.
+
+
+
+Durability – Once a transaction is committed, it is permanently stored, even in the event of a system crash.
+
+Example: After a successful order placement in an e-commerce app, the order should not disappear even if the server crashes.
+
+
+
+Why is ACID Important?
+Ensures data integrity and reliability.
+Critical for financial applications, e-commerce, and enterprise systems where consistency is key.
+ACID vs. NoSQL Databases
+Relational databases (e.g., MySQL, PostgreSQL) follow ACID strictly.
+NoSQL databases (e.g., MongoDB, Cassandra) may sacrifice some ACID properties to achieve better scalability and performance.
+
+
+
+
+
+
+
+
+
+
+
+
+
+// cap theorem 
+CAP Theorem (Consistency, Availability, Partition Tolerance)
+The CAP theorem, formulated by Eric Brewer, states that a distributed database can achieve only two out of three properties at any given time:
+
+Consistency (C) – Every read receives the most recent write or an error.
+
+Example: If you update a user’s profile, any future read should reflect this change immediately.
+
+
+
+Availability (A) – Every request receives a response (success or failure), even if some nodes are down.
+
+Example: If one database server goes down, another should still respond to queries.
+
+
+
+Partition Tolerance (P) – The system continues to work even when network failures (partitions) occur between nodes.
+
+Example: If a server cluster is split due to a network failure, the database should still operate.
+
+
+
+Trade-offs in CAP Theorem
+Since you can pick only two out of three, databases are categorized as:
+
+
+
+CP (Consistency + Partition Tolerance)
+
+Ensures consistency but may sacrifice availability.
+Example: MongoDB (when using replica sets with majority writes)
+Use Case: Banking systems, financial transactions (where consistency is critical).
+
+
+
+AP (Availability + Partition Tolerance)
+
+Ensures high availability but may return stale data.
+Example: Cassandra, DynamoDB, and MongoDB (eventual consistency mode)
+Use Case: Social media feeds, caching systems (where availability matters more).
+
+
+
+CA (Consistency + Availability)
+
+Works only if there's no network partition, which is unrealistic in distributed systems.
+Example: Single-node relational databases like MySQL
+Use Case: Traditional monolithic applications (not distributed).
+
+
+
+
+
+
+
+
+
+
+
+
+// caching layer 
+lru , lfu , fifo 
+redis 
+
+
+
+
+// load balancer 
+
+
+
+
+
+
+// cdn 
+cloudflare
+
+
+
+
+
+//  Resiliency: Introduction
+geo routing system 
+
+
+
+
+// storage 
+s3 bucket 
+
+
+
+
+
+// dsa also mater for the system design 
+
+
+
+
+
+// message queues 
