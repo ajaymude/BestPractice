@@ -125,9 +125,24 @@ git add text.txt text1.txt
 
 git rm text.txt
 
+
+
+
+
+
+// commit command 
+
 git commit -m "message"
 
-git commit -a -m "Update file.txt with new content"
+git commit -a -m "Update file.txt with new content"  // add and commit in the single line 
+
+
+/ amending the commit  // with this we can amend previous commit 
+
+git commit --amend
+
+
+ls -a // to see the hidden folder 
 
 
 
@@ -141,13 +156,15 @@ git push
 
 
 
+
+
+
+
 git log 
 git log --oneline 
 
 
-/ amending the commit  // with this we can amend previous commit 
 
-git commit --amend
 
 
 / to see the remote branch 
