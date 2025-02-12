@@ -1,3 +1,27 @@
+
+
+// npm i -g typescript 
+
+tsc index.ts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 1. Primitive Types
 let age: number = 25;
 let price: number = 99.99;
