@@ -78,3 +78,389 @@ SELECT
   UPPER(CONCAT(name, ', ', country)) AS location
 FROM
   cities;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // use of the where 
+
+IN , NOT IN , BETWEEN  /// important key to understand 
+
+-- Basic Usage
+SELECT * FROM users WHERE age > 25;
+
+-- Comparison Operators
+SELECT * FROM products WHERE price >= 100;
+
+-- Logical Operators
+SELECT * FROM users WHERE age > 20 AND city = 'New York';
+
+-- Pattern Matching (LIKE)
+SELECT * FROM customers WHERE name LIKE 'A%';
+
+-- Using IN
+SELECT * FROM orders WHERE status IN ('Pending', 'Shipped');
+
+-- Using BETWEEN
+SELECT * FROM orders WHERE total_price BETWEEN 100 AND 500;
+
+-- Checking NULL values
+SELECT * FROM employees WHERE department IS NULL;
+
+-- Case-insensitive search (ILIKE)
+SELECT * FROM customers WHERE name ILIKE '%john%';
+
+-- Full-Text Search
+SELECT * FROM articles WHERE to_tsvector(content) @@ to_tsquery('postgresql');
+
+-- WHERE in UPDATE
+UPDATE users SET status = 'active' WHERE last_login > NOW() - INTERVAL '30 days';
+
+-- WHERE in DELETE
+DELETE FROM orders WHERE created_at < NOW() - INTERVAL '1 year';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// update method in the postgresql  
+
+-- Basic UPDATE
+UPDATE users SET age = 30 WHERE id = 1;
+
+-- UPDATE multiple columns
+UPDATE employees SET salary = 60000, department = 'HR' WHERE id = 5;
+
+-- UPDATE using a condition
+UPDATE orders SET status = 'shipped' WHERE status = 'pending' AND created_at < NOW() - INTERVAL '7 days';
+
+-- UPDATE with RETURNING (to get updated rows)
+UPDATE products SET price = price * 1.10 WHERE category = 'Electronics' RETURNING *;
+
+-- UPDATE using a subquery
+UPDATE users 
+SET city = (SELECT city FROM addresses WHERE addresses.user_id = users.id)
+WHERE EXISTS (SELECT 1 FROM addresses WHERE addresses.user_id = users.id);
+
+-- UPDATE with CASE statement (Conditional Update)
+UPDATE employees 
+SET salary = 
+    CASE 
+        WHEN experience > 10 THEN salary * 1.20
+        WHEN experience BETWEEN 5 AND 10 THEN salary * 1.10
+        ELSE salary * 1.05
+    END;
+
+-- UPDATE with JOIN
+UPDATE orders 
+SET total_price = orders.total_price - discounts.discount_amount
+FROM discounts 
+WHERE orders.discount_code = discounts.code;
+
+-- UPDATE using CURRENT_TIMESTAMP
+UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE active = TRUE;
+
+-- UPDATE specific rows using LIMIT (with CTE)
+WITH to_update AS (
+    SELECT id FROM products WHERE stock < 10 ORDER BY stock LIMIT 5
+)
+UPDATE products SET stock = 10 WHERE id IN (SELECT id FROM to_update);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// delete method 
+
+-- Basic DELETE
+DELETE FROM users WHERE id = 1;
+
+-- DELETE with multiple conditions
+DELETE FROM employees WHERE department = 'HR' AND salary < 40000;
+
+-- DELETE all rows from a table (use with caution!)
+DELETE FROM orders;
+
+-- DELETE using RETURNING (to get deleted rows)
+DELETE FROM customers WHERE inactive = TRUE RETURNING *;
+
+-- DELETE with a subquery
+DELETE FROM users WHERE id IN (SELECT user_id FROM inactive_users);
+
+-- DELETE with EXISTS
+DELETE FROM orders 
+WHERE EXISTS (SELECT 1 FROM canceled_orders WHERE orders.id = canceled_orders.order_id);
+
+-- DELETE with JOIN using USING clause
+DELETE FROM orders 
+USING customers 
+WHERE orders.customer_id = customers.id 
+AND customers.status = 'inactive';
+
+-- DELETE with LIMIT (using CTE)
+WITH to_delete AS (
+    SELECT id FROM logs ORDER BY created_at ASC LIMIT 100
+)
+DELETE FROM logs WHERE id IN (SELECT id FROM to_delete);
+
+-- DELETE all rows but keep the structure (TRUNCATE)
+TRUNCATE TABLE logs;
+
+
+
+
+
+
+
+
+
+
+
+
+// insert 
+
+
+-- 1️⃣ Basic INSERT
+INSERT INTO users (name, email, age) 
+VALUES ('John Doe', 'john@example.com', 30);
+
+-- 2️⃣ INSERT Multiple Rows
+INSERT INTO users (name, email, age) 
+VALUES 
+    ('Alice', 'alice@example.com', 25),
+    ('Bob', 'bob@example.com', 28);
+
+-- 3️⃣ INSERT with DEFAULT Values
+INSERT INTO employees (name) 
+VALUES ('David');  -- Other columns with DEFAULT will auto-fill
+
+-- 4️⃣ INSERT with RETURNING (Get Inserted Data)
+INSERT INTO users (name, email, age) 
+VALUES ('Charlie', 'charlie@example.com', 35) 
+RETURNING id, name;
+
+-- 5️⃣ INSERT Using a Subquery
+INSERT INTO orders (user_id, total_amount) 
+SELECT id, 100 FROM users WHERE email = 'john@example.com';
+
+-- 6️⃣ INSERT with ON CONFLICT (UPSERT - Update if exists)
+INSERT INTO users (email, name, age) 
+VALUES ('john@example.com', 'John Doe', 32)
+ON CONFLICT (email) 
+DO UPDATE SET name = EXCLUDED.name, age = EXCLUDED.age;
+
+-- 7️⃣ INSERT with NULL Values
+INSERT INTO customers (name, phone) 
+VALUES ('Emma', NULL); -- NULL is allowed if column allows it
+
+-- 8️⃣ INSERT Data from Another Table
+INSERT INTO archived_orders (id, user_id, total_amount) 
+SELECT id, user_id, total_amount FROM orders WHERE created_at < NOW() - INTERVAL '1 year';
+
+-- 9️⃣ INSERT JSON Data into a JSONB Column
+INSERT INTO logs (event, metadata) 
+VALUES ('user_login', '{"ip": "192.168.1.1", "device": "mobile"}'::jsonb);
+
+-- 🔟 INSERT Using COPY (Bulk Insert from File)
+COPY products FROM '/path/to/file.csv' DELIMITER ',' CSV HEADER;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// db relation 
+
+one - many 
+many - one 
+
+one - one 
+many - many 
+
+
+primary key , foreign key 
+
+
+
+CREATE TABLE orders (
+    id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id) ON DELETE CASCADE,
+    total_amount DECIMAL(10,2) NOT NULL,
+    order_date TIMESTAMP DEFAULT NOW()
+);
+
+
+
+
+
+
+CREATE TABLE students (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE courses (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE student_courses (
+    student_id INT REFERENCES students(id) ON DELETE CASCADE,
+    course_id INT REFERENCES courses(id) ON DELETE CASCADE,
+    PRIMARY KEY (student_id, course_id) -- Composite Primary Key
+);
+
+
+
+
+
+
+-- 1️⃣ INNER JOIN (Only matching records)
+SELECT users.id, users.name, orders.total_amount 
+FROM users 
+INNER JOIN orders ON users.id = orders.user_id;
+
+-- 2️⃣ LEFT JOIN (All users, even those without orders)
+SELECT users.id, users.name, orders.total_amount 
+FROM users 
+LEFT JOIN orders ON users.id = orders.user_id;
+
+-- 3️⃣ RIGHT JOIN (All orders, even if user is missing)
+SELECT users.id, users.name, orders.total_amount 
+FROM users 
+RIGHT JOIN orders ON users.id = orders.user_id;
+
+-- 4️⃣ FULL OUTER JOIN (All users & all orders, null if no match)
+SELECT users.id, users.name, orders.total_amount 
+FROM users 
+FULL OUTER JOIN orders ON users.id = orders.user_id;
+
+-- 5️⃣ CROSS JOIN (Every user with every order)
+SELECT users.name, orders.total_amount 
+FROM users 
+CROSS JOIN orders;
+
+-- 6️⃣ SELF JOIN (Employees and their Managers)
+SELECT e1.name AS employee, e2.name AS manager 
+FROM employees e1 
+LEFT JOIN employees e2 ON e1.manager_id = e2.id;
+
+-- 7️⃣ JOIN with USING (If column names are the same)
+SELECT users.id, users.name, orders.total_amount 
+FROM users 
+INNER JOIN orders USING (id);
+
+-- 8️⃣ JOIN with Multiple Conditions
+SELECT users.id, users.name, orders.total_amount 
+FROM users 
+INNER JOIN orders 
+ON users.id = orders.user_id AND orders.status = 'shipped';
+
+-- 9️⃣ JOIN with Aggregate Function
+SELECT users.name, COUNT(orders.id) AS total_orders 
+FROM users 
+LEFT JOIN orders ON users.id = orders.user_id 
+GROUP BY users.name;
+
+-- 🔟 JOIN Three Tables
+SELECT users.name, orders.total_amount, payments.status 
+FROM users 
+INNER JOIN orders ON users.id = orders.user_id 
+INNER JOIN payments ON orders.id = payments.order_id;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Constraint	Behavior
+ON DELETE CASCADE	Deletes related child rows automatically.
+ON DELETE SET NULL	Sets the foreign key column to NULL when the parent is deleted.
+ON DELETE SET DEFAULT	Sets the foreign key column to its default value when the parent is deleted.
+ON DELETE RESTRICT	Prevents deletion if child rows exist.
+ON DELETE NO ACTION	Default behavior (same as RESTRICT, but checked at the end of the transaction).
+
+
+
+
+
+
+
+
+// how to create the table 
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    age INT CHECK (age >= 18)
+);
+
+
+
+
