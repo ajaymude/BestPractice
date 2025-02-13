@@ -4,6 +4,10 @@ What is Recursion?
 Recursion is a method where a function calls itself in order to solve a problem. 
 The key idea is that a problem can often be broken down into smaller, simpler versions of the same problem.
 
+// to call this function the base condition is very important , otherwise it will go in infinite loop , that can crash the system 
+
+// LIFO  
+
 
 
 function factorial(n) {
