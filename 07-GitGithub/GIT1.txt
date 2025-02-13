@@ -219,15 +219,18 @@ git fetch origin <branch>
 
 // 4 Branch 
 
-/ main head branch 
 
-/ to the branch 
+/ see the list of the branch 
+
 git branch 
+
+/ in git some time our head can on two branch on same time , because of the same commit 
 
 / create new branch or the switch 
 git branch newBranchName     
 
-// it delete the branch , but this command give the 
+
+/ it delete the branch , but this command give the 
    warning if the code is not merge  
 git branch -d branch_name
 git branch -r 
@@ -239,9 +242,16 @@ git branch -D branch_name
 
 git switch branchName 
 
-// it create the branch and the switch the branch 
-git switch 
+/ it create the branch and the switch the branch 
+
+git switch branchName 
 git switch -c branchName
+
+
+/ if you have create a file in a branch , which is not exist any other branch , then it can come in 
+  other branch while switch the branch
+
+
 
 
 
@@ -261,7 +271,8 @@ git checkout -b branchName
 
 
 // force full delete 
-git branch -D branch_name
+git branch -D branch_name   // it will delete the branch whether its code merge or not merge 
+git branch -d branchName  // it give the warning to merge before the delete the branch 
 
 
 git push origin --delete branch_name
@@ -271,7 +282,7 @@ git branch -r
 
 
 // rename the branch 
-git branch -m new-branch-name
+git branch -m new-branch-name  // to rename the branch you should be in the that branch 
 git branch -M <new-branch-name>  // force full 
 
 
