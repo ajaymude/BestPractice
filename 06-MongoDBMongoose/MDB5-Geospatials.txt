@@ -1,0 +1,124 @@
+
+
+// create the location 
+
+db.places.insertOne({
+  name: "Central Park",
+  location: {
+    type: "Point",
+    coordinates: [-73.9654, 40.7829]  // [longitude, latitude]
+  }
+});
+
+
+
+
+
+// create the geospatial index 
+
+db.places.createIndex({ location: "2dsphere" });
+
+
+
+
+
+// find query near location 
+
+db.places.find({
+  location: {
+    $near: {
+      $geometry: {
+        type: "Point",
+        coordinates: [-73.9654, 40.7829]  // Search from this location
+      }
+    }
+  }
+});
+
+
+
+
+
+
+
+
+// find the place with in max distance 5000
+
+db.places.find({
+  location: {
+    $near: {
+      $geometry: {
+        type: "Point",
+        coordinates: [-73.9654, 40.7829]
+      },
+      $maxDistance: 5000  // 5000 meters = 5 km
+    }
+  }
+});
+
+
+
+
+
+
+// find the place within the specific aria 
+
+db.places.find({
+  location: {
+    $geoWithin: {
+      $geometry: {
+        type: "Polygon",
+        coordinates: [[
+          [-73.99, 40.75],  // Corner 1
+          [-73.98, 40.75],  // Corner 2 
+          [-73.98, 40.76],  // Corner 3
+          [-73.99, 40.76],  // Corner 4
+          [-73.99, 40.75]   // Closing the polygon
+        ]]
+      }
+    }
+  }
+});
+
+
+
+
+
+
+// find a location inside a circle 
+
+db.places.find({
+  location: {
+    $geoWithin: {
+      $centerSphere: [[-73.9654, 40.7829], 5 / 6378.1]  // 5 km radius
+    }
+  }
+});
+
+
+
+
+
+//  sort the result by the distance 
+
+
+db.places.aggregate([
+  {
+    $geoNear: {
+      near: { type: "Point", coordinates: [-73.9654, 40.7829] },
+      distanceField: "distance",  // New field to store distance
+      spherical: true
+    }
+  }
+]);
+
+
+
+
+
+// remove the geospatial index 
+
+db.places.dropIndex({ location: "2dsphere" });
+
+
+

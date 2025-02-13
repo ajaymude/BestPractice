@@ -234,3 +234,92 @@ db.products.find({ category: "Electronics" }).sort({ price: -1 });
 
 
 
+// TTL time to live 
+
+How to Use TTL Index in MongoDB
+
+A TTL (Time-To-Live) Index in MongoDB is used to automatically remove documents from a 
+collection after a certain period. This is useful for expiring data like logs, sessions, and temporary records.
+
+
+1. Add a Field with an Expiration Time
+Before creating a TTL index, your documents must have a field that stores a timestamp. Usually, this field is of type Date.
+
+db.logs.insertOne({
+  message: "This is a temporary log",
+  createdAt: new Date()  // The expiration time will be based on this field
+});
+
+
+db.logs.createIndex({ createdAt: 1 }, { expireAfterSeconds: 3600 });
+
+
+
+
+
+
+
+// Connect to MongoDB (Node.js example)
+const { MongoClient } = require("mongodb");
+
+async function run() {
+  const client = new MongoClient("mongodb://localhost:27017");
+  await client.connect();
+  const db = client.db("testDB");
+  const collection = db.collection("users");
+
+  // Sample Data
+  await collection.insertMany([
+    { name: "Alice", age: 25, email: "alice@example.com" },
+    { name: "Bob", age: 30, email: "bob@example.com" },
+    { name: "Charlie", age: 35, email: "charlie@example.com" }
+  ]);
+
+  // 1. Single Field Index (Speeds up searching by 'name')
+  await collection.createIndex({ name: 1 }); // 1 = Ascending order
+
+  // 2. Compound Index (Speeds up queries using both 'name' & 'age')
+  await collection.createIndex({ name: 1, age: -1 }); // -1 = Descending order
+
+  // 3. Multikey Index (For arrays inside documents)
+  await collection.insertOne({ name: "David", tags: ["developer", "mongodb", "nodejs"] });
+  await collection.createIndex({ tags: 1 }); // Helps in searching inside 'tags' array
+
+  // 4. Text Index (Full-text search on 'name' & 'email')
+  await collection.createIndex({ name: "text", email: "text" });
+  const searchResult = await collection.find({ $text: { $search: "Alice" } }).toArray();
+
+  // 5. Hashed Index (For evenly distributed sharding)
+  await collection.createIndex({ email: "hashed" });
+
+  // 6. TTL Index (Auto-delete documents after 60 seconds)
+  await collection.insertOne({ createdAt: new Date() });
+  await collection.createIndex({ createdAt: 1 }, { expireAfterSeconds: 60 });
+
+  // 7. Geospatial Index (Find nearby locations)
+  const places = db.collection("places");
+  await places.insertOne({
+    name: "Central Park",
+    location: { type: "Point", coordinates: [-73.9654, 40.7829] }
+  });
+  await places.createIndex({ location: "2dsphere" });
+
+  // 8. Unique Index (Ensure unique values, e.g., email should be unique)
+  await collection.createIndex({ email: 1 }, { unique: true });
+
+  // 9. Sparse Index (Only indexes documents that have the field)
+  await collection.createIndex({ optionalField: 1 }, { sparse: true });
+
+  // 10. Partial Index (Index only documents that match a condition)
+  await collection.createIndex(
+    { status: 1 },
+    { partialFilterExpression: { status: { $exists: true } } }
+  );
+
+  // Finding all indexes
+  console.log(await collection.indexes());
+
+  await client.close();
+}
+
+run();
