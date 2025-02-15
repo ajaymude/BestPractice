@@ -165,3 +165,24 @@ s3 bucket
 
 
 // message queues 
+
+
+
+// performance 
+scalability 
+readability 
+deplayment 
+tech stack
+
+
+
+
+
+
+
+
+
+
+// 1 performance 
+
+
