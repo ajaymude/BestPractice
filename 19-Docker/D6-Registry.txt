@@ -1,0 +1,62 @@
+
+
+
+What is Docker Registry?
+A Docker Registry is a storage system for Docker images, allowing users to push, pull, and manage container images.
+
+There are three types of registries:
+
+Docker Hub (Public) – The default and public registry by Docker.
+Private Docker Registry – A self-hosted registry for private image storage.
+Third-Party Registries – AWS ECR, Google Container Registry, GitHub Container Registry, etc.
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+// docker registry command 
+
+
+# Login to Docker Hub
+docker login
+
+# Pull an image from Docker Hub
+docker pull nginx:latest
+
+# Tag and push an image to Docker Hub
+docker tag my-app:latest mydockerhubuser/my-app:latest
+docker push mydockerhubuser/my-app:latest
+
+# Search for images on Docker Hub
+docker search node
+
+# Run a private Docker registry
+docker run -d -p 5000:5000 --name my-registry registry:2
+
+# Tag and push an image to a private registry
+docker tag my-app localhost:5000/my-app
+docker push localhost:5000/my-app
+
+# Pull an image from a private registry
+docker pull localhost:5000/my-app
+
+# List all images in a private registry
+curl -X GET http://localhost:5000/v2/_catalog
+
+# List all tags of an image
+curl -X GET http://localhost:5000/v2/my-app/tags/list
+
+# Remove a local image
+docker rmi mydockerhubuser/my-app:latest
+
+# Run a UI for Docker Registry (Optional)
+docker run -d -p 8080:80 --name registry-ui -e REGISTRY_URL=http://localhost:5000 joxit/docker-registry-ui
+

@@ -74,79 +74,16 @@ docker top <container-id>          # Show running processes in a container
 
 
 
+VMs: Heavyweight, fully isolated, good for running different OSes on a single machine.
+Containers: Lightweight, faster, best for microservices and cloud-native applications.
 
 
 
-// all important command related to the docker run 
-
-# Run a container interactively (with terminal)
-docker run -it <image> <command>
-
-# Run a container in detached mode (background)
-docker run -d <image>
-
-# Map container ports to host ports
-docker run -p <host-port>:<container-port> <image>
-
-# Set environment variables
-docker run -e <env-var>=<value> <image>
-
-# Mount volumes (host to container)
-docker run -v <host-path>:<container-path> <image>
-
-# Name the container
-docker run --name <container-name> <image>
-
-# Set resource limits (memory, CPU, etc.)
-docker run --memory <memory-limit> --cpus <cpu-limit> <image>
-
-# Link containers (deprecated)
-docker run --link <container-name>:<alias> <image>
-
-# Run with a specific user
-docker run --user <username-or-id> <image>
-
-# Run with a specific working directory
-docker run -w <directory> <image> <command>
-
-# Run with a custom hostname
-docker run --hostname <hostname> <image>
-
-# Allocate a pseudo-TTY and keep stdin open (interactive mode)
-docker run -it <image> <command>
-
-# Set the container's restart policy
-docker run --restart <policy> <image>
-
-# Run with a custom entry point
-docker run --entrypoint <entrypoint> <image> <command>
-
-# Run with additional security options
-docker run --security-opt <option> <image>
-
-# Run with a specific DNS server
-docker run --dns <dns-server> <image>
-
-# Run with privileged mode (elevated permissions)
-docker run --privileged <image>
-
-# Run with a specific log driver
-docker run --log-driver=<driver> <image>
-
-# Limit the number of container processes
-docker run --ulimit <option> <image>
+Docker Engine	The core system managing containerization.
+Docker Daemon (dockerd)	The background service that handles containers.
+Docker CLI (docker)	The command-line tool to interact with Docker Daemon.
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+docker file - image - container 
 

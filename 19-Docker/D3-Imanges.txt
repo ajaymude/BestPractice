@@ -1,0 +1,142 @@
+
+
+
+// command relate to the images 
+
+# Dockerfile example
+cat <<EOF > Dockerfile
+FROM node:18
+WORKDIR /app
+COPY . .
+RUN npm install
+CMD ["node", "server.js"]
+EOF
+
+# Build a Docker image
+docker build -t my-node-app .
+
+# List Docker images
+docker images
+
+docker image ls
+
+# Inspect a Docker image
+docker inspect my-node-app
+
+# Remove a Docker image
+docker rmi my-node-app
+
+docker image rm my-node-app
+
+# Tag a Docker image
+docker tag my-node-app myrepo/my-node-app:latest
+
+# Push an image to Docker Hub (requires login)
+docker login
+docker push myrepo/my-node-app:latest
+
+# Save an image as a tar file
+docker save -o my-node-app.tar my-node-app
+
+# Load an image from a tar file
+docker load -i my-node-app.tar
+
+# Run a container from an image
+docker run -d -p 3000:3000 --name my-container my-node-app
+
+# List all running containers
+docker ps
+
+# Stop a running container
+docker stop my-container
+
+# Remove a container
+docker rm my-container
+
+# Remove all unused images
+docker image prune -a
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// multi stage docker image 
+
+
+What is a Multi-Stage Docker Image? 🚀
+A Multi-Stage Docker Image is a technique in Docker to create lightweight, optimized images by using multiple stages in a single Dockerfile. It helps in:
+✅ Reducing image size by discarding unnecessary files.
+✅ Improving security by keeping only essential components.
+✅ Enhancing performance by optimizing dependencies.
+
+
+
+
+
+
+
+// docker file 
+
+# Stage 1: Build Stage
+FROM node:18 AS builder
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm install
+COPY . .
+RUN npm run build  # Compiles the app
+
+# Stage 2: Production Stage
+FROM node:18-alpine
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+COPY package.json ./
+
+EXPOSE 3000
+CMD ["node", "dist/server.js"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
