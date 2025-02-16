@@ -392,6 +392,60 @@ db.sales.aggregate([
 
 
 
+// MongoDB Aggregation Pipeline - Detailed Explanation
+
+// Sample collection: sales
+// [{ _id: 1, item: "apple", quantity: 10, price: 5, category: "fruit", date: ISODate("2023-01-10") }, ...]
+
+db.sales.aggregate([
+  // 1. $match - Filters documents based on criteria
+  { $match: { category: "fruit" } },
+  
+  // 2. $project - Selects specific fields and computes new ones
+  { $project: { item: 1, totalCost: { $multiply: ["$quantity", "$price"] } } },
+  
+  // 3. $group - Groups documents by a field and performs aggregations
+  { $group: { _id: "$item", totalQuantity: { $sum: "$quantity" }, avgPrice: { $avg: "$price" } } },
+  
+  // 4. $sort - Sorts documents based on a field
+  { $sort: { totalQuantity: -1 } },
+  
+  // 5. $limit - Limits the number of documents
+  { $limit: 5 },
+  
+  // 6. $skip - Skips a specified number of documents
+  { $skip: 2 },
+  
+  // 7. $unwind - Deconstructs arrays into multiple documents
+  { $unwind: "$items" },
+  
+  // 8. $lookup - Performs a left join with another collection
+  { $lookup: { from: "categories", localField: "category", foreignField: "name", as: "categoryDetails" } },
+  
+  // 9. $facet - Runs multiple pipelines within a single stage
+  { $facet: {
+      byCategory: [{ $group: { _id: "$category", count: { $sum: 1 } } }],
+      topItems: [{ $sort: { quantity: -1 } }, { $limit: 3 }]
+    }
+  },
+  
+  // 10. $bucket - Categorizes documents into bins
+  { $bucket: {
+      groupBy: "$price",
+      boundaries: [0, 10, 20, 30],
+      default: "Other",
+      output: { count: { $sum: 1 }, items: { $push: "$item" } }
+    }
+  },
+  
+  // 11. $out - Writes aggregation results to a new collection
+  { $out: "aggregatedResults" },
+  
+  // 12. $merge - Merges results into an existing collection
+  { $merge: { into: "salesSummary", whenMatched: "merge", whenNotMatched: "insert" } }
+]);
+
+
 
 
 
