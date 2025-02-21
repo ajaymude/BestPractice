@@ -1,0 +1,201 @@
+
+
+
+Lofi           Hifi
+
+
+
+
+
+
+
+
+// frames 
+
+
+
+
+
+
+
+// learn Shortcut 
+
+move - press v and move the the element 
+rectangle - r 
+
+change the frame name - double click on the frame 
+
+copy - alt and drag the Components or the frame to the copy , 
+copy - c d for the copy like previous 
+
+
+how to align the multiple components in - select the all components then align at bottom option and the click on the align 
+
+you can increase or the decrease the space between the two components by the two Cursors 
+
+you can switch the components also by drag and drop 
+
+
+clip  content = if you click this the content will not go outside , the flow will be the hidden 
+
+
+
+
+
+
+
+
+
+grid system - offset column gutter 
+
+
+
+r - rectangle 
+you can link width and height 
+rotate the rectangle , click on the shift , 
+alt - to change the radius of the single corner 
+
+stroke is used to give the border 
+
+effects is used for the give the shadow effects 
+
+
+
+
+
+l - line 
+s l - arrow 
+pen 
+
+
+
+
+
+
+
+
+
+
+// figma boolean selection 
+
+intersection 
+
+
+
+
+
+// how to make the group 
+c g  / c s g ungroup 
+to go inside click double 
+
+
+
+// frame 
+f 
+frame have the specific area 
+
+
+
+
+// pen and vector 
+
+
+
+
+
+// guides 
+
+s r = activate the guides 
+you can use Horizontal ruler and Vertical ruler 
+check the distance between two components  = a and hover 
+
+
+
+
+
+// images 
+
+it comes under the fill 
+you can drag and drop on the fill 
+s c k = bulk selection of the image 
+
+
+
+
+
+
+
+// text 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// auto layouts 
+
+s a = for the auto layout 
+
+to create the reponsive design create the multiple auto layout 
+
+
+
+
+
+
+
+
+
+
+
+
+// styles 
+
+
+
+
+
+
+// components  and variants 
+alt c k = for the making the components  
+
+detach instance 
+
+
+
+
+
+
+// system design 
+
+
+
+
+
+
+
+// prototypes
+
+
+
+
+
+
+// animations 
+
+
+
+
+
+
+
+
+

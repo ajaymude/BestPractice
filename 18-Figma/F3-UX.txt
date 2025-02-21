@@ -1,0 +1,126 @@
+
+
+
+Core UX Concepts to Learn
+
+User Research
+
+Understanding user needs through surveys & interviews
+Creating user personas and journey maps
+
+
+
+
+Usability & Accessibility
+
+Designing for clarity and ease of use
+Ensuring accessibility for all users (contrast, keyboard navigation, etc.)
+
+
+
+Wireframing & Prototyping
+
+Sketching UI ideas before development
+Creating interactive prototypes in Figma
+
+
+
+Information Architecture
+
+Structuring content for easy navigation
+Designing intuitive UI flows
+
+
+
+
+Visual & Interaction Design
+
+Consistent layouts, typography, and colors
+Micro-interactions and animations
+
+
+
+Testing & Iteration
+
+A/B testing, user feedback, and continuous improvements
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Key Concepts of UI Design
+
+
+Visual Design
+
+Color Theory: Choosing the right colors for branding and accessibility
+Typography: Selecting readable and aesthetic fonts
+Iconography: Using meaningful icons to improve navigation
+
+
+
+
+Layout & Spacing
+
+Grid Systems: Structuring elements properly (e.g., 12-column grid)
+White Space: Improving readability and focus
+Alignment & Consistency: Ensuring a uniform design across pages
+
+
+
+
+Components & UI Patterns
+
+Buttons, Forms, Cards, Modals, and Navigation Bars
+Reusable UI Components (important for frameworks like React)
+UI Design Systems (e.g., Material UI, Tailwind UI)
+
+
+
+
+Responsive & Adaptive Design
+
+Designing for different screen sizes (Mobile, Tablet, Desktop)
+Using Flexbox & Grid for layouts in CSS
+
+
+
+
+Interactive Elements
+
+Hover effects, Transitions, and Animations
+Micro-interactions to enhance user engagement
+
+
+
+
+Design Tools
+
+Figma: For UI design and prototyping
+Adobe XD: Another UI/UX design tool
+Sketch: Popular among macOS users
+
+
+
+
+
+
+
+
+
+
+
+
+// quantitative research vs qualitative research 
+
