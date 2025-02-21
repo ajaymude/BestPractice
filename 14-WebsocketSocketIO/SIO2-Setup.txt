@@ -1,0 +1,115 @@
+
+
+// socket.io setup with the mern stack application 
+
+
+
+
+
+/ installation of the socket.io  for the backend 
+
+npm install socket.io express cors
+
+
+
+/ installation for the frontend 
+
+npm install socket.io-client
+
+
+
+
+
+
+
+
+
+
+
+// basic setup of the socket.io for the backend 
+
+const express = require("express");
+const http = require("http");
+const { Server } = require("socket.io");
+const cors = require("cors");
+
+const app = express();
+const server = http.createServer(app);
+
+const io = new Server(server, {
+  cors: {
+    origin: "*", // Allow all origins (change in production)
+    methods: ["GET", "POST"],
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("User connected:", socket.id);
+
+  socket.on("message", (data) => {
+    console.log(data);
+    io.emit("message", data); // Broadcast to all clients
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected:", socket.id);
+  });
+});
+
+server.listen(5000, () => {
+  console.log("Server running on port 5000");
+});
+
+
+
+
+
+
+
+
+// basic set for the frontend of the socket.io 
+
+import { useEffect, useState } from "react";
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:5000");
+
+function ChatApp() {
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    socket.on("message", (data) => {
+      setMessages((prev) => [...prev, data]);
+    });
+
+    return () => socket.off("message");
+  }, []);
+
+  const sendMessage = () => {
+    if (message.trim()) {
+      socket.emit("message", message);
+      setMessage("");
+    }
+  };
+
+  return (
+    <div>
+      <h2>Chat App</h2>
+      <div>
+        {messages.map((msg, i) => (
+          <p key={i}>{msg}</p>
+        ))}
+      </div>
+      <input
+        type="text"
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        placeholder="Type a message..."
+      />
+      <button onClick={sendMessage}>Send</button>
+    </div>
+  );
+}
+
+export default ChatApp;
