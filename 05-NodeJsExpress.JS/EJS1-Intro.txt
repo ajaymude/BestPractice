@@ -86,3 +86,73 @@ http://localhost:3000/js/script.js → Loads script.js
 
 
 
+
+// use all express package 
+session validator , request 
+
+
+
+
+
+
+
+
+
+
+
+// express middleware 
+
+// use the middleware only where it needed 
+
+const userRouter = express.Router();
+userRouter.use(authMiddleware);
+userRouter.get('/profile', (req, res) => {
+  res.send('User profile');
+});
+
+app.use('/user', userRouter); 
+
+
+
+
+
+
+
+
+
+
+
+
+// use the try catch function global 
+
+const asyncHandler = fn => (req, res, next) => {
+  Promise.resolve(fn(req, res, next)).catch(next);
+};
+
+app.get('/data', asyncHandler(async (req, res) => {
+  let data = await fetchData();
+  res.send(data);
+}));
+
+
+
+
+
+
+
+
+
+
+
+
+
+// use the res.local to save the multiple api request
+
+app.use(async (req, res, next) => {
+  res.locals.user = await fetchUser(req.userId);
+  next();
+});
+
+app.get('/dashboard', (req, res) => {
+  res.send(`Welcome, ${res.locals.user.name}`);
+});
