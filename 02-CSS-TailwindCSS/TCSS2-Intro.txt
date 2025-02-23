@@ -52,3 +52,34 @@ postcss langauge support
 / opacity
 
 <div class="bg-blue-500 opacity-50 p-4">50% Opacity</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// we can create the custom class or the Reusable class 
+
+
+// we can overwrite the tailwind class on our own property 
+
+// take the advantage of the @theme layer @apply
