@@ -1,0 +1,186 @@
+
+
+// introduction
+
+
+
+// meta data 
+
+static meta data 
+
+import { Metadata } from "next";
+
+// ✅ Static Metadata (Predefined)
+export const metadata: Metadata = {
+  title: "Next.js Metadata Example",
+  description: "Learn how to use metadata in Next.js for SEO and social sharing.",
+  keywords: ["Next.js", "SEO", "Metadata", "Web Development"],
+  authors: [{ name: "John Doe", url: "https://johndoe.com" }],
+  robots: "index, follow",
+  openGraph: {
+    title: "Next.js Metadata Guide",
+    description: "A complete guide on how to use metadata in Next.js.",
+    url: "https://example.com",
+    siteName: "My Next.js Site",
+    images: [
+      {
+        url: "https://example.com/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Next.js Metadata",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Next.js Metadata Guide",
+    description: "A complete guide on how to use metadata in Next.js.",
+    images: ["https://example.com/twitter-image.jpg"],
+  },
+  viewport: "width=device-width, initial-scale=1",
+  themeColor: "#ffffff",
+  icons: "/favicon.ico",
+};
+
+export default function HomePage() {
+  return (
+    <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <h1 className="text-3xl font-bold">Welcome to Next.js Metadata Example</h1>
+      <p className="text-lg mt-2 text-gray-700">
+        This page includes SEO-friendly metadata using Next.js 13+ App Router.
+      </p>
+    </main>
+  );
+}
+
+
+
+
+
+
+
+
+// dynamic meta data
+
+import { Metadata } from "next";
+
+// ✅ Dynamic Metadata (Fetched from API)
+export async function generateMetadata(): Promise<Metadata> {
+  const post = await fetch("https://jsonplaceholder.typicode.com/posts/1").then((res) => res.json());
+
+  return {
+    title: post.title,
+    description: post.body,
+    openGraph: {
+      title: post.title,
+      description: post.body,
+      url: `https://example.com/posts/${post.id}`,
+      siteName: "My Blog",
+      images: [
+        {
+          url: "https://example.com/default-image.jpg",
+          width: 800,
+          height: 600,
+          alt: "Blog Post Image",
+        },
+      ],
+      type: "article",
+    },
+  };
+}
+
+export default function BlogPage() {
+  return (
+    <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <h1 className="text-3xl font-bold">Blog Post</h1>
+      <p className="text-lg mt-2 text-gray-700">This page fetches metadata dynamically from an API.</p>
+    </main>
+  );
+}
+
+
+
+
+
+
+// app router is yes 
+
+signup / page.js   == route si signpu 
+
+
+app/
+ ├── layout.tsx     (Main layout)
+ ├── page.tsx       (Homepage - `/`)
+ ├── about/
+ │   ├── page.tsx   (About page - `/about`)
+ ├── contact/
+ │   ├── page.tsx   (Contact page - `/contact`)
+
+
+
+
+// dyanamic routing 
+
+app/
+ ├── blog/
+ │   ├── [id]/
+ │   │   ├── page.tsx   (Dynamic route - `/blog/:id`)
+
+
+
+
+
+// catch all routes 
+
+app/
+ ├── docs/
+ │   ├── [...slug]/
+ │   │   ├── page.tsx   (Handles `/docs/*`)
+
+
+
+
+
+// navigation between the pages in the nextjs 
+
+
+import Link from "next/link";
+
+export default function HomePage() {
+  return (
+    <div>
+      <h1>Welcome</h1>
+      <Link href="/about">Go to About Page</Link>
+    </div>
+  );
+}
+
+
+
+
+// layout 
+
+
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        <header>
+          <nav>
+            <a href="/">Home</a> | <a href="/about">About</a> | <a href="/contact">Contact</a>
+          </nav>
+        </header>
+        <main>{children}</main>
+        <footer>© 2025 My Website</footer>
+      </body>
+    </html>
+  );
+}
+
+
+
+
+

@@ -199,3 +199,9 @@ detach instance
 
 
 
+// zoom in or out c mouse while in or out 
+
+
+// to move the frame = space bar then move the frame 
+
+// to move the components from the frame = press x and then move the components
