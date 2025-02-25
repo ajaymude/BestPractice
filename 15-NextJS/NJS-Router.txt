@@ -107,7 +107,7 @@ export default function BlogPage() {
 
 // app router is yes 
 
-signup / page.js   == route si signpu 
+signup / page.js   == route is signup 
 
 
 app/
