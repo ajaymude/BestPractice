@@ -1,5 +1,5 @@
-// 01 - paragraph tag <p></p>
-// 02 - Heading tag <h1></h1>
+// 01 - <p></p>
+// 02 - <h1></h1>
 // 03 - Comments
 // 04 - <strong>, <b>, <em>, <i>, <mark>, <del>, <q>, <small>, <s>, <u>
 // 05 - <sup>, <sub> 
@@ -21,6 +21,8 @@
 // 21 - <var>
 // 22 - <code>
 // 23 - <ins>
+// 24 - <br/>
+// 25 - <hr/>
 
 
 

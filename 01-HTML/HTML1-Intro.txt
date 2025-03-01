@@ -1,8 +1,5 @@
-// introduction
-
 // 1 - html boiler plate 
 // 2 - noscript tag
-// 3 - meta tag
 
 
 
@@ -49,55 +46,3 @@
 </noscript>
 
 
-
-
-
-
-
-
-
-// 3 meta tag
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"> <!-- Specifies character encoding (UTF-8) -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Viewport settings for responsive design -->
-  <meta name="description" content="Learn HTML and CSS with easy examples and tutorials."> <!-- Page description for SEO -->
-  <meta name="keywords" content="HTML, CSS, web development, tutorial, frontend"> <!-- Keywords for search engines -->
-  <meta name="author" content="John Doe"> <!-- Specifies the author of the document -->
-  
-  <meta http-equiv="refresh" content="5;url=https://www.example.com"> <!-- Refreshes the page after 5 seconds and redirects -->
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <!-- Specifies the content type and character encoding (legacy) -->
-  
-  <meta property="og:title" content="Learn HTML and CSS"> <!-- Open Graph title for Facebook -->
-  <meta property="og:description" content="This is a beginner's guide to HTML and CSS."> <!-- Open Graph description for Facebook -->
-  <meta property="og:image" content="https://www.example.com/images/thumbnail.jpg"> <!-- Open Graph image for Facebook -->
-  <meta property="og:url" content="https://www.example.com"> <!-- Open Graph URL for Facebook -->
-  
-  <meta name="twitter:card" content="summary_large_image"> <!-- Twitter card type (large image) -->
-  <meta name="twitter:title" content="Learn HTML and CSS"> <!-- Twitter card title -->
-  <meta name="twitter:description" content="This is a beginner's guide to HTML and CSS."> <!-- Twitter card description -->
-  <meta name="twitter:image" content="https://www.example.com/images/thumbnail.jpg"> <!-- Twitter card image -->
-  
-  <meta name="robots" content="index, follow"> <!-- Directs search engines to index the page and follow links -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Ensures the latest version of IE is used -->
-  <meta name="theme-color" content="#4CAF50"> <!-- Sets the browser's address bar color on mobile -->
-  
-  <meta name="language" content="en-US"> <!-- Specifies the language of the document -->
-  <meta name="referrer" content="no-referrer"> <!-- Specifies referrer policy -->
-  <meta name="apple-mobile-web-app-capable" content="yes"> <!-- Allows adding the page to the iOS home screen -->
-  <meta name="apple-mobile-web-app-icon" content="images/apple-touch-icon.png"> <!-- Specifies the icon for iOS web apps -->
-  
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> <!-- Sets the style of the status bar in iOS -->
-  <meta name="robots" content="noindex, nofollow"> <!-- Prevents search engines from indexing the page or following links -->
-  
-  <title>HTML Meta Tags Example</title>
-</head>
-<body>
-
-  <h1>HTML Meta Tag Examples</h1>
-  <p>All the meta tags are placed inside the <code>&lt;head&gt;</code> section of the HTML document.</p>
-
-</body>
-</html>

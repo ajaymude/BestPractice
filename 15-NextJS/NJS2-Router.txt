@@ -330,3 +330,79 @@ export default function Loading() {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+// error Page
+
+app/
+ ├── layout.tsx
+ ├── error.tsx   (Handles errors globally)
+ ├── page.tsx
+ ├── dashboard/
+ │   ├── page.tsx
+
+
+
+
+"use client"; // Required for error boundaries
+
+import { useEffect } from "react";
+
+export default function GlobalError({ error, reset }: { error: Error; reset: () => void }) {
+  useEffect(() => {
+    console.error("Error:", error);
+  }, [error]);
+
+  return (
+    <div style={{ textAlign: "center", padding: "50px" }}>
+      <h1>Something went wrong!</h1>
+      <p>{error.message}</p>
+      <button onClick={reset} style={{ padding: "10px", cursor: "pointer" }}>
+        Try Again
+      </button>
+    </div>
+  );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// learn about the dynamic route 
+
+
+
+
+
+// generate static params 
+
+
+
+
+
+// npm i prisma 
+// npx prisma init --datasource-provider sqlite 
