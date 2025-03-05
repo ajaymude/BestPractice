@@ -384,6 +384,21 @@ db.collection.find({status.hobbies:["cricket"]} )  // it search exact array  arr
 Example with Projection:
 db.users.find({ age:  18  }, { name: 1, age: 1 })
 db.users.find({}, { password: 0 })
+db.users.find({ name: "Ajay" }, { _id: 0, name: 1, city: 1 })
+
+
+db.users.find({
+  age: { $gte: 20, $lte: 30 }
+})
+
+
+db.users.find({
+  $and: [
+    { age: { $gte: 20 } },
+    { age: { $lte: 30 } }
+  ]
+})
+
 
 
 /sort 
