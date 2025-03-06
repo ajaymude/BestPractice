@@ -1,0 +1,19 @@
+# comments 
+
+print("hello \n new line")
+
+input("what is your name ")
+
+name = "ajay"
+length = len(name)
+print(length)
+
+
+data types in python 
+1 - string
+2 - integer
+3 - float
+4 - boolean 
+
+
+

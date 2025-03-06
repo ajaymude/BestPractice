@@ -279,6 +279,20 @@ const users = await User.insertMany([
   ], { lean: true });
 
 
+db.collection.insertOne(
+  { name: "Alice", age: 28 },
+  { writeConcern: { w: "majority", j: true, wtimeout: 5000 } }
+);
+
+
+
+db.collection.insertOne(
+  { name: "Dave", age: "twenty-five" }, // Assuming 'age' should be an integer
+  { bypassDocumentValidation: true }
+);
+
+
+
 
 
 // Bulk insert operations
@@ -398,6 +412,8 @@ db.users.find({
     { age: { $lte: 30 } }
   ]
 })
+
+db.users.find({}).sort({ age: 1 })
 
 
 
