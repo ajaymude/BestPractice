@@ -39,3 +39,39 @@ round(12.3333 , 3)
 
 
 
+comparison operator 
+
+< > <= >= == != 
+
+
+if else 
+
+# Example of if-else
+num = 10
+if num > 0:
+    print("Positive number")
+else:
+    print("Non-positive number")
+
+# Example of if-elif-else
+num = -5
+if num > 0:
+    print("Positive number")
+elif num == 0:
+    print("Zero")
+else:
+    print("Negative number")
+
+# Example of nested if-else
+num = 15
+if num > 0:
+    print("Positive number")
+    if num % 2 == 0:
+        print("Even number")
+    else:
+        print("Odd number")
+else:
+    print("Non-positive number")
+
+
+
