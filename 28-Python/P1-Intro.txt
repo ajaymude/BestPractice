@@ -17,3 +17,25 @@ data types in python
 
 
 
+find the data type of the variable
+type("hello")
+
+
+convert the data Type
+int("123")
+float()
+str()
+bool()
+
+
+mathematical operators
+- + * /  ** 
+round(12.3333 , 3)
+
+
+// variable in the string 
+"what is your {name}"
+
+
+
+
