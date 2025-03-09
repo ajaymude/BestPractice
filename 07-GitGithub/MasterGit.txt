@@ -1,0 +1,115 @@
+
+// start 
+
+
+// how to check git installed or not 
+git --version
+
+
+// how to set the git config  and verify 
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+git config --list
+
+
+// how to create the git repo
+git init	Initialize a new Git repository
+
+
+// git repo type 
+working directory  // add . 
+staging area       // git commit 
+repo               // git push 
+github repo
+
+// clone 
+git clone <repo-url>	Clone an existing repository
+
+
+// see the current change file 
+git status	Show the current status of the repository
+
+
+// add files in the staging area 
+git add <file>	Add a file to the staging area
+git add .	Add all changes to the staging area
+
+
+// commits 
+git commit -m "message"	  =Commit changes with a message
+git commit                = after this you will enter in the vim then type the i for the 
+                            commit message , esc for the exit the vim :wq for the close the vim 
+git commit --amend        = first add . untrack files then run this command and save the message 
+
+git commit -a -m "commit message with the add "
+
+
+// branches 
+git branch	                                        = List all branches
+
+git branch -M main                                  = rename the current branch , -M it indicate to force to rename   
+git branch -m old-branch-name new-branch-name       = you are not in the branch but you want to change the other branch name 
+
+
+git checkout <branch>	               = Switch to another branch
+git checkout -b <branch>	           = Create and switch to a new branch
+
+git switch branchName                  = switch the branch 
+git switch -c branchName               = it create the branch and switch if the branch is not exist 
+
+                                       = note some the while switch the branch your untrack changes can come along 
+                                         with the switching the branch , it if  it don't have the conflict 
+                                         always commit your changes with before switch the branches
+
+git branch -d branchName               = this command delete the branch if the is fully merge
+git branch -D branchName               = this command delete the branch with the forcefully 
+
+git branch -m newNameOfBranch          = rename of the current branch 
+ 
+
+
+// merge 
+git merge <branch>	                 = Merge a branch into the current branch
+
+
+
+
+
+
+
+
+
+
+
+// how to see the git log 
+git log
+git log --oneline 
+
+
+// how to see the diff 
+git diff	Show changes between commits
+
+
+
+
+
+
+
+// remote repo command 
+git remote add origin <repo-url>	   = Connect local repo to a remote one
+git push origin <branch>	           = Push changes to a remote repository
+git pull origin <branch>	           = Fetch and merge changes from remote repo
+
+
+
+// reset 
+git reset --hard <commit>	           = Reset to a specific commit, discarding changes
+
+
+
+
+
+
+
+
+
