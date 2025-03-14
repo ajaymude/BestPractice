@@ -53,6 +53,8 @@ git branch -m old-branch-name new-branch-name       = you are not in the branch 
 
 git checkout <branch>	               = Switch to another branch
 git checkout -b <branch>	           = Create and switch to a new branch
+git checkout origin/main               = to checkout in the origin repo
+
 
 git switch branchName                  = switch the branch 
 git switch -c branchName               = it create the branch and switch if the branch is not exist 
@@ -65,15 +67,31 @@ git branch -d branchName               = this command delete the branch if the i
 git branch -D branchName               = this command delete the branch with the forcefully 
 
 git branch -m newNameOfBranch          = rename of the current branch 
+
+git branch -v                          =
+git branch -a                          = The -a flag shows both local and remote branches.
+git branch -r                          = this command is use to see the remote branch 
  
 
 
 // merge 
+// types of the merge = 1-fast_forward_merge 
 git merge <branch>	                 = Merge a branch into the current branch
 
 
 
 
+// how to see the diff 
+git diff	                     = Show changes between commits - this will work in the working directory
+git diff head                    = if you want to see the changes after the git add command 
+git --staged                     = to see the changes in the stage area  
+git --cached                     = 
+git diff <commit1> <commit2>     = compare the changes between two commits 
+git diff main feature-branch     = compare the changes between two  branches 
+git diff <file_name>             = compare the changes in the file 
+git diff origin/main             = compare the changes between the remote branch and local branch 
+git diff --name-only             = to see the only file name of the change file 
+git dif  --color-words           = 
 
 
 
@@ -81,13 +99,65 @@ git merge <branch>	                 = Merge a branch into the current branch
 
 
 
+// stash
+git stash                        = it create save the data without creating the commit 
+git stash pop                    = remove the latest pop 
+git stash apply                  = 
+git stash list                   = to see the git stash list  0 is the most recent stash 
+git stash apply  stash@{2}              = to apply the specific stash from the list 
+git stash drop stash@{2}         = to remove the specific stash from the list 
+git stash clear                  = to remove the all stash at once 
+git stash push -m "Fixing login issue"   = stash with the message 
+
+
+
+
+
+
+
+
+
+
+
+
+
+// time travel 
+git checkout 343434                            = you will in the detach head on particular commit message 
+git check HEAD~1                               = it goes on the last one commit 
+
+/ this works only on the stage area 
+git switch -                                   = you will go on the last commit message 
+git restore HEAD~1                             = to restore the state of the git 
+git restore .                                  = git goes on the last commit state all files   
+git restore index.html                         = git goes on the last commit state  of the specific file
+git restore file1.js file2.js
+git restore --staged app.js                    = it restore the file from the stage area 
+
+/ it works only on the repo directory , like after the commit 
+git reset rd4343                               = your code will come in the staging to local directory
+
+
+/ revert
+git revert                                     = 
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+ 
 // how to see the git log 
 git log
 git log --oneline 
 
 
-// how to see the diff 
-git diff	Show changes between commits
 
 
 
@@ -109,6 +179,24 @@ git reset --hard <commit>	           = Reset to a specific commit, discarding ch
 
 
 
+
+
+//  github
+git clone repolink                      = clone the repo 
+git remote                              = to see the remote repo of the git 
+git remote -v                           = to see the remote origin link 
+git remote add origin giturllink        = how to set the git remote origin link 
+
+
+
+git fetch origin main                  = it fetch the latest change from the remote branch but not merge 
+
+
+git pull origin main                   = it is the combination of the git fetch and git merge 
+git pull                               = it is the shorter syntax of the git pull command 
+
+
+git push origin main                    = to push local code on the remote branch 
 
 
 
