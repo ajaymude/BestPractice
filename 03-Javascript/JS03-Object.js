@@ -93,5 +93,129 @@ console.log(jsonObject);
 
 
 
+// Basic Object Destructuring
+
+// const user = {
+//     name: "Ajay",
+//     age: 25,
+//     role: "Developer"
+// };
+
+// const { name, age, role } = user;
+
+// console.log(name); // "Ajay"
+// console.log(age);  // 25
+// console.log(role); // "Developer"
 
 
+
+//  Changing Variable Names
+// const user = {
+//     firstName: "Ajay",
+//     job: "Developer"
+// };
+
+// const { firstName: name, job: profession } = user;
+
+// console.log(name);       // "Ajay"
+// console.log(profession); // "Developer"
+
+
+
+
+
+// Nested Object Destructuring
+// const user = {
+//     name: "Ajay",
+//     address: {
+//         city: "Mumbai",
+//         country: "India"
+//     }
+// };
+
+// const { name, address: { city, country } } = user;
+
+// console.log(name);    // "Ajay"
+// console.log(city);    // "Mumbai"
+// console.log(country); // "India"
+
+
+
+
+// Using the Rest Operator (...)
+// const user = {
+//     name: "Ajay",
+//     age: 25,
+//     role: "Developer",
+//     company: "Tech Corp"
+// };
+
+// const { name, age, ...rest } = user;
+
+// console.log(name);  // "Ajay"
+// console.log(age);   // 25
+// console.log(rest);  // { role: "Developer", company: "Tech Corp" }
+
+
+
+
+// Looping Objects: Object Keys, Values, and Entries 🚀
+// const user = {
+//     name: "Ajay",
+//     age: 25,
+//     city: "Mumbai"
+// };
+
+// //  Looping over keys
+// for (const key of Object.keys(user)) {
+//     console.log(key);
+// }
+
+// name
+// age
+// city
+
+
+
+
+
+
+// Object.values(obj) – Looping Over Values
+
+// const user = {
+//     name: "Ajay",
+//     age: 25,
+//     city: "Mumbai"
+// };
+
+// // Looping over values
+// for (const value of Object.values(user)) {
+//     console.log(value);
+// }
+
+// Ajay
+// 25
+// Mumbai
+
+
+
+
+
+
+
+// Object.entries(obj) – Looping Over Key-Value Pairs
+// const user = {
+//     name: "Ajay",
+//     age: 25,
+//     city: "Mumbai"
+// };
+
+// // Looping over key-value pairs
+// for (const [key, value] of Object.entries(user)) {
+//     console.log(`${key}: ${value}`);
+// }
+
+
+// name: Ajay
+// age: 25
+// city: Mumbai

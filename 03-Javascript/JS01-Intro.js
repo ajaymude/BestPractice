@@ -765,3 +765,216 @@ function factorial(n) {
 
 
 
+
+
+
+
+
+
+// 21 - The Spread Operator (...)
+
+// Copying an Array
+// const numbers = [1, 2, 3];
+// const copy = [...numbers];
+
+// console.log(copy); // [1, 2, 3]
+
+//  Merging Two Arrays
+const arr1 = [1, 2, 3];
+const arr2 = [4, 5, 6];
+
+const merged = [...arr1, ...arr2];
+console.log(merged); // [1, 2, 3, 4, 5, 6]
+
+
+//  Adding Elements to an Array
+// const numbers = [2, 3, 4];
+// const newNumbers = [1, ...numbers, 5];
+// console.log(newNumbers); // [1, 2, 3, 4, 5]
+
+
+
+
+// Merging Two Objects
+// const user = { name: "Ajay", age: 25 };
+// const details = { role: "Developer", country: "India" };
+
+// const merged = { ...user, ...details };
+
+// console.log(merged);
+// // { name: "Ajay", age: 25, role: "Developer", country: "India" }
+
+
+
+
+// Removing Duplicates Using Spread and Set
+// const numbers = [1, 2, 2, 3, 4, 4, 5];
+// const uniqueNumbers = [...new Set(numbers)];
+// console.log(uniqueNumbers); // [1, 2, 3, 4, 5]
+
+
+
+
+
+
+
+
+
+
+// 22 - Rest Pattern and Parameters 
+function sum(...numbers) {
+    return numbers.reduce((acc, num) => acc + num, 0);
+}
+
+console.log(sum(1, 2, 3, 4)); // 10
+console.log(sum(5, 10, 15)); // 30
+
+
+// const numbers = [1, 2, 3, 4, 5];
+// const [first, second, ...rest] = numbers;
+// console.log(first); // 1
+// console.log(second); // 2
+// console.log(rest); // [3, 4, 5]
+
+
+
+
+
+
+
+
+
+
+// 23 - Short Circuiting (&& and ||)
+
+// Logical OR (||) - Returns the First Truthy Value
+console.log(0 || "Hello");  // "Hello"
+console.log("" || "Default");  // "Default"
+console.log(null || undefined || "JS" || 0);  // "JS"
+console.log(false || 0 || "Ajay");  // "Ajay"
+
+
+// Logical AND (&&) - Returns the First Falsy Value
+console.log(1 && 2 && 3);  // 3 (all are truthy, returns last one)
+console.log(1 && 0 && 3);  // 0 (returns first falsy value)
+console.log("Hello" && "" && "World");  // "" (empty string is falsy)
+console.log(true && false && "JavaScript");  // false
+
+
+
+
+
+
+
+
+
+
+// 24 - The Nullish Coalescing Operator (??)
+// The Nullish Coalescing Operator (??) is used to provide a default value only 
+// when the left-hand operand is null or undefined. This is useful for distinguishing
+//  between null/undefined and other falsy values like 0 or "".
+
+// false, 0, "", null, undefined, NaN
+
+console.log(0 || "Default");   // "Default" (0 is falsy)
+console.log(0 ?? "Default");   // 0 (0 is not null or undefined)
+
+console.log("" || "Hello");    // "Hello" ("" is falsy)
+console.log("" ?? "Hello");    // "" (empty string is not null or undefined)
+
+console.log(null || "Guest");  // "Guest" (null is falsy)
+console.log(null ?? "Guest");  // "Guest" (null is null)
+
+console.log(undefined || "User");  // "User" (undefined is falsy)
+console.log(undefined ?? "User");  // "User" (undefined is undefined)
+
+
+
+
+
+
+
+
+
+
+// 25 - Optional Chaining (?.)
+// What is Optional Chaining?
+// The optional chaining operator (?.) allows safe access to deeply nested 
+// object properties without having to manually check for null or undefined.
+
+// 💡 If a property does not exist, ?. returns undefined instead of throwing an error.
+
+
+// const user = { name: "Ajay" };
+// console.log(user.address.city); // ❌ ERROR: Cannot read property 'city' of undefined
+
+// const user = { name: "Ajay" };
+// console.log(user.address?.city); // ✅ No error, just returns undefined
+
+
+
+
+
+
+
+
+
+
+// 26 - JavaScript Sets 🚀 
+// A Set in JavaScript is a collection of unique values. Unlike arrays,
+//  Sets do not allow duplicate elements and are useful when you need to 
+//  store unique values efficiently.
+
+
+// const numbers = new Set([1, 2, 3, 4, 4, 5, 5]);
+// console.log(numbers); // Output: Set { 1, 2, 3, 4, 5 }
+
+// 1️⃣ Creating a Set
+const numbers = new Set([1, 2, 3, 4, 4, 5, 5]);
+console.log("Set:", numbers); // Output: Set { 1, 2, 3, 4, 5 }
+
+// 2️⃣ Adding and Deleting Elements
+const fruits = new Set();
+fruits.add("Apple");
+fruits.add("Banana");
+fruits.add("Mango");
+fruits.add("Apple"); // Duplicate, won't be added
+console.log("Fruits Set:", fruits); // Output: Set { 'Apple', 'Banana', 'Mango' }
+
+fruits.delete("Banana");
+console.log("After Deleting Banana:", fruits); // Output: Set { 'Apple', 'Mango' }
+
+fruits.clear();
+console.log("After Clearing Set:", fruits); // Output: Set {}
+
+// 3️⃣ Checking for Elements
+const mySet = new Set(["Apple", "Banana", "Mango"]);
+console.log("Has Apple?", mySet.has("Apple")); // true
+console.log("Has Orange?", mySet.has("Orange")); // false
+
+// 4️⃣ Getting Set Size
+console.log("Size of Set:", mySet.size); // Output: 3
+
+// 5️⃣ Looping Through a Set
+console.log("Looping using forEach:");
+mySet.forEach(fruit => console.log(fruit));
+
+console.log("Looping using for...of:");
+for (const fruit of mySet) {
+    console.log(fruit);
+}
+
+// 6️⃣ Converting Set to an Array
+const fruitArray = [...mySet];
+console.log("Converted to Array:", fruitArray); // Output: [ 'Apple', 'Banana', 'Mango' ]
+
+// 7️⃣ Removing Duplicates from an Array using Set
+const numbersArray = [1, 2, 3, 3, 4, 4, 5, 5];
+const uniqueNumbers = [...new Set(numbersArray)];
+console.log("Unique Numbers:", uniqueNumbers); // Output: [1, 2, 3, 4, 5]
+
+
+
+
+
+

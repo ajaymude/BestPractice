@@ -35,6 +35,84 @@ console.log(fruits.length); // 3
 
 
 
+// Basic Array Destructuring
+// const numbers = [10, 20, 30];
+// const [a, b, c] = numbers;
+
+// console.log(a); // 10
+// console.log(b); // 20
+// console.log(c); // 30
+
+
+
+// Skipping Elements
+// const numbers = [1, 2, 3, 4, 5];
+// const [first, , third] = numbers;
+
+// console.log(first); // 1
+// console.log(third); // 3
+
+
+
+// Default Values
+// const numbers = [100];
+// const [x, y = 200] = numbers;
+
+// console.log(x); // 100
+// console.log(y); // 200 (default value)
+
+
+
+
+// let a = 5, b = 10;
+// [a, b] = [b, a];
+
+// console.log(a); // 10
+// console.log(b); // 5
+
+
+
+
+// Using the Rest Operator (...)
+const colors = ["Red", "Blue", "Green", "Yellow"];
+const [firstColor, secondColor, ...otherColors] = colors;
+
+console.log(firstColor);  // "Red"
+console.log(secondColor); // "Blue"
+console.log(otherColors); // ["Green", "Yellow"]
+
+
+
+
+// Nested Array Destructuring
+// const numbers = [1, [2, 3], 4];
+// const [one, [two, three], four] = numbers;
+
+// console.log(one);   // 1
+// console.log(two);   // 2
+// console.log(three); // 3
+// console.log(four);  // 4
+
+
+
+
+// Using for...of with entries() for Index & Value
+const fruits = ["Apple", "Banana", "Cherry"];
+
+for (const [index, fruit] of fruits.entries()) {
+    console.log(`Index: ${index}, Fruit: ${fruit}`);
+}
+
+
+
+
+
+
+
+
+
+
+
 // JavaScript Array Methods Categorized by Use Case
 
 let fruits = ["Apple", "Banana", "Cherry"];
