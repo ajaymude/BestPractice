@@ -1,3 +1,5 @@
+// 01 - Creating an Array
+// 02 -  Accessing Array Elements
 
 
 
@@ -8,7 +10,7 @@
 
 // JavaScript Arrays
 
-//Creating an Array
+// 01 - Creating an Array
 
 let fruits = ["Apple", "Banana", "Cherry"];
 console.log(fruits); // ["Apple", "Banana", "Cherry"]
@@ -17,7 +19,10 @@ let numbers = new Array(1, 2, 3, 4);
 console.log(numbers); // [1, 2, 3, 4]
 
 
-// Accessing Array Elements
+
+
+// 02 -  Accessing Array Elements
+
 // let fruits = ["Apple", "Banana", "Cherry"];
 console.log(fruits[0]); // Apple
 console.log(fruits[1]); // Banana

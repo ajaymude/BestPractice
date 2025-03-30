@@ -15,6 +15,27 @@
 // 15 -Boolean logic
 // 16 - Nullish Coalescing
 // 17 js update 
+// 18 - What is Strict Mode?
+// 19 functions
+// 20 - loops 
+// 21 - The Spread Operator (...)
+// 22 - Rest Pattern and Parameters 
+// 23 - Short Circuiting (&& and ||)
+// 24 - The Nullish Coalescing Operator (??)
+// 25 - Optional Chaining (?.)
+// 26 - JavaScript Sets 🚀 
+// 27 - localStorage 
+// 28 -  Promises in JavaScript
+// 29 -  Throwing Errors Manually
+// 30 - Exporting and Importing in ES6 Modules
+ // 31 - NPM 
+
+
+
+
+
+
+
 
 
 
@@ -81,6 +102,17 @@ document.getElementById("demo").innerText = "Hello, World!";
 //     <button onclick="sayHello()">Click Me</button>
 // </body>
 // </html>
+
+
+
+// <!-- Normal script (Blocks HTML parsing) -->
+// <script src="script.js"></script>
+
+// <!-- Async script (Executes immediately when downloaded, no order) -->
+// <script src="script.js" async></script>
+
+// <!-- Defer script (Executes in order, after HTML is loaded) -->
+// <script src="script.js" defer></script>
 
 
 
@@ -972,6 +1004,376 @@ console.log("Converted to Array:", fruitArray); // Output: [ 'Apple', 'Banana', 
 const numbersArray = [1, 2, 3, 3, 4, 4, 5, 5];
 const uniqueNumbers = [...new Set(numbersArray)];
 console.log("Unique Numbers:", uniqueNumbers); // Output: [1, 2, 3, 4, 5]
+
+
+
+
+
+
+
+
+
+
+// 27 - localStorage 
+// ✅ 1. Storing a simple value
+localStorage.setItem("username", "Ajay");
+
+// ✅ 2. Retrieving a stored value
+console.log(localStorage.getItem("username")); // "Ajay"
+
+// ✅ 3. Removing a specific item
+localStorage.removeItem("username");
+console.log(localStorage.getItem("username")); // null
+
+// ✅ 4. Storing an object (must be converted to JSON)
+const userInfo = { name: "Ajay", age: 25 };
+localStorage.setItem("user", JSON.stringify(userInfo));
+
+// ✅ 5. Retrieving and parsing an object
+const retrievedUser = JSON.parse(localStorage.getItem("user"));
+console.log(retrievedUser.name); // "Ajay"
+
+// ✅ 6. Clearing all localStorage data
+localStorage.clear();
+console.log(localStorage.length); // 0
+
+// ✅ 7. Storing multiple key-value pairs
+localStorage.setItem("user1", "Ajay");
+localStorage.setItem("user2", "Soham");
+
+// ✅ 8. Looping through all keys in localStorage
+for (let i = 0; i < localStorage.length; i++) {
+    let key = localStorage.key(i);
+    let value = localStorage.getItem(key);
+    console.log(`${key}: ${value}`);
+}
+
+// ✅ 9. Checking if a key exists
+if (localStorage.getItem("user1")) {
+    console.log("User1 exists!");
+} else {
+    console.log("User1 does not exist.");
+}
+
+// ✅ 10. Using localStorage to save theme preference
+document.body.style.backgroundColor = localStorage.getItem("theme") || "white";
+
+document.getElementById("darkModeBtn").addEventListener("click", () => {
+    localStorage.setItem("theme", "black");
+    document.body.style.backgroundColor = "black";
+});
+
+document.getElementById("lightModeBtn").addEventListener("click", () => {
+    localStorage.setItem("theme", "white");
+    document.body.style.backgroundColor = "white";
+});
+
+
+
+
+
+
+
+
+
+
+// 28 -  Promises in JavaScript
+
+const myPromise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      let success = true; // Change this to false to see rejection
+      if (success) {
+        resolve("✅ Promise Resolved!");
+      } else {
+        reject("❌ Promise Rejected!");
+      }
+    }, 2000);
+  });
+  
+  myPromise
+    .then(result => console.log(result))
+    .catch(error => console.log(error))
+    .finally(() => console.log("✨ Promise Completed!"));
+
+    
+
+
+
+    fetch("https://jsonplaceholder.typicode.com/posts/1")
+    .then(response => {
+      if (!response.ok) throw new Error("Network response was not OK");
+      return response.json(); // Convert response to JSON
+    })
+    .then(data => console.log("📌 Fetched Data:", data))
+    .catch(error => console.log("❌ Error:", error));
+
+    
+
+    async function fetchData() {
+        try {
+          let response = await fetch("https://jsonplaceholder.typicode.com/users/1");
+          if (!response.ok) throw new Error("Failed to fetch data");
+          let data = await response.json();
+          console.log("📌 User Data:", data);
+        } catch (error) {
+          console.log("❌ Error:", error);
+        }
+      }
+      fetchData();
+
+      
+
+
+
+// Parallel Fetch Requests Using Promise.all()
+
+Promise.all([
+    fetch("https://jsonplaceholder.typicode.com/users/1").then(res => res.json()),
+    fetch("https://jsonplaceholder.typicode.com/posts/1").then(res => res.json())
+  ])
+    .then(([user, post]) => {
+      console.log("📌 User:", user);
+      console.log("📌 Post:", post);
+    })
+    .catch(error => console.log("❌ Error:", error));
+
+    
+
+
+
+// Canceling Fetch Requests Using AbortController
+
+const controller = new AbortController();
+const signal = controller.signal;
+
+fetch("https://jsonplaceholder.typicode.com/todos/1", { signal })
+  .then(response => response.json())
+  .then(data => console.log("📌 Data:", data))
+  .catch(error => console.log("❌ Fetch Aborted:", error));
+
+setTimeout(() => controller.abort(), 100); // Cancel request after 100ms
+
+
+
+
+
+
+
+
+
+
+// 29 -  Throwing Errors Manually
+
+function checkAge(age) {
+    if (age < 18) {
+      throw new Error("❌ Age must be 18 or above!");
+    }
+    return "✅ Access granted!";
+  }
+  
+  try {
+    console.log(checkAge(16)); // Will throw an error
+  } catch (error) {
+    console.log("Caught Error:", error.message);
+  }
+
+  
+
+
+// Throwing Custom Errors
+
+class CustomError extends Error {
+    constructor(message) {
+      super(message);
+      this.name = "CustomError";
+    }
+  }
+  
+  function validateNumber(num) {
+    if (typeof num !== "number") {
+      throw new CustomError("❌ Input must be a number!");
+    }
+    return "✅ Valid number!";
+  }
+  
+  try {
+    console.log(validateNumber("abc")); // Will throw an error
+  } catch (error) {
+    console.log(`${error.name}: ${error.message}`);
+  }
+
+  
+
+
+// Promise.race()
+
+const p1 = new Promise((resolve) => setTimeout(() => resolve("✅ P1 resolved"), 2000));
+const p2 = new Promise((resolve) => setTimeout(() => resolve("✅ P2 resolved"), 1000));
+const p3 = new Promise((reject) => setTimeout(() => reject("❌ P3 rejected"), 1500));
+
+Promise.race([p1, p2, p3])
+  .then(console.log) // Output: ✅ P2 resolved (because it resolves first in 1s)
+  .catch(console.error);
+
+
+
+
+
+// Promise.allSettled()
+const promises = [
+    Promise.resolve("✅ Success"),
+    Promise.reject("❌ Error occurred"),
+    new Promise((resolve) => setTimeout(() => resolve("✅ Delayed success"), 2000)),
+  ];
+  
+  Promise.allSettled(promises).then(console.log);
+  
+  /* Output:
+  [
+    { status: "fulfilled", value: "✅ Success" },
+    { status: "rejected", reason: "❌ Error occurred" },
+    { status: "fulfilled", value: "✅ Delayed success" }
+  ]
+  */
+
+  
+//   ✔ Promise.race() → First resolved or rejected Promise wins.
+//   ✔ Promise.allSettled() → Waits for all Promises, never rejects.
+//   ✔ Promise.any() → First resolved Promise wins, rejects if all fail.
+
+
+
+
+
+
+
+
+
+
+// 30 - Exporting and Importing in ES6 Modules
+
+// There are two ways to export from a module:
+// ✅ Named Exports → Allows multiple exports per file.
+// ✅ Default Export → Allows only one export per file.
+
+
+
+
+// Example: Exporting (math.js)
+
+// Exporting multiple values
+// export const add = (a, b) => a + b;
+// export const multiply = (a, b) => a * b;
+// export const PI = 3.14159;
+
+// const subtract = (a, b) => a - b;
+// const divide = (a, b) => a / b;
+// export { subtract, divide };
+
+export default function greet(name) {
+    return `Hello, ${name}!`;
+  }
+
+  
+
+
+
+
+// Importing named exports
+import { add, multiply, PI } from "./math.js";
+
+console.log(add(2, 3));        // Output: 5
+console.log(multiply(3, 4));   // Output: 12
+console.log(PI);               // Output: 3.14159
+
+import { add as sum, multiply as product } from "./math.js";
+console.log(sum(2, 3));   // Output: 5
+console.log(product(3, 4)); // Output: 12
+
+
+
+
+// Importing default export (no curly braces needed)
+import greet from "./message.js";
+
+console.log(greet("Ajay")); // Output: Hello, Ajay!
+
+
+export default function logMessage(msg) {
+    console.log(`Message: ${msg}`);
+  }
+  
+  export const version = "1.0";
+  export const author = "Ajay";
+  
+
+
+
+  import logMessage, { version, author } from "./utils.js";
+
+  logMessage("Hello!");  // Output: Message: Hello!
+  console.log(version);   // Output: 1.0
+  console.log(author);    // Output: Ajay
+
+  
+
+
+
+// Top-Level await usage in an ES Module
+const response = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+const data = await response.json();
+console.log(data); 
+
+
+
+
+
+
+
+
+
+
+
+// node -v  # Check Node.js version
+// npm -v   # Check NPM version
+// npm init
+// npm init -y
+
+// npm install package-name
+
+// npm install -g package-name
+
+// npm install jest --save-dev
+
+// npm update package-name
+
+// npm uninstall package-name
+
+
+// "scripts": {
+//   "start": "node app.js",
+//   "dev": "nodemon app.js",
+//   "test": "jest"
+// }
+// npm run dev
+// npm run test
+
+
+// npm list
+
+// npm list -g --depth=0
+
+// npm cache clean --force
+
+
+// npm login
+// npm publish
+
+
+
+
+
+
 
 
 
