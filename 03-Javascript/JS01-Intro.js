@@ -706,3 +706,62 @@ function factorial(n) {
   
 
 
+
+
+
+
+
+
+
+// 20 - loops 
+
+// 1️⃣ for loop
+// for (let i = 1; i <= 5; i++) {
+//     console.log("for loop Iteration:", i);
+// }
+
+// 2️⃣ while loop
+// let count = 1;
+// while (count <= 5) {
+//     console.log("while loop Count:", count);
+//     count++;
+// }
+
+// 3️⃣ do...while loop
+// let num = 1;
+// do {
+//     console.log("do...while loop Number:", num);
+//     num++;
+// } while (num <= 5);
+
+// 4️⃣ for...in loop (Object iteration)
+// let person = { name: "Ajay", age: 25, city: "Delhi" };
+// for (let key in person) {
+//     console.log("for...in loop", key + ":", person[key]);
+// }
+
+// 5️⃣ for...of loop (Array iteration)
+// let numbers = [10, 20, 30, 40];
+// for (let num of numbers) {
+//     console.log("for...of loop Value:", num);
+// }
+
+// 6️⃣ for...of loop (String iteration)
+// let text = "Hello";
+// for (let char of text) {
+//     console.log("for...of loop Character:", char);
+// }
+
+
+
+
+// Looping Through Arrays in JavaScript
+// for loop
+// while loop
+// for...of loop
+// forEach() method
+// map() method
+
+
+
+
