@@ -607,3 +607,102 @@ console.log(name ?? "Guest"); // "Guest" (null is ignored)
 
 
 
+
+
+
+
+
+
+
+// 18 - What is Strict Mode?
+// Strict mode is a feature in JavaScript that helps catch common coding mistakes and unsafe actions.
+//  It enforces a stricter set of rules, making JavaScript more secure and optimized.
+
+"use strict";  // Enables strict mode
+
+// let x = 10;
+console.log(x); // ✅ Works fine
+
+
+
+
+
+
+
+
+
+// 19 functions 
+
+// Function Declaration
+function greet() {
+    console.log("Hello, Ajay!");
+  }
+greet(); // Output: Hello, Ajay!
+
+  
+//   Function with Parameters & Return Value
+function add(a, b) {
+    return a + b;
+  }
+console.log(add(5, 3)); // Output: 8
+
+
+// Function Expression
+const multiply = function(x, y) {
+    return x * y;
+  };
+  console.log(multiply(4, 5)); // Output: 20
+  
+
+//   Arrow Function (ES6)
+const subtract = (a, b) => a - b;
+console.log(subtract(10, 4)); // Output: 6
+
+
+// IIFE (Immediately Invoked Function Expression)
+(function() {
+    console.log("IIFE executed!");
+  })();
+
+
+// Function with Default Parameters
+function greet(name = "Guest") {
+    console.log(`Hello, ${name}!`);
+  }
+  greet();        // Output: Hello, Guest!
+  greet("Ajay"); // Output: Hello, Ajay!
+
+
+// Rest Parameters (...)
+function sum(...numbers) {
+    return numbers.reduce((acc, num) => acc + num, 0);
+  }
+  console.log(sum(1, 2, 3, 4, 5)); // Output: 15
+
+  
+// Callback Function
+function process(callback) {
+    console.log("Processing...");
+    callback();
+  }
+  process(() => console.log("Callback executed!"));
+
+  
+// Higher-Order Function
+//A function that takes another function as a parameter or returns a function.
+
+function operate(fn, a, b) {
+    return fn(a, b);
+  }
+  console.log(operate((x, y) => x * y, 3, 4)); // Output: 12
+
+  
+// Recursive Function
+//A function that calls itself.
+function factorial(n) {
+    return n === 0 ? 1 : n * factorial(n - 1);
+  }
+  console.log(factorial(5)); // Output: 120
+  
+
+
