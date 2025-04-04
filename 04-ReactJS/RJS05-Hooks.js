@@ -231,3 +231,51 @@ function Clock() {
 
 
 
+
+
+
+
+
+
+// 03 - useRef
+
+// useRef is a React Hook that allows you to persist values across renders without causing re-renders. It is commonly used for:
+// Accessing DOM elements (like document.getElementById)
+// Persisting values across renders (without triggering re-renders)
+// Storing previous values
+
+import { useRef, useEffect } from "react";
+
+function Example() {
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus(); // Auto-focus input on mount
+  }, []);
+
+  return <input ref={inputRef} type="text" />;
+}
+
+
+
+// 1️⃣ Accessing DOM Elements
+// You can directly reference a DOM element like an input field.
+
+function FocusInput() {
+  const inputRef = useRef(null);
+
+  const handleClick = () => {
+    inputRef.current.focus(); // Focus input field
+  };
+
+  return (
+    <div>
+      <input ref={inputRef} type="text" />
+      <button onClick={handleClick}>Focus Input</button>
+    </div>
+  );
+}
+
+
+
+
