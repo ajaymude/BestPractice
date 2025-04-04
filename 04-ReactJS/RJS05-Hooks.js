@@ -118,6 +118,10 @@ function DelayedCounter() {
       </div>
     );
   }
+
+//   ✅ Use functional updates (setCount(prev => prev + 1)) to avoid stale state.
+//   ✅ Use clearTimeout() in useEffect to prevent memory leaks.
+//   ✅ Avoid directly modifying the state inside setTimeout.
   
 
 
@@ -128,10 +132,101 @@ function DelayedCounter() {
 
 
 
+// 02 - useEffect 
+
+// basic of the useEffect 
+import { useState, useEffect } from "react";
+
+function Example() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log("Effect ran!");
+  });
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+
+// (a) Run useEffect on First Render Only (componentDidMount)
+useEffect(() => {
+    console.log("This runs only once after the first render.");
+  }, []); // Empty dependency array
+
+  
+// (b) Run useEffect When a State/Prop Changes (componentDidUpdate)
+useEffect(() => {
+    console.log(`Count changed to ${count}`);
+  }, [count]); // Runs only when `count` changes
+
+  
+//   (c) Run useEffect on Mount and Cleanup on Unmount (componentWillUnmount)
+// Use the cleanup function inside useEffect to avoid memory leaks.
+useEffect(() => {
+    console.log("Component mounted");
+  
+    return () => {
+      console.log("Component unmounted");
+    };
+  }, []);
+  
+
+
+// data fetching 
+import { useState, useEffect } from "react";
+
+function FetchData() {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    
+    fetch("https://jsonplaceholder.typicode.com/posts/1")
+      .then(res => res.json())
+      .then(data => {
+        if (isMounted) {
+          setData(data);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  return <div>{data ? data.title : "Loading..."}</div>;
+}
 
 
 
+function Clock() {
+    const [time, setTime] = useState(new Date());
+  
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setTime(new Date());
+      }, 1000);
+  
+      return () => clearInterval(interval); // Cleanup on unmount
+    }, []);
+  
+    return <p>{time.toLocaleTimeString()}</p>;
+  }
 
+  
+//   Scenario	useEffect Usage
+//   Run on every render	useEffect(() => {...})
+//   Run once on mount	useEffect(() => {...}, [])
+//   Run when state/props change	useEffect(() => {...}, [state])
+//   Cleanup on unmount	return () => {...} inside useEffect
+
+
+
+// code order maters 
 
 
 
