@@ -279,3 +279,114 @@ function FocusInput() {
 
 
 
+
+
+
+
+
+
+// custom hooks 
+
+// 1️⃣ useCounter Hook (Custom Counter)
+import { useState } from "react";
+
+function useCounter(initialValue = 0) {
+  const [count, setCount] = useState(initialValue);
+
+  const increment = () => setCount(count + 1);
+  const decrement = () => setCount(count - 1);
+  const reset = () => setCount(initialValue);
+
+  return { count, increment, decrement, reset };
+}
+
+// Usage Example
+function Counter() {
+  const { count, increment, decrement, reset } = useCounter(10);
+
+  return (
+    <div>
+      <h2>Count: {count}</h2>
+      <button onClick={increment}>➕ Increment</button>
+      <button onClick={decrement}>➖ Decrement</button>
+      <button onClick={reset}>🔄 Reset</button>
+    </div>
+  );
+}
+
+// export default Counter;
+
+
+// 2️⃣ Custom Hook: useFocus (Auto Focus an Input Field)
+import { useRef } from "react";
+
+function useFocus() {
+  const ref = useRef(null);
+
+  const setFocus = () => {
+    if (ref.current) ref.current.focus();
+  };
+
+  return [ref, setFocus];
+}
+
+// Usage Example
+function FocusInput() {
+  const [inputRef, setInputFocus] = useFocus();
+
+  return (
+    <div>
+      <input ref={inputRef} type="text" placeholder="Type here..." />
+      <button onClick={setInputFocus}>Focus Input</button>
+    </div>
+  );
+}
+
+// export default FocusInput;
+
+
+
+//  3️⃣ useFetch Hook (Fetch Data from API)
+import { useState, useEffect } from "react";
+
+function useFetch(url) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Failed to fetch data");
+        const result = await response.json();
+        setData(result);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [url]);
+
+  return { data, loading, error };
+}
+
+// Usage Example
+function DataFetcher() {
+  const { data, loading, error } = useFetch("https://jsonplaceholder.typicode.com/posts/1");
+
+  if (loading) return <h2>Loading...</h2>;
+  if (error) return <h2>Error: {error}</h2>;
+
+  return <h2>{data?.title}</h2>;
+}
+
+// export default DataFetcher;
+
+
+
+
+
