@@ -557,3 +557,190 @@ const PostApp = () => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+// 01 -  installation of the rkt quer 
+
+npm install @reduxjs/toolkit react-redux
+
+
+
+
+
+// 02 - create the apiSlice 
+
+// services/apiSlice.js
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
+export const apiSlice = createApi({
+  reducerPath: 'api',
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://jsonplaceholder.typicode.com/' }),
+  endpoints: (builder) => ({
+    // ----- Queries -----
+    getUsers: builder.query({
+      query: () => 'users',
+    }),
+
+    // ----- Mutations -----
+    addUser: builder.mutation({
+      query: (newUser) => ({
+        url: 'users',
+        method: 'POST',
+        body: newUser,
+      }),
+    }),
+
+    updateUser: builder.mutation({
+      query: ({ id, ...rest }) => ({
+        url: `users/${id}`,
+        method: 'PUT',
+        body: rest,
+      }),
+    }),
+
+    deleteUser: builder.mutation({
+      query: (id) => ({
+        url: `users/${id}`,
+        method: 'DELETE',
+      }),
+    }),
+  }),
+});
+
+// Export hooks
+export const {
+  useGetUsersQuery,
+  useAddUserMutation,
+  useUpdateUserMutation,
+  useDeleteUserMutation,
+} = apiSlice;
+
+
+
+
+
+
+//  03 - add rkt query to store 
+
+// src/app/store.js
+import { configureStore } from '@reduxjs/toolkit';
+import { apiSlice } from '../services/apiSlice';
+
+export const store = configureStore({
+  reducer: {
+    [apiSlice.reducerPath]: apiSlice.reducer, // very important!
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(apiSlice.middleware), // adds RTK Query middleware
+});
+
+
+
+
+
+// 04 - connect redux with the react 
+
+// src/index.js
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import { Provider } from 'react-redux';
+import { store } from './app/store';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
+
+
+
+
+//  05 - use api in the react component 
+
+// src/features/users/UsersList.js
+import React from 'react';
+import { useGetUsersQuery } from '../../services/apiSlice';
+
+const UsersList = () => {
+  const { data: users, error, isLoading, isSuccess } = useGetUsersQuery();
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  return (
+    <div>
+      <h2>Users</h2>
+      <ul>
+        {users?.map(user => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default UsersList;
+
+
+import React, { useState } from 'react';
+import {
+  useAddUserMutation,
+  useUpdateUserMutation,
+  useDeleteUserMutation,
+} from '../../services/apiSlice';
+
+const UserActions = () => {
+  const [name, setName] = useState('');
+
+  const [addUser] = useAddUserMutation();
+  const [updateUser] = useUpdateUserMutation();
+  const [deleteUser] = useDeleteUserMutation();
+
+  const handleAdd = async () => {
+    await addUser({ name }).unwrap();
+    setName('');
+    alert('User added!');
+  };
+
+  const handleUpdate = async () => {
+    await updateUser({ id: 1, name: `Updated ${name}` }).unwrap();
+    alert('User updated!');
+  };
+
+  const handleDelete = async () => {
+    await deleteUser(1).unwrap();
+    alert('User deleted!');
+  };
+
+  return (
+    <div style={{ marginTop: 20 }}>
+      <input
+        type="text"
+        placeholder="Enter user name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <button onClick={handleAdd}>Add User</button>
+      <button onClick={handleUpdate}>Update User 1</button>
+      <button onClick={handleDelete}>Delete User 1</button>
+    </div>
+  );
+};
+
+export default UserActions;
+
+
+
+
