@@ -1497,9 +1497,98 @@ export default PostsList;
 
 
 
+// master redux 
 
+
+
+// keywords 
+configureStore
+			reducer
+
+createSlice
+			reducers
+			export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+      export default counterSlice.reducer;
+      
+			createAsyncThunk
+						extraReducers
+								pending , fulfilled , rejected
+								
+								
+      
+      
+Provider
+     store 
+     
+ useSelector, useDispatch
+
+ 
 // rtk 
 
+// 01 - Installation 
+// npm install @reduxjs/toolkit react-redux
+
+
+
+
+// 02 - create a api slice 
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
+export const userApi = createApi({
+  reducerPath: 'userApi', // unique key for store
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://jsonplaceholder.typicode.com/' }),
+  endpoints: (builder) => ({
+    getUsers: builder.query({
+      query: () => 'users'
+    })
+  })
+});
+
+export const { useGetUsersQuery } = userApi;
+
+
+
+
+
+// 03 config store
+import { configureStore } from '@reduxjs/toolkit';
+import { userApi } from '../services/userApi';
+
+export const store = configureStore({
+  reducer: {
+    [userApi.reducerPath]: userApi.reducer
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(userApi.middleware)
+});
+
+
+
+
+// 04 -  redux with the react 
+
+import React from 'react';
+import { useGetUsersQuery } from '../services/userApi';
+
+const UserList = () => {
+  const { data: users, error, isLoading } = useGetUsersQuery();
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  return (
+    <div>
+      <h2>Users</h2>
+      <ul>
+        {users.map((user) => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default UserList;
 
 
 
