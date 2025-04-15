@@ -1,5 +1,4 @@
-
-
+// use helmet package for the showing the title of the page 
 
 // how to host frontend and backend together 
 // frontend and backend are at same level
