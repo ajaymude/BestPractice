@@ -1,15 +1,42 @@
+// 01 - git introduction 
 
-//  git introduction 
+
+
+
+
+
+
+// 01 - git introduction 
 
 // git --version -- to check is it installed or not 
-// git inint     -- to create git
-// git config --globle user.email 'mudeajay@gmail.com'
-// git config --globle user.name 'ajay mude'
+// git init     -- to create git
+// git config --global user.email 'mudeajay@gmail.com'
+// git config --global user.name 'ajay mude'
+// git config --list 
+
 // git status
 // git add index.html
 // git rm file.txt == file name that is removed
 // git add .
 // git commit -m "Added new feature"
+// git branch -M main                                         // rename the current branch to main 
+// git remote add origin repo_line                           // how add the remote origin
+// git push origin -u main                                   // push the change the force full 
+
+
+//working dir --> git add --> staging dir
+//staging dir --> git commit --> local repo 
+//local repo --> git push --> remote repo
+
+
+
+
+
+
+
+
+
+
 
 // git push origin main
 // git push origin -u main == 
