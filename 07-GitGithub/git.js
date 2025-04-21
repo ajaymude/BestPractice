@@ -209,17 +209,9 @@
 // git restore --staged filename           # Unstage a file (keep the changes in working directory)
 // git restore --staged .                  # Unstage ALL files (soft reset)
 
-// git restore --source=commitHash file    # Restore a file from a specific commit
-
-// git restore --worktree filename         # Restore file content in working directory from index
-
-// # Bonus:
-// git restore --source=HEAD~1 filename    # Restore file from previous commit
 
 
 
-
-.
 
 
 
