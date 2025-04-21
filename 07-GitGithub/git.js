@@ -107,17 +107,28 @@
 // git branch -a == to see the all hidden branch  local and remote 
 // git branch -r == it show all remote branch 
 // git branch track 
-// git branch --delete --remote origin/branchname == delete remote branch from the local and then push 
+// git branch --delete --remote origin/branch name == delete remote branch from the local and then push 
 
-// git checkout main -- it swithc the branch 
-// git checkout -b new-feature -- it switch the branch if the branch is not exist it create the new branch 
-// git checkout 5g4g3gd -- to checkout out at perticular commit  detached head it is not related to branch is it is related to commit
+
+
+
+
+// git checkout main                                           // it switch  branch 
+// git checkout -b new-feature                                 //  it switch the branch if the branch is not exist it create the new branch 
+// git checkout 5g4g3gd                                        //  to checkout out at particular commit  detached head it is not related to branch is it is related to commit
 // git checkout filename.txt == the remove all unwanted changes which is not commit on up to last commit 
 // git checkout . == it remove all unwanted change upto last commit 
-// git checkout 1.0 == to checkout at the perticular tag
+// git checkout 1.0 == to checkout at the particular tag
+// git checkout HEAD                                            // remove the all modified changes 
+// git checkout --                                             // remove the all changes 
 
-// git switch second-brach == similar like checkout command 
-// git swithc -c new-branch == create new branch and switch that branch
+
+
+
+
+
+// git switch second-brach                                    // similar like checkout command 
+// git switch  -c new-branch                                 // create new branch and switch that branch
 
 // git ls-files == to check the working files 
 // git ls-remote == it show the all remote branch 
@@ -201,7 +212,7 @@
 
 
 
-
+// it will not create a new commit 
 // 00 - restore 
 // git restore filename                    # Discard unstaged changes in a file (from working dir to last commit)
 // git restore .                           # Discard ALL unstaged changes in the project
@@ -215,8 +226,17 @@
 
 
 
+// git revert 
 
 
+
+
+
+
+
+
+
+// it will create a new commit 
 // git reset filename                      # Unstage a specific file (keep changes in working directory)
 // git reset                              # Unstage ALL files (like soft restore of staging)
 
