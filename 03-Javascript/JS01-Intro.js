@@ -6,7 +6,7 @@
 // 06 - Types of Operators in JavaScript
 // 07 - Operator Precedence in JavaScript
 // 08 - if, else if, and else in JavaScript
-// 09 Turnery operator
+// 09 - Turnery operator
 // 11 - Template Literals in JavaScript 
 // 11 - Template Literals in JavaScript 
 // 12 - Truthy and Falsy Values in JavaScript
@@ -14,9 +14,9 @@
 // 14 - Switch Statement
 // 15 -Boolean logic
 // 16 - Nullish Coalescing
-// 17 js update 
+// 17 - js update 
 // 18 - What is Strict Mode?
-// 19 functions
+// 19 - functions
 // 20 - loops 
 // 21 - The Spread Operator (...)
 // 22 - Rest Pattern and Parameters 
@@ -28,7 +28,8 @@
 // 28 -  Promises in JavaScript
 // 29 -  Throwing Errors Manually
 // 30 - Exporting and Importing in ES6 Modules
- // 31 - NPM 
+// 31 - NPM 
+// 32 - Comments 
 
 
 
@@ -125,10 +126,10 @@ document.getElementById("demo").innerText = "Hello, World!";
 
 // 03 - variable 
 
-// Variable Type	     Scope	        Reassignable?	Redeclarable?	Hoisted?
-// var             	Function-scoped	    ✅ Yes	        ✅ Yes      	✅ Yes (but undefined)
-// let0         	Block-scoped	    ✅ Yes          	❌ No	    ✅ Yes (but not initialized)
-// const	        Block-scoped	    ❌ No           	❌ No	    ✅ Yes (but not initialized)
+// Variable Type	     Scope	             Reassignable?     	Redeclarable?          	Hoisted?
+// var             	Function-scoped	         ✅ Yes	           ✅ Yes              ✅ Yes (but undefined)
+// let0         	Block-scoped	         ✅ Yes             	❌ No	              ✅ Yes (but not initialized)
+// const	        Block-scoped	         ❌ No              	❌ No	              ✅ Yes (but not initialized)
 
 
 
@@ -204,11 +205,12 @@ console.log(person instanceof Object); // true
 // Implicit (Type Coercion)
 // JavaScript automatically converts types in some cases
 
+// 
 console.log("5" + 2);  // "52" (string + number → string)
 console.log("5" - 2);  // 3 (string - number → number)
 console.log("5" * 2);  // 10 (string * number → number)
 
-
+// conversion 
 // Explicit (Manual Type Conversion)
 let num = "123";
 console.log(Number(num)); // 123
@@ -1379,4 +1381,9 @@ console.log(data);
 
 
 
+// 32 - Comments 
+
+// single line comment 
+
+/*   */  // multi line comment 
 

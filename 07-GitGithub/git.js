@@ -226,17 +226,16 @@
 
 
 
-// git revert 
-
-
-
-
-
-
-
-
-
 // it will create a new commit 
+// git revert 
+// git revert  hashcode 
+
+
+
+
+
+
+// it will not save the new commit , it delete the old commit which we reset 
 // git reset filename                      # Unstage a specific file (keep changes in working directory)
 // git reset                              # Unstage ALL files (like soft restore of staging)
 
