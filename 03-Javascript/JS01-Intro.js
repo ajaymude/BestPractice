@@ -126,7 +126,7 @@ document.getElementById("demo").innerText = "Hello, World!";
 
 // 03 - variable 
 
-// Variable Type	     Scope	             Reassignable?     	Redeclarable?          	Hoisted?
+// Variable Type	     Scope	             Reassignable?     	redeclare?          	Hoisted?
 // var             	Function-scoped	         ✅ Yes	           ✅ Yes              ✅ Yes (but undefined)
 // let0         	Block-scoped	         ✅ Yes             	❌ No	              ✅ Yes (but not initialized)
 // const	        Block-scoped	         ❌ No              	❌ No	              ✅ Yes (but not initialized)
@@ -268,6 +268,13 @@ console.log(Boolean(0));  // false
 // &&	            AND                 true && false	false
 // ||	            OR
 // !	            NOT	                !true	false
+
+
+// && returns the first falsy value, or last truthy value if none are falsy.
+// || returns the first truthy value, or last falsy value if none are truthy.
+// ?? returns the first defined (non-null, non-undefined) value,or the last value if all are null or undefined.
+
+
 
 
 // 5️⃣ Bitwise Operations (&, |, ^, ~, <<, >>)
