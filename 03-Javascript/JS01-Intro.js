@@ -1,3 +1,6 @@
+// javascript  introduction
+
+
 // 01 - Hello world in js 
 // 02 - way of writing js in html
 // 03 - variable
@@ -12,11 +15,11 @@
 // 12 - Truthy and Falsy Values in JavaScript
 // 13 - Equality Operators (== vs ===) in JavaScript
 // 14 - Switch Statement
-// 15 -Boolean logic
+// 15 - Boolean logic
 // 16 - Nullish Coalescing
 // 17 - js update 
 // 18 - What is Strict Mode?
-// 19 - functions
+// 19 functions 
 // 20 - loops 
 // 21 - The Spread Operator (...)
 // 22 - Rest Pattern and Parameters 
@@ -25,11 +28,12 @@
 // 25 - Optional Chaining (?.)
 // 26 - JavaScript Sets 🚀 
 // 27 - localStorage 
-// 28 -  Promises in JavaScript
-// 29 -  Throwing Errors Manually
+// 28 - Promises in JavaScript
+// 29 - Throwing Errors Manually
 // 30 - Exporting and Importing in ES6 Modules
 // 31 - NPM 
 // 32 - Comments 
+// 33 - Types of the error in the js 
 
 
 
@@ -744,6 +748,35 @@ function factorial(n) {
     return n === 0 ? 1 : n * factorial(n - 1);
   }
   console.log(factorial(5)); // Output: 120
+
+
+
+// // Example object
+// const person = {
+//   name: "Ajay",
+//   greet: function(city, country) {
+//     console.log(`Hello, my name is ${this.name} and I live in ${city}, ${country}.`);
+//   }
+// };
+
+// // Another object
+// const anotherPerson = {
+//   name: "Soham"
+// };
+
+// // -------- Using call --------
+// person.greet.call(anotherPerson, "Mumbai", "India");
+// // Output: Hello, my name is Soham and I live in Mumbai, India.
+
+// // -------- Using apply --------
+// person.greet.apply(anotherPerson, ["Pune", "India"]);
+// // Output: Hello, my name is Soham and I live in Pune, India.
+
+// // -------- Using bind --------
+// const boundGreet = person.greet.bind(anotherPerson, "Delhi", "India");
+// boundGreet(); 
+// // Output: Hello, my name is Soham and I live in Delhi, India.
+
   
 
 
@@ -1393,4 +1426,30 @@ console.log(data);
 // single line comment 
 
 /*   */  // multi line comment 
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 33 - Types of the error in the js 
+
+// 1. Syntax Error
+// 2. Reference Error
+// 3. Type Error
+// 4. Range Error
+// 5. URI Error
+// Custom Errors
+
+
+
+
+
 
