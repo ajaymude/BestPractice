@@ -1,5 +1,21 @@
 // Array
+// traversing, 
+// inserting,
+//  deleting,
+// searching,
+//  modifying,
+//  sorting 
+// merging,
+//  splitting,
+//  reversing,
 
+
+
+
+
+
+
+// theory of array
 // ✅ 1. Simple Array Declaration
 // const numbers = [1, 2, 3, 4, 5];
 
@@ -138,7 +154,7 @@
 
 
 
-
+// Problem 3
 // how to reverse the array 
 
 // const arr = [1, 2, 3, 4, 5];
@@ -169,6 +185,193 @@
 
 
 
+// Problem 4
+// how insert the value in the array
+
+// let arr = [1, 2, 3];
+// arr.push(4); // Adds 4 to the end
+// console.log(arr); // [1, 2, 3, 4]
+
+
+// push the multiple value in the array
+// arr.push(5, 6); // Adds 5 and 6 to the end
+// console.log(arr); // [1, 2, 3, 4, 5, 6]
+
+
+
+// let arr = [1, 2, 3];
+// arr.unshift(0); // Adds 0 to the beginning
+// console.log(arr); // [0, 1, 2, 3]
+
+
+
+// arr.unshift(-2, -1); // Adds -2 and -1 to the beginning
+// console.log(arr); // [-2, -1, 0, 1, 2, 3]
+
+
+
+// splice() - Add at any position in the array
+// arr.splice(index, 0, element1, element2, ...);
+// let arr = [1, 2, 3];
+// arr.splice(1, 0, 'a'); // Inserts 'a' at index 1
+// console.log(arr); // [1, 'a', 2, 3]
+
+
+// let arr = [10, 20, 30, 40];
+// arr.splice(1, 0, 15); // Inserts 15 at index 1
+// console.log(arr); // [10, 15, 20, 30, 40]
+
+
+// how to remove some part fro the array 
+// let arr = [1, 2, 3, 4];
+// let part1 = arr.slice(0, 2); // [1, 2]
+// let part2 = arr.slice(2);     // [3, 4]
+
+// let newArr = part1.concat(5).concat(part2); // Inserts 5 between part1 and part2
+// console.log(newArr); // [1, 2, 5, 3, 4]
+
+
+// insert the value in the array by the index
+// let arr = [10, 20, 30, 40];
+// let num = 25;
+// let index = 2;
+
+// let newArr = []; // New array to hold the result
+
+// // Loop through the original array until the insertion index
+// for (let i = 0; i < arr.length; i++) {
+//   if (i === index) {
+//     newArr.push(num); // Insert the number at the specified index
+//   }
+//   newArr.push(arr[i]); // Add the current element to the new array
+// }
+
+// console.log(newArr); // [10, 20, 25, 30, 40]
+
+
+
+// push the value in without using the push method
+// function insertAtIndex(arr, i, x) {
+//     // Step 1: Create a new array of size arr.length + 1
+//     let newArr = new Array(arr.length + 1);
+
+//     // Step 2: Copy elements before index `i` to the new array
+//     for (let j = 0; j < i; j++) {
+//         newArr[j] = arr[j];
+//     }
+
+//     // Step 3: Insert the number `x` at index `i`
+//     newArr[i] = x;
+
+//     // Step 4: Copy elements after index `i` to the new array
+//     for (let j = i + 1; j < newArr.length; j++) {
+//         newArr[j] = arr[j - 1];
+//     }
+
+//     return newArr;
+// }
+
+// // Test case
+// let arr = [1, 2, 3, 4, 5];
+// let x = 10;
+// let i = 2;
+
+// console.log(insertAtIndex(arr, i, x)); // Output: [1, 2, 10, 3, 4, 5]
+
+
+
+
+
+
+
+
+// problem 5
+// how to delete the value in the array
+
+
+// function removeValue(arr, value) {
+//     const index = arr.indexOf(value);  // Find the index of the value
+//     if (index !== -1) {
+//         arr.splice(index, 1);  // Remove 1 element at the found index
+//     }
+//     return arr;
+// }
+
+// let arr = [1, 2, 3, 4, 5];
+// removeValue(arr, 3);  // Removes 3 from the array
+// console.log(arr);  // Output: [1, 2, 4, 5]
+
+
+
+
+
+// function removeValue(arr, value) {
+//     return arr.filter(item => item !== value);  // Create a new array excluding the value
+// }
+
+// let arr = [1, 2, 3, 4, 5];
+// let newArr = removeValue(arr, 3);  // Removes 3 from the array
+// console.log(newArr);  // Output: [1, 2, 4, 5]
+
+
+
+
+
+// function removeValue(arr, value) {
+//     let newArr = [];
+//     for (let i = 0; i < arr.length; i++) {
+//         if (arr[i] !== value) {
+//             newArr.push(arr[i]);  // Add elements that don't match the value
+//         }
+//     }
+//     return newArr;
+// }
+
+// let arr = [1, 2, 3, 4, 5];
+// let newArr = removeValue(arr, 3);  // Removes 3 from the array
+// console.log(newArr);  // Output: [1, 2, 4, 5]
+
+
+
+
+
+
+
+// function removeValue(arr, value) {
+//     const index = arr.indexOf(value);
+//     if (index !== -1) {
+//         return arr.slice(0, index).concat(arr.slice(index + 1));  // Concatenate before and after the value
+//     }
+//     return arr;
+// }
+
+// let arr = [1, 2, 3, 4, 5];
+// let newArr = removeValue(arr, 3);  // Removes 3 from the array
+// console.log(newArr);  // Output: [1, 2, 4, 5]
+
+
+
+
+
+// function removeValue(arr, value) {
+//     return arr.reduce((acc, item) => {
+//         if (item !== value) acc.push(item);
+//         return acc;
+//     }, []);
+// }
+
+// let arr = [1, 2, 3, 4, 5];
+// let newArr = removeValue(arr, 3);  // Removes 3 from the array
+// console.log(newArr);  // Output: [1, 2, 4, 5]
+
+
+// function removeValue(arr, value) {
+//     return [...new Set(arr.filter(item => item !== value))];  // Removes value and duplicates
+// }
+
+// let arr = [1, 2, 3, 4, 5, 3];
+// let newArr = removeValue(arr, 3);  // Removes all occurrences of 3
+// console.log(newArr);  // Output: [1, 2, 4, 5]
 
 
 
@@ -207,7 +410,9 @@
 
 
 // Array method
+// understand the array method core logic how to without method also the same functionality
 // it pass by the reference
+
 
 
 
