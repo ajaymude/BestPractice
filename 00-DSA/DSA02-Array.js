@@ -379,8 +379,90 @@
 
 
 
+// problem 6 
+// how to find the value in the array
+
+// const arr = [1, 2, 3, 4, 5];
+// console.log(arr.includes(3)); // true
+// console.log(arr.includes(10)); // false
 
 
+// const arr = [1, 2, 3, 4, 5];
+// console.log(arr.indexOf(3)); // 2
+// console.log(arr.indexOf(10)); // -1
+
+
+// const arr = [1, 2, 3, 4, 5];
+// const result = arr.find(num => num === 3);
+// console.log(result); // 3
+
+
+// const arr = [1, 2, 3, 4, 5];
+// const idx = arr.findIndex(num => num === 3);
+// console.log(idx); // 2
+
+
+// const arr = [1, 2, 3, 4, 5];
+// let found = false;
+// for (let i = 0; i < arr.length; i++) {
+//     if (arr[i] === 3) {
+//         found = true;
+//         break;
+//     }
+// }
+// console.log(found); // true
+
+
+
+
+
+
+// porblem 7
+// how to merge the array
+
+// const arr1 = [1, 2, 3];
+// const arr2 = [4, 5, 6];
+
+// const merged = arr1.concat(arr2);
+// console.log(merged); // [1, 2, 3, 4, 5, 6]
+
+
+
+// const arr1 = [1, 2, 3];
+// const arr2 = [4, 5, 6];
+
+// const merged = [...arr1, ...arr2];
+// console.log(merged); // [1, 2, 3, 4, 5, 6]
+
+
+
+
+// const arr1 = [1, 2, 3];
+// const arr2 = [4, 5, 6];
+
+// for (let i = 0; i < arr2.length; i++) {
+//     arr1.push(arr2[i]);
+// }
+// console.log(arr1); // arr1 is now [1, 2, 3, 4, 5, 6]
+
+
+
+// const arr1 = [1, 2, 3];
+// const arr2 = [4, 5, 6];
+
+// const merged = []; // Empty array to store the result
+
+// // Push all elements from arr1
+// for (let i = 0; i < arr1.length; i++) {
+//     merged[merged.length] = arr1[i];
+// }
+
+// // Push all elements from arr2
+// for (let i = 0; i < arr2.length; i++) {
+//     merged[merged.length] = arr2[i];
+// }
+
+// console.log(merged); 
 
 
 
