@@ -1,3 +1,21 @@
+// handle the error properly 
+// for the dev and prod 
+// validate the data on 3 levels 1 frontend, 2 backend, 3 database
+//  use mongoose method  
+// use mongoose validation
+ 
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //
