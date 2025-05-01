@@ -1,0 +1,668 @@
+p {
+  background-image: url("image.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-clip: content-box;
+  background-origin: content-box;
+  background-color: red;
+  background-color: linear-gradient(to right, red, blue);
+  background-color: radial-gradient(circle, red, blue);
+  background-color: conic-gradient(red, blue);
+  background-color: repeating-linear-gradient(to right, red, blue);
+  background-color: repeating-radial-gradient(circle, red, blue);
+  background-color: repeating-conic-gradient(red, blue);
+  color: white;
+  opacity: 0.5;
+  font-size: 20px;
+  font-family: "Arial", sans-serif;
+  font-weight: bold;
+  text-align: center;
+  direction: rtl;
+  text-indent: 20px;
+  text-shadow: 2px 2px 4px #000000;
+  /* font: [font-style] [font-variant] [font-weight] [font-size]/[line-height] [font-family]; */
+  font: italic small-caps bold 20px/30px "Arial", sans-serif;
+  letter-spacing: normal;
+  word-spacing: normal;
+  line-height: normal;
+  text-decoration: underline solid #000000 2px;
+  text-decoration-line: underline;
+  text-decoration-color: #000000;
+  text-decoration-style: solid;
+  text-decoration-thickness: 2px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1.5;
+  word-spacing: 5px !important;
+  filter: blur(5px);
+  filter: brightness(0.5);
+  filter: contrast(1.5);
+  filter: drop-shadow(2px 2px 4px #000000);
+  filter: grayscale(100%);
+  filter: hue-rotate(90deg);
+  filter: invert(100%);
+  filter: opacity(0.5);
+  filter: saturate(2);
+  filter: sepia(100%);
+
+  position: relative; /* static, absolute, fixed, sticky, relative */
+  top: 10px; /* auto, percentage, px, em, rem, vw, vh */
+  right: 20px; /* auto, percentage, px, em, rem, vw, vh */
+  bottom: 30px; /* auto, percentage, px, em, rem, vw, vh */
+  left: 40px; /* auto, percentage, px, em, rem, vw, vh */
+  z-index: 1; /* auto, integer */
+  float: left; /* right, none */
+  clear: left; /* right, both, none */
+}
+
+p {
+  width: 100px;
+  height: 100px;
+  transition-property: all; /* all, property */
+  transition-duration: 0.5s; /* all, property */
+  transition-timing-function: ease-in-out; /* all, property */
+  transition-delay: 0.5s; /* all, property */
+  transition: all 0.5s ease-in-out; /* all, property */
+  animation: fadeIn 2s ease-in-out;
+  animation: fadeIn 2s ease-in-out 0s 1 normal forwards;
+  animation: moveRight 3s ease-in-out infinite;
+}
+
+p:hover {
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes moveRight {
+  0% {
+    left: 0;
+    background-color: royalblue;
+  }
+  50% {
+    left: 200px;
+    background-color: orange;
+  }
+  100% {
+    left: 0;
+    background-color: royalblue;
+  }
+}
+
+ul {
+  list-style-type: disc;
+  list-style-type: "*";
+  list-style-position: inside;
+  list-style-image: url("image.png");
+  list-style: none;
+}
+
+ol {
+  list-style-type: decimal;
+  list-style-type: upper-alpha;
+  list-style-type: lower-alpha;
+  list-style-type: upper-roman;
+  list-style-type: lower-roman;
+  list-style-position: outside;
+  list-style-image: url("image.png");
+  list-style: none;
+}
+
+/* box model */
+
+/* +---------------------------+
+|        Margin             |
+|  +---------------------+  |
+|  |     Border          |  |
+|  |  +---------------+  |  |
+|  |  |   Padding     |  |  |
+|  |  | +-----------+ |  |  |
+|  |  | |  Content  | |  |  |
+|  |  | +-----------+ |  |  |
+|  |  +---------------+  |  |
+|  +---------------------+  |
++---------------------------+ */
+
+.box {
+  box-sizing: border-box; /* content-box, border-box */
+  margin: 20px;
+  border: 2px solid black;
+  padding: 15px;
+  width: 200px;
+  height: 100px;
+
+  border-color: red;
+  border-top-color: blue;
+  border-right-color: green;
+  border-bottom-color: yellow;
+  border-left-color: purple;
+  border-color: red green blue yellow; /* top, right, bottom, left */
+  border-bottom: 2px solid red;
+  border-top: 2px solid blue;
+  border-right: 2px solid green;
+  border-left: 2px solid yellow;
+  border: 2px solid red green blue yellow; /* top, right, bottom, left */
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  border-radius: 10px 20px 30px 40px; /* top-left, top-right, bottom-right, bottom-left */
+  border-radius: 10px 20px; /* top-left, bottom-right */
+  border: 2px solid red;
+
+  padding: 10px;
+  padding-top: 10px;
+  padding-right: 20px;
+  padding-bottom: 30px;
+  padding-left: 40px;
+  padding: 10px 20px 30px 40px; /* top, right, bottom, left */
+  padding: 10px 20px; /* top, bottom, left, right */
+  padding: 10px 20px 30px; /* top, right, bottom */
+  padding: 10px 20px; /* top, bottom, left, right */
+
+  margin: 10px;
+  margin-top: 10px;
+  margin-right: 20px;
+  margin-bottom: 30px;
+  margin-left: 40px;
+  margin: 10px 20px 30px 40px; /* top, right, bottom, left */
+  margin: 10px 20px; /* top, bottom, left, right */
+  margin: 10px 20px 30px; /* top, right, bottom */
+  /* margin collapse it will the take the margin of the larger  */
+
+  display: block; /* inline, inline-block, flex, grid, table, table-row, table-cell, table-caption, list-item */
+  display: none; /* hide the element */
+  width: 100px; /* auto, percentage, px, em, rem, vw, vh */
+  height: 100px; /* auto, percentage, px, em, rem, vw, vh */
+  max-width: 100%; /* auto, percentage, px, em, rem, vw, vh */
+  min-width: 100px; /* auto, percentage, px, em, rem, vw, vh */
+  max-height: 100%; /* auto, percentage, px, em, rem, vw, vh */
+  min-height: 100px; /* auto, percentage, px, em, rem, vw, vh */
+  overflow: hidden; /* visible, hidden, scroll, auto */
+  overflow-x: hidden; /* visible, hidden, scroll, auto */
+  overflow-y: hidden; /* visible, hidden, scroll, auto */
+  box-shadow: 2px 2px 5px #000000; /* inset, none */
+  box-shadow: 2px 2px 5px #000000, -2px -2px 5px #000000; /* inset, none */
+}
+
+/* flex box */
+
+/* for the parent element */
+.parent {
+  display: flex; /* block, inline-block, inline, grid, table, table-row, table-cell, table-caption, list-item */
+  flex-direction: row; /* row-reverse, column, column-reverse */
+  flex-wrap: nowrap; /* wrap, wrap-reverse */
+  justify-content: flex-start; /* center, space-between, space-around, space-evenly */
+  align-items: stretch; /* center, start, end, baseline for the single line  */
+  align-content: stretch; /* center, start, end, baseline */
+}
+
+/* for the child element */
+.child {
+  flex: 1; /* flex-grow, flex-shrink, flex-basis */
+  flex-grow: 1; /* 0, 1, 2, ... size  default is 1  */
+  flex-shrink: 1; /* 0, 1, 2, ... default is 1 it will not shrink , 2 is shrink two times  */
+  flex-basis: auto; /* auto, percentage, px, em, rem, vw, vh */
+  order: 0; /* -1, 0, 1, ... */
+  align-self: auto; /* auto, center, start, end, baseline */
+}
+
+/* media screen */
+
+@media screen and (min-width: 600px) {
+  /* CSS rules here will apply only when the screen width is 600px or more */
+}
+
+@media screen and (max-width: 300px) {
+  /* CSS rules here will apply only when the screen width is 600px or less */
+}
+@media screen and (min-width: 600px) and (max-width: 1200px) {
+  /* CSS rules here will apply only when the screen width is between 600px and 1200px */
+}
+@media screen and (orientation: portrait) {
+  /* CSS rules here will apply only when the device is in portrait mode */
+}
+@media screen and (orientation: landscape) {
+  /* CSS rules here will apply only when the device is in landscape mode */
+}
+@media screen and (hover: hover) {
+  /* CSS rules here will apply only when the device supports hover */
+}
+
+@media screen and (hover: none) {
+  /* CSS rules here will apply only when the device does not support hover */
+}
+@media screen and (pointer: coarse) {
+  /* CSS rules here will apply only when the device has a coarse pointer (like a finger) */
+}
+@media screen and (pointer: fine) {
+  /* CSS rules here will apply only when the device has a fine pointer (like a mouse) */
+}
+@media screen and (prefers-color-scheme: light) {
+  /* CSS rules here will apply only when the user prefers a light color scheme */
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  /* CSS rules here will apply only when the user prefers a dark color scheme */
+}
+@media screen and (prefers-reduced-motion: reduce) {
+  /* CSS rules here will apply only when the user prefers reduced motion */
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  /* CSS rules here will apply only when the user does not prefer reduced motion */
+}
+
+/* inline css , internal css , external css */
+
+/* google font link add in the head section of the html file */
+/* <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> */
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+/* selector  and preference  */
+/* universal selector */
+* {
+  padding: auto;
+}
+/* element selector */
+p {
+  padding: auto;
+}
+/* class selector */
+.class {
+  padding: auto;
+}
+/* id selector */
+#id {
+  padding: auto;
+}
+/* group selector */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding: auto;
+}
+/* direct child selector */
+p > span {
+  padding: auto;
+}
+/* descendant selector */
+p span {
+  padding: auto;
+}
+/* adjacent sibling selector */
+p + span {
+  padding: auto;
+}
+/* general sibling selector */
+p ~ span {
+  padding: auto;
+}
+
+/* compound selector */
+p.class {
+  padding: auto;
+}
+
+/* attribute selector */
+p[title] {
+  padding: auto;
+}
+/* attribute selector with value */
+p[title="value"] {
+  padding: auto;
+}
+/* attribute selector with partial value */
+p[title*="value"] {
+  padding: auto;
+}
+
+/* pseudo-class selector */
+p:hover {
+  padding: auto;
+}
+/* pseudo-class selector with value */
+p:hover[value] {
+  padding: auto;
+}
+/* pseudo-element selector */
+p::before {
+  padding: auto;
+}
+/* pseudo-element selector with value */
+p::before[value] {
+  padding: auto;
+}
+/* pseudo-element selector with value */
+p::after[value] {
+  padding: auto;
+}
+
+a:visited {
+  color: blue;
+  text-decoration: none;
+  cursor: pointer;
+}
+a:link {
+  color: red;
+  text-decoration: none;
+}
+a:hover {
+  color: green;
+  text-decoration: underline;
+}
+a:active {
+  color: yellow;
+  text-decoration: none;
+}
+a:focus {
+  color: orange;
+  text-decoration: none;
+}
+a:focus-visible {
+  color: purple;
+  text-decoration: none;
+}
+a:focus-within {
+  color: pink;
+  text-decoration: none;
+}
+
+input[type="text"]:focus {
+  background-color: lightblue;
+  border: 2px solid blue;
+  outline: none;
+}
+input[type="text"]:hover {
+  background-color: lightgreen;
+  border: 2px solid green;
+  outline: none;
+}
+
+a[href="https://www.example.com"]:hover
+{
+  color: red;
+  text-decoration: none;
+}
+a[href^="https://"]:hover
+{
+  color: blue;
+  text-decoration: none;
+}
+a[href$=".com"]:hover {
+  color: green;
+  text-decoration: none;
+}
+a[href*="example"]:hover {
+  color: orange;
+  text-decoration: none;
+}
+a[href^="https://"][href$=".com"]:hover
+{
+  color: purple;
+  text-decoration: none;
+}
+
+input:disabled {
+  background-color: lightgray;
+  color: gray;
+  cursor: not-allowed;
+}
+
+input:enabled {
+  background-color: white;
+  color: black;
+  cursor: text;
+}
+
+input:checked {
+  background-color: lightblue;
+  color: blue;
+  cursor: pointer;
+}
+
+input:indeterminate {
+  background-color: lightgreen;
+  color: green;
+  cursor: pointer;
+}
+
+input:valid {
+  background-color: lightyellow;
+  color: yellow;
+  cursor: pointer;
+}
+
+input:invalid {
+  background-color: lightcoral;
+  color: red;
+  cursor: pointer;
+}
+
+input:placeholder-shown {
+  background-color: lightpink;
+  color: pink;
+  cursor: text;
+}
+
+input:placeholder-shown:focus {
+  background-color: lightblue;
+  color: blue;
+  cursor: text;
+}
+
+input:placeholder-shown:hover {
+  background-color: lightyellow;
+  color: yellow;
+  cursor: pointer;
+}
+
+input:placeholder-shown:focus-visible {
+  background-color: lightblue;
+  color: blue;
+  cursor: text;
+}
+
+input:valid:focus {
+  background-color: lightblue;
+  color: blue;
+  cursor: text;
+}
+
+input:invalid:focus {
+  background-color: lightcoral;
+  color: red;
+  cursor: text;
+}
+
+input:valid:hover {
+  background-color: lightyellow;
+  color: yellow;
+  cursor: pointer;
+}
+
+input:invalid:hover {
+  background-color: lightcoral;
+  color: red;
+  cursor: pointer;
+}
+
+input:valid:focus-visible {
+  background-color: lightblue;
+  color: blue;
+  cursor: text;
+}
+
+input:invalid:focus-visible {
+  background-color: lightcoral;
+  color: red;
+  cursor: text;
+}
+
+input:read-only {
+  background-color: lightgray;
+  color: gray;
+  cursor: not-allowed;
+}
+
+input:read-write {
+  background-color: white;
+  color: black;
+  cursor: text;
+}
+
+input:required {
+  background-color: lightblue;
+  color: blue;
+  cursor: pointer;
+}
+
+input:optional {
+  background-color: lightgreen;
+  color: green;
+  cursor: pointer;
+}
+
+input:in-range {
+  background-color: lightyellow;
+  color: yellow;
+  cursor: pointer;
+}
+
+input:out-of-range {
+  background-color: lightcoral;
+  color: red;
+  cursor: pointer;
+}
+
+li:first-child {
+  background-color: lightblue;
+  color: blue;
+  cursor: pointer;
+}
+
+li:last-child {
+  background-color: lightgreen;
+  color: green;
+  cursor: pointer;
+}
+
+li:nth-child(2) {
+  background-color: lightyellow;
+  color: yellow;
+  cursor: pointer;
+}
+
+li:nth-child(2n) {
+  background-color: lightcoral;
+  color: red;
+  cursor: pointer;
+}
+
+li:nth-child(2n + 1) {
+  background-color: lightpink;
+  color: pink;
+  cursor: pointer;
+}
+
+li:nth-child(2n + 2) {
+  background-color: lightgray;
+  color: gray;
+  cursor: pointer;
+}
+
+li:nth-last-child(2) {
+  background-color: lightblue;
+  color: blue;
+  cursor: pointer;
+}
+li:nth-last-child(2n) {
+  background-color: lightgreen;
+  color: green;
+  cursor: pointer;
+}
+
+li:nth-last-child(2n + 1) {
+  background-color: lightyellow;
+  color: yellow;
+  cursor: pointer;
+}
+li:nth-last-child(2n + 2) {
+  background-color: lightcoral;
+  color: red;
+  cursor: pointer;
+}
+li:nth-of-type(2) {
+  background-color: lightpink;
+  color: pink;
+  cursor: pointer;
+}
+li:nth-of-type(2n) {
+  background-color: lightgray;
+  color: gray;
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 5px blue;
+}
+
+button:active {
+  background-color: lightblue;
+  color: blue;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: lightgray;
+  color: gray;
+  cursor: not-allowed;
+}
+button:enabled {
+  background-color: white;
+  color: black;
+  cursor: text;
+}
+
+p::first-line {
+  font-weight: bold;
+  font-size: 20px;
+  color: red;
+  text-decoration: underline;
+}
+
+p::first-letter {
+  font-size: 30px;
+  font-weight: bold;
+  color: blue;
+  text-decoration: underline;
+}
+
+/* secificity  */
+/* inline
+id 
+.class
+element 
+pesudo-class */
+
+/* unit */
+/* relative unit */
+/*  em, rem, vw, vh, % *
+abosolute unit */
+/* px, cm, mm, in, pt, pc */
