@@ -1,4 +1,102 @@
+/* text  */
 p {
+  display: block; /* inline, inline-block, flex, grid, table, table-row, table-cell, table-caption, list-item */
+  display: none; /* hide the element */
+  box-sizing: border-box;       /* content-box, border-box */
+
+  width: 100px; /* auto, percentage, px, em, rem, vw, vh */
+  height: 100px; /* auto, percentage, px, em, rem, vw, vh */
+  max-width: 100%; /* auto, percentage, px, em, rem, vw, vh */
+  min-width: 100px; /* auto, percentage, px, em, rem, vw, vh */
+  max-height: 100%; /* auto, percentage, px, em, rem, vw, vh */
+  min-height: 100px; /* auto, percentage, px, em, rem, vw, vh */
+
+
+  padding: 10px;
+  padding-top: 10px;
+  padding-right: 20px;
+  padding-bottom: 30px;
+  padding-left: 40px;
+  padding: 10px 20px 30px 40px; /* top, right, bottom, left */
+  padding: 10px 20px; /* top, bottom, left, right */
+  padding: 10px 20px 30px; /* top, right, bottom */
+  padding: 10px 20px; /* top, bottom, left, right */
+
+  margin: 10px;
+  margin-top: 10px;
+  margin-right: 20px;
+  margin-bottom: 30px;
+  margin-left: 40px;
+  margin: 10px 20px 30px 40px; /* top, right, bottom, left */
+  margin: 10px 20px; /* top, bottom, left, right */
+  margin: 10px 20px 30px; /* top, right, bottom */
+  /* margin collapse it will the take the margin of the larger  */
+
+  
+
+  border-top-color: blue;
+  border-right-color: green;
+  border-bottom-color: yellow;
+  border-left-color: purple;
+  border-color: red green blue yellow; /* top, right, bottom, left */
+
+  border-bottom: 2px solid red;
+  border-top: 2px solid blue;
+  border-right: 2px solid green;
+  border-left: 2px solid yellow;
+  border: 2px solid red green blue yellow; /* top, right, bottom, left */
+
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  border-radius: 10px 20px 30px 40px; /* top-left, top-right, bottom-right, bottom-left */
+  border-radius: 10px 20px; /* top-left, bottom-right */
+  border: 2px solid red;
+
+
+  font-family: "Roboto", sans-serif;       /* Font family */
+  font-size: 16px;                         /* Font size */
+  font-weight: normal;                     /* Font weight */
+  font-style: normal;                      /* Font style */
+  font-variant: normal;                    /* Font variant (e.g., small-caps) */
+  font: normal normal 16px/1.5 "Roboto", sans-serif; /* Full font shorthand */
+  /* font: [font-style] [font-variant] [font-weight] [font-size]/[line-height] [font-family]; */
+  font: italic small-caps bold 20px/30px "Arial", sans-serif;
+
+  color: #333;                             /* Text color */
+  text-align: justify;                     /* Text alignment */
+  /* vertical-align: baseline;                Vertical alignment */
+  direction: ltr;                          /* Text direction */
+  unicode-bidi: normal;                    /* For bidirectional text */
+
+  text-decoration: underline dotted red;   /* Underline + style + color */
+  text-decoration-line: underline;
+  text-decoration-color: #000000;
+  text-decoration-style: solid;
+  text-decoration-thickness: 2px;
+  text-decoration-skip-ink: auto;          /* Skip ink for underline */
+
+  letter-spacing: 1px;                     /* Space between letters */
+  word-spacing: 3px;                       /* Space between words */
+  line-height: 1.5;  
+  opacity: 0.5;
+
+  text-indent: 30px;                       /* Indentation of the first line */
+  text-transform: capitalize;              /* Capitalization */
+  text-shadow: 1px 1px 1px gray;           /* Shadow effect on text */
+  text-overflow: ellipsis;                /* Ellipsis for overflow */
+  white-space: nowrap;                     /* Prevents line breaks */
+  overflow-wrap: break-word;               /* Break long words */
+  word-break: break-word;                  /* Word breaking */
+
+  overflow: hidden; /* visible, hidden, scroll, auto */
+  overflow-x: hidden; /* visible, hidden, scroll, auto */
+  overflow-y: hidden; /* visible, hidden, scroll, auto */
+
+  
+  box-shadow: 2px 2px 5px #000000; /* inset, none */
+  box-shadow: 2px 2px 5px #000000, -2px -2px 5px #000000; /* inset, none */
+
   background-image: url("image.png");
   background-repeat: no-repeat;
   background-position: center;
@@ -13,29 +111,9 @@ p {
   background-color: repeating-linear-gradient(to right, red, blue);
   background-color: repeating-radial-gradient(circle, red, blue);
   background-color: repeating-conic-gradient(red, blue);
-  color: white;
-  opacity: 0.5;
-  font-size: 20px;
-  font-family: "Arial", sans-serif;
-  font-weight: bold;
-  text-align: center;
-  direction: rtl;
-  text-indent: 20px;
-  text-shadow: 2px 2px 4px #000000;
-  /* font: [font-style] [font-variant] [font-weight] [font-size]/[line-height] [font-family]; */
-  font: italic small-caps bold 20px/30px "Arial", sans-serif;
-  letter-spacing: normal;
-  word-spacing: normal;
-  line-height: normal;
-  text-decoration: underline solid #000000 2px;
-  text-decoration-line: underline;
-  text-decoration-color: #000000;
-  text-decoration-style: solid;
-  text-decoration-thickness: 2px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  line-height: 1.5;
-  word-spacing: 5px !important;
+
+
+  
   filter: blur(5px);
   filter: brightness(0.5);
   filter: contrast(1.5);
@@ -47,6 +125,7 @@ p {
   filter: saturate(2);
   filter: sepia(100%);
 
+
   position: relative; /* static, absolute, fixed, sticky, relative */
   top: 10px; /* auto, percentage, px, em, rem, vw, vh */
   right: 20px; /* auto, percentage, px, em, rem, vw, vh */
@@ -55,11 +134,9 @@ p {
   z-index: 1; /* auto, integer */
   float: left; /* right, none */
   clear: left; /* right, both, none */
-}
 
-p {
-  width: 100px;
-  height: 100px;
+
+  
   transition-property: all; /* all, property */
   transition-duration: 0.5s; /* all, property */
   transition-timing-function: ease-in-out; /* all, property */
@@ -68,12 +145,6 @@ p {
   animation: fadeIn 2s ease-in-out;
   animation: fadeIn 2s ease-in-out 0s 1 normal forwards;
   animation: moveRight 3s ease-in-out infinite;
-}
-
-p:hover {
-  background-color: blue;
-  color: white;
-  cursor: pointer;
 }
 
 @keyframes fadeIn {
@@ -100,24 +171,54 @@ p:hover {
   }
 }
 
+
+table {
+  border-collapse: collapse;          /* Merge table borders */
+  border-spacing: 0;                  /* No space between cells */
+  table-layout: auto;                 /* Column widths adjust based on content */
+  caption-side: top;                  /* Caption position: top, bottom */
+  empty-cells: show;                  /* Show or hide empty cells */
+}
+
+th, td {
+  vertical-align: middle;             /* Align content vertically in the middle */
+}
+
+caption {
+  caption-side: top;                  /* Position of caption */
+}
+
+
 ul {
-  list-style-type: disc;
+  list-style-type: disc;                 /* Default bullet style */
   list-style-type: "*";
-  list-style-position: inside;
-  list-style-image: url("image.png");
-  list-style: none;
+  list-style-position: inside;           /* Position bullets inside the list item box */
+  list-style-image: url('bullet.png');   /* Custom bullet image */
 }
 
 ol {
-  list-style-type: decimal;
-  list-style-type: upper-alpha;
-  list-style-type: lower-alpha;
-  list-style-type: upper-roman;
-  list-style-type: lower-roman;
-  list-style-position: outside;
-  list-style-image: url("image.png");
-  list-style: none;
+  list-style-type: decimal;              /* Numbered list with decimal numbers */
+  list-style-position: outside;          /* Numbers outside the list item box */
 }
+
+textarea {
+  resize: vertical;                      /* Allow vertical resizing */
+}
+
+select {                     /* Text color */
+  appearance: none;                      /* Remove default styling in some browsers */
+}
+
+button, input[type="submit"], input[type="reset"] {                    /* Font size */
+  cursor: pointer;                       /* Pointer cursor on hover */
+}
+
+input[type="checkbox"], input[type="radio"] {
+  accent-color: #007bff;                 /* Custom color for checkboxes and radios */
+}
+
+
+
 
 /* box model */
 
@@ -134,66 +235,7 @@ ol {
 |  +---------------------+  |
 +---------------------------+ */
 
-.box {
-  box-sizing: border-box; /* content-box, border-box */
-  margin: 20px;
-  border: 2px solid black;
-  padding: 15px;
-  width: 200px;
-  height: 100px;
 
-  border-color: red;
-  border-top-color: blue;
-  border-right-color: green;
-  border-bottom-color: yellow;
-  border-left-color: purple;
-  border-color: red green blue yellow; /* top, right, bottom, left */
-  border-bottom: 2px solid red;
-  border-top: 2px solid blue;
-  border-right: 2px solid green;
-  border-left: 2px solid yellow;
-  border: 2px solid red green blue yellow; /* top, right, bottom, left */
-  border-style: solid;
-  border-width: 2px;
-  border-radius: 10px;
-  border-radius: 10px 20px 30px 40px; /* top-left, top-right, bottom-right, bottom-left */
-  border-radius: 10px 20px; /* top-left, bottom-right */
-  border: 2px solid red;
-
-  padding: 10px;
-  padding-top: 10px;
-  padding-right: 20px;
-  padding-bottom: 30px;
-  padding-left: 40px;
-  padding: 10px 20px 30px 40px; /* top, right, bottom, left */
-  padding: 10px 20px; /* top, bottom, left, right */
-  padding: 10px 20px 30px; /* top, right, bottom */
-  padding: 10px 20px; /* top, bottom, left, right */
-
-  margin: 10px;
-  margin-top: 10px;
-  margin-right: 20px;
-  margin-bottom: 30px;
-  margin-left: 40px;
-  margin: 10px 20px 30px 40px; /* top, right, bottom, left */
-  margin: 10px 20px; /* top, bottom, left, right */
-  margin: 10px 20px 30px; /* top, right, bottom */
-  /* margin collapse it will the take the margin of the larger  */
-
-  display: block; /* inline, inline-block, flex, grid, table, table-row, table-cell, table-caption, list-item */
-  display: none; /* hide the element */
-  width: 100px; /* auto, percentage, px, em, rem, vw, vh */
-  height: 100px; /* auto, percentage, px, em, rem, vw, vh */
-  max-width: 100%; /* auto, percentage, px, em, rem, vw, vh */
-  min-width: 100px; /* auto, percentage, px, em, rem, vw, vh */
-  max-height: 100%; /* auto, percentage, px, em, rem, vw, vh */
-  min-height: 100px; /* auto, percentage, px, em, rem, vw, vh */
-  overflow: hidden; /* visible, hidden, scroll, auto */
-  overflow-x: hidden; /* visible, hidden, scroll, auto */
-  overflow-y: hidden; /* visible, hidden, scroll, auto */
-  box-shadow: 2px 2px 5px #000000; /* inset, none */
-  box-shadow: 2px 2px 5px #000000, -2px -2px 5px #000000; /* inset, none */
-}
 
 /* flex box */
 
