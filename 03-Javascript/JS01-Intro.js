@@ -194,6 +194,7 @@ console.log(typeof greet);   // "function"
 
 console.log(Array.isArray([1, 2, 3])); // true
 console.log(person instanceof Object); // true
+console.log(typeof true);
 
 
 
@@ -835,6 +836,12 @@ function factorial(n) {
 // for...of loop
 // forEach() method
 // map() method
+
+
+
+
+// break - it means it stop here 
+// continue - where it get it start again from the start 
 
 
 

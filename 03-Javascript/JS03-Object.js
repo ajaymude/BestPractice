@@ -33,6 +33,10 @@
 console.log(person.name);  // "Ajay"
 console.log(person["age"]); // 25
 
+person.isDeveloper = true;
+console.log(person); // { name: "Ajay", age: 25, isDeveloper: true }
+person.name2 = 'max';
+
 
 let obj = { "full name": "Ajay Kumar" };
 console.log(obj["full name"]); // "Ajay Kumar"

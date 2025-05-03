@@ -701,3 +701,20 @@
 // console.log(arr); 
 // Output: [1, 2, 5, 5, 6, 9]
 
+
+
+
+
+// Problem 9 
+function makePair(...args) {
+    // this args  convert all  argument into the array 
+    return args;
+  }
+
+  
+  console.log(makePair(1, 2));               // [1, 2]
+  console.log(makePair(51, 21, 99));         // [51, 21, 99]
+  console.log(makePair(512124, 215, 0, 42)); // [512124, 215, 0, 42]
+  console.log(makePair());                  // []
+  
+

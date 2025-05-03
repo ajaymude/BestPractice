@@ -9,6 +9,26 @@
 // Changing Input – Each call should move toward the base case.
 
 
+// steps to solve the problem 
+// 01 - understand the problem 
+// 02 - identify the subproblem 
+// 03 - trust / faith 
+// 04 - link 1 & 2 
+// 05 - base condition 
+
+
+
+
+
+// visualization - recursion tree 
+//               - recursion call stack 
+
+
+
+// recursion vs iteration 
+
+
+
 
 
 function recursiveFunction(parameters) {
