@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- ✅ IMG TAG FULL EXAMPLE WITH ALL COMMON ATTRIBUTES -->
+    <img src="https://example.com/image.jpg" <!-- Image URL -- />
+    alt="A scenic mountain view"
+    <!-- Accessibility text -->
+    width="600" height="400"
+    <!-- Image dimensions -->
+    loading="lazy"
+    <!-- Lazy loading -->
+    decoding="async"
+    <!-- Async decode -->
+    referrerpolicy="no-referrer"
+    <!-- No Referer header -->
+    crossorigin="anonymous"
+    <!-- CORS control -->
+    fetchpriority="high"
+    <!-- Fetch priority -->
+    usemap="#samplemap"
+    <!-- Client-side map -->
+    ismap
+    <!-- Server-side map (used in <a>) -->
+    >
+
+    <map name="samplemap">
+      <area
+        shape="rect"
+        coords="34,44,270,350"
+        alt="Part 1"
+        href="part1.html"
+      />
+      <area shape="circle" coords="337,300,44" alt="Part 2" href="part2.html" />
+    </map>
+
+    <!-- ✅ ANCHOR (<a>) TAG FULL EXAMPLE WITH ALL COMMON ATTRIBUTES -->
+    <a href="https://example.com" <!-- Destination URL -->
+      target="_blank"
+      <!-- Open in new tab -->
+      rel="noopener noreferrer"
+      <!-- Security for target="_blank" -->
+      download="example-file.pdf"
+      <!-- Download linked file -->
+      hreflang="en"
+      <!-- Language of linked doc -->
+      type="application/pdf"
+      <!-- MIME type of target -->
+      referrerpolicy="no-referrer"
+      <!-- Referrer policy -->
+      ping="https://tracker.com/ping"
+      <!-- Ping tracking URL -->
+      > Download PDF File
+    </a>
+
+    <!-- 📌 LINK TO A SECTION IN THE SAME PAGE -->
+    <a href="#about">Go to About Section</a>
+
+    <!-- 🔽 TARGET SECTION SOMEWHERE BELOW -->
+    <h2 id="about">About Us</h2>
+    <p>Welcome to the about section of the page.</p>
+
+
+
+
+    
+  </body>
+</html>
