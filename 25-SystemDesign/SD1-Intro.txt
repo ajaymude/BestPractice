@@ -1,3 +1,37 @@
+// Understand requirement
+
+// scalability
+// availability 
+// reliability
+// security 
+// performance
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // scaling 

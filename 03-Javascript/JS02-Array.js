@@ -166,3 +166,8 @@ let fruits = ["Apple", "Banana", "Cherry"];
 // 29. console.log(Array.from("Hello")); // Create array from iterable
 // 30. console.log(nestedArray.flat(2)); // Flatten nested arrays
 // 31. console.log(numbers.toSpliced(2, 1, 99)); // Immutable splice
+
+
+
+
+
