@@ -181,64 +181,326 @@ account.deposit(100);
 console.log(account.getBalance()); // ✅ 100
 console.log(account.#balance); // ❌ SyntaxError: Private field '#balance' must be declared in an enclosing class
 
-
-
-// private method and public method 
-
+// private method and public method
 
 class User {
-    constructor(username, password) {
-      this.username = username;
-      this.#setPassword(password); // Call private method in constructor
-    }
-  
-    // 🔒 Private method
-    #setPassword(pwd) {
-      if (pwd.length < 6) {
-        console.log("Password too short!");
-        this.password = null;
-      } else {
-        this.password = `encrypted(${pwd})`; // Simulated encryption
-      }
-    }
-  
-    // 🔓 Public method
-    login(inputPassword) {
-      if (this.password === `encrypted(${inputPassword})`) {
-        console.log(`${this.username} logged in successfully.`);
-      } else {
-        console.log("Login failed.");
-      }
-    }
-  
-    // 🔓 Public method to update password
-    updatePassword(newPassword) {
-      this.#setPassword(newPassword); // Using private method
+  constructor(username, password) {
+    this.username = username;
+    this.#setPassword(password); // Call private method in constructor
+  }
+
+  // 🔒 Private method
+  #setPassword(pwd) {
+    if (pwd.length < 6) {
+      console.log("Password too short!");
+      this.password = null;
+    } else {
+      this.password = `encrypted(${pwd})`; // Simulated encryption
     }
   }
-   
 
+  // 🔓 Public method
+  login(inputPassword) {
+    if (this.password === `encrypted(${inputPassword})`) {
+      console.log(`${this.username} logged in successfully.`);
+    } else {
+      console.log("Login failed.");
+    }
+  }
 
-  const user1 = new User("john_doe", "123456");
-  user1.login("123456");           // ✅ john_doe logged in successfully
-  user1.updatePassword("abcdef");  // ✅ updates password internally
-  user1.login("abcdef");           // ✅ login successful
-  
-  // ❌ Accessing private method directly — not allowed
-  // user1.#setPassword("newpass"); // SyntaxError: Private field '#setPassword' must be declared in an enclosing class
-  
+  // 🔓 Public method to update password
+  updatePassword(newPassword) {
+    this.#setPassword(newPassword); // Using private method
+  }
+}
 
+const user1 = new User("john_doe", "123456");
+user1.login("123456"); // ✅ john_doe logged in successfully
+user1.updatePassword("abcdef"); // ✅ updates password internally
+user1.login("abcdef"); // ✅ login successful
 
+// ❌ Accessing private method directly — not allowed
+// user1.#setPassword("newpass"); // SyntaxError: Private field '#setPassword' must be declared in an enclosing class
 
+//   🔍 What Is this?
+//   In JavaScript, this refers to the object that is currently executing the code.
+//   Its exact value depends on how a function is called, not where it's defined.
 
+// in a class
+class Person {
+  constructor(name) {
+    this.name = name; // 'this' refers to the instance
+  }
 
+  greet() {
+    console.log("Hello, " + this.name);
+  }
+}
 
+const p = new Person("Alice");
+p.greet(); // Hello, Alice
 
+// in a regular function
+function show() {
+  console.log(this); // 'this' refers to the global object (window in browsers)
+}
 
+show();
 
+// in a regular function but strict mode is on
+("use strict");
+function show() {
+  console.log(this); // undefined
+}
+show();
 
+// in a event handler
+button.onclick = function () {
+  console.log(this); // refers to the button element
+};
 
+// in the arrow function
+
+const obj = {
+  name: "Box",
+  regular: function () {
+    console.log(this.name); // 'this' is the object
+  },
+  arrow: () => {
+    console.log(this.name); // 'this' is inherited from where the arrow function is defined (usually global or outer function)
+  },
+};
+
+obj.regular(); // Box
+obj.arrow(); // undefined
+
+// js call apply bind
+
+function introduce(greeting, punctuation) {
+  console.log(`${greeting}, I'm ${this.name}${punctuation}`);
+}
+
+const person1 = { name: "Alice" };
+const person2 = { name: "Bob" };
+
+introduce.call(person1, "Hello", "!"); // Hello, I'm Alice!
+introduce.call(person2, "Hi", "."); // Hi, I'm Bob.
+
+introduce.apply(person1, ["Hey", "?"]); // Hey, I'm Alice?
+introduce.apply(person2, ["Yo", "!"]); // Yo, I'm Bob!
+
+const aliceIntro = introduce.bind(person1, "Welcome", "!!!");
+const bobIntro = introduce.bind(person2);
+
+aliceIntro(); // Welcome, I'm Alice!!!
+bobIntro("Howdy", "?"); // Howdy, I'm Bob?
+
+// use of the new key word in the js
+
+// JavaScript does four things behind the scenes:
+// Creates a new empty object: {}
+// Sets the new object's prototype to the constructor's prototype
+// Binds this inside the constructor to the new object
+// Returns the object (unless the constructor explicitly returns something else)
 // search about it inbuilt classes in the js
+
+// What Is the Prototype?
+// Every JavaScript function has a prototype property.
+// When you create an object using a constructor function or class, it gets linked to that function's prototype object.
+// This is how methods and properties are shared across instances — without duplicating them.
+
+// 🔁 Why Use Prototypes?
+// To share methods between all instances without redefining them every time.
+// To save memory by avoiding duplication.
+// To enable inheritance and access to methods up the prototype chain.
+
+function Person(name) {
+  this.name = name;
+}
+
+// Shared method using prototype
+Person.prototype.sayHello = function () {
+  console.log(`Hello, I'm ${this.name}`);
+};
+
+const alice = new Person("Alice");
+const bob = new Person("Bob");
+
+alice.sayHello(); // Hello, I'm Alice
+bob.sayHello(); // Hello, I'm Bob
+
+//   🔍 What’s Happening Behind the Scenes?
+// Each instance (alice, bob) has a hidden link to Person.prototype. When you call alice.sayHello(), JavaScript:
+// Looks for sayHello on alice
+// Doesn’t find it → looks in alice.__proto__ (which is Person.prototype)
+// Finds it there and calls it
+
+// ########## js promise start ##################################
+// 🔍 What Is a Promise?
+// A Promise is an object that represents the future result of an asynchronous operation.
+// It can be in one of three states
+
+// State	Meaning
+// pending	The operation is still ongoing
+// fulfilled	The operation completed successfully
+// rejected	The operation failed
+
+const myPromise = new Promise((resolve, reject) => {
+  // Simulate async task
+  setTimeout(() => {
+    const success = true;
+
+    if (success) {
+      resolve("Data loaded");
+    } else {
+      reject("Error occurred");
+    }
+  }, 1000);
+});
+
+myPromise
+  .then((result) => {
+    console.log("Success:", result); // Runs if resolved
+  })
+  .catch((error) => {
+    console.error("Failed:", error); // Runs if rejected
+  })
+  .finally(() => {
+    console.log("Finished"); // Always runs
+  });
+
+// callback hell
+
+// ✅ What Is async / await?
+// async turns a function into one that returns a Promise.
+// await pauses execution until a Promise resolves (or rejects).
+// It makes asynchronous code look synchronous, improving readability.
+
+
+// use the try catch for the error handling 
+
+async function getUserData() {
+  try {
+    const userResponse = await fetch(
+      "https://jsonplaceholder.typicode.com/users/1"
+    );
+    const user = await userResponse.json();
+    console.log("User:", user);
+
+    const postsResponse = await fetch(
+      `https://jsonplaceholder.typicode.com/posts?userId=${user.id}`
+    );
+    const posts = await postsResponse.json();
+    console.log("Posts:", posts);
+
+    const commentsResponse = await fetch(
+      `https://jsonplaceholder.typicode.com/comments?postId=${posts[0].id}`
+    );
+    const comments = await commentsResponse.json();
+    console.log("Comments on first post:", comments);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+getUserData();
+
+
+// Promise.all
+// Promise.all — a powerful tool in JavaScript when you want to run
+//  multiple asynchronous operations in parallel and wait for all of them to complete.
+
+// 🔍 What Is Promise.all()?
+// It takes an array of promises and returns a single promise.
+// This returned promise:
+// ✅ resolves when all promises resolve, giving you an array of results.
+// ❌ rejects immediately if any promise fails (even one).
+
+// ✅ Why Use Promise.all()?
+// To run async tasks in parallel, not one after the other.
+// Saves time when tasks don’t depend on each other.
+// Useful for fetching multiple resources, loading files, etc.
+
+const urls = [
+    "https://jsonplaceholder.typicode.com/users/1",
+    "https://jsonplaceholder.typicode.com/users/2",
+    "https://jsonplaceholder.typicode.com/users/3"
+  ];
+  
+  async function fetchUsers() {
+    try {
+      const responses = await Promise.all(urls.map(url => fetch(url)));
+      const users = await Promise.all(responses.map(res => res.json()));
+      console.log("All users:", users);
+    } catch (error) {
+      console.error("Failed to fetch one or more users:", error);
+    }
+  }
+  
+  fetchUsers();
+
+  
+
+//   🔍 What Is Promise.allSettled()?
+//   It takes an array of promises.
+//   It returns a promise that always resolves — once all input promises have settled (either fulfilled or rejected).
+//   You get an array of objects, each with a status ("fulfilled" or "rejected") and value or reaso
+
+const urls = [
+    "https://jsonplaceholder.typicode.com/users/1",       // valid
+    "https://jsonplaceholder.typicode.com/users/99999",   // valid but maybe empty
+    "https://invalid-api-url.typicode.com/broken"         // invalid
+  ];
+  
+  async function fetchDataAllSettled() {
+    const promises = urls.map(url => fetch(url));
+  
+    const results = await Promise.allSettled(promises);
+  
+    results.forEach((result, index) => {
+      if (result.status === "fulfilled") {
+        console.log(`✅ Request ${index + 1} succeeded`);
+      } else {
+        console.error(`❌ Request ${index + 1} failed:`, result.reason);
+      }
+    });
+  }
+  
+  fetchDataAllSettled();
+
+  [
+    { status: "fulfilled", value: Response },
+    { status: "fulfilled", value: Response },
+    { status: "rejected", reason: TypeError: Failed to fetch }
+  ]
+
+  
+
+//   Promise.race() — 
+//   a useful method when you want the first settled promise (either fulfilled or rejected), regardless of the others.
+
+
+// 🏁 What is Promise.race()?
+// Promise.race() takes an array of promises.
+// It returns a new promise that settles (resolves or rejects) as soon as the first promise settles.
+// It ignores the outcome of the other promises.
+
+
+const p1 = new Promise((resolve) => setTimeout(() => resolve("P1 resolved"), 3000));
+const p2 = new Promise((resolve) => setTimeout(() => resolve("P2 resolved"), 1000));
+
+Promise.race([p1, p2])
+  .then(result => {
+    console.log("✅ First settled:", result);
+  })
+  .catch(error => {
+    console.error("❌ First error:", error);
+  });
+
+
+
+
+// ########## js promise end  ##################################
 
 //  1. Encapsulation (Data Hiding)
 
