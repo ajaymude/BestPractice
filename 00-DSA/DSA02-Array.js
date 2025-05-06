@@ -1,17 +1,13 @@
 // Array
-// traversing, 
+// traversing,
 // inserting,
 //  deleting,
 // searching,
 //  modifying,
-//  sorting 
+//  sorting
 // merging,
 //  splitting,
 //  reversing,
-
-
-
-
 
 // Asymptotic analysis and notation
 // calculate the steps of the algorithm
@@ -42,43 +38,9 @@
 // arr[0] = 1
 // const lastValue = arr[arr.length - 1];
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Array method
 // understand the array method core logic how to without method also the same functionality
 // it pass by the reference
-
-
-
 
 // 1. Traversing Methods
 // These methods help you traverse and access elements in an array.
@@ -103,9 +65,6 @@
 
 // for...of loop: Iterates over the array elements.
 
-
-
-
 // 🔹 2. Modifying Arrays
 // These methods allow you to modify the contents of an array.
 
@@ -125,9 +84,6 @@
 
 // fill(): Changes all elements in an array to a static value from a start index to an end index.
 
-
-
-
 // 🔹 3. Searching Methods
 // These methods help you search for specific elements in an array.
 
@@ -143,18 +99,12 @@
 
 // some(): Checks if at least one element satisfies the condition.
 
-
-
-
 // 🔹 4. Sorting & Ordering Methods
 // These methods are used for sorting and ordering array elements.
 
 // sort(): Sorts the array in place.
 
 // reverse(): Reverses the order of the elements in the array.
-
-
-
 
 // 🔹 5. Array Transformation
 // These methods allow you to transform arrays into other arrays or structures.
@@ -171,9 +121,6 @@
 
 // flatMap(): Applies a function to each element, then flattens the result.
 
-
-
-
 // 🔹 6. Copying & Concatenating Methods
 // Methods for copying or concatenating arrays.
 
@@ -186,9 +133,6 @@
 // from(): Creates a new array from an iterable or array-like object.
 
 // fill(): Copies the given value into the array for the specified range.
-
-
-
 
 // 🔹 7. Array Structure
 // Methods for converting and transforming arrays.
@@ -205,9 +149,6 @@
 
 // values(): Returns an iterator for the array’s values.
 
-
-
-
 // 🔹 8. Array Utilities
 // These methods provide additional utility functions.
 
@@ -219,9 +160,6 @@
 
 // fill(): Fills an array with a specific value.
 
-
-
-
 // 🔹 9. Working with JSON
 // Methods for converting arrays to and from JSON format.
 
@@ -229,34 +167,8 @@
 
 // JSON.parse(): Parses a JSON string into an array.
 
-
-
 // 🔹 10. Array Destructuring
 // For extracting values from arrays into variables.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Problem 1
 // how to find the smallest value in the array
@@ -279,52 +191,34 @@
 // const minValue = arr.reduce((min, curr) => Math.min(min, curr));
 // console.log(minValue); // Output: 2
 
-
-
-
-
-// Problem 2 
-// how search in the array 
+// Problem 2
+// how search in the array
 
 // const arr = [10, 20, 30, 40];
 // console.log(arr.includes(20)); // true
 // console.log(arr.includes(50)); // false
 
-
-
 // const arr = [10, 20, 30, 40];
 // console.log(arr.indexOf(30)); // 2
 // console.log(arr.indexOf(100)); // -1
-
- 
 
 // const arr = [5, 12, 18, 25];
 // const found = arr.find(num => num > 15);
 // console.log(found); // 18
 
-
-
 // const arr = [5, 12, 18, 25];
 // const index = arr.findIndex(num => num > 15);
 // console.log(index); // 2
-
-
 
 // const arr = [10, 20, 30, 40];
 // const result = arr.filter(num => num > 25);
 // console.log(result); // [30, 40]
 
-
-
 // const arr = [2, 4, 6];
 // console.log(arr.some(num => num > 5)); // true
 
-
-
 // const arr = [2, 4, 6];
 // console.log(arr.every(num => num % 2 === 0)); // true
-
-
 
 // const arr = [10, 20, 30, 40];
 // let target = 30;
@@ -338,27 +232,17 @@
 // }
 // console.log(found); // true
 
-
-
-
-
 // Problem 3
-// how to reverse the array 
+// how to reverse the array
 
 // const arr = [1, 2, 3, 4, 5];
 // arr.reverse();
 // console.log(arr); // [5, 4, 3, 2, 1]
 
-
-
-
 // const arr = [1, 2, 3, 4, 5];
 // const reversed = [...arr].reverse(); // Using spread operator
 // console.log(reversed); // [5, 4, 3, 2, 1]
 // console.log(arr);      // [1, 2, 3, 4, 5] ✅ original is safe
-
-
-
 
 // const arr = [1, 2, 3, 4, 5];
 // const reversed = [];
@@ -369,10 +253,6 @@
 
 // console.log(reversed); // [5, 4, 3, 2, 1]
 
-
-
-
-
 // Problem 4
 // how insert the value in the array
 
@@ -380,23 +260,16 @@
 // arr.push(4); // Adds 4 to the end
 // console.log(arr); // [1, 2, 3, 4]
 
-
 // push the multiple value in the array
 // arr.push(5, 6); // Adds 5 and 6 to the end
 // console.log(arr); // [1, 2, 3, 4, 5, 6]
-
-
 
 // let arr = [1, 2, 3];
 // arr.unshift(0); // Adds 0 to the beginning
 // console.log(arr); // [0, 1, 2, 3]
 
-
-
 // arr.unshift(-2, -1); // Adds -2 and -1 to the beginning
 // console.log(arr); // [-2, -1, 0, 1, 2, 3]
-
-
 
 // splice() - Add at any position in the array
 // arr.splice(index, 0, element1, element2, ...);
@@ -404,20 +277,17 @@
 // arr.splice(1, 0, 'a'); // Inserts 'a' at index 1
 // console.log(arr); // [1, 'a', 2, 3]
 
-
 // let arr = [10, 20, 30, 40];
 // arr.splice(1, 0, 15); // Inserts 15 at index 1
 // console.log(arr); // [10, 15, 20, 30, 40]
 
-
-// how to remove some part fro the array 
+// how to remove some part fro the array
 // let arr = [1, 2, 3, 4];
 // let part1 = arr.slice(0, 2); // [1, 2]
 // let part2 = arr.slice(2);     // [3, 4]
 
 // let newArr = part1.concat(5).concat(part2); // Inserts 5 between part1 and part2
 // console.log(newArr); // [1, 2, 5, 3, 4]
-
 
 // insert the value in the array by the index
 // let arr = [10, 20, 30, 40];
@@ -435,8 +305,6 @@
 // }
 
 // console.log(newArr); // [10, 20, 25, 30, 40]
-
-
 
 // push the value in without using the push method
 // function insertAtIndex(arr, i, x) {
@@ -466,16 +334,8 @@
 
 // console.log(insertAtIndex(arr, i, x)); // Output: [1, 2, 10, 3, 4, 5]
 
-
-
-
-
-
-
-
 // problem 5
 // how to delete the value in the array
-
 
 // function removeValue(arr, value) {
 //     const index = arr.indexOf(value);  // Find the index of the value
@@ -489,10 +349,6 @@
 // removeValue(arr, 3);  // Removes 3 from the array
 // console.log(arr);  // Output: [1, 2, 4, 5]
 
-
-
-
-
 // function removeValue(arr, value) {
 //     return arr.filter(item => item !== value);  // Create a new array excluding the value
 // }
@@ -500,10 +356,6 @@
 // let arr = [1, 2, 3, 4, 5];
 // let newArr = removeValue(arr, 3);  // Removes 3 from the array
 // console.log(newArr);  // Output: [1, 2, 4, 5]
-
-
-
-
 
 // function removeValue(arr, value) {
 //     let newArr = [];
@@ -519,12 +371,6 @@
 // let newArr = removeValue(arr, 3);  // Removes 3 from the array
 // console.log(newArr);  // Output: [1, 2, 4, 5]
 
-
-
-
-
-
-
 // function removeValue(arr, value) {
 //     const index = arr.indexOf(value);
 //     if (index !== -1) {
@@ -537,10 +383,6 @@
 // let newArr = removeValue(arr, 3);  // Removes 3 from the array
 // console.log(newArr);  // Output: [1, 2, 4, 5]
 
-
-
-
-
 // function removeValue(arr, value) {
 //     return arr.reduce((acc, item) => {
 //         if (item !== value) acc.push(item);
@@ -552,7 +394,6 @@
 // let newArr = removeValue(arr, 3);  // Removes 3 from the array
 // console.log(newArr);  // Output: [1, 2, 4, 5]
 
-
 // function removeValue(arr, value) {
 //     return [...new Set(arr.filter(item => item !== value))];  // Removes value and duplicates
 // }
@@ -561,34 +402,24 @@
 // let newArr = removeValue(arr, 3);  // Removes all occurrences of 3
 // console.log(newArr);  // Output: [1, 2, 4, 5]
 
-
-
-
-
-
-
-// problem 6 
+// problem 6
 // how to find the value in the array
 
 // const arr = [1, 2, 3, 4, 5];
 // console.log(arr.includes(3)); // true
 // console.log(arr.includes(10)); // false
 
-
 // const arr = [1, 2, 3, 4, 5];
 // console.log(arr.indexOf(3)); // 2
 // console.log(arr.indexOf(10)); // -1
-
 
 // const arr = [1, 2, 3, 4, 5];
 // const result = arr.find(num => num === 3);
 // console.log(result); // 3
 
-
 // const arr = [1, 2, 3, 4, 5];
 // const idx = arr.findIndex(num => num === 3);
 // console.log(idx); // 2
-
 
 // const arr = [1, 2, 3, 4, 5];
 // let found = false;
@@ -600,11 +431,6 @@
 // }
 // console.log(found); // true
 
-
-
-
-
-
 // porblem 7
 // how to merge the array
 
@@ -614,16 +440,11 @@
 // const merged = arr1.concat(arr2);
 // console.log(merged); // [1, 2, 3, 4, 5, 6]
 
-
-
 // const arr1 = [1, 2, 3];
 // const arr2 = [4, 5, 6];
 
 // const merged = [...arr1, ...arr2];
 // console.log(merged); // [1, 2, 3, 4, 5, 6]
-
-
-
 
 // const arr1 = [1, 2, 3];
 // const arr2 = [4, 5, 6];
@@ -632,8 +453,6 @@
 //     arr1.push(arr2[i]);
 // }
 // console.log(arr1); // arr1 is now [1, 2, 3, 4, 5, 6]
-
-
 
 // const arr1 = [1, 2, 3];
 // const arr2 = [4, 5, 6];
@@ -650,28 +469,7 @@
 //     merged[merged.length] = arr2[i];
 // }
 
-// console.log(merged); 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// console.log(merged);
 
 // problem 8
 // how to sort the array
@@ -680,10 +478,8 @@
 
 // arr.sort((a, b) => a - b);
 
-// console.log(arr); 
+// console.log(arr);
 // // Output: [1, 2, 5, 5, 6, 9]
-
-
 
 // const arr = [5, 2, 9, 1, 5, 6];
 
@@ -698,23 +494,308 @@
 //     }
 // }
 
-// console.log(arr); 
+// console.log(arr);
 // Output: [1, 2, 5, 5, 6, 9]
 
-
-
-
-
-// Problem 9 
+// Problem 9
 function makePair(...args) {
-    // this args  convert all  argument into the array 
-    return args;
+  // this args  convert all  argument into the array
+  return args;
+}
+
+console.log(makePair(1, 2)); // [1, 2]
+console.log(makePair(51, 21, 99)); // [51, 21, 99]
+console.log(makePair(512124, 215, 0, 42)); // [512124, 215, 0, 42]
+console.log(makePair()); // []
+
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+
+const arr = [1, 2, 3, 4, 5, 6];
+const [a, b] = arr;
+
+console.log(a); // 1
+console.log(b); // 2
+
+let [a, b] = [1, 2, 3, 4];
+
+// ✅ 3. Partial Destructuring with Skipping Elements
+const [a, , b] = [1, 2, 3];
+console.log(a); // 1
+console.log(b); // 3
+
+
+// ✅ 5. With default values  
+const arr = [1];
+const [a = 10, b = 20] = arr;
+console.log(a); // 1
+console.log(b); // 20
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// how to get the last element of the array 
+
+function getLastItem(arr) {
+  return arr[arr.length - 1];
+}
+
+function getLastItem(arr) {
+  return arr.at(-1);
+}
+
+
+function getLastItem(arr) {
+  return arr.slice(-1)[0];
+}
+
+
+function getLastItem(arr) {
+  return arr.pop();
+}
+
+function getLastItem(arr) {
+  return arr.reverse()[0];
+}
+
+
+function getLastItem(arr) {
+  const [last] = arr.slice(-1);
+  return last;
+}
+
+
+function getLastItem(arr) {
+  return [...arr].pop();
+}
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+// how to convert a array in to the string 
+arrayToString([1, 2, 3, 4, 5, 6]) ➞ "123456"
+arrayToString(["a", "b", "c", "d", "e", "f"]) ➞ "abcdef"
+arrayToString([1, 2, 3, "a", "s", "dAAAA"]) ➞ "123asdAAAA"
+
+function arrayToString(arr) {
+  return arr.join("");
+}
+
+
+function arrayToString(arr) {
+  return arr.reduce((acc, val) => acc + val, "");
+}
+
+function arrayToString(arr) {
+  let str = "";
+  for (let i = 0; i < arr.length; i++) {
+    str += arr[i];
   }
+  return str;
+}
 
-  
-  console.log(makePair(1, 2));               // [1, 2]
-  console.log(makePair(51, 21, 99));         // [51, 21, 99]
-  console.log(makePair(512124, 215, 0, 42)); // [512124, 215, 0, 42]
-  console.log(makePair());                  // []
-  
 
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+
+// Concatenating Two Integer Arrays
+
+concat([1, 3, 5], [2, 6, 8]) ➞ [1, 3, 5, 2, 6, 8]  
+concat([7, 8], [10, 9, 1, 1, 2]) ➞ [7, 8, 10, 9, 1, 1, 2]  
+concat([4, 5, 1], [3, 3, 3, 3, 3]) ➞ [4, 5, 1, 3, 3, 3, 3, 3]
+
+
+function concat(arr1, arr2) {
+  return [...arr1, ...arr2];
+}
+
+
+function concat(arr1, arr2) {
+  return arr1.concat(arr2);
+}
+
+
+function concat(arr1, arr2) {
+  arr1.push(...arr2);
+  return arr1;
+}
+
+
+function concat(arr1, arr2) {
+  for (let num of arr2) {
+    arr1.push(num);
+  }
+  return arr1;
+}
+
+
+function concat(arr1, arr2) {
+  arr2.forEach(num => arr1.push(num));
+  return arr1;
+}
+
+
+function concat(arr1, arr2) {
+  return [arr1, arr2].reduce((acc, val) => acc.concat(val));
+}
+
+
+function concat(arr1, arr2) {
+  return Array.from(arr1).concat(arr2);
+}
+
+
+
+
+function concat(arr1, arr2) {
+  return [arr1, arr2].flat();
+}
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+
+// Write a function findIndex(arr, str) that returns the index of str inside the array arr.
+
+findIndex(["hi", "edabit", "fgh", "abc"], "fgh") ➞ 2  
+findIndex(["Red", "blue", "Blue", "Green"], "blue") ➞ 1  
+findIndex(["a", "g", "y", "d"], "d") ➞ 3  
+findIndex(["Pineapple", "Orange", "Grape", "Apple"], "Pineapple") ➞ 0
+
+
+function findIndex(arr, str) {
+  return arr.indexOf(str);
+}
+
+
+
+function findIndex(arr, str) {
+  return arr.findIndex(el => el === str);
+}
+
+
+
+function findIndex(arr, str) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === str) return i;
+  }
+  return -1;
+}
+
+
+
+function findIndex(arr, str) {
+  return arr.reduce((idx, el, i) => idx !== -1 ? idx : (el === str ? i : -1), -1);
+}
+
+
+function findIndex(arr, str) {
+  return arr.indexOf(str);
+}
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+
+// Create a function sumArray(arr) that returns the sum of all the numbers in the array.
+
+sumArray([1, 2, 3, 4, 5]) ➞ 15  
+sumArray([-1, 0, 1]) ➞ 0  
+sumArray([0, 4, 8, 12]) ➞ 24
+
+
+
+function sumArray(arr) {
+  return arr.reduce((a, b) => a + b)
+}
+
+
+function sumArray(arr) {
+  return arr.reduce((a, b) => a + b)
+}
+
+
+function sumArray(arr) {
+  return arr.reduce((a, b) => a + b, 0);
+}
+
+
+
+function sumArray(arr) {
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i];
+  }
+  return sum;
+}
+
+
+
+function sumArray(arr) {
+  let sum = 0;
+  for (let num of arr) {
+    sum += num;
+  }
+  return sum;
+}
+
+
+
+function sumArray(arr) {
+  let sum = 0;
+  arr.forEach(num => sum += num);
+  return sum;
+}
+
+
+
+function sumArray(arr) {
+  if (arr.length === 0) return 0;
+  return arr[0] + sumArray(arr.slice(1));
+}
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
