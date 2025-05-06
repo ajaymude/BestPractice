@@ -1,4 +1,4 @@
-
+number String
 
 // ✅ 1️⃣ Creating Strings
 const str1 = "Hello, World!";
@@ -10,10 +10,17 @@ console.log(greeting); // Output: Hello, Ajay!
 
 // ✅ 2️⃣ String Length
 console.log("Length of str1:", str1.length); // Output: 13
+const x = str1[1] // it will give you the value , string is the like the array 
+const y = str1.__proto__  // it will give the all type of the method 
 
 // ✅ 3️⃣ Accessing Characters
 console.log("First Character:", str1[0]); // H
 console.log("Last Character:", str1[str1.length - 1]); // !
+
+let strObj = new String("Hello");
+console.log(strObj);               // [String: 'Hello']
+console.log(strObj.valueOf());     // "Hello" (primitive string)
+
 
 // ✅ 4️⃣ String Methods
 console.log("Uppercase:", str1.toUpperCase()); // HELLO, WORLD!
@@ -33,7 +40,7 @@ console.log("Substr (7,5):", str1.substr(7, 5)); // World (Deprecated)
 // ✅ 7️⃣ Replacing Text
 console.log("Replace 'World' with 'JS':", str1.replace("World", "JS")); // Hello, JS!
 
-// ✅ 8️⃣ Removing Whitespace
+// ✅ 8️⃣ Removing Whitespace   
 const spacedStr = "   Trim me!   ";
 console.log("Trim:", spacedStr.trim()); // "Trim me!"
 console.log("Trim Start:", spacedStr.trimStart()); // "Trim me!   "
@@ -68,6 +75,12 @@ console.log("Is Empty?", emptyStr.length === 0); // true
 // ✅ 1️⃣4️⃣ Character Code & Unicode
 console.log("Char Code of 'A':", "A".charCodeAt(0)); // 65
 console.log("From Char Code 65:", String.fromCharCode(65)); // A
+let str = "JavaScript";
+
+console.log(str.charAt(0));  // "J"
+console.log(str.charAt(4));  // "S"
+console.log(str.charAt(100)); // "" (empty string, out of range)
+
 
 // ✅ 1️⃣5️⃣ String Comparison
 console.log("Compare 'apple' vs 'banana':", "apple" < "banana"); // true (Lexicographical order)
@@ -76,6 +89,32 @@ console.log("Compare 'apple' vs 'banana':", "apple" < "banana"); // true (Lexico
 const original = "JavaScript";
 const reversed = original.split("").reverse().join("");
 console.log("Reversed:", reversed); // tpircSavaJ
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

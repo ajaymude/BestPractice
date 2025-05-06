@@ -40,6 +40,39 @@ console.log(Math.trunc(4.9));         // 4 (Removes decimal part)
 console.log((5.6789).toFixed(2));     // "5.68" (Fixed decimal places)
 console.log((123.456).toPrecision(4));// "123.5" (Total digits)
 
+let num = 123456;
+console.log(num.toExponential());      // "1.23456e+5"
+console.log(num.toExponential(2));     // "1.23e+5"
+console.log(num.toExponential(4));     // "1.2346e+5"
+
+
+let number = 1234567.89;
+console.log(number.toLocaleString());           // e.g., "1,234,567.89" (default locale)
+console.log(number.toLocaleString('en-US'));    // "1,234,567.89"
+console.log(number.toLocaleString('de-DE'));    // "1.234.567,89"
+console.log(number.toLocaleString('hi-IN'));    // "12,34,567.89"
+
+
+
+let price = 123456.789;
+console.log(price.toLocaleString('en-US', {
+  style: 'currency',
+  currency: 'USD'
+})); // "$123,456.79"
+console.log(price.toLocaleString('hi-IN', {
+  style: 'currency',
+  currency: 'INR'
+})); // "₹1,23,456.79"
+
+
+let date = new Date();
+console.log(date.toLocaleString()); // Based on your system locale
+console.log(date.toLocaleString('en-GB')); // e.g., "06/05/2025, 11:30:00"
+console.log(date.toLocaleString('hi-IN')); // e.g., "6/5/2025, 11:30:00 am"
+
+
+
+
 // ============================
 // 📌 5. Random Number Methods
 // ============================
@@ -290,6 +323,44 @@ console.log(new Intl.NumberFormat('en-US', { minimumSignificantDigits: 3, maximu
 
 // Customizing Decimal Places
 console.log(new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 3 }).format(number)); // "1,234,567.890"
+
+
+// Number formatting
+const number = 1234567.89;
+const usNumber = new Intl.NumberFormat('en-US').format(number);
+const indiaNumber = new Intl.NumberFormat('hi-IN').format(number);
+console.log("US Format:", usNumber);       // "1,234,567.89"
+console.log("India Format:", indiaNumber); // "12,34,567.89"
+
+// Currency formatting
+const price = new Intl.NumberFormat('en-IN', {
+  style: 'currency',
+  currency: 'INR'
+}).format(123456.78);
+console.log("Price (INR):", price); // "₹1,23,456.78"
+
+// Date formatting
+const now = new Date();
+const usDate = new Intl.DateTimeFormat('en-US').format(now);
+const deDate = new Intl.DateTimeFormat('de-DE').format(now);
+console.log("US Date:", usDate);  // "5/6/2025"
+console.log("DE Date:", deDate);  // "06.05.2025"
+
+// Relative time formatting
+const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+console.log(rtf.format(-1, 'day')); // "yesterday"
+console.log(rtf.format(3, 'month')); // "in 3 months"
+
+// List formatting
+const fruits = ['Apple', 'Banana', 'Mango'];
+const list = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' }).format(fruits);
+console.log("Fruit List:", list); // "Apple, Banana, and Mango"
+
+// Plural rules
+const plural = new Intl.PluralRules('en-US');
+console.log("1 ->", plural.select(1)); // "one"
+console.log("5 ->", plural.select(5)); // "other"
+
 
 
 

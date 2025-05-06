@@ -127,7 +127,7 @@ document.getElementById("demo").innerText = "Hello, World!";
 
 
 
-
+//############ variable in the javascript start ##############################################
 // 03 - variable 
 
 // Variable Type	     Scope	             Reassignable?     	redeclare?          	Hoisted?
@@ -136,13 +136,8 @@ document.getElementById("demo").innerText = "Hello, World!";
 // const	        Block-scoped	         ❌ No              	❌ No	              ✅ Yes (but not initialized)
 
 
-
-
-
-
-
-
-
+//############ variable in the javascript end  ################################
+//############  data type  start ##############################################
 
 // 04 - Data type in js 
 
@@ -196,16 +191,13 @@ console.log(Array.isArray([1, 2, 3])); // true
 console.log(person instanceof Object); // true
 console.log(typeof true);
 
-
-
-
-
-
-
-
-
+//############  data type  end ##############################################
+//############  Types of conversion start ###################################
 
 // 05 - Type Conversion
+
+// coercion refers to the automatic or implicit conversion
+//  of values from one data type to another.
 
 // Implicit (Type Coercion)
 // JavaScript automatically converts types in some cases
@@ -223,15 +215,11 @@ console.log(String(123)); // "123"
 console.log(Boolean(1));  // true
 console.log(Boolean(0));  // false
 
+const x = new String("ajay");
+const s = x.__proto__
 
-
-
-
-
-
-
-
-
+//############  Types of conversion end ############################################
+//############  Types of operator  start ############################################
 // 06 - Types of Operators in JavaScript
 
 // 1️⃣ Arithmetic Operations (+, -, , /, etc.)
@@ -291,15 +279,8 @@ console.log(Boolean(0));  // false
 let canVote = age >= 18 ? "Yes" : "No";
 console.log(canVote); // "Yes"
 
-
-
-
-
-
-
-
-
-
+//############  Types of operator  end ############################################
+//############  Operator Precedence   start ############################################
 
 // 07 - Operator Precedence in JavaScript
 
@@ -335,6 +316,7 @@ console.log(canVote); // "Yes"
 
 console.log(true || false && false); // true (&& evaluated first)
 console.log((true || false) && false); // false (Parentheses change execution order)
+//############  Operator Precedence   end ############################################
 
 
 
@@ -349,7 +331,7 @@ console.log((true || false) && false); // false (Parentheses change execution or
 
 // if
 if (age >= 18) {
-    console.log("You are an adult.");
+  console.log("You are an adult.");
 }
 
 // if else 
@@ -1419,14 +1401,7 @@ console.log(data);
 // npm publish
 
 
-
-
-
-
-
-
-
-
+//####################### comments end ######################
 
 // 32 - Comments 
 
@@ -1434,18 +1409,8 @@ console.log(data);
 
 /*   */  // multi line comment 
 
-
-
-
-
-
-
-
-
-
-
-
-
+//####################### comments end ######################
+//####################### error  start ######################
 // 33 - Types of the error in the js 
 
 // 1. Syntax Error
@@ -1455,6 +1420,7 @@ console.log(data);
 // 5. URI Error
 // Custom Errors
 
+//####################### error  end ######################
 
 
 
