@@ -172,6 +172,7 @@ console.log(typeof y); // "object" (JavaScript bug)
 console.log(typeof sym); // "symbol"
 
 
+
 // 2️⃣ Non-Primitive (Reference) Data Types
 // Data Type	   Example	                 Description
 // Object	      {name: "Ajay", age: 25}	Key-value pairs
@@ -190,6 +191,38 @@ console.log(typeof greet);   // "function"
 console.log(Array.isArray([1, 2, 3])); // true
 console.log(person instanceof Object); // true
 console.log(typeof true);
+
+
+
+
+// falsy value 
+
+false
+0
+-0
+0n         // BigInt zero
+""         // Empty string
+null
+undefined
+NaN
+
+
+
+// truthy value 
+
+true
+{}          // empty object
+[]          // empty array
+"0"         // non-empty string
+"false"     // non-empty string
+42          // any non-zero number
+-42         // negative number
+3.14        // float
+"hello"     // non-empty string
+Infinity
+-Infinity
+function() {}  // any function
+
 
 //############  data type  end ##############################################
 //############  Types of conversion start ###################################
