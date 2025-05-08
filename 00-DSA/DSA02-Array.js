@@ -767,6 +767,363 @@ function sumArray(arr) {
 
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
+// Check if an Array Contains a Given Number
+
+function check(arr, num) {
+  return arr.includes(num);
+}
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+
+// Problem: Given two arrays, which represent two sandwiches, 
+// return whether both sandwiches use the same type of bread. 
+// The bread will always be found at the start and end of the array.
+
+// Example Test Cases:
+// hasSameBread(
+//   ["white bread", "lettuce", "white bread"],
+//   ["white bread", "tomato", "white bread"]
+// ) ➞ true
+//
+// hasSameBread(
+//   ["brown bread", "chicken", "brown bread"],
+//   ["white bread", "chicken", "white bread"]
+// ) ➞ false
+//
+// hasSameBread(
+//   ["toast", "cheese", "toast"],
+//   ["brown bread", "cheese", "toast"]
+// ) ➞ false
+
+// Solution 1: Using direct index checking
+function hasSameBread(sandwich1, sandwich2) {
+  return sandwich1[0] === sandwich2[0] && sandwich1[sandwich1.length - 1] === sandwich2[sandwich2.length - 1];
+}
+
+// Solution 2: Using destructuring assignment for clarity
+function hasSameBreadDestructure(sandwich1, sandwich2) {
+  const [firstBread1, ...rest1] = sandwich1;
+  const [firstBread2, ...rest2] = sandwich2;
+  return firstBread1 === firstBread2 && sandwich1[sandwich1.length - 1] === sandwich2[sandwich2.length - 1];
+}
+
+// Solution 3: Using Array.slice() to explicitly get bread from both sides
+function hasSameBreadSlice(sandwich1, sandwich2) {
+  const bread1 = [sandwich1[0], sandwich1[sandwich1.length - 1]];
+  const bread2 = [sandwich2[0], sandwich2[sandwich2.length - 1]];
+  return bread1[0] === bread2[0] && bread1[1] === bread2[1];
+}
+
+// Solution 4: Using a simple ternary operator for compactness
+function hasSameBreadTernary(sandwich1, sandwich2) {
+  return (sandwich1[0] === sandwich2[0] && sandwich1[sandwich1.length - 1] === sandwich2[sandwich2.length - 1]) ? true : false;
+}
+
+// Output for Example Test Cases
+console.log(hasSameBread(
+["white bread", "lettuce", "white bread"],
+["white bread", "tomato", "white bread"]
+)); // ➞ true
+
+console.log(hasSameBread(
+["brown bread", "chicken", "brown bread"],
+["white bread", "chicken", "white bread"]
+)); // ➞ false
+
+console.log(hasSameBread(
+["toast", "cheese", "toast"],
+["brown bread", "cheese", "toast"]
+)); // ➞ false
+
+/*
+Best Solution Explanation:
+- **Solution 1** is the best approach because:
+- It is the most direct and readable method for checking if the bread at the start and end of both sandwiches is the same.
+- It uses array indexing to check the first and last elements, which is both efficient and clear.
+- It avoids unnecessary complexity, making it easy to understand for anyone reading the code.
+*/
+
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+
+// Problem: Create a function that takes an array of integers and strings. 
+// Convert integers to strings and return the new array.
+
+// Example Test Cases:
+// parseArray([1, 2, "a", "b"]) ➞ ["1", "2", "a", "b"]
+// parseArray(["abc", 123, "def", 456]) ➞ ["abc", "123", "def", "456"]
+// parseArray([1, 2, 3, 17, 24, 3, "a", "123b"]) ➞ ["1", "2", "3", "17", "24", "3", "a", "123b"]
+// parseArray([]) ➞ []
+
+// Solution 1: Using map() to convert all integers to strings
+function parseArray(arr) {
+  return arr.map(item => item.toString());
+}
+
+// Solution 2: Using for loop to iterate and manually convert integers to strings
+function parseArrayUsingLoop(arr) {
+  let result = [];
+  for (let i = 0; i < arr.length; i++) {
+      result.push(arr[i].toString());
+  }
+  return result;
+}
+
+// Solution 3: Using reduce() to accumulate the converted elements into a new array
+function parseArrayUsingReduce(arr) {
+  return arr.reduce((result, item) => {
+      result.push(item.toString());
+      return result;
+  }, []);
+}
+
+// Solution 4: Using forEach() to convert integers to strings and store in a new array
+function parseArrayUsingForEach(arr) {
+  let result = [];
+  arr.forEach(item => result.push(item.toString()));
+  return result;
+}
+
+// Output for Example Test Cases
+console.log(parseArray([1, 2, "a", "b"])); // ➞ ["1", "2", "a", "b"]
+console.log(parseArray(["abc", 123, "def", 456])); // ➞ ["abc", "123", "def", "456"]
+console.log(parseArray([1, 2, 3, 17, 24, 3, "a", "123b"])); // ➞ ["1", "2", "3", "17", "24", "3", "a", "123b"]
+console.log(parseArray([])); // ➞ []
+
+/*
+Best Solution Explanation:
+- **Solution 1 (map())** is the best solution because:
+- It's concise, readable, and the most modern approach in JavaScript.
+- The `map()` function is perfect for transforming elements in an array while preserving the array's structure.
+- It’s clear in intent, directly converts each element to a string, and does so in a single line of code.
+*/
+
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+
+// Problem: Create a function that takes an array and returns 
+// the types of values (data types) in a new array.
+
+// Example Test Cases:
+// arrayValuesTypes([1, 2, "null", []])
+// ➞ ["number", "number", "string", "object"]
+
+// arrayValuesTypes(["214", true, false, 2, 2.15, [], null])
+// ➞ ["string", "boolean", "boolean", "number", "number", "object", "object"]
+
+// arrayValuesTypes([21.1, "float", "array", ["I am array"], null, true, 214])
+// ➞ ["number", "string", "string", "object", "object", "boolean", "number"]
+
+// Solution 1: Using map() and typeof
+function arrayValuesTypes(arr) {
+  return arr.map(item => typeof item);
+}
+
+// Solution 2: Using for loop
+function arrayValuesTypesLoop(arr) {
+  const result = [];
+  for (let i = 0; i < arr.length; i++) {
+    result.push(typeof arr[i]);
+  }
+  return result;
+}
+
+// Solution 3: Using reduce()
+function arrayValuesTypesReduce(arr) {
+  return arr.reduce((acc, val) => [...acc, typeof val], []);
+}
+
+// Output for Example Test Cases
+console.log(arrayValuesTypes([1, 2, "null", []])); 
+// ➞ ["number", "number", "string", "object"]
+
+console.log(arrayValuesTypes(["214", true, false, 2, 2.15, [], null])); 
+// ➞ ["string", "boolean", "boolean", "number", "number", "object", "object"]
+
+console.log(arrayValuesTypes([21.1, "float", "array", ["I am array"], null, true, 214]));
+// ➞ ["number", "string", "string", "object", "object", "boolean", "number"]
+
+/*
+Best Solution Explanation:
+- **Solution 1 (map())** is the best approach because:
+  - It’s concise and directly expresses the intent of transforming each value to its type.
+  - It avoids mutation, is easy to read, and aligns with modern JavaScript functional patterns.
+  - `typeof` is the correct and simplest way to get primitive type names and handles edge cases like `null` (which is historically "object").
+*/
+
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+// Problem: Create a function that takes an array of two numbers 
+// and checks if the square root of the first number 
+// is equal to the cube root of the second number.
+
+// Example Test Cases:
+// checkSquareAndCube([4, 8]) ➞ true  (√4 = 2, ∛8 = 2)
+// checkSquareAndCube([16, 48]) ➞ false (√16 = 4, ∛48 ≈ 3.63)
+
+// Solution 1: Using Math.sqrt and Math.cbrt
+function checkSquareAndCube(arr) {
+  return Math.sqrt(arr[0]) === Math.cbrt(arr[1]);
+}
+
+// Solution 2: Destructuring with Math functions
+function checkSquareAndCubeDestructured([a, b]) {
+  return Math.sqrt(a) === Math.cbrt(b);
+}
+
+// Solution 3: Rounded comparison for floating-point imprecision
+function checkSquareAndCubeApprox([a, b]) {
+  return Math.abs(Math.sqrt(a) - Math.cbrt(b)) < 1e-10;
+}
+
+// Output for Example Test Cases
+console.log(checkSquareAndCube([4, 8]));       // ➞ true
+console.log(checkSquareAndCube([16, 48]));     // ➞ false
+console.log(checkSquareAndCubeDestructured([4, 8])); // ➞ true
+console.log(checkSquareAndCubeApprox([4, 8])); // ➞ true
+
+/*
+Best Solution Explanation:
+- **Solution 1 (Math.sqrt & Math.cbrt)** is best when values are integers and precision isn't a concern.
+- **Solution 3** is better if there's a possibility of floating-point rounding errors (e.g., with decimals).
+- Use **Solution 1** for simplicity and speed in most real-world use cases.
+*/
+
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+
+// Problem: Create a function that takes a number and returns an array with:
+// 1. Half of the number
+// 2. Quarter of the number
+// 3. Eighth of the number
+
+// Example Test Cases:
+// halfQuarterEighth(6) ➞ [3, 1.5, 0.75]
+// halfQuarterEighth(22) ➞ [11, 5.5, 2.75]
+// halfQuarterEighth(25) ➞ [12.5, 6.25, 3.125]
+
+// Solution 1: Basic function with division
+function halfQuarterEighth(num) {
+  return [num / 2, num / 4, num / 8];
+}
+
+// Solution 2: Using destructuring for clarity (though not really needed here)
+function halfQuarterEighthDestructured(num) {
+  const half = num / 2;
+  const quarter = num / 4;
+  const eighth = num / 8;
+  return [half, quarter, eighth];
+}
+
+// Solution 3: Using map (just to demonstrate alternative functional approach)
+function halfQuarterEighthMap(num) {
+  return [2, 4, 8].map(divisor => num / divisor);
+}
+
+// Solution 4: Using an array and a loop to dynamically compute the values
+function halfQuarterEighthLoop(num) {
+  const divisors = [2, 4, 8];
+  return divisors.map(divisor => num / divisor);
+}
+
+// Solution 5: Using a single return expression with multiple operations
+function halfQuarterEighthSingleLine(num) {
+  return [num / 2, num / 4, num / 8];
+}
+
+// Output for Example Test Cases
+console.log(halfQuarterEighth(6));  // ➞ [3, 1.5, 0.75]
+console.log(halfQuarterEighth(22)); // ➞ [11, 5.5, 2.75]
+console.log(halfQuarterEighth(25)); // ➞ [12.5, 6.25, 3.125]
+
+/*
+Best Solution Explanation:
+- **Solution 1** is the most straightforward and easy-to-read approach. It directly returns the array with the required calculations.
+- The other methods (especially **Solution 3** and **Solution 4**) are more complex than necessary and may be useful in certain situations but are overkill for this problem.
+*/
+
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+
+// Problem: Create a function that takes a whole number as input and returns the shape with that number's amount of sides.
+
+// Example Test Cases:
+// nSidedShape(3) ➞ "triangle"
+// nSidedShape(1) ➞ "circle"
+// nSidedShape(9) ➞ "nonagon"
+
+// Solution 1: Using a simple array to map numbers to shapes
+function nSidedShape(num) {
+  const shapes = [
+    "circle",      // 1
+    "semi-circle", // 2
+    "triangle",    // 3
+    "square",      // 4
+    "pentagon",    // 5
+    "hexagon",     // 6
+    "heptagon",    // 7
+    "octagon",     // 8
+    "nonagon",     // 9
+    "decagon"      // 10
+  ];
+  return shapes[num - 1];
+}
+
+// Solution 2: Using a switch statement (though conditionals are discouraged)
+function nSidedShapeSwitch(num) {
+  switch (num) {
+    case 1: return "circle";
+    case 2: return "semi-circle";
+    case 3: return "triangle";
+    case 4: return "square";
+    case 5: return "pentagon";
+    case 6: return "hexagon";
+    case 7: return "heptagon";
+    case 8: return "octagon";
+    case 9: return "nonagon";
+    case 10: return "decagon";
+  }
+}
+
+// Solution 3: Using an object to map numbers to shapes
+function nSidedShapeObject(num) {
+  const shapeMap = {
+    1: "circle",
+    2: "semi-circle",
+    3: "triangle",
+    4: "square",
+    5: "pentagon",
+    6: "hexagon",
+    7: "heptagon",
+    8: "octagon",
+    9: "nonagon",
+    10: "decagon"
+  };
+  return shapeMap[num];
+}
+
+// Output for Example Test Cases
+console.log(nSidedShape(3));  // ➞ "triangle"
+console.log(nSidedShape(1));  // ➞ "circle"
+console.log(nSidedShape(9));  // ➞ "nonagon"
+
+/*
+Best Solution Explanation:
+- **Solution 1 (Array Mapping)** is the most concise and efficient method. It uses an array with predefined values for each possible number of sides, and simply indexes into the array.
+- **Solution 2** is functional but involves conditionals and is more verbose than Solution 1.
+- **Solution 3** (Object Mapping) is an alternative that uses a map for a clean solution, though still not as concise as the array approach.
+*/
+
+
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
@@ -787,15 +1144,16 @@ function sumArray(arr) {
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
+
+
+
+// Solve this JavaScript coding problem.
+// 1 - Start with the problem description and example test cases at the top as comments.
+// 2 - Provide  how many all  ways to solve it, with clean and readable function names.
+//     provide at least 5 type different types of solution  if possible the provide extra
+// 3 - provide the solution output of the problem in the single screen with the problem 
+// 4 - Ensure the whole code fits within a single screen .
+// 5 - explain the best way to solve the problem and why 
+// 6 - the output of the all problem in the single coding screen with the problem screen , 
+// 7 - 
+// Problem: [insert your coding question here]
