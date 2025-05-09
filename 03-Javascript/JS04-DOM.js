@@ -315,6 +315,18 @@ document.querySelector("#scrollBtn").addEventListener("click", function () {
 
 
 
+
+// JavaScript Event Bubbling is a concept that describes how events propagate (move)
+//  through the DOM when an event occurs on an element. It is one of the phases of event propagation: 
+//  capturing, target, and bubbling. Event bubbling specifically refers to the phase
+//   where the event "bubbles up" from the target element to its ancestors.
+
+// e.stopPropagation
+
+// Event delegation: Attaching a single event listener to a parent to handle events on its children.
+
+
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////

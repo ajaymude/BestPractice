@@ -19,7 +19,7 @@
 // 16 - Nullish Coalescing
 // 17 - js update 
 // 18 - What is Strict Mode?
-// 19 functions 
+// 19 - functions 
 // 20 - loops 
 // 21 - The Spread Operator (...)
 // 22 - Rest Pattern and Parameters 
@@ -34,6 +34,7 @@
 // 31 - NPM 
 // 32 - Comments 
 // 33 - Types of the error in the js 
+// 34 - timer 
 
 
 
@@ -1454,6 +1455,74 @@ console.log(data);
 // Custom Errors
 
 //####################### error  end ######################
+//####################### time logic start######################
+
+
+// ✅ 1. setTimeout() — Run a function once after a delay
+
+setTimeout(() => {
+  console.log("Hello after 2 seconds");
+}, 2000);
+
+
+// to clear the time out 
+// const timeoutId = setTimeout(...);
+// clearTimeout(timeoutId);
+
+
+
+
+
+// ✅ 2. setInterval() — Run a function repeatedly at a fixed interval
+
+const intervalId = setInterval(() => {
+  console.log("Repeats every 1 second");
+}, 1000);
+
+
+// ✅ 3. Start / Stop a Timer Example
+
+// Cancel it with
+// clearInterval(intervalId);
+
+
+// <button onclick="startTimer()">Start</button>
+// <button onclick="stopTimer()">Stop</button>
+
+// <script>
+//   let counter = 0;
+//   let timer;
+
+//   function startTimer() {
+//     // prevent multiple timers
+//     if (timer) return;
+
+//     timer = setInterval(() => {
+//       counter++;
+//       console.log("Timer:", counter);
+//     }, 1000);
+//   }
+
+//   function stopTimer() {
+//     clearInterval(timer);
+//     timer = null;
+//     console.log("Timer stopped");
+//   }
+// </script>
+
+
+
+
+
+
+
+
+
+
+
+
+//####################### time logic end  ######################
+//####################### time logic end  ######################
 
 
 
