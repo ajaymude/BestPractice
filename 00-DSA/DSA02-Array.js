@@ -1126,10 +1126,174 @@ Best Solution Explanation:
 
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
+// Problem:
+// Given an array of positive integers `nums`, return the maximum possible sum of a strictly increasing subarray.
+// A subarray is defined as a contiguous sequence of numbers in an array.
+
+// Example Test Cases:
+// maxIncreasingSubarraySum([10, 20, 30, 5, 10, 50]) ➞ 65        // [5, 10, 50]
+// maxIncreasingSubarraySum([10, 20, 30, 40, 50]) ➞ 150          // [10, 20, 30, 40, 50]
+// maxIncreasingSubarraySum([12, 17, 15, 13, 10, 11, 12]) ➞ 33   // [10, 11, 12]
+
+// Solution 1: Iterative with tracking
+function maxIncreasingSubarraySum(nums) {
+  let maxSum = nums[0];
+  let currentSum = nums[0];
+
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] > nums[i - 1]) {
+      currentSum += nums[i];
+    } else {
+      currentSum = nums[i];
+    }
+    maxSum = Math.max(maxSum, currentSum);
+  }
+  return maxSum;
+}
+
+// Solution 2: Functional style using reduce
+function maxIncreasingSubarraySumReduce(nums) {
+  return nums.reduce(
+    ([maxSum, currentSum], num, i, arr) => {
+      if (i > 0 && num > arr[i - 1]) {
+        currentSum += num;
+      } else {
+        currentSum = num;
+      }
+      return [Math.max(maxSum, currentSum), currentSum];
+    },
+    [nums[0], nums[0]]
+  )[0];
+}
+
+// Output for test cases
+console.log(maxIncreasingSubarraySum([10, 20, 30, 5, 10, 50])); // 65
+console.log(maxIncreasingSubarraySum([10, 20, 30, 40, 50]));    // 150
+console.log(maxIncreasingSubarraySum([12, 17, 15, 13, 10, 11, 12])); // 33
+
+/*
+Best Solution Explanation:
+- **Solution 1** is the clearest and most efficient. It only needs a single pass through the array (O(n) time complexity), uses constant space, and is very readable.
+- **Solution 2** is more functional and compact using `reduce`, but may be harder to follow for some developers.
+- Overall, **Solution 1** is recommended for clarity and maintainability.
+*/
+
+
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
+// Problem:
+// Create a function that takes an array with numbers and returns a new array with each element multiplied by two.
+
+// Example Test Cases:
+// getMultipliedArr([2, 5, 3]) ➞ [4, 10, 6]
+// getMultipliedArr([1, 86, -5]) ➞ [2, 172, -10]
+// getMultipliedArr([5, 382, 0]) ➞ [10, 764, 0]
+
+// Solution 1: Using map (best and most concise)
+function getMultipliedArr(nums) {
+  return nums.map(n => n * 2);
+}
+
+// Solution 2: Using for loop
+function getMultipliedArrLoop(nums) {
+  const result = [];
+  for (let i = 0; i < nums.length; i++) {
+    result.push(nums[i] * 2);
+  }
+  return result;
+}
+
+// Solution 3: Using forEach
+function getMultipliedArrForEach(nums) {
+  const result = [];
+  nums.forEach(num => result.push(num * 2));
+  return result;
+}
+
+// Solution 4: Using reduce
+function getMultipliedArrReduce(nums) {
+  return nums.reduce((acc, val) => {
+    acc.push(val * 2);
+    return acc;
+  }, []);
+}
+
+// Solution 5: Using recursion
+function getMultipliedArrRecursive(nums) {
+  if (nums.length === 0) return [];
+  return [nums[0] * 2, ...getMultipliedArrRecursive(nums.slice(1))];
+}
+
+// Output
+console.log(getMultipliedArr([2, 5, 3]));       // [4, 10, 6]
+console.log(getMultipliedArr([1, 86, -5]));     // [2, 172, -10]
+console.log(getMultipliedArr([5, 382, 0]));     // [10, 764, 0]
+
+/*
+Best Solution Explanation:
+- **Solution 1** using `map` is the best — it's concise, readable, and optimized for transforming arrays.
+- Other methods like `forEach`, `reduce`, and recursion work too, but are either more verbose or less performant.
+- Stick with `.map()` for clean, idiomatic JavaScript array transformations.
+*/
+
+
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
+// Problem:
+// Given an array with elements "e" (effort), "f" (fulcrum), and "l" (load), determine the lever class.
+// "e", "f", "l" positions determine the class:
+// ["e", "f", "l"] ➞ "first class lever"
+// ["e", "l", "f"] ➞ "second class lever"
+// ["f", "e", "l"] ➞ "third class lever"
+
+// Example Test Cases:
+// determineLever(["e", "f", "l"]) ➞ "first class lever"
+// determineLever(["e", "l", "f"]) ➞ "second class lever"
+// determineLever(["f", "e", "l"]) ➞ "third class lever"
+
+// Solution 1: Using array comparison
+function determineLever(arr) {
+  const leverMap = {
+    "efl": "first class lever",
+    "elf": "second class lever",
+    "fel": "third class lever"
+  };
+  return leverMap[arr.join("")];
+}
+
+// Solution 2: Using if-else
+function determineLeverIfElse(arr) {
+  const [a, b, c] = arr;
+  if (a === "e" && b === "f" && c === "l") return "first class lever";
+  if (a === "e" && b === "l" && c === "f") return "second class lever";
+  if (a === "f" && b === "e" && c === "l") return "third class lever";
+}
+
+// Solution 3: Using switch-case
+function determineLeverSwitch(arr) {
+  switch (arr.join("")) {
+    case "efl": return "first class lever";
+    case "elf": return "second class lever";
+    case "fel": return "third class lever";
+  }
+}
+
+// Output
+console.log(determineLever(["e", "f", "l"])); // ➞ "first class lever"
+console.log(determineLever(["e", "l", "f"])); // ➞ "second class lever"
+console.log(determineLever(["f", "e", "l"])); // ➞ "third class lever"
+
+/*
+Best Solution Explanation:
+- **Solution 1** is best for its clarity and performance — it's a simple dictionary (object) lookup.
+- It's scalable and avoids long if/else or switch blocks.
+- For small pattern recognition problems like this, mapping strings to results is clean and effective.
+*/
+
+
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
