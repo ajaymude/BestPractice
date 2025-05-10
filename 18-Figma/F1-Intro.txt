@@ -1,6 +1,36 @@
 /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////
 
+// notes
+// design together the desktop , tablet , mobile , together 
+
+// product design step 
+   1 - opportunity 
+   2 - solve the problem 
+   3 - create a solution 
+   4 - validate the solution 
+
+
+
+// rule for the design 
+   1 - ui consistency
+   2 - apply shortcut for the Navigation 
+   3 -  take a feedback from the user 
+   4 - design the dialog is the process is complete 
+   5 - prevent the error 
+   6 - minimize the screen time 
+
+
+// ui rule 
+   1 - clarity 
+   2 - familiar 
+   3 - user control
+   4 - site map 
+
+
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+
 // figma short key 
 
 01 - c + \  = hide and show side navbar 
@@ -195,6 +225,23 @@ press f for the  create frame
 
 
 // to copy 1 - c c c v   2 - alt drag drop  
+
+
+
+
+// two type of the text box 
+// click type text box , click and start write 
+// drag and write text  
+// press the T for the text short key 
+// v for the move with the mouse 
+
+
+// to shift in the background [] use the bracket 
+
+
+// zoom in c + or c mouse wheel 
+// zoom out c - or c mouse wheel 
+
 
 
 /////////////////////////////////////////////////////////////////////
