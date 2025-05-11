@@ -1296,8 +1296,108 @@ Best Solution Explanation:
 
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
+// Problem:
+// A "lucky integer" is an integer that appears in the array exactly as many times as its value.
+// Return the largest lucky integer from the array or -1 if none exist.
+
+// Examples:
+// luckyInteger([2,2,3,4]) ➞ 2   // 2 appears 2 times
+// luckyInteger([1,2,2,3,3,3]) ➞ 3   // 3 appears 3 times
+// luckyInteger([2,2,2,3,3]) ➞ -1   // No number matches frequency
+
+// Solution 1: Using frequency map with for...of loop
+function luckyInteger(arr) {
+  const freq = {};
+  for (const num of arr) {
+    freq[num] = (freq[num] || 0) + 1;
+  }
+  let result = -1;
+  for (const num in freq) {
+    if (parseInt(num) === freq[num]) {
+      result = Math.max(result, parseInt(num));
+    }
+  }
+  return result;
+}
+
+// Solution 2: Using Map
+function luckyIntegerMap(arr) {
+  const map = new Map();
+  arr.forEach(n => map.set(n, (map.get(n) || 0) + 1));
+  let result = -1;
+  for (const [key, val] of map) {
+    if (key === val) result = Math.max(result, key);
+  }
+  return result;
+}
+
+// Solution 3: Using reduce and object
+function luckyIntegerReduce(arr) {
+  const freq = arr.reduce((acc, val) => {
+    acc[val] = (acc[val] || 0) + 1;
+    return acc;
+  }, {});
+  return Math.max(...Object.entries(freq)
+    .filter(([num, count]) => +num === count)
+    .map(([num]) => +num), -1);
+}
+
+// Output
+console.log(luckyInteger([2, 2, 3, 4])); // 2
+console.log(luckyInteger([1, 2, 2, 3, 3, 3])); // 3
+console.log(luckyInteger([2, 2, 2, 3, 3])); // -1
+
+/*
+✅ Best Way:
+- **Solution 1** using plain object and loops is the most readable and efficient for small arrays (size ≤ 500).
+- It's simple, avoids external libs or unnecessary methods, and is easily debuggable.
+*/
+
+
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
+// Problem:
+// Create a function that takes a string and returns a string with spaces between every character.
+// Spaces should also be treated as characters.
+
+// Examples:
+// spaceMeOut("space") ➞ "s p a c e"
+// spaceMeOut("far out") ➞ "f a r   o u t"
+// spaceMeOut("elongated musk") ➞ "e l o n g a t e d   m u s k"
+
+// Solution 1: Using split and join
+function spaceMeOut(str) {
+  return str.split('').join(' ');
+}
+
+// Solution 2: Using for loop
+function spaceMeOutLoop(str) {
+  let result = '';
+  for (let i = 0; i < str.length; i++) {
+    result += str[i] + (i < str.length - 1 ? ' ' : '');
+  }
+  return result;
+}
+
+// Solution 3: Using Array.from and map
+function spaceMeOutMap(str) {
+  return Array.from(str).map(c => c).join(' ');
+}
+
+// Output
+console.log(spaceMeOut("space"));           // "s p a c e"
+console.log(spaceMeOut("far out"));         // "f a r   o u t"
+console.log(spaceMeOut("elongated musk"));  // "e l o n g a t e d   m u s k"
+
+/*
+✅ Best Way:
+- **Solution 1** is best: cleanest and most concise.
+- `split('').join(' ')` is fast and readable for this type of character transformation.
+*/
+
+
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
