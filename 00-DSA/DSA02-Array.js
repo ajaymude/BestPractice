@@ -1400,6 +1400,51 @@ console.log(spaceMeOut("elongated musk"));  // "e l o n g a t e d   m u s k"
 
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
+
+// Problem:
+// Given a sorted array, find the starting and ending position of a target value.
+// If not found, return [-1, -1].
+// Must be O(log n) time.
+
+// Examples:
+// searchRange([5,7,7,8,8,10], 8) ➞ [3, 4]
+// searchRange([5,7,7,8,8,10], 6) ➞ [-1, -1]
+// searchRange([], 0) ➞ [-1, -1]
+
+// Solution: Binary Search for First and Last Position
+function searchRange(nums, target) {
+  function findIndex(findFirst) {
+    let left = 0, right = nums.length - 1, index = -1;
+    while (left <= right) {
+      const mid = Math.floor((left + right) / 2);
+      if (nums[mid] === target) {
+        index = mid;
+        findFirst ? right = mid - 1 : left = mid + 1;
+      } else if (nums[mid] < target) {
+        left = mid + 1;
+      } else {
+        right = mid - 1;
+      }
+    }
+    return index;
+  }
+
+  return [findIndex(true), findIndex(false)];
+}
+
+// Output
+console.log(searchRange([5,7,7,8,8,10], 8)); // [3, 4]
+console.log(searchRange([5,7,7,8,8,10], 6)); // [-1, -1]
+console.log(searchRange([], 0)); // [-1, -1]
+
+/*
+✅ Best Way:
+- Uses binary search twice: once to find first index, once to find last.
+- Keeps time complexity at O(log n).
+- Handles edge cases like empty array and not found cases.
+*/
+
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
