@@ -1447,10 +1447,249 @@ console.log(searchRange([], 0)); // [-1, -1]
 
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
+// 🧠 Problem: Find the minimum in a rotated sorted array (O(log n))
+// Given a sorted array rotated at unknown pivot, return the minimum element.
+// Input: [3,4,5,1,2] ➞ 1
+// Input: [4,5,6,7,0,1,2] ➞ 0
+// Input: [11,13,15,17] ➞ 11
+
+const testCases = [
+  [3, 4, 5, 1, 2],
+  [4, 5, 6, 7, 0, 1, 2],
+  [11, 13, 15, 17]
+];
+
+// ✅ Method 1: Binary Search (compare mid and right)
+function findMin1(nums) {
+  let l = 0, r = nums.length - 1;
+  while (l < r) {
+    const m = Math.floor((l + r) / 2);
+    if (nums[m] > nums[r]) l = m + 1;
+    else r = m;
+  }
+  return nums[l];
+}
+
+// ✅ Method 2: Binary Search (compare mid and left)
+function findMin2(nums) {
+  let l = 0, r = nums.length - 1;
+  while (l < r) {
+    const m = Math.floor((l + r) / 2);
+    if (nums[m] >= nums[l]) {
+      if (nums[l] > nums[r]) l = m + 1;
+      else return nums[l];
+    } else r = m;
+  }
+  return nums[l];
+}
+
+// ✅ Method 3: Recursive Binary Search
+function findMin3(nums, l = 0, r = nums.length - 1) {
+  if (l === r) return nums[l];
+  const m = Math.floor((l + r) / 2);
+  return nums[m] > nums[r]
+    ? findMin3(nums, m + 1, r)
+    : findMin3(nums, l, m);
+}
+
+// ❌ Method 4: Linear Scan (for testing/learning only)
+function findMin4(nums) {
+  return Math.min(...nums);
+}
+
+// 🔍 Run tests
+testCases.forEach((arr, i) => {
+  console.log(`\nTest Case ${i + 1}:`, arr);
+  console.log("Method 1 ➞", findMin1([...arr]));
+  console.log("Method 2 ➞", findMin2([...arr]));
+  console.log("Method 3 ➞", findMin3([...arr]));
+  console.log("Method 4 ➞", findMin4([...arr]));
+});
+
+
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
+// ✅ Problem: Find the minimum element in a rotated sorted array that may contain duplicates.
+// ➤ You must minimize operations (prefer O(log n) over O(n)).
+// Examples:
+console.log(findMinBrute([1, 3, 5]));        // ➞ 1
+console.log(findMinLinearScan([2, 2, 2, 0, 1])); // ➞ 0
+console.log(findMinOptimized([10, 1, 10, 10, 10])); // ➞ 1
+console.log(findMinSort([4, 5, 6, 7, 0, 1, 2])); // ➞ 0
+console.log(findMinOptimized([1, 1, 1, 0, 1])); // ➞ 0
+
+// 🔹 1. Brute-force: sort and pick first (O(n log n))
+function findMinSort(nums) {
+  return [...nums].sort((a, b) => a - b)[0];
+}
+
+// 🔹 2. Linear Scan (O(n))
+function findMinLinearScan(nums) {
+  let min = nums[0];
+  for (let num of nums) {
+    if (num < min) min = num;
+  }
+  return min;
+}
+
+// 🔹 3. Brute-force using Math.min and spread (O(n))
+function findMinBrute(nums) {
+  return Math.min(...nums);
+}
+
+// 🔹 4. Binary Search ignoring duplicates carefully (O(log n) worst O(n))
+function findMinOptimized(nums) {
+  let left = 0, right = nums.length - 1;
+  while (left < right) {
+    let mid = Math.floor((left + right) / 2);
+    if (nums[mid] < nums[right]) {
+      right = mid;
+    } else if (nums[mid] > nums[right]) {
+      left = mid + 1;
+    } else {
+      right--; // shrink search space conservatively
+    }
+  }
+  return nums[left];
+}
+
+// 🔹 5. Recursive Binary Search (same as 4 but recursive)
+function findMinRecursive(nums, left = 0, right = nums.length - 1) {
+  if (left === right) return nums[left];
+  let mid = Math.floor((left + right) / 2);
+  if (nums[mid] < nums[right]) {
+    return findMinRecursive(nums, left, mid);
+  } else if (nums[mid] > nums[right]) {
+    return findMinRecursive(nums, mid + 1, right);
+  } else {
+    return findMinRecursive(nums, left, right - 1);
+  }
+}
+
+/*
+✅ Best Way: `findMinOptimized`
+- Handles duplicates safely with binary search.
+- Performs better than linear scans in most cases.
+- Worst-case O(n), average-case O(log n).
+- Conservatively shrinks bounds when duplicates found.
+*/
+
+
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
+// 📝 Problem: Find the minimum element in a rotated sorted array that may contain duplicates.
+// 🎯 Task: Return the minimum element from the rotated array in O(log n) time or as close to that as possible.
+// 💡 Examples:
+// Example 1: Input: [1, 3, 5] ➞ Output: 1
+// Example 2: Input: [2, 2, 2, 0, 1] ➞ Output: 0
+// Example 3: Input: [4, 5, 6, 7, 0, 1, 4] ➞ Output: 0
+
+// 🏷 Constraints:
+// - The length of nums is between 1 and 5000.
+// - The array is sorted and then rotated with duplicates.
+
+// 🔢 10 Ways to Solve It:
+
+// 1. **Binary Search with Duplicates** (Best solution)
+function findMinBinaryDup(nums) {
+  let left = 0, right = nums.length - 1;
+  while (left < right) {
+    let mid = Math.floor((left + right) / 2);
+    if (nums[mid] > nums[right]) left = mid + 1;
+    else if (nums[mid] < nums[right]) right = mid;
+    else right--; // handle duplicates
+  }
+  return nums[left];
+}
+
+// 2. **Linear Search** (Simple but O(n) solution)
+function findMinLinear(nums) {
+  return Math.min(...nums); // O(n)
+}
+
+// 3. **Sorting** (O(n log n) solution)
+function findMinSort(nums) {
+  return nums.slice().sort((a, b) => a - b)[0]; // O(n log n)
+}
+
+// 4. **While Loop (Manual Min Search)**
+function findMinWhile(nums) {
+  let min = nums[0];
+  let i = 1;
+  while (i < nums.length) {
+    if (nums[i] < min) min = nums[i];
+    i++;
+  }
+  return min;
+}
+
+// 5. **For Loop**
+function findMinForLoop(nums) {
+  let min = nums[0];
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] < min) min = nums[i];
+  }
+  return min;
+}
+
+// 6. **Recursive Binary Search** (Handling duplicates)
+function findMinRec(nums, left = 0, right = nums.length - 1) {
+  if (left === right) return nums[left];
+  let mid = Math.floor((left + right) / 2);
+  if (nums[mid] > nums[right]) return findMinRec(nums, mid + 1, right);
+  else if (nums[mid] < nums[right]) return findMinRec(nums, left, mid);
+  else return findMinRec(nums, left, right - 1);
+}
+
+// 7. **Using Reduce**
+function findMinReduce(nums) {
+  return nums.reduce((min, val) => val < min ? val : min, nums[0]);
+}
+
+// 8. **Deque (Array Shift)**
+function findMinDeque(nums) {
+  while (nums.length && nums[0] >= nums[nums.length - 1]) {
+    nums.push(nums.shift());
+    if (nums[0] < nums[nums.length - 1]) break;
+  }
+  return nums[0];
+}
+
+// 9. **Using Map and Min**
+function findMinMapMin(nums) {
+  return Math.min.apply(null, nums.map(n => n));
+}
+
+// 10. **Using Set and Reduce**
+function findMinSet(nums) {
+  return [...new Set(nums)].reduce((a, b) => Math.min(a, b));
+}
+
+// 🧪 Outputs (Example Tests)
+let examples = [
+  { input: [1, 3, 5], expected: 1 },
+  { input: [2, 2, 2, 0, 1], expected: 0 },
+  { input: [4, 5, 6, 7, 0, 1, 4], expected: 0 },
+  { input: [10, 1, 10, 10, 10], expected: 1 },
+  { input: [3, 3, 1, 3], expected: 1 }
+];
+
+console.log("🔹 Results (Best Binary Search w/ Duplicates):");
+examples.forEach((e, i) => {
+  console.log(`Example ${i+1}: Input: [${e.input}] ➞ ${findMinBinaryDup(e.input)} (Expected: ${e.expected})`);
+});
+
+// 🏆 Best Way: `findMinBinaryDup()`
+// ✅ Why Best: Modified binary search, O(log n) in most cases, gracefully handles duplicates.
+// 🏷 Complexity: O(log n) in best case and O(n) in worst case (if there are many duplicates).
+// 📋 Total Solutions Provided: 10
+// 🔍 Example Outputs:
+
+
+
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
@@ -1459,10 +1698,14 @@ console.log(searchRange([], 0)); // [-1, -1]
 // Solve this JavaScript coding problem.
 // 1 - Start with the problem description and example test cases at the top as comments.
 // 2 - Provide  how many all  ways to solve it, with clean and readable function names.
-//     provide at least 5 type different types of solution  if possible the provide extra
+//     provide at least 10 type different types of solution
+//     if possible the provide extra or more solution 
 // 3 - provide the solution output of the problem in the single screen with the problem 
 // 4 - Ensure the whole code fits within a single screen .
 // 5 - explain the best way to solve the problem and why 
 // 6 - the output of the all problem in the single coding screen with the problem screen , 
-// 7 - 
-// Problem: [insert your coding question here]
+// 7 - how many we can solve this problem 
+// 8 - give the all example in the single coding screen 
+// 9 - give the number to all example to understand 
+// 10 - in the best way give example number to understand which solution is the best 
+// Problem:
