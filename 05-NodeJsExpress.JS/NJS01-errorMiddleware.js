@@ -171,6 +171,43 @@ module.exports = router
 
 
 
+// param middleware 
+
+const express = require('express');
+const app = express();
+const router = express.Router();
+
+// Dummy user database
+const users = {
+  1: { id: 1, name: "Alice" },
+  2: { id: 2, name: "Bob" }
+};
+
+// Define router.param middleware for 'userId'
+router.param('userId', (req, res, next, userId) => {
+  const user = users[userId];
+  if (user) {
+    req.user = user; // attach the user to the request
+    next();
+  } else {
+    res.status(404).send('User not found');
+  }
+});
+
+// Route that uses the userId param
+router.get('/users/:userId', (req, res) => {
+  res.send(`User Name: ${req.user.name}`);
+});
+
+// Mount the router
+app.use('/', router);
+
+// Start the server
+app.listen(3000, () => {
+  console.log('Server running on http://localhost:3000');
+});
+
+
 
 
 
