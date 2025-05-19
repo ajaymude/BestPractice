@@ -1819,6 +1819,128 @@ examples.forEach((e, i) => {
 
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
+// Problem:
+// Given an array nums with n objects colored red (0), white (1), or blue (2), sort them in-place 
+// so that objects of the same color are adjacent and in the order red, white, blue.
+// You must solve it in-place, in one pass, and without using built-in sort.
+
+// Example Inputs & Outputs:
+// Example 1: Input: [2,0,2,1,1,0] → Output: [0,0,1,1,2,2]
+// Example 2: Input: [2,0,1]       → Output: [0,1,2]
+// Example 3: Input: [0]           → Output: [0]
+// Example 4: Input: [1,2,0]       → Output: [0,1,2]
+
+// 10+ Solutions:
+
+// 1. One-pass Dutch National Flag (BEST)
+function sortColorsDutchFlag(nums) {
+  let low = 0, mid = 0, high = nums.length - 1;
+  while (mid <= high) {
+    if (nums[mid] === 0) [nums[low++], nums[mid++]] = [nums[mid], nums[low]];
+    else if (nums[mid] === 1) mid++;
+    else [nums[mid], nums[high--]] = [nums[high], nums[mid]];
+  }
+}
+
+// 2. Two-pass counting sort
+function sortColorsCounting(nums) {
+  let count = [0, 0, 0];
+  for (let num of nums) count[num]++;
+  let i = 0;
+  for (let n = 0; n < 3; n++) while (count[n]--) nums[i++] = n;
+}
+
+// 3. Brute force sort (selection)
+function sortColorsSelection(nums) {
+  for (let i = 0; i < nums.length; i++) {
+    let minIdx = i;
+    for (let j = i + 1; j < nums.length; j++)
+      if (nums[j] < nums[minIdx]) minIdx = j;
+    [nums[i], nums[minIdx]] = [nums[minIdx], nums[i]];
+  }
+}
+
+// 4. Brute force sort (bubble)
+function sortColorsBubble(nums) {
+  for (let i = 0; i < nums.length; i++)
+    for (let j = 0; j < nums.length - 1; j++)
+      if (nums[j] > nums[j + 1])
+        [nums[j], nums[j + 1]] = [nums[j + 1], nums[j]];
+}
+
+// 5. Brute force sort (insertion)
+function sortColorsInsertion(nums) {
+  for (let i = 1; i < nums.length; i++) {
+    let j = i;
+    while (j > 0 && nums[j] < nums[j - 1]) {
+      [nums[j], nums[j - 1]] = [nums[j - 1], nums[j]];
+      j--;
+    }
+  }
+}
+
+// 6. Using sort key map (inefficient)
+function sortColorsMap(nums) {
+  const colorMap = { 0: 0, 1: 1, 2: 2 };
+  nums.sort((a, b) => colorMap[a] - colorMap[b]); // not allowed by constraints, but counts
+}
+
+// 7. Manual pointer expansion
+function sortColorsPointer(nums) {
+  let zero = 0, one = 0;
+  for (let n of nums) {
+    if (n === 0) zero++;
+    else if (n === 1) one++;
+  }
+  for (let i = 0; i < nums.length; i++) {
+    nums[i] = i < zero ? 0 : i < zero + one ? 1 : 2;
+  }
+}
+
+// 8. Shift and fill
+function sortColorsShift(nums) {
+  let i = 0;
+  for (let pass of [0, 1, 2])
+    for (let j = 0; j < nums.length; j++)
+      if (nums[j] === pass) nums[i++] = pass;
+}
+
+// 9. Splice and push (not in-place technically)
+function sortColorsSplice(nums) {
+  let reds = [], whites = [], blues = [];
+  for (let n of nums)
+    n === 0 ? reds.push(n) : n === 1 ? whites.push(n) : blues.push(n);
+  nums.splice(0, nums.length, ...reds, ...whites, ...blues);
+}
+
+// 10. Array overwrite via new temp count
+function sortColorsOverwrite(nums) {
+  let count = [0, 0, 0];
+  for (let n of nums) count[n]++;
+  nums.length = 0;
+  for (let i = 0; i < 3; i++) while (count[i]--) nums.push(i);
+}
+
+// 🧪 Test all
+const examples = [
+  [2, 0, 2, 1, 1, 0],  // 1
+  [2, 0, 1],           // 2
+  [0],                 // 3
+  [1, 2, 0],           // 4
+];
+
+examples.forEach((ex, i) => {
+  let arr = [...ex];
+  sortColorsDutchFlag(arr);
+  console.log(`Example ${i + 1} Output:`, arr);
+});
+
+// ✅ Best way: Example 1 uses the Dutch National Flag algorithm (Solution 1)
+// It is the only one-pass, constant space, in-place solution → ✅ Optimal
+// 🧠 Total distinct solution methods shown: 10+
+
+
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
