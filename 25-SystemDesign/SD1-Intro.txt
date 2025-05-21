@@ -8,6 +8,214 @@
 //
 
 
+System Design Syllabus (Beginner to Advanced)
+
+🧠 Module 1: Basics of System Design
+
+Goals:
+
+Understand core principles of system design
+
+Learn how to approach design problems
+
+Topics:
+
+What is System Design?
+
+Types: HLD vs LLD
+
+Design goals: scalability, reliability, availability, maintainability, cost
+
+Load estimation & requirements gathering
+
+Client-server architecture, REST APIs
+
+Types of databases (SQL vs NoSQL)
+
+🏗️ Module 2: High-Level Design (HLD)
+
+Goals:
+
+Learn how to structure large-scale systems
+
+Topics:
+
+Scalability principles
+
+Microservices vs Monoliths
+
+Caching (CDNs, Redis, Memcached)
+
+Load balancers
+
+Rate limiting
+
+Sharding and Partitioning
+
+Consistency and CAP Theorem
+
+Data replication & eventual consistency
+
+Message queues (Kafka, RabbitMQ)
+
+API Gateways
+
+Service Discovery
+
+Proxy vs Reverse Proxy
+
+🧹 Module 3: Low-Level Design (LLD)
+
+Goals:
+
+Build solid object-oriented designs for subsystems
+
+Topics:
+
+SOLID Principles
+
+OOP and UML diagrams
+
+Design patterns (Factory, Singleton, Strategy, Observer, etc.)
+
+Database schema design
+
+Class diagrams and relationships
+
+Interface design and abstraction
+
+Code modularity and reusability
+
+📀 Module 4: Common System Design Problems (HLD + LLD)
+
+Goals:
+
+Practice designing real-world systems
+
+Topics:
+
+Design a URL Shortener (e.g., Bitly)
+
+Design a Scalable Chat System (e.g., WhatsApp)
+
+Design an E-commerce System
+
+Design a News Feed (e.g., Facebook)
+
+Design a Social Media Platform (e.g., Instagram)
+
+Design a Video Streaming Platform (e.g., YouTube)
+
+Design a Ride-sharing System (e.g., Uber)
+
+Design a Search Autocomplete
+
+Design Google Docs / Collaborative Editor
+
+📊 Module 5: Database and Storage Systems
+
+Goals:
+
+Learn how to design the data layer
+
+Topics:
+
+RDBMS vs NoSQL
+
+Indexing and Query Optimization
+
+Schema design principles
+
+Distributed databases
+
+Data warehouse vs data lake
+
+Storage formats (e.g., Parquet, Avro)
+
+🌍 Module 6: Networking and Infrastructure
+
+Goals:
+
+Understand underlying infrastructure of distributed systems
+
+Topics:
+
+HTTP/HTTPS, WebSockets
+
+TCP/IP, DNS, CDN
+
+NAT, Firewall, IP Addressing
+
+Cloud infrastructure (AWS, GCP, Azure)
+
+CI/CD basics
+
+🔒 Module 7: Security and Reliability
+
+Topics:
+
+Authentication & Authorization (OAuth, JWT)
+
+Encryption (TLS, HTTPS)
+
+Secure API design
+
+Rate limiting and throttling
+
+Backups and disaster recovery
+
+Health checks, failover, redundancy
+
+Monitoring and alerting
+
+🧪 Module 8: Designing for Scale and Performance
+
+Topics:
+
+Horizontal vs vertical scaling
+
+Performance bottlenecks
+
+Latency vs throughput
+
+Async processing & eventual consistency
+
+Capacity planning
+
+🧠 Module 9: Interview Preparation
+
+Topics:
+
+How to approach design questions
+
+Framework to answer system design interviews:
+
+Requirements
+
+Assumptions
+
+High-level components
+
+Database schema
+
+APIs
+
+Scalability & trade-offs
+
+Whiteboard practice problems
+
+Optional Tools to Learn Alongside:
+
+Draw.io / Excalidraw (for diagrams)
+
+Postman (API testing)
+
+Docker & Kubernetes (for deployment)
+
+Redis / MongoDB / MySQL
+
+Kafka / RabbitMQ
+
 
 
 

@@ -1943,6 +1943,160 @@ examples.forEach((ex, i) => {
 
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
+// Problem:
+// Given an integer array nums, find the subarray with the largest sum and return its sum.
+
+// Examples:
+// Example 1: Input: [-2,1,-3,4,-1,2,1,-5,4] → Output: 6  → subarray: [4,-1,2,1]
+// Example 2: Input: [1]                    → Output: 1
+// Example 3: Input: [5,4,-1,7,8]           → Output: 23 → subarray: [5,4,-1,7,8]
+
+// 1. Kadane’s Algorithm (Best)
+function maxSubArrayKadane(nums) {
+  let maxSum = nums[0], curr = nums[0];
+  for (let i = 1; i < nums.length; i++) {
+    curr = Math.max(nums[i], curr + nums[i]);
+    maxSum = Math.max(maxSum, curr);
+  }
+  return maxSum;
+}
+
+// 2. Brute Force (O(n^2))
+function maxSubArrayBrute(nums) {
+  let maxSum = -Infinity;
+  for (let i = 0; i < nums.length; i++) {
+    let sum = 0;
+    for (let j = i; j < nums.length; j++) {
+      sum += nums[j];
+      maxSum = Math.max(maxSum, sum);
+    }
+  }
+  return maxSum;
+}
+
+// 3. Divide & Conquer
+function maxSubArrayDivide(nums) {
+  function helper(left, right) {
+    if (left === right) return nums[left];
+    const mid = Math.floor((left + right) / 2);
+    const leftMax = helper(left, mid);
+    const rightMax = helper(mid + 1, right);
+    let crossMax = nums[mid], l = 0, r = 0, sum = 0;
+
+    for (let i = mid - 1, s = 0; i >= left; i--) {
+      s += nums[i];
+      l = Math.max(l, s);
+    }
+    for (let i = mid + 1, s = 0; i <= right; i++) {
+      s += nums[i];
+      r = Math.max(r, s);
+    }
+    crossMax += l + r;
+    return Math.max(leftMax, rightMax, crossMax);
+  }
+  return helper(0, nums.length - 1);
+}
+
+// 4. Prefix Sum Variation
+function maxSubArrayPrefix(nums) {
+  let prefixSum = 0, minPrefix = 0, maxSum = -Infinity;
+  for (let num of nums) {
+    prefixSum += num;
+    maxSum = Math.max(maxSum, prefixSum - minPrefix);
+    minPrefix = Math.min(minPrefix, prefixSum);
+  }
+  return maxSum;
+}
+
+// 5. Modified Kadane with Indices
+function maxSubArrayWithIndices(nums) {
+  let maxSum = nums[0], curr = nums[0], start = 0, end = 0, tempStart = 0;
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] > curr + nums[i]) {
+      curr = nums[i];
+      tempStart = i;
+    } else {
+      curr += nums[i];
+    }
+    if (curr > maxSum) {
+      maxSum = curr;
+      start = tempStart;
+      end = i;
+    }
+  }
+  return { maxSum, subarray: nums.slice(start, end + 1) };
+}
+
+// 6. Recursive Kadane
+function maxSubArrayRecursive(nums) {
+  let maxSum = nums[0];
+  function helper(i, sumSoFar) {
+    if (i >= nums.length) return;
+    sumSoFar = Math.max(nums[i], sumSoFar + nums[i]);
+    maxSum = Math.max(maxSum, sumSoFar);
+    helper(i + 1, sumSoFar);
+  }
+  helper(1, nums[0]);
+  return maxSum;
+}
+
+// 7. Dynamic Programming with dp array
+function maxSubArrayDP(nums) {
+  let dp = [...nums], maxSum = nums[0];
+  for (let i = 1; i < nums.length; i++) {
+    dp[i] = Math.max(nums[i], dp[i - 1] + nums[i]);
+    maxSum = Math.max(maxSum, dp[i]);
+  }
+  return maxSum;
+}
+
+// 8. Reduce method
+function maxSubArrayReduce(nums) {
+  let max = nums[0], curr = nums[0];
+  nums.slice(1).reduce((acc, val) => {
+    curr = Math.max(val, curr + val);
+    max = Math.max(max, curr);
+    return curr;
+  }, nums[0]);
+  return max;
+}
+
+// 9. Stream-like processing
+function maxSubArrayStream(nums) {
+  let maxSum = nums[0], currentSum = nums[0];
+  for (let i = 1; i < nums.length; i++) {
+    currentSum = Math.max(nums[i], currentSum + nums[i]);
+    maxSum = Math.max(maxSum, currentSum);
+  }
+  return maxSum;
+}
+
+// 10. Filtered Kadane (removing trailing negatives)
+function maxSubArrayTrimmed(nums) {
+  let start = 0, end = nums.length - 1;
+  while (nums[start] <= 0 && start < end) start++;
+  while (nums[end] <= 0 && end > start) end--;
+  return maxSubArrayKadane(nums.slice(start, end + 1));
+}
+
+// 🧪 Examples and Outputs
+const examples = [
+  [-2,1,-3,4,-1,2,1,-5,4],  // → 6
+  [1],                     // → 1
+  [5,4,-1,7,8],            // → 23
+  [-1,-2,-3,-4],           // → -1
+];
+
+examples.forEach((ex, i) => {
+  const res = maxSubArrayKadane([...ex]);
+  console.log(`Example ${i + 1} Output:`, res);
+});
+
+// ✅ Best solution: Solution 1 (Kadane’s Algorithm) ← used in Examples
+// Reason: It has O(n) time, O(1) space, and solves the problem optimally.
+
+
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
