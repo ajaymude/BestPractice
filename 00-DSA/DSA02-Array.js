@@ -2099,6 +2099,136 @@ examples.forEach((ex, i) => {
 
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
+// 📌 Problem:
+// Given n non-negative integers representing elevation map bars (width 1), return how much water is trapped.
+
+// 🧪 Examples:
+// Example 1: Input: [0,1,0,2,1,0,1,3,2,1,2,1] → Output: 6
+// Example 2: Input: [4,2,0,3,2,5]           → Output: 9
+
+// ✅ 1. Two Pointers (Best O(n) time, O(1) space)
+function trapTwoPointers(height) {
+  let left = 0, right = height.length - 1, leftMax = 0, rightMax = 0, water = 0;
+  while (left < right) {
+    if (height[left] < height[right]) {
+      height[left] >= leftMax ? leftMax = height[left] : water += (leftMax - height[left]);
+      left++;
+    } else {
+      height[right] >= rightMax ? rightMax = height[right] : water += (rightMax - height[right]);
+      right--;
+    }
+  }
+  return water;
+}
+
+// ✅ 2. Brute Force (O(n²))
+function trapBruteForce(height) {
+  let water = 0;
+  for (let i = 1; i < height.length - 1; i++) {
+    const leftMax = Math.max(...height.slice(0, i + 1));
+    const rightMax = Math.max(...height.slice(i));
+    water += Math.min(leftMax, rightMax) - height[i];
+  }
+  return water;
+}
+
+// ✅ 3. Precomputed Left/Right Arrays (O(n) time, O(n) space)
+function trapWithMemo(height) {
+  const n = height.length;
+  const leftMax = Array(n).fill(0), rightMax = Array(n).fill(0);
+  leftMax[0] = height[0];
+  for (let i = 1; i < n; i++) leftMax[i] = Math.max(leftMax[i - 1], height[i]);
+  rightMax[n - 1] = height[n - 1];
+  for (let i = n - 2; i >= 0; i--) rightMax[i] = Math.max(rightMax[i + 1], height[i]);
+  let water = 0;
+  for (let i = 0; i < n; i++) water += Math.min(leftMax[i], rightMax[i]) - height[i];
+  return water;
+}
+
+// ✅ 4. Stack-based Approach (O(n) time)
+function trapUsingStack(height) {
+  let stack = [], water = 0;
+  for (let i = 0; i < height.length; i++) {
+    while (stack.length && height[i] > height[stack[stack.length - 1]]) {
+      let top = stack.pop();
+      if (!stack.length) break;
+      let distance = i - stack[stack.length - 1] - 1;
+      let bounded = Math.min(height[i], height[stack[stack.length - 1]]) - height[top];
+      water += distance * bounded;
+    }
+    stack.push(i);
+  }
+  return water;
+}
+
+// ✅ 5. Reduce-based (Functional Style)
+function trapReduce(height) {
+  let leftMax = [], rightMax = [], max = 0;
+  height.reduce((_, h, i) => leftMax[i] = max = Math.max(max, h), 0);
+  max = 0;
+  [...height].reverse().reduce((_, h, i) => rightMax[height.length - 1 - i] = max = Math.max(max, h), 0);
+  return height.reduce((sum, h, i) => sum + Math.min(leftMax[i], rightMax[i]) - h, 0);
+}
+
+// ✅ 6. Simulation with water levels
+function trapSimulated(height) {
+  let water = 0;
+  for (let h = 1; h <= Math.max(...height); h++) {
+    let isWall = false, levelWater = 0;
+    for (let i = 0; i < height.length; i++) {
+      if (height[i] >= h) {
+        water += levelWater;
+        levelWater = 0;
+        isWall = true;
+      } else if (isWall) {
+        levelWater++;
+      }
+    }
+  }
+  return water;
+}
+
+// ✅ 7. Single pass with two arrays
+function trapSinglePass(height) {
+  const n = height.length;
+  let leftMax = 0, rightMax = 0, water = 0;
+  let left = 0, right = n - 1;
+  while (left <= right) {
+    if (height[left] < height[right]) {
+      height[left] >= leftMax ? (leftMax = height[left]) : (water += leftMax - height[left]);
+      left++;
+    } else {
+      height[right] >= rightMax ? (rightMax = height[right]) : (water += rightMax - height[right]);
+      right--;
+    }
+  }
+  return water;
+}
+
+// ✅ 8. Optimized Recursive Divide & Conquer (slower, theoretical)
+function trapRecursive(height, left = 0, right = height.length - 1) {
+  if (left >= right) return 0;
+  const maxIndex = height.slice(left, right + 1).reduce((iMax, h, i) => h > height[iMax] ? i : iMax, 0) + left;
+  let leftWater = trapRecursive(height, left, maxIndex - 1);
+  let rightWater = trapRecursive(height, maxIndex + 1, right);
+  let fill = 0;
+  for (let i = left + 1; i < maxIndex; i++) fill += Math.max(0, height[maxIndex] - height[i]);
+  for (let i = maxIndex + 1; i < right; i++) fill += Math.max(0, height[maxIndex] - height[i]);
+  return leftWater + rightWater + fill;
+}
+
+// 🧪 TEST CASES
+const examples = [
+  [0,1,0,2,1,0,1,3,2,1,2,1], // ➤ 6
+  [4,2,0,3,2,5],             // ➤ 9
+];
+
+examples.forEach((ex, i) => {
+  console.log(`Example ${i + 1} ➤ Output:`, trapTwoPointers([...ex]));
+});
+
+
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
