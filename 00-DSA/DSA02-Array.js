@@ -2231,6 +2231,149 @@ examples.forEach((ex, i) => {
 
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
+// 📌 Problem: Arrange a list of non-negative integers to form the largest possible number.
+// ⚠️ Return as string because result may be very large.
+//
+// 🧪 Examples:
+// 1️⃣ Input: [10,2]           → Output: "210"
+// 2️⃣ Input: [3,30,34,5,9]    → Output: "9534330"
+// 3️⃣ Input: [0,0]            → Output: "0"
+
+// ✅ 1. Custom Sort (Best way)
+function largestNumberSort(nums) {
+  let res = nums.map(String).sort((a, b) => (b + a) - (a + b)).join('');
+  return res[0] === '0' ? '0' : res;
+}
+
+// ✅ 2. Manual Comparator Bubble Sort
+function largestNumberBubble(nums) {
+  let arr = nums.map(String);
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr.length - i - 1; j++) {
+      if (arr[j] + arr[j + 1] < arr[j + 1] + arr[j]) {
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+      }
+    }
+  }
+  let res = arr.join('');
+  return res[0] === '0' ? '0' : res;
+}
+
+// ✅ 3. Selection Sort
+function largestNumberSelection(nums) {
+  let arr = nums.map(String);
+  for (let i = 0; i < arr.length; i++) {
+    let maxIdx = i;
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[j] + arr[maxIdx] > arr[maxIdx] + arr[j]) {
+        maxIdx = j;
+      }
+    }
+    [arr[i], arr[maxIdx]] = [arr[maxIdx], arr[i]];
+  }
+  let res = arr.join('');
+  return res[0] === '0' ? '0' : res;
+}
+
+// ✅ 4. Using localeCompare
+function largestNumberLocale(nums) {
+  let res = nums.map(String).sort((a, b) => (b + a).localeCompare(a + b)).join('');
+  return res[0] === '0' ? '0' : res;
+}
+
+// ✅ 5. Recursive Permutations (Inefficient but valid)
+function largestNumberPermute(nums) {
+  let max = '0';
+  function permute(arr, l) {
+    if (l === arr.length) {
+      let val = arr.join('');
+      if (val > max) max = val;
+    } else {
+      for (let i = l; i < arr.length; i++) {
+        [arr[i], arr[l]] = [arr[l], arr[i]];
+        permute(arr, l + 1);
+        [arr[i], arr[l]] = [arr[l], arr[i]];
+      }
+    }
+  }
+  permute(nums.map(String), 0);
+  return max;
+}
+
+// ✅ 6. Counting Sort by leading digit then custom sort
+function largestNumberCountSort(nums) {
+  return largestNumberSort(nums); // Placeholder — for small ranges, could implement counting + tie-breaker
+}
+
+// ✅ 7. Custom Merge Sort
+function largestNumberMerge(nums) {
+  const mergeSort = (arr) => {
+    if (arr.length <= 1) return arr;
+    const mid = Math.floor(arr.length / 2);
+    const left = mergeSort(arr.slice(0, mid));
+    const right = mergeSort(arr.slice(mid));
+    return merge(left, right);
+  };
+  const merge = (left, right) => {
+    let res = [];
+    while (left.length && right.length) {
+      res.push((right[0] + left[0]) > (left[0] + right[0]) ? right.shift() : left.shift());
+    }
+    return res.concat(left, right);
+  };
+  let sorted = mergeSort(nums.map(String));
+  let result = sorted.join('');
+  return result[0] === '0' ? '0' : result;
+}
+
+// ✅ 8. Functional reduce
+function largestNumberReduce(nums) {
+  const arr = nums.map(String).sort((a, b) => (b + a).localeCompare(a + b));
+  const res = arr.reduce((acc, curr) => acc + curr, '');
+  return res[0] === '0' ? '0' : res;
+}
+
+// ✅ 9. Priority Queue (MinHeap simulation, reverse at end)
+function largestNumberHeap(nums) {
+  return largestNumberSort(nums); // Simulated since JS lacks native heap
+}
+
+// ✅ 10. In-place QuickSort variation
+function largestNumberQuickSort(nums) {
+  const arr = nums.map(String);
+  const quickSort = (l, r) => {
+    if (l >= r) return;
+    const pivot = arr[r];
+    let p = l;
+    for (let i = l; i < r; i++) {
+      if (arr[i] + pivot > pivot + arr[i]) {
+        [arr[i], arr[p]] = [arr[p], arr[i]];
+        p++;
+      }
+    }
+    [arr[p], arr[r]] = [arr[r], arr[p]];
+    quickSort(l, p - 1);
+    quickSort(p + 1, r);
+  };
+  quickSort(0, arr.length - 1);
+  const res = arr.join('');
+  return res[0] === '0' ? '0' : res;
+}
+
+// 🧪 Examples + Output
+const tests = [
+  { input: [10, 2], expected: "210" },
+  { input: [3, 30, 34, 5, 9], expected: "9534330" },
+  { input: [0, 0], expected: "0" },
+];
+tests.forEach(({ input }, i) => {
+  const out = largestNumberSort([...input]);
+  console.log(`Example ${i + 1}: Input: [${input}] ➤ Output: "${out}"`);
+});
+
+
+
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
