@@ -57,6 +57,9 @@
 
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // 01 - Hello world in js 
 
@@ -65,61 +68,60 @@ alert("Hello, World!");
 document.write("Hello, World!");
 document.getElementById("demo").innerText = "Hello, World!";
 
-
-
-
-
-
-
-
-
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // 02 - way of writing js in html
 
 // 1 - inside html element 
-// <button onclick="alert('Hello, World!')">Click Me</button>
+<button onclick="alert('Hello, World!')">Click Me</button>
 
 // 2 - in page 
-//     <!DOCTYPE html>
-// <html lang="en">
-// <head>
-//     <title>Internal JS Example</title>
-// </head>
-// <body>
-//     <button onclick="sayHello()">Click Me</button>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Internal JS Example</title>
+</head>
+<body>
+    <button onclick="sayHello()">Click Me</button>
 
-//     <script>
-//         function sayHello() {
-//             alert("Hello, World!");
-//         }
-//     </script>
-// </body>
-// </html>
+    <script>
+        function sayHello() {
+            alert("Hello, World!");
+        }
+    </script>
+</body>
+</html>
 
 
 // external 
-// <!DOCTYPE html>
-// <html lang="en">
-// <head>
-//     <title>External JS Example</title>
-//     <script src="script.js"></script>
-// </head>
-// <body>
-//     <button onclick="sayHello()">Click Me</button>
-// </body>
-// </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>External JS Example</title>
+    <script src="script.js"></script>
+</head>
+<body>
+    <button onclick="sayHello()">Click Me</button>
+</body>
+</html>
 
 
 
-// <!-- Normal script (Blocks HTML parsing) -->
-// <script src="script.js"></script>
+<!-- Normal script (Blocks HTML parsing) -->
+<script src="script.js"></script>
 
-// <!-- Async script (Executes immediately when downloaded, no order) -->
-// <script src="script.js" async></script>
+<!-- Async script (Executes immediately when downloaded, no order) -->
+<script src="script.js" async></script>
 
-// <!-- Defer script (Executes in order, after HTML is loaded) -->
-// <script src="script.js" defer></script>
+<!-- Defer script (Executes in order, after HTML is loaded) -->
+<script src="script.js" defer></script>
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
