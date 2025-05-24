@@ -1,28 +1,84 @@
-<!-- 01 - basis Structure of the html  -->
-<!-- 02 - paragraph, strong, bold, emphasize,italic, sup, sub,    tags -->
-<!-- 03 - heading tag -->
+<!-- 01 - basis Structure of the html, head, body, title, link, meta, noscript , base, script     -->
+<!-- 02 -
+     paragraph, strong, bold, emphasize,italic, underline,  sup, sub, 
+     br, hr, mark, small, del, ins , abbr, time,  q , blockquote, cite, 
+     code , address, bdi ,bdo , wbr , data , template , embed , track , 
+     object , canvas , script ,svg , 
+// -->
+<!-- 03 - heading tag , h1, h2, h3, h4, h5, h6 -->
 <!-- 04 - list tag ol , li , ol ,dl , dt ,dd -->
 <!-- 05 - Inline Vs. Block Elements -->
-
+<!-- 06 anchor tag -->
+<!-- 07 - image tag  -->
+<!-- 08 - table tag, table, tr, th, td , thead , tbody, tfoot , caption , rowspan, colspan -->
+<!-- 09 -
+      form tag , form , action , method , enctype, label , input 
+      checkbox ,radio, textarea, fieldset , legend , select, option, button ,   
+-->
+<!-- 10 - 
+ Semantic tag , header, nav , main , article , aside , footer , section 
+ -->
+<!-- 11 - div and span tag  -->
+<!-- 12 - video tag , video, source   -->
+<!-- 13 - audio tag , audio, source  -->
+<!-- 14 - iframe tag  -->
+<!-- 15 - datalist tag , datalist , option, optgroup ,-->
+<!-- 16 - details tag ,details ,summary  -->
+<!-- 17 - picture tag , picture , source  -->
+<!-- 18 - ruby tag , ruby , rt , rp -->
+<!-- 19 - dialog ,  -->
+ 
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 
-<!-- 01 - basis Structure of the html  -->
+<!-- 01 - basis Structure of the html, head, body, title, link, meta, noscript , base, script     -->
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body></body>
+<head>
+  <!-- Title of the document -->
+  <title>HTML Structure Example</title>
+
+  <!-- Meta tags -->
+  <meta charset="UTF-8">
+  <meta name="description" content="Basic structure of an HTML document">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Base URL for all relative URLs -->
+  <base href="https://example.com/">
+
+  <!-- External CSS file -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Fallback for browsers without JavaScript -->
+  <noscript>
+    <style>
+      body { background-color: #f8d7da; color: #721c24; padding: 20px; }
+    </style>
+    <strong>JavaScript is disabled in your browser. Some features may not work.</strong>
+  </noscript>
+
+  <script>  </script>
+</head>
+<body>
+
+  <h1>Welcome to My Website</h1>
+  <p>This page demonstrates the fundamental structure of an HTML document.</p>
+  <p><a href="contact.html">Contact Us</a> (base URL will apply)</p>
+
+</body>
 </html>
 
+
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 
-<!-- 02 - paragraph, strong, bold, emphasize,italic, sup, sub,    tags -->
+<!-- 02 -
+     paragraph, strong, bold, emphasize,italic, underline,  sup, sub, 
+     br, hr, mark, small, del, ins , abbr, time,  q , blockquote, cite, 
+     code , address, bdi ,bdo , wbr , data , template , embed , track , 
+     object , canvas , script ,svg , 
+// -->
 
 <p
   id="intro"
@@ -47,16 +103,14 @@
 
 <p>He was reading <i>Les Misérables</i> last night.</p>
 
-<p>This is a <u>underlined</u> word using the <code>&lt;u&gt;</code> tag.</p>
+<!-- Underlined -->
+  <p>This word is <u>underlined</u> using the <code>&lt;u&gt;</code> tag.</p>
 
 <!-- Line Break -->
 <p>This is the first line.<br>This is the second line after a line break using <code>&lt;br&gt;</code>.</p>
 
 <!-- Horizontal Rule -->
 <hr>
-
-<!-- Underlined -->
-  <p>This word is <u>underlined</u> using the <code>&lt;u&gt;</code> tag.</p>
 
 <!-- Highlighted -->
 <p>This text is <mark>highlighted</mark> using the <code>&lt;mark&gt;</code> tag.</p>
@@ -172,7 +226,7 @@ spellcheck: Enables spell checking.
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 
-<!-- 03 - heading tag -->
+<!-- 03 - heading tag , h1, h2, h3, h4, h5, h6 -->
 
 <h1>This is an H1 heading</h1>
 <h2>This is an H2 heading</h2>
@@ -311,7 +365,7 @@ spellcheck: Enables spell checking.
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 
-<!-- 08 - table tag  -->
+<!-- 08 - table tag, table, tr, th, td , thead , tbody, tfoot , caption , rowspan, colspan -->
 
   <!-- 1. Basic table with headers -->
   <h2>1. Basic Table</h2>
@@ -442,7 +496,11 @@ spellcheck: Enables spell checking.
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 
-<!-- 09 - form tag -->
+<!-- 09 -
+      form tag , form , action , method , enctype, label , input 
+      checkbox ,radio, textarea, fieldset , legend , select, option, button ,
+
+-->
 
 <body>
 
@@ -602,7 +660,9 @@ spellcheck: Enables spell checking.
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 
-<!-- 10 - Semantic tag -->
+<!-- 10 - 
+ Semantic tag , header, nav , main , article , aside , footer , section 
+ -->
 
 
   <!-- 1. <header> -->
@@ -693,7 +753,7 @@ spellcheck: Enables spell checking.
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 
-<!-- 12 - video tag  -->
+<!-- 12 - video tag , video, source   -->
 
 
   <!-- 1. Basic video with controls -->
@@ -747,7 +807,7 @@ spellcheck: Enables spell checking.
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 
-<!-- 13 - audio tag  -->
+<!-- 13 - audio tag , audio, source  -->
 
 
   <!-- 1. Basic audio with controls -->
@@ -849,44 +909,39 @@ spellcheck: Enables spell checking.
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 
-<!-- 15 - datalist tag -->
+<!-- 15 - datalist tag , datalist , option, optgroup ,-->
 
-  <!-- 1. Basic datalist for choosing a browser -->
+ 
+  <!-- 1. Basic Datalist with options -->
   <label for="browser">Choose a browser:</label>
-  <input list="browsers" id="browser" name="browser" placeholder="Type to see options">
+  <input list="browsers" id="browser" name="browser">
   <datalist id="browsers">
-    <option value="Google Chrome">
-    <option value="Mozilla Firefox">
+    <option value="Chrome">
+    <option value="Firefox">
     <option value="Safari">
-    <option value="Microsoft Edge">
+    <option value="Edge">
     <option value="Opera">
   </datalist>
 
-  <!-- 2. Country selection -->
-  <label for="country">Select a country:</label>
-  <input list="countries" id="country" name="country">
-  <datalist id="countries">
-    <option value="India">
-    <option value="United States">
-    <option value="United Kingdom">
-    <option value="Canada">
-    <option value="Australia">
-  </datalist>
+  <!-- 2. Datalist with grouped options using <optgroup> (note: only works in <select>, not <datalist>) -->
+  <p><strong>Note:</strong> &lt;optgroup&gt; only works with &lt;select&gt;, not &lt;datalist&gt;.</p>
+  <label for="language">Select a programming language:</label>
+  <select id="language">
+    <optgroup label="Web">
+      <option value="HTML">HTML</option>
+      <option value="CSS">CSS</option>
+      <option value="JavaScript">JavaScript</option>
+    </optgroup>
+    <optgroup label="Backend">
+      <option value="Python">Python</option>
+      <option value="Node.js">Node.js</option>
+      <option value="Java">Java</option>
+    </optgroup>
+  </select>
 
-  <!-- 3. Search by product name -->
-  <label for="product">Search product:</label>
-  <input list="products" id="product" name="product">
-  <datalist id="products">
-    <option value="Laptop">
-    <option value="Smartphone">
-    <option value="Tablet">
-    <option value="Smartwatch">
-    <option value="Headphones">
-  </datalist>
-
-  <!-- 4. Use with numeric values -->
-  <label for="quantity">Enter quantity (1-5):</label>
-  <input list="quantities" id="quantity" name="quantity" type="number">
+  <!-- 3. Datalist with numeric options -->
+  <label for="quantity">Choose quantity (1–5):</label>
+  <input list="quantities" id="quantity" name="quantity">
   <datalist id="quantities">
     <option value="1">
     <option value="2">
@@ -895,21 +950,21 @@ spellcheck: Enables spell checking.
     <option value="5">
   </datalist>
 
-  <!-- 5. Time suggestions -->
-  <label for="meeting-time">Choose a meeting time:</label>
-  <input list="times" id="meeting-time" name="meeting-time" type="time">
-  <datalist id="times">
-    <option value="09:00">
-    <option value="12:00">
-    <option value="15:00">
-    <option value="18:00">
+  <!-- 4. Datalist with partially typed values -->
+  <label for="city">Start typing a city:</label>
+  <input list="cities" id="city" name="city">
+  <datalist id="cities">
+    <option value="New York">
+    <option value="Los Angeles">
+    <option value="Chicago">
+    <option value="Houston">
+    <option value="Phoenix">
   </datalist>
 
-
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 
-<!-- 16 - <details> </details> tag  -->
+<!-- 16 - details tag ,details ,summary  -->
 
   <!-- 1. Simple Toggle Section -->
   <details>
@@ -964,7 +1019,7 @@ spellcheck: Enables spell checking.
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 
-<!-- 17 - picture tag  -->
+<!-- 17 - picture tag , picture , source  -->
 
   <!-- 1. WebP with JPEG fallback -->
   <h2>WebP with JPEG Fallback</h2>
@@ -1000,7 +1055,7 @@ spellcheck: Enables spell checking.
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 
-
+<!-- 18 - ruby tag , ruby , rt , rp -->
 
 
   <!-- 1. Japanese furigana -->
@@ -1065,6 +1120,7 @@ spellcheck: Enables spell checking.
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 
+<!-- 19 - dialog ,  -->
 
   <!-- 1. Static dialog (open by default) -->
   <dialog open>This is a dialog that is always open.</dialog>
