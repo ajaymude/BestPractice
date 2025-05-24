@@ -839,17 +839,22 @@ p::first-letter {
   text-decoration: underline;
 }
 
-/* secificity  */
-/* inline
+/* specificity  */
+/* 
+* 
+inline
 id 
 .class
 element 
-pesudo-class */
+pseudo class 
+*/
 
 /* unit */
+
 /* relative unit */
 /*  em, rem, vw, vh, % *
-abosolute unit */
+
+absolute unit */
 /* px, cm, mm, in, pt, pc */
 
 
