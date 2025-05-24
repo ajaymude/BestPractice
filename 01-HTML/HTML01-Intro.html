@@ -1,178 +1,577 @@
-<!-- ✅ COMPLETE HTML TAG REFERENCE WITH ATTRIBUTES (Grouped by Category) -->
+<!-- 01 - basis Structure of the html  -->
+<!-- 02 - paragraph, strong, bold, emphasize,italic, sup, sub,    tags -->
+<!-- 03 - heading tag -->
+<!-- 04 - list tag ol , li , ol ,dl , dt ,dd -->
+<!-- 05 - Inline Vs. Block Elements -->
+
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+
+<!-- 01 - basis Structure of the html  -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+
+<!-- 02 - paragraph, strong, bold, emphasize,italic, sup, sub,    tags -->
+
+<p
+  id="intro"
+  class="highlight"
+  style="color: blue; font-size: 16px"
+  title="Intro paragraph"
+  lang="en"
+  dir="ltr"
+  hidden
+  contenteditable="true"
+  draggable="true"
+  spellcheck="true"
+>
+  This is a paragraph with many attributes.
+</p>
+
+<p>This is a <strong>very important</strong> message.</p>
+
+<p>This is a <b>bold</b> word using the b tag.</p>
+
+<p>You <em>really</em> need to try this!</p>
+
+<p>He was reading <i>Les Misérables</i> last night.</p>
+
+<p>E = mc<sup>2</sup></p>
+
+<p>H<sub>2</sub>O is the chemical formula for water.</p>
+
+
+
+
+<!-- //
+id: A unique identifier (intro).
+class: Used to apply CSS (highlight).
+style: Inline CSS styles.
+title: Tooltip text on hover.
+lang: Language of the content (en = English).
+dir: Text direction (ltr = left-to-right).
+hidden: Hides the element (won't display unless JavaScript removes the attribute).
+contenteditable: Makes the paragraph editable (true).
+draggable: Makes the paragraph draggable (true).
+spellcheck: Enables spell checking.
+// -->
+
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+
+<!-- 03 - heading tag -->
+
+<h1>This is an H1 heading</h1>
+<h2>This is an H2 heading</h2>
+<h3>This is an H3 heading</h3>
+<h4>This is an H4 heading</h4>
+<h5>This is an H5 heading</h5>
+<h6>This is an H6 heading</h6>
+
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+
+<!-- 04 - list tag ol , li , ol ,dl , dt ,dd -->
+
+<ol>
+  <li>Wake up</li>
+  <li>Brush teeth</li>
+  <li>Eat breakfast</li>
+</ol>
+
+<ul>
+  <li>Apples</li>
+  <li>Bananas</li>
+  <li>Cherries</li>
+</ul>
+
+
+<dl>
+  <dt>HTML</dt>
+  <dd>HyperText Markup Language</dd>
+
+  <dt>CSS</dt>
+  <dd>Cascading Style Sheets</dd>
+</dl>
+
+
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+
+<!-- 05 - Inline Vs. Block Elements -->
+
+<!-- Block example -->
+<div style="background: lightblue;">Block 1</div>
+<div style="background: lightgreen;">Block 2</div>
+
+<!-- Inline example -->
+<span style="background: lightcoral;">Inline 1</span>
+<span style="background: lightyellow;">Inline 2</span>
+
+
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+
+<!-- 06 anchor tag -->
+
+
+  <!-- 1. Link to another website -->
+  <p><a href="https://www.google.com">Go to Google</a></p>
+
+  <!-- 2. Link to another page in the same site -->
+  <p><a href="/about.html">Visit About Page (Local)</a></p>
+
+  <!-- 3. Link to a section on the same page -->
+  <p><a href="#section-anchor">Jump to Section Below</a></p>
+
+  <!-- 4. Download a file -->
+  <p><a href="files/sample.pdf" download>Download Sample PDF</a></p>
+
+  <!-- 5. Open in a new tab (with security) -->
+  <p><a href="https://www.wikipedia.org" target="_blank" rel="noopener noreferrer">Open Wikipedia in New Tab</a></p>
+
+  <!-- 6. Send an email -->
+  <p><a href="mailto:contact@example.com">Send an Email</a></p>
+
+  <!-- 7. Make a phone call -->
+  <p><a href="tel:+1234567890">Call Us</a></p>
+
+  <!-- 8. Link with CSS class and ID -->
+  <p><a href="/shop" class="btn" id="shop-now">Shop Now</a></p>
+
+  <!-- 9. JavaScript interaction -->
+  <p><a href="#" onclick="alert('You clicked the link!'); return false;">Click for Alert</a></p>
+
+  <!-- 10. Link to social media -->
+  <p><a href="https://twitter.com/example" target="_blank">Visit our Twitter</a></p>
+
+  <!-- Target section for internal link -->
+  <div id="section-anchor">
+    <h2>Target Section</h2>
+    <p>This is the section you jumped to using the anchor link.</p>
+  </div>
+
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+
+<!-- 07 - image tag  -->
+
+  <!-- 1. Basic image -->
+  <h2>1. Basic Image</h2>
+  <img src="https://via.placeholder.com/300" alt="Placeholder Image">
+
+  <!-- 2. Image with width and height attributes -->
+  <h2>2. Image with width and height</h2>
+  <img src="https://via.placeholder.com/300" alt="Fixed Size" width="200" height="100">
+
+  <!-- 3. Image with CSS class (styling) -->
+  <h2>3. Styled Image with CSS Class</h2>
+  <img src="https://via.placeholder.com/150" alt="Styled Image" class="thumbnail rounded">
+
+  <!-- 4. Responsive image -->
+  <h2>4. Responsive Image (max-width: 100%)</h2>
+  <img src="https://via.placeholder.com/600x200" alt="Responsive Image">
+
+  <!-- 5. Image with title (tooltip) -->
+  <h2>5. Image with Title Attribute</h2>
+  <img src="https://via.placeholder.com/150" alt="Hover Tooltip" title="This is a tooltip">
+
+  <!-- 6. Broken image fallback with alt -->
+  <h2>6. Broken Image (shows alt text)</h2>
+  <img src="non-existent.jpg" alt="Image not found">
+
+  <!-- 7. Lazy loading image -->
+  <h2>7. Lazy Loading</h2>
+  <img src="https://via.placeholder.com/400" alt="Lazy Loaded" loading="lazy">
+
+  <!-- 8. Image as a clickable link -->
+  <h2>8. Clickable Image (Wrapped in <a>)</h2>
+  <a href="https://example.com" target="_blank">
+    <img src="https://via.placeholder.com/150" alt="Linked Image">
+  </a>
+
+  <!-- 9. SVG Image -->
+  <h2>9. SVG Image</h2>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Bitmap_VS_SVG.svg" alt="SVG Example" width="200">
+
+
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+
 
 <!-- 🟦 Document Structure Tags -->
-<!-- 1 --> <!DOCTYPE html>
-<!-- 2 --> <html lang="en"></html>
-<!-- 3 --> <head></head>
-<!-- 4 --> <title>Page Title</title>
-<!-- 5 --> <meta charset="UTF-8">
-<!-- 6 --> <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- 7 --> <meta name="description" content="Page Description">
-<!-- 8 --> <link rel="stylesheet" href="styles.css">
-<!-- 9 --> <link rel="icon" type="image/png" href="favicon.png">
-<!-- 10 --> <base href="/">
-<!-- 11 --> <style></style>
-<!-- 12 --> <script src="script.js"></script>
-<!-- 13 --> <noscript></noscript>
+<!-- 1 -->
+<!DOCTYPE html>
+<!-- 2 -->
+<html lang="en"></html>
+<!-- 3 -->
+<head></head>
+<!-- 4 -->
+<title>Page Title</title>
+<!-- 5 -->
+<meta charset="UTF-8" />
+<!-- 6 -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- 7 -->
+<meta name="description" content="Page Description" />
+<!-- 8 -->
+<link rel="stylesheet" href="styles.css" />
+<!-- 9 -->
+<link rel="icon" type="image/png" href="favicon.png" />
+<!-- 10 -->
+<base href="/" />
+<!-- 11 -->
+<style></style>
+<!-- 12 -->
+<script src="script.js"></script>
+<!-- 13 -->
+<noscript></noscript>
 
 <!-- 🟩 Layout & Sectioning Tags -->
-<!-- 14 --> <body></body>
-<!-- 15 --> <header></header>
-<!-- 16 --> <nav></nav>
-<!-- 17 --> <main></main>
-<!-- 18 --> <section></section>
-<!-- 19 --> <article></article>
-<!-- 20 --> <aside></aside>
-<!-- 21 --> <footer></footer>
-<!-- 22 --> <div id="container"></div>
-<!-- 23 --> <span class="highlight"></span>
+<!-- 14 -->
+<body></body>
+<!-- 15 -->
+<header></header>
+<!-- 16 -->
+<nav></nav>
+<!-- 17 -->
+<main></main>
+<!-- 18 -->
+<section></section>
+<!-- 19 -->
+<article></article>
+<!-- 20 -->
+<aside></aside>
+<!-- 21 -->
+<footer></footer>
+<!-- 22 -->
+<div id="container"></div>
+<!-- 23 -->
+<span class="highlight"></span>
 
 <!-- 🟨 Headings & Text Content -->
-<!-- 24 --> <h1>Heading 1</h1>
-<!-- 25 --> <h2>Heading 2</h2>
-<!-- 26 --> <h3>Heading 3</h3>
-<!-- 27 --> <h4>Heading 4</h4>
-<!-- 28 --> <h5>Heading 5</h5>
-<!-- 29 --> <h6>Heading 6</h6>
-<!-- 30 --> <p>This is a paragraph.</p>
-<!-- 31 --> <br>
-<!-- 32 --> <hr>
-<!-- 33 --> <strong>Important</strong>
-<!-- 34 --> <em>Emphasized</em>
-<!-- 35 --> <b>Bold</b>
-<!-- 36 --> <i>Italic</i>
-<!-- 37 --> <u>Underlined</u>
-<!-- 38 --> <mark>Highlighted</mark>
-<!-- 39 --> <small>Small text</small>
-<!-- 40 --> <del>Deleted</del>
-<!-- 41 --> <ins>Inserted</ins>
-<!-- 42 --> <sub>Subscript</sub>
-<!-- 43 --> <sup>Superscript</sup>
-<!-- 44 --> <abbr title="HyperText Markup Language">HTML</abbr>
-<!-- 45 --> <time datetime="2025-05-03">May 3, 2025</time>
-<!-- 46 --> <q cite="source">Quote</q>
-<!-- 47 --> <blockquote cite="source">Blockquote</blockquote>
-<!-- 48 --> <cite>Reference</cite>
-<!-- 49 --> <code>const x = 5;</code>
-<!-- 50 --> <address>Contact info</address>
-<!-- 51 --> <bdi>اسم</bdi>
-<!-- 52 --> <bdo dir="rtl">Reversed</bdo>
-<!-- 53 --> <wbr>
-<!-- 54 --> <data value="42">Answer</data>
-<!-- 55 --> <template><p>Template content</p></template>
+<!-- 24 -->
+<h1>Heading 1</h1>
+<!-- 25 -->
+<h2>Heading 2</h2>
+<!-- 26 -->
+<h3>Heading 3</h3>
+<!-- 27 -->
+<h4>Heading 4</h4>
+<!-- 28 -->
+<h5>Heading 5</h5>
+<!-- 29 -->
+<h6>Heading 6</h6>
+<!-- 30 -->
+<p>This is a paragraph.</p>
+<!-- 31 -->
+<br />
+<!-- 32 -->
+<hr />
+<!-- 33 -->
+<strong>Important</strong>
+<!-- 34 -->
+<em>Emphasized</em>
+<!-- 35 -->
+<b>Bold</b>
+<!-- 36 -->
+<i>Italic</i>
+<!-- 37 -->
+<u>Underlined</u>
+<!-- 38 -->
+<mark>Highlighted</mark>
+<!-- 39 -->
+<small>Small text</small>
+<!-- 40 -->
+<del>Deleted</del>
+<!-- 41 -->
+<ins>Inserted</ins>
+<!-- 42 -->
+<sub>Subscript</sub>
+<!-- 43 -->
+<sup>Superscript</sup>
+<!-- 44 -->
+<abbr title="HyperText Markup Language">HTML</abbr>
+<!-- 45 -->
+<time datetime="2025-05-03">May 3, 2025</time>
+<!-- 46 -->
+<q cite="source">Quote</q>
+<!-- 47 -->
+<blockquote cite="source">Blockquote</blockquote>
+<!-- 48 -->
+<cite>Reference</cite>
+<!-- 49 -->
+<code>const x = 5;</code>
+<!-- 50 -->
+<address>Contact info</address>
+<!-- 51 -->
+<bdi>اسم</bdi>
+<!-- 52 -->
+<bdo dir="rtl">Reversed</bdo>
+<!-- 53 -->
+<wbr />
+<!-- 54 -->
+<data value="42">Answer</data>
+<!-- 55 -->
+<template><p>Template content</p></template>
 
 <!-- 🟥 List Tags -->
-<!-- 56 --> <ul>
-  <!-- 57 --> <li>Unordered item</li>
+<!-- 56 -->
+<ul>
+  <!-- 57 -->
+  <li>Unordered item</li>
 </ul>
-<!-- 58 --> <ol>
-  <!-- 59 --> <li>Ordered item</li>
+<!-- 58 -->
+<ol>
+  <!-- 59 -->
+  <li>Ordered item</li>
 </ol>
-<!-- 60 --> <dl>
-  <!-- 61 --> <dt>Term</dt>
-  <!-- 62 --> <dd>Definition</dd>
+<!-- 60 -->
+<dl>
+  <!-- 61 -->
+  <dt>Term</dt>
+  <!-- 62 -->
+  <dd>Definition</dd>
 </dl>
 
 <!-- 🟧 Table Tags -->
-<!-- 63 --> <table border="1">
-  <!-- 64 --> <caption>Table Caption</caption>
-  <!-- 65 --> <thead>
-    <!-- 66 --> <tr>
-      <!-- 67 --> <th scope="col">Head</th>
+<!-- 63 -->
+<table border="1">
+  <!-- 64 -->
+  <caption>
+    Table Caption
+  </caption>
+  <!-- 65 -->
+  <thead>
+    <!-- 66 -->
+    <tr>
+      <!-- 67 -->
+      <th scope="col">Head</th>
     </tr>
   </thead>
-  <!-- 68 --> <tbody>
-    <!-- 69 --> <tr>
-      <!-- 70 --> <td colspan="2">Cell</td>
+  <!-- 68 -->
+  <tbody>
+    <!-- 69 -->
+    <tr>
+      <!-- 70 -->
+      <td colspan="2">Cell</td>
     </tr>
   </tbody>
-  <!-- 71 --> <tfoot>
-    <!-- 72 --> <tr>
-      <!-- 73 --> <td>Footer</td>
+  <!-- 71 -->
+  <tfoot>
+    <!-- 72 -->
+    <tr>
+      <!-- 73 -->
+      <td>Footer</td>
     </tr>
   </tfoot>
 </table>
-<!-- 74 --> <tr></tr>
-<!-- 75 --> <th scope="col">Column</th>
-<!-- 76 --> <td rowspan="2">Row</td>
+<!-- 74 -->
+<tr></tr>
+<!-- 75 -->
+<th scope="col">Column</th>
+<!-- 76 -->
+<td rowspan="2">Row</td>
 
 <!-- 🟪 Links & Media -->
-<!-- 77 --> <a href="https://example.com" target="_blank">Visit</a>
-<!-- 78 --> <img src="image.png" alt="Image" width="100" height="100">
-<!-- 79 --> <picture>
-  <!-- 80 --> <source srcset="img.webp" type="image/webp">
-  <!-- 81 --> <img src="img.jpg" alt="Fallback">
+<!-- 77 -->
+<a href="https://example.com" target="_blank">Visit</a>
+<!-- 78 -->
+<img src="image.png" alt="Image" width="100" height="100" />
+<!-- 79 -->
+<picture>
+  <!-- 80 -->
+  <source srcset="img.webp" type="image/webp" />
+  <!-- 81 -->
+  <img src="img.jpg" alt="Fallback" />
 </picture>
-<!-- 82 --> <track src="subtitles.vtt" kind="subtitles" srclang="en" label="English">
-<!-- 83 --> <audio controls src="audio.mp3"></audio>
-<!-- 84 --> <video controls width="250">
-  <!-- 85 --> <source src="movie.mp4" type="video/mp4">
+<!-- 82 -->
+<track src="subtitles.vtt" kind="subtitles" srclang="en" label="English" />
+<!-- 83 -->
+<audio controls src="audio.mp3"></audio>
+<!-- 84 -->
+<video controls width="250">
+  <!-- 85 -->
+  <source src="movie.mp4" type="video/mp4" />
 </video>
-<!-- 86 --> <iframe src="https://example.com" width="300" height="200"></iframe>
-<!-- 87 --> <embed src="file.swf" type="application/x-shockwave-flash">
-<!-- 88 --> <object data="movie.swf" type="application/x-shockwave-flash"></object>
-<!-- 89 --> <param name="quality" value="high">
-<!-- 90 --> <canvas id="myCanvas"></canvas>
-<!-- 91 --> <svg width="100" height="100"></svg>
+<!-- 86 -->
+<iframe src="https://example.com" width="300" height="200"></iframe>
+<!-- 87 -->
+<embed src="file.swf" type="application/x-shockwave-flash" />
+<!-- 88 -->
+<object data="movie.swf" type="application/x-shockwave-flash"></object>
+<!-- 89 -->
+<param name="quality" value="high" />
+<!-- 90 -->
+<canvas id="myCanvas"></canvas>
+<!-- 91 -->
+<svg width="100" height="100"></svg>
 
 <!-- 🟫 Forms & Inputs -->
-<!-- 92 --> <form action="/submit" method="post">
-  <!-- 93 --> <label for="name">Name:</label>
-  <!-- 94 --> <input type="text" id="name" name="name" value="">
-  <!-- 95 --> <input type="submit" value="Send">
-  <!-- 96 --> <input type="reset">
-  <!-- 97 --> <input type="checkbox" id="subscribe" name="subscribe" checked>
-  <!-- 98 --> <input type="radio" name="gender" value="male">
-  <!-- 99 --> <select name="options">
-    <!-- 100 --> <option value="1">One</option>
-    <!-- 101 --> <option value="2">Two</option>
+<!-- 92 -->
+<form action="/submit" method="post">
+  <!-- 93 -->
+  <label for="name">Name:</label>
+  <!-- 94 -->
+  <input type="text" id="name" name="name" value="" />
+  <!-- 95 -->
+  <input type="submit" value="Send" />
+  <!-- 96 -->
+  <input type="reset" />
+  <!-- 97 -->
+  <input type="checkbox" id="subscribe" name="subscribe" checked />
+  <!-- 98 -->
+  <input type="radio" name="gender" value="male" />
+  <!-- 99 -->
+  <select name="options">
+    <!-- 100 -->
+    <option value="1">One</option>
+    <!-- 101 -->
+    <option value="2">Two</option>
   </select>
-  <!-- 102 --> <textarea name="message" rows="4" cols="30"></textarea>
-  <!-- 103 --> <button type="button">Click</button>
-  <!-- 104 --> <fieldset>
-    <!-- 105 --> <legend>Info</legend>
+  <!-- 102 -->
+  <textarea name="message" rows="4" cols="30"></textarea>
+  <!-- 103 -->
+  <button type="button">Click</button>
+  <!-- 104 -->
+  <fieldset>
+    <!-- 105 -->
+    <legend>Info</legend>
   </fieldset>
-  <!-- 106 --> <datalist id="browsers">
-    <!-- 107 --> <option value="Chrome">
+  <!-- 106 -->
+  <datalist id="browsers">
+    <!-- 107 -->
+    <option value="Chrome"></option>
   </datalist>
-  <!-- 108 --> <output name="result">42</output>
-  <!-- 109 --> <input type="file">
-  <!-- 110 --> <input type="color">
-  <!-- 111 --> <input type="date">
-  <!-- 112 --> <input type="range">
-  <!-- 113 --> <input type="number">
-  <!-- 114 --> <input type="email" id="email" name="email" placeholder="Enter email">
-  <!-- 115 --> <input type="tel" id="phone" name="phone" placeholder="Enter phone number">
-  <!-- 116 --> <input type="url" id="website" name="website" placeholder="Enter URL">
+
+  <!-- 108 -->
+  <output name="result">42</output>
+  <!-- 109 -->
+  <input type="file" />
+  <!-- 110 -->
+  <input type="color" />
+  <!-- 111 -->
+  <input type="date" />
+  <!-- 112 -->
+  <input type="range" />
+  <!-- 113 -->
+  <input type="number" />
+  <!-- 114 -->
+  <input type="email" id="email" name="email" placeholder="Enter email" />
+  <!-- 115 -->
+  <input type="tel" id="phone" name="phone" placeholder="Enter phone number" />
+  <!-- 116 -->
+  <input type="url" id="website" name="website" placeholder="Enter URL" />
 </form>
 
 <!-- ⬛ Interactive / Semantic / Misc -->
-<!-- 117 --> <details>
-  <!-- 118 --> <summary>More Info</summary>
+<!-- 117 -->
+<details>
+  <!-- 118 -->
+  <summary>More Info</summary>
   Hidden details here
 </details>
-<!-- 119 --> <dialog open>This is a dialog</dialog>
-<!-- 120 --> <figure>
-  <!-- 121 --> <img src="image.jpg" alt="">
-  <!-- 122 --> <figcaption>Caption</figcaption>
+<!-- 119 -->
+<dialog open>This is a dialog</dialog>
+<!-- 120 -->
+<figure>
+  <!-- 121 -->
+  <img src="image.jpg" alt="" />
+  <!-- 122 -->
+  <figcaption>Caption</figcaption>
 </figure>
-<!-- 123 --> <ruby>語<!-- 124 --> <rt>ご</rt></ruby>
-<!-- 125 --> <rp>(</rp><!-- 126 --> <rt>text</rt><!-- 127 --> <rp>)</rp>
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- 123 -->
+<ruby
+  >語<!-- 124 -->
+  <rt>ご</rt></ruby
+>
+<!-- 125 -->
+<rp>(</rp
+><!-- 126 -->
+<rt>text</rt
+><!-- 127 -->
+<rp>)</rp>
 
 
 <tagname attribute="value">Content</tagname>
-// tags opening tag, closing tag , self closing tag , attributes 
-// inline tag , block tag , 
-// 
+// tags opening tag, closing tag , self closing tag , attributes // inline tag ,
+block tag , //
