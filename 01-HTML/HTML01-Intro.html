@@ -208,18 +208,542 @@ spellcheck: Enables spell checking.
 
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+
+<!-- 08 - table tag  -->
+
+  <!-- 1. Basic table with headers -->
+  <h2>1. Basic Table</h2>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Country</th>
+    </tr>
+    <tr>
+      <td>Alice</td>
+      <td>25</td>
+      <td>USA</td>
+    </tr>
+    <tr>
+      <td>Bob</td>
+      <td>30</td>
+      <td>Canada</td>
+    </tr>
+  </table>
+
+  <!-- 2. Table with <thead>, <tbody>, <tfoot> -->
+  <h2>2. Table with Sections</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Keyboard</td>
+        <td>$20</td>
+      </tr>
+      <tr>
+        <td>Mouse</td>
+        <td>$10</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td>Total</td>
+        <td>$30</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <!-- 3. Table with caption -->
+  <h2>3. Table with Caption</h2>
+  <table>
+    <caption>Student Grades</caption>
+    <tr>
+      <th>Student</th>
+      <th>Grade</th>
+    </tr>
+    <tr>
+      <td>Tom</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <td>Jerry</td>
+      <td>B+</td>
+    </tr>
+  </table>
+
+  <!-- 4. Table with colspan and rowspan -->
+  <h2>4. Merged Cells (colspan and rowspan)</h2>
+  <table>
+    <tr>
+      <th rowspan="2">Employee</th>
+      <th colspan="2">Work Hours</th>
+    </tr>
+    <tr>
+      <th>Monday</th>
+      <th>Tuesday</th>
+    </tr>
+    <tr>
+      <td>John</td>
+      <td>8</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>Anna</td>
+      <td>6</td>
+      <td>8</td>
+    </tr>
+  </table>
+
+  <!-- 5. Styled table with class -->
+  <h2>5. Styled Table with Striping</h2>
+  <table class="striped highlight">
+    <thead>
+      <tr>
+        <th>Task</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Design</td>
+        <td>Complete</td>
+      </tr>
+      <tr>
+        <td>Development</td>
+        <td>In Progress</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 6. Centered content -->
+  <h2>6. Centered Table Content</h2>
+  <table class="centered">
+    <tr>
+      <th>Day</th>
+      <th>Temperature</th>
+    </tr>
+    <tr>
+      <td>Monday</td>
+      <td>22°C</td>
+    </tr>
+    <tr>
+      <td>Tuesday</td>
+      <td>24°C</td>
+    </tr>
+  </table>
+
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+
+<!-- 09 - form tag -->
+
+<body>
+
+  <h1>&lt;form&gt; Tag - All Use Cases</h1>
+
+  <form action="/submit" method="POST" enctype="multipart/form-data">
+
+    <!-- 1. Text input -->
+    <label for="name">Full Name:</label>
+    <input type="text" id="name" name="fullname" required>
+
+    <!-- 2. Email input -->
+    <label for="email">Email Address:</label>
+    <input type="email" id="email" name="email">
+
+    <!-- 3. Password input -->
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password">
+
+    <!-- 4. Number input -->
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" min="1" max="120">
+
+    <!-- 5. Date input -->
+    <label for="dob">Date of Birth:</label>
+    <input type="date" id="dob" name="dob">
+
+    <!-- 6. Checkbox -->
+    <fieldset>
+      <legend>Choose Your Interests:</legend>
+      <label><input type="checkbox" name="interests" value="music"> Music</label>
+      <label><input type="checkbox" name="interests" value="sports"> Sports</label>
+      <label><input type="checkbox" name="interests" value="travel"> Travel</label>
+    </fieldset>
+
+    <!-- 7. Radio buttons -->
+    <fieldset>
+      <legend>Gender:</legend>
+      <label><input type="radio" name="gender" value="male"> Male</label>
+      <label><input type="radio" name="gender" value="female"> Female</label>
+      <label><input type="radio" name="gender" value="other"> Other</label>
+    </fieldset>
+
+    <!-- 8. Dropdown (select) -->
+    <label for="country">Country:</label>
+    <select id="country" name="country">
+      <option value="">-- Select --</option>
+      <option value="usa">USA</option>
+      <option value="canada">Canada</option>
+      <option value="uk">UK</option>
+    </select>
+
+    <!-- 9. Textarea -->
+    <label for="message">Message:</label>
+    <textarea id="message" name="message" rows="4"></textarea>
+
+    <!-- 10. File upload -->
+    <label for="file">Upload Resume:</label>
+    <input type="file" id="file" name="resume">
+
+    <!-- 11. Hidden input -->
+    <input type="hidden" name="form_id" value="registration_form">
+
+    <!-- 12. Submit button -->
+    <button type="submit">Submit Form</button>
+
+    <!-- 13. Reset button -->
+    <button type="reset">Reset Form</button>
+
+  </form>
+
+
+  <input 
+  type="email" 
+  name="user_email" 
+  id="email" 
+  placeholder="Enter your email" 
+  required 
+  maxlength="50" 
+  pattern="[^@\s]+@[^@\s]+\.[^@\s]+" 
+  autocomplete="on"
+/>
+
+
+
+ <form action="#" method="POST">
+
+   <!-- 1. type + name + id + placeholder -->
+   <label for="text">Text Input:</label>
+   <input type="text" id="text" name="username" placeholder="Enter your name">
+   <input type="url" id="website" name="website" placeholder="Enter URL" />
+
+    <!-- 2. required + maxlength + minlength -->
+    <label for="username">Username (Required, 3-10 characters):</label>
+    <input type="text" id="username" name="username" required minlength="3" maxlength="10">
+
+    <!-- 3. email with pattern -->
+    <label for="email">Email (with pattern validation):</label>
+    <input type="email" id="email" name="email" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+" placeholder="you@example.com">
+
+    <!-- 4. password + autocomplete -->
+    <label for="password">Password (Autocomplete On):</label>
+    <input type="password" id="password" name="password" autocomplete="on">
+
+    <!-- 5. number with min, max, step -->
+    <label for="age">Age (18-100):</label>
+    <input type="number" id="age" name="age" min="18" max="100" step="1">
+
+    <!-- 6. date -->
+    <label for="birthdate">Birthdate:</label>
+    <input type="date" id="birthdate" name="birthdate">
+
+    <!-- 7. file with accept and multiple -->
+    <label for="resume">Upload Resume (PDF only):</label>
+    <input type="file" id="resume" name="resume" accept=".pdf">
+
+    <!-- 8. file input with multiple -->
+    <label for="photos">Upload Multiple Images:</label>
+    <input type="file" id="photos" name="photos" accept="image/*" multiple>
+
+    <!-- 9. checkbox + checked -->
+    <label>
+      <input type="checkbox" name="subscribe" checked> Subscribe to newsletter
+    </label>
+
+    <!-- 10. radio + checked -->
+    <label>Gender:</label>
+    <label><input type="radio" name="gender" value="male" checked> Male</label>
+    <label><input type="radio" name="gender" value="female"> Female</label>
+
+    <!-- 11. hidden -->
+    <input type="hidden" name="token" value="abc123">
+
+    <!-- 12. disabled -->
+    <label for="disabled">Disabled Field:</label>
+    <input type="text" id="disabled" value="Can't edit this" disabled>
+
+    <!-- 13. readonly -->
+    <label for="readonly">Read-only Field:</label>
+    <input type="text" id="readonly" value="View only" readonly>
+
+    <!-- 14. range -->
+    <label for="volume">Volume (Range 0–100):</label>
+    <input type="range" id="volume" name="volume" min="0" max="100" step="2">
+
+    <!-- 15. color -->
+    <label for="color">Pick a Color:</label>
+    <input type="color" id="color" name="favcolor">
+
+    <!-- 16. submit & reset buttons -->
+    <input type="submit" value="Submit Form">
+    <input type="reset" value="Reset Form">
+
+  </form>
+
+
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+
+<!-- 10 - Semantic tag -->
+
+
+  <!-- 1. <header> -->
+  <header>
+    <h1>My Blog</h1>
+    <p>A place for thoughts and stories.</p>
+  </header>
+
+  <!-- 2. <nav> -->
+  <nav>
+    <a href="#home">Home</a> |
+    <a href="#articles">Articles</a> |
+    <a href="#about">About</a>
+  </nav>
+
+  <!-- 3. <main> -->
+  <main>
+    <!-- 4. <section> -->
+    <section id="articles">
+      <h2>Latest Articles</h2>
+
+      <!-- 5. <article> -->
+      <article>
+        <header>
+          <h3>Why Learn HTML?</h3>
+          <p><time datetime="2025-05-23">May 23, 2025</time> by Jane Doe</p>
+        </header>
+        <p>HTML is the foundation of every website. It's easy to learn and essential for web development.</p>
+        <footer><small>Category: Web Development</small></footer>
+      </article>
+
+      <!-- 6. Another <article> -->
+      <article>
+        <header>
+          <h3>Semantic Tags Explained</h3>
+          <p><time datetime="2025-05-22">May 22, 2025</time> by John Smith</p>
+        </header>
+        <p>Semantic tags help organize content for both developers and search engines.</p>
+        <footer><small>Category: HTML</small></footer>
+      </article>
+    </section>
+
+    <!-- 7. <aside> -->
+    <aside>
+      <h4>Related Topics</h4>
+      <ul>
+        <li>CSS Basics</li>
+        <li>JavaScript for Beginners</li>
+        <li>Web Accessibility</li>
+      </ul>
+    </aside>
+  </main>
+
+  <!-- 8. <figure> + <figcaption> -->
+  <section>
+    <h2>HTML Structure</h2>
+    <figure>
+      <img src="https://via.placeholder.com/400x200" alt="HTML structure diagram" width="100%">
+      <figcaption>Figure: Diagram of a semantic HTML layout</figcaption>
+    </figure>
+  </section>
+
+  <!-- 9. <footer> -->
+  <footer>
+    <p>&copy; 2025 My Blog | <a href="#privacy">Privacy Policy</a></p>
+  </footer>
+
+
+
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+
+<!-- 11 - div and span tag  -->
+
+  <div class="card">
+    <h2>Card Title</h2>
+    <p>This is a simple content box using a <code>&lt;div&gt;</code> container.</p>
+  </div>
+
+
+  <p>
+    <span class="inline">🔔</span>
+    <span class="inline">📧</span>
+    <span class="inline">📱</span>
+  </p>
+
+
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+
+<!-- 12 - video tag  -->
+
+
+  <!-- 1. Basic video with controls -->
+  <h2>1. Basic Video with Controls</h2>
+  <video controls>
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- 2. Video with autoplay, muted, and loop -->
+  <h2>2. Autoplay, Muted, and Loop</h2>
+  <video autoplay muted loop>
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- 3. Video with poster image before play -->
+  <h2>3. Poster Image Before Play</h2>
+  <video controls poster="https://via.placeholder.com/640x360?text=Click+to+Play">
+    <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- 4. Video with width and height attributes -->
+  <h2>4. Custom Width and Height</h2>
+  <video controls width="320" height="240">
+    <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- 5. Multiple source formats -->
+  <h2>5. Multiple Source Formats (Fallback)</h2>
+  <video controls>
+    <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+    <source src="movie.ogg" type="video/ogg">
+    <source src="movie.webm" type="video/webm">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- 6. With JavaScript control -->
+  <h2>6. Controlled with JavaScript</h2>
+  <video id="jsVideo" width="400" controls>
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+  </video>
+  <br>
+  <button onclick="document.getElementById('jsVideo').play()">Play</button>
+  <button onclick="document.getElementById('jsVideo').pause()">Pause</button>
+
+
+
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+
+<!-- 13 - audio tag  -->
+
+
+  <!-- 1. Basic audio with controls -->
+  <h2>1. Basic Audio with Controls</h2>
+  <audio controls>
+    <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mp3">
+    Your browser does not support the audio tag.
+  </audio>
+
+  <!-- 2. Autoplay (must be muted or allowed by browser settings) -->
+  <h2>2. Autoplay (browser-dependent)</h2>
+  <audio autoplay muted>
+    <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mp3">
+  </audio>
+  <p><em>(May not work unless muted or triggered by user interaction)</em></p>
+
+  <!-- 3. Loop -->
+  <h2>3. Loop Audio</h2>
+  <audio controls loop>
+    <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mp3">
+  </audio>
+
+  <!-- 4. Preload -->
+  <h2>4. Preload Attribute (auto)</h2>
+  <audio controls preload="auto">
+    <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mp3">
+  </audio>
+
+  <!-- 5. Multiple source formats for fallback -->
+  <h2>5. Multiple Source Formats</h2>
+  <audio controls>
+    <source src="audio.ogg" type="audio/ogg">
+    <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- 6. Audio controlled by JavaScript -->
+  <h2>6. Audio Controlled by JavaScript</h2>
+  <audio id="jsAudio" controls>
+    <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mp3">
+  </audio>
+  <br>
+  <button onclick="document.getElementById('jsAudio').play()">Play</button>
+  <button onclick="document.getElementById('jsAudio').pause()">Pause</button>
+  <button onclick="document.getElementById('jsAudio').currentTime = 0">Restart</button>
+
+
+
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+
+<!-- 14 - iframe tag  -->
+
+  <!-- 1. Embed a Website -->
+  <h2>1. Embed a Website</h2>
+  <iframe src="https://www.example.com" width="600" height="300" title="Example Site"></iframe>
+
+  <!-- 2. Embed a YouTube Video -->
+  <h2>2. Embed a YouTube Video</h2>
+  <iframe width="560" height="315" 
+    src="https://www.youtube.com/embed/tgbNymZ7vqY" 
+    title="YouTube video player"
+    allowfullscreen></iframe>
+
+  <!-- 3. Embed a Google Map -->
+  <h2>3. Embed a Google Map</h2>
+  <iframe 
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0864441392275!2d-122.41941548468145!3d37.77492977975974!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085808c63261cb7%3A0x7b0c7a4f71aa6461!2sSan%20Francisco%20City%20Hall!5e0!3m2!1sen!2sus!4v1615930606923!5m2!1sen!2sus" 
+    width="600" 
+    height="300" 
+    style="border:0;" 
+    allowfullscreen="" 
+    loading="lazy" 
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+
+  <!-- 4. Set iframe without borders -->
+  <h2>4. Borderless iframe</h2>
+  <iframe src="https://www.example.com" width="600" height="200" style="border:none;"></iframe>
+
+  <!-- 5. Sandbox attribute -->
+  <h2>5. Sandbox Attribute (Restrict Features)</h2>
+  <iframe 
+    src="https://www.example.com" 
+    width="600" 
+    height="200" 
+    sandbox
+    title="Sandboxed iframe">
+    Your browser does not support iframes.
+  </iframe>
+
+  <!-- 6. Responsive iframe with 100% width -->
+  <h2>6. Responsive iframe (100% width)</h2>
+  <iframe src="https://www.example.com" width="100%" height="200" title="Responsive Example"></iframe>
+
+
+
+
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
@@ -277,6 +801,9 @@ spellcheck: Enables spell checking.
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 
+<head></head>
+<!-- 4 -->
+<title>Page Title</title>
 
 <!-- 🟦 Document Structure Tags -->
 <!-- 1 -->
@@ -284,9 +811,6 @@ spellcheck: Enables spell checking.
 <!-- 2 -->
 <html lang="en"></html>
 <!-- 3 -->
-<head></head>
-<!-- 4 -->
-<title>Page Title</title>
 <!-- 5 -->
 <meta charset="UTF-8" />
 <!-- 6 -->
@@ -306,56 +830,8 @@ spellcheck: Enables spell checking.
 <!-- 13 -->
 <noscript></noscript>
 
-<!-- 🟩 Layout & Sectioning Tags -->
-<!-- 14 -->
-<body></body>
-<!-- 15 -->
-<header></header>
-<!-- 16 -->
-<nav></nav>
-<!-- 17 -->
-<main></main>
-<!-- 18 -->
-<section></section>
-<!-- 19 -->
-<article></article>
-<!-- 20 -->
-<aside></aside>
-<!-- 21 -->
-<footer></footer>
-<!-- 22 -->
-<div id="container"></div>
-<!-- 23 -->
-<span class="highlight"></span>
-
-<!-- 🟨 Headings & Text Content -->
-<!-- 24 -->
-<h1>Heading 1</h1>
-<!-- 25 -->
-<h2>Heading 2</h2>
-<!-- 26 -->
-<h3>Heading 3</h3>
-<!-- 27 -->
-<h4>Heading 4</h4>
-<!-- 28 -->
-<h5>Heading 5</h5>
-<!-- 29 -->
-<h6>Heading 6</h6>
-<!-- 30 -->
-<p>This is a paragraph.</p>
-<!-- 31 -->
 <br />
-<!-- 32 -->
 <hr />
-<!-- 33 -->
-<strong>Important</strong>
-<!-- 34 -->
-<em>Emphasized</em>
-<!-- 35 -->
-<b>Bold</b>
-<!-- 36 -->
-<i>Italic</i>
-<!-- 37 -->
 <u>Underlined</u>
 <!-- 38 -->
 <mark>Highlighted</mark>
@@ -365,12 +841,12 @@ spellcheck: Enables spell checking.
 <del>Deleted</del>
 <!-- 41 -->
 <ins>Inserted</ins>
-<!-- 42 -->
-<sub>Subscript</sub>
-<!-- 43 -->
-<sup>Superscript</sup>
-<!-- 44 -->
 <abbr title="HyperText Markup Language">HTML</abbr>
+
+
+
+
+<!-- 44 -->
 <!-- 45 -->
 <time datetime="2025-05-03">May 3, 2025</time>
 <!-- 46 -->
@@ -394,69 +870,10 @@ spellcheck: Enables spell checking.
 <!-- 55 -->
 <template><p>Template content</p></template>
 
-<!-- 🟥 List Tags -->
-<!-- 56 -->
-<ul>
-  <!-- 57 -->
-  <li>Unordered item</li>
-</ul>
-<!-- 58 -->
-<ol>
-  <!-- 59 -->
-  <li>Ordered item</li>
-</ol>
-<!-- 60 -->
-<dl>
-  <!-- 61 -->
-  <dt>Term</dt>
-  <!-- 62 -->
-  <dd>Definition</dd>
-</dl>
 
-<!-- 🟧 Table Tags -->
-<!-- 63 -->
-<table border="1">
-  <!-- 64 -->
-  <caption>
-    Table Caption
-  </caption>
-  <!-- 65 -->
-  <thead>
-    <!-- 66 -->
-    <tr>
-      <!-- 67 -->
-      <th scope="col">Head</th>
-    </tr>
-  </thead>
-  <!-- 68 -->
-  <tbody>
-    <!-- 69 -->
-    <tr>
-      <!-- 70 -->
-      <td colspan="2">Cell</td>
-    </tr>
-  </tbody>
-  <!-- 71 -->
-  <tfoot>
-    <!-- 72 -->
-    <tr>
-      <!-- 73 -->
-      <td>Footer</td>
-    </tr>
-  </tfoot>
-</table>
-<!-- 74 -->
-<tr></tr>
-<!-- 75 -->
-<th scope="col">Column</th>
-<!-- 76 -->
-<td rowspan="2">Row</td>
 
-<!-- 🟪 Links & Media -->
-<!-- 77 -->
-<a href="https://example.com" target="_blank">Visit</a>
-<!-- 78 -->
-<img src="image.png" alt="Image" width="100" height="100" />
+
+
 <!-- 79 -->
 <picture>
   <!-- 80 -->
@@ -553,12 +970,7 @@ spellcheck: Enables spell checking.
 <!-- 119 -->
 <dialog open>This is a dialog</dialog>
 <!-- 120 -->
-<figure>
-  <!-- 121 -->
-  <img src="image.jpg" alt="" />
-  <!-- 122 -->
-  <figcaption>Caption</figcaption>
-</figure>
+
 <!-- 123 -->
 <ruby
   >語<!-- 124 -->
