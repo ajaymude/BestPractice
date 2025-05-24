@@ -1,39 +1,62 @@
-/* text  */
-p {
+/* 01 - way to connect css to html  */
+/* 02 - display, box-sizing, border, border-radius, width, height, 
+        padding, margin, font, color, text-align, direction, text-decoration
+        text-indent, text-transform, text-shadow, text-overflow, white-space,
+        over-flow, box-shadow, background, position, z-index, float, clear
+        filter, transition, animation, 
+ */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+
+/* 01 - way to connect css to html  */
+
+/* <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CSS Linking Methods</title>
+
+<!-- Internal CSS -->
+  <style>
+    .internal-style {
+      color: blue;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+
+  <!-- External CSS link -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Inline CSS -->
+  <p style="color: red; font-size: 16px;">This is styled with <strong>inline CSS</strong></p>
+
+  <!-- Internal CSS -->
+  <p class="internal-style">This is styled with <strong>internal CSS</strong></p>
+  
+  <!-- External CSS -->
+  <p class="external-style">This is styled with <strong>external CSS</strong></p>
+
+  </body>
+  </html> */
+
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* 02 - display, box-sizing, border, border-radius, width, height, 
+        padding, margin, font, color, text-align, direction, text-decoration
+        text-indent, text-transform, text-shadow, text-overflow, white-space,
+        over-flow, box-shadow, background, position, z-index, float, clear
+        filter, transition, animation, 
+ */
+
+.p {
   display: block; /* inline, inline-block, flex, grid, table, table-row, table-cell, table-caption, list-item */
   display: none; /* hide the element */
-  box-sizing: border-box;       /* content-box, border-box */
+  box-sizing: border-box; /* content-box, border-box */
 
-  width: 100px; /* auto, percentage, px, em, rem, vw, vh */
-  height: 100px; /* auto, percentage, px, em, rem, vw, vh */
-  max-width: 100%; /* auto, percentage, px, em, rem, vw, vh */
-  min-width: 100px; /* auto, percentage, px, em, rem, vw, vh */
-  max-height: 100%; /* auto, percentage, px, em, rem, vw, vh */
-  min-height: 100px; /* auto, percentage, px, em, rem, vw, vh */
-
-
-  padding: 10px;
-  padding-top: 10px;
-  padding-right: 20px;
-  padding-bottom: 30px;
-  padding-left: 40px;
-  padding: 10px 20px 30px 40px; /* top, right, bottom, left */
-  padding: 10px 20px; /* top, bottom, left, right */
-  padding: 10px 20px 30px; /* top, right, bottom */
-  padding: 10px 20px; /* top, bottom, left, right */
-
-  margin: 10px;
-  margin-top: 10px;
-  margin-right: 20px;
-  margin-bottom: 30px;
-  margin-left: 40px;
-  margin: 10px 20px 30px 40px; /* top, right, bottom, left */
-  margin: 10px 20px; /* top, bottom, left, right */
-  margin: 10px 20px 30px; /* top, right, bottom */
-  /* margin collapse it will the take the margin of the larger  */
-
-  
-
+  /* border */
   border-top-color: blue;
   border-right-color: green;
   border-bottom-color: yellow;
@@ -53,50 +76,82 @@ p {
   border-radius: 10px 20px; /* top-left, bottom-right */
   border: 2px solid red;
 
+  /* width and height  */
+  width: 100px; /* auto, percentage, px, em, rem, vw, vh */
+  height: 100px; /* auto, percentage, px, em, rem, vw, vh */
+  max-width: 100%; /* auto, percentage, px, em, rem, vw, vh */
+  min-width: 100px; /* auto, percentage, px, em, rem, vw, vh */
+  max-height: 100%; /* auto, percentage, px, em, rem, vw, vh */
+  min-height: 100px; /* auto, percentage, px, em, rem, vw, vh */
 
-  font-family: "Roboto", sans-serif;       /* Font family */
-  font-size: 16px;                         /* Font size */
-  font-weight: normal;                     /* Font weight */
-  font-style: normal;                      /* Font style */
-  font-variant: normal;                    /* Font variant (e.g., small-caps) */
+  /* padding  */
+  padding: 10px;
+  padding-top: 10px;
+  padding-right: 20px;
+  padding-bottom: 30px;
+  padding-left: 40px;
+  padding: 10px 20px 30px 40px; /* top, right, bottom, left */
+  padding: 10px 20px; /* top, bottom, left, right */
+  padding: 10px 20px 30px; /* top, right, bottom */
+  padding: 10px 20px; /* top, bottom, left, right */
+
+  /* margin  */
+  margin: 10px;
+  margin-top: 10px;
+  margin-right: 20px;
+  margin-bottom: 30px;
+  margin-left: 40px;
+  margin: 10px 20px 30px 40px; /* top, right, bottom, left */
+  margin: 10px 20px; /* top, bottom, left, right */
+  margin: 10px 20px 30px; /* top, right, bottom */
+  /* margin collapse it will the take the margin of the larger  */
+
+  /* font  */
+  font-family: "Roboto", sans-serif; /* Font family */
+  font-size: 16px; /* Font size */
+  font-weight: normal; /* Font weight */
+  font-style: normal; /* Font style */
+  font-variant: normal; /* Font variant (e.g., small-caps) */
   font: normal normal 16px/1.5 "Roboto", sans-serif; /* Full font shorthand */
   /* font: [font-style] [font-variant] [font-weight] [font-size]/[line-height] [font-family]; */
   font: italic small-caps bold 20px/30px "Arial", sans-serif;
 
-  color: #333;                             /* Text color */
-  text-align: justify;                     /* Text alignment */
+  /* color  */
+  color: #333; /* Text color */
+  text-align: justify; /* Text alignment */
   /* vertical-align: baseline;                Vertical alignment */
-  direction: ltr;                          /* Text direction */
-  unicode-bidi: normal;                    /* For bidirectional text */
+  direction: ltr; /* Text direction */
+  unicode-bidi: normal; /* For bidirectional text */
 
-  text-decoration: underline dotted red;   /* Underline + style + color */
+  /* text  */
+  text-decoration: underline dotted red; /* Underline + style + color */
   text-decoration-line: underline;
   text-decoration-color: #000000;
   text-decoration-style: solid;
   text-decoration-thickness: 2px;
-  text-decoration-skip-ink: auto;          /* Skip ink for underline */
+  text-decoration-skip-ink: auto; /* Skip ink for underline */
 
-  letter-spacing: 1px;                     /* Space between letters */
-  word-spacing: 3px;                       /* Space between words */
-  line-height: 1.5;  
+  text-indent: 30px; /* Indentation of the first line */
+  text-transform: capitalize; /* Capitalization */
+  text-shadow: 1px 1px 1px gray; /* Shadow effect on text */
+  text-overflow: ellipsis; /* Ellipsis for overflow */
+  white-space: nowrap; /* Prevents line breaks */
+  overflow-wrap: break-word; /* Break long words */
+  word-break: break-word; /* Word breaking */
+
+  letter-spacing: 1px; /* Space between letters */
+  word-spacing: 3px; /* Space between words */
+  line-height: 1.5;
   opacity: 0.5;
-
-  text-indent: 30px;                       /* Indentation of the first line */
-  text-transform: capitalize;              /* Capitalization */
-  text-shadow: 1px 1px 1px gray;           /* Shadow effect on text */
-  text-overflow: ellipsis;                /* Ellipsis for overflow */
-  white-space: nowrap;                     /* Prevents line breaks */
-  overflow-wrap: break-word;               /* Break long words */
-  word-break: break-word;                  /* Word breaking */
 
   overflow: hidden; /* visible, hidden, scroll, auto */
   overflow-x: hidden; /* visible, hidden, scroll, auto */
   overflow-y: hidden; /* visible, hidden, scroll, auto */
 
-  
   box-shadow: 2px 2px 5px #000000; /* inset, none */
   box-shadow: 2px 2px 5px #000000, -2px -2px 5px #000000; /* inset, none */
 
+  /* background */
   background-image: url("image.png");
   background-repeat: no-repeat;
   background-position: center;
@@ -112,8 +167,17 @@ p {
   background-color: repeating-radial-gradient(circle, red, blue);
   background-color: repeating-conic-gradient(red, blue);
 
+  /* position */
+  position: relative; /* static, absolute, fixed, sticky, relative */
+  top: 10px; /* auto, percentage, px, em, rem, vw, vh */
+  right: 20px; /* auto, percentage, px, em, rem, vw, vh */
+  bottom: 30px; /* auto, percentage, px, em, rem, vw, vh */
+  left: 40px; /* auto, percentage, px, em, rem, vw, vh */
+  z-index: 1; /* auto, integer */
+  float: left; /* right, none */
+  clear: left; /* right, both, none */
 
-  
+  /* filter  */
   filter: blur(5px);
   filter: brightness(0.5);
   filter: contrast(1.5);
@@ -125,18 +189,7 @@ p {
   filter: saturate(2);
   filter: sepia(100%);
 
-
-  position: relative; /* static, absolute, fixed, sticky, relative */
-  top: 10px; /* auto, percentage, px, em, rem, vw, vh */
-  right: 20px; /* auto, percentage, px, em, rem, vw, vh */
-  bottom: 30px; /* auto, percentage, px, em, rem, vw, vh */
-  left: 40px; /* auto, percentage, px, em, rem, vw, vh */
-  z-index: 1; /* auto, integer */
-  float: left; /* right, none */
-  clear: left; /* right, both, none */
-
-
-  
+  /* transition  */
   transition-property: all; /* all, property */
   transition-duration: 0.5s; /* all, property */
   transition-timing-function: ease-in-out; /* all, property */
@@ -147,6 +200,7 @@ p {
   animation: moveRight 3s ease-in-out infinite;
 }
 
+/* animation  */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -171,57 +225,74 @@ p {
   }
 }
 
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+
+/* 03 -table  */
 
 table {
-  border-collapse: collapse;          /* Merge table borders */
-  border-spacing: 0;                  /* No space between cells */
-  table-layout: auto;                 /* Column widths adjust based on content */
-  caption-side: top;                  /* Caption position: top, bottom */
-  empty-cells: show;                  /* Show or hide empty cells */
+  border-collapse: collapse; /* Merge table borders */
+  border-spacing: 0; /* No space between cells */
+  table-layout: auto; /* Column widths adjust based on content */
+  caption-side: top; /* Caption position: top, bottom */
+  empty-cells: show; /* Show or hide empty cells */
 }
 
-th, td {
-  vertical-align: middle;             /* Align content vertically in the middle */
+th,
+td {
+  vertical-align: middle; /* Align content vertically in the middle */
 }
 
 caption {
-  caption-side: top;                  /* Position of caption */
+  caption-side: top; /* Position of caption */
 }
 
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+
+/* 04 - list  */
 
 ul {
-  list-style-type: disc;                 /* Default bullet style */
+  list-style-type: disc; /* Default bullet style */
   list-style-type: "*";
-  list-style-position: inside;           /* Position bullets inside the list item box */
-  list-style-image: url('bullet.png');   /* Custom bullet image */
+  list-style-position: inside; /* Position bullets inside the list item box */
+  list-style-image: url("bullet.png"); /* Custom bullet image */
 }
 
 ol {
-  list-style-type: decimal;              /* Numbered list with decimal numbers */
-  list-style-position: outside;          /* Numbers outside the list item box */
+  list-style-type: decimal; /* Numbered list with decimal numbers */
+  list-style-position: outside; /* Numbers outside the list item box */
 }
 
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+
+/* 05 - form  */
 textarea {
-  resize: vertical;                      /* Allow vertical resizing */
+  resize: vertical; /* Allow vertical resizing */
 }
 
-select {                     /* Text color */
-  appearance: none;                      /* Remove default styling in some browsers */
+select {
+  /* Text color */
+  appearance: none; /* Remove default styling in some browsers */
+
+  button,
+  input[type="submit"],
+  input[type="reset"] {
+    /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+  }
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    accent-color: #007bff; /* Custom color for checkboxes and radios */
+  }
 }
 
-button, input[type="submit"], input[type="reset"] {                    /* Font size */
-  cursor: pointer;                       /* Pointer cursor on hover */
-}
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
 
-input[type="checkbox"], input[type="radio"] {
-  accent-color: #007bff;                 /* Custom color for checkboxes and radios */
-}
-
-
-
-
-/* box model */
-
+/* 06 - box model  */
 /* +---------------------------+
 |        Margin             |
 |  +---------------------+  |
@@ -235,9 +306,10 @@ input[type="checkbox"], input[type="radio"] {
 |  +---------------------+  |
 +---------------------------+ */
 
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
 
-
-/* flex box */
+/* 07 - flex box  */
 
 /* for the parent element */
 .parent {
@@ -259,20 +331,28 @@ input[type="checkbox"], input[type="radio"] {
   align-self: auto; /* auto, center, start, end, baseline */
 }
 
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
 
+/* 08 - grid box  */
 
-/* grid box */
 /* for the parent element */
 .parent {
   display: grid; /* block, inline-block, inline, flex, table, table-row, table-cell, table-caption, list-item */
-  grid-template-columns: repeat(3, 1fr); /* auto, percentage, px, em, rem, vw, vh */
-  grid-template-rows: repeat(3, 1fr); /* auto, percentage, px, em, rem, vw, vh */
+  grid-template-columns: repeat(
+    3,
+    1fr
+  ); /* auto, percentage, px, em, rem, vw, vh */
+  grid-template-rows: repeat(
+    3,
+    1fr
+  ); /* auto, percentage, px, em, rem, vw, vh */
   grid-template-areas: "header header header" "main sidebar footer" "footer footer footer"; /* auto */
   grid-column-gap: 10px; /* auto */
   grid-row-gap: 10px; /* auto */
   grid-gap: 10px; /* auto */
 }
-/* for the child element */ 
+/* for the child element */
 .child {
   grid-column: 1 / 2; /* 1, 2, ... */
   grid-row: 1 / 2; /* 1, 2, ... */
@@ -282,6 +362,69 @@ input[type="checkbox"], input[type="radio"] {
   grid-row-start: 1; /* auto */
   grid-row-end: 2; /* auto */
 }
+
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+
+/* flex box */
+
+/* grid box */
+
 
 /* media screen */
 
@@ -328,7 +471,6 @@ input[type="checkbox"], input[type="radio"] {
   /* CSS rules here will apply only when the user does not prefer reduced motion */
 }
 
-
 /* advance css   */
 /* css variabels     */
 :root {
@@ -351,8 +493,10 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 p {
-    padding: calc(10px + 2em); /* calc() function to calculate the padding value */
-    margin: calc(10px + 2em); /* calc() function to calculate the margin value */
+  padding: calc(
+    10px + 2em
+  ); /* calc() function to calculate the padding value */
+  margin: calc(10px + 2em); /* calc() function to calculate the margin value */
 }
 
 /* inline css , internal css , external css */
@@ -761,7 +905,3 @@ pesudo-class */
 /*  em, rem, vw, vh, % *
 abosolute unit */
 /* px, cm, mm, in, pt, pc */
-
-
-
-
