@@ -1,4 +1,8 @@
-// 01 - Creating an Array
+// 01 - array operations , 
+//      creating, accessing , modify, properties, destructuring, skipping , default value 
+//      swap value , rest operator , nesting , for of 
+// 02 - JavaScript Array Methods Categorized by Use Case
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -89,7 +93,7 @@ for (const [index, fruit] of fruits.entries()) {
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-// JavaScript Array Methods Categorized by Use Case
+// 02 - JavaScript Array Methods Categorized by Use Case
 
 let fruits = ["Apple", "Banana", "Cherry"];
 
@@ -172,24 +176,456 @@ console.log(colors.at(-2)); // 'blue'
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
+
+// 01 - push method  
+
+// 1. Basic push of a single item
+let fruits = ['apple', 'banana'];
+fruits.push('orange');
+console.log('1:', fruits); // ['apple', 'banana', 'orange']
+
+// 2. Push multiple items
+fruits.push('grape', 'mango');
+console.log('2:', fruits); // ['apple', 'banana', 'orange', 'grape', 'mango']
+
+// 3. Push into an empty array
+let numbers = [];
+numbers.push(1);
+console.log('3:', numbers); // [1]
+
+// 4. Push returns the new length
+let newLength = numbers.push(2, 3);
+console.log('4:', newLength); // 3
+console.log('4:', numbers); // [1, 2, 3]
+
+// 5. Push a nested array (adds it as one element)
+let nested = [];
+nested.push([10, 20]);
+console.log('5:', nested); // [[10, 20]]
+
+// 6. Push an object
+let users = [];
+users.push({ name: 'Alice', age: 25 });
+console.log('6:', users); // [{ name: 'Alice', age: 25 }]
+
+// 7. Push in a loop
+let doubled = [];
+for (let i = 1; i <= 5; i++) {
+  doubled.push(i * 2);
+}
+console.log('7:', doubled); // [2, 4, 6, 8, 10]
+
+// 8. Push using function
+function addItem(arr, item) {
+  arr.push(item);
+}
+let letters = ['a', 'b'];
+addItem(letters, 'c');
+console.log('8:', letters); // ['a', 'b', 'c']
+
+// 9. Push boolean values
+let flags = [];
+flags.push(true);
+flags.push(false);
+console.log('9:', flags); // [true, false]
+
+// 10. Push result of an expression
+let results = [];
+results.push(5 + 3); // 8
+results.push('hi' + ' there'); // 'hi there'
+console.log('10:', results); // [8, 'hi there']
+
+// 11. Push from another array using spread
+let colors = ['red', 'blue'];
+let moreColors = ['green', 'yellow'];
+colors.push(...moreColors);
+console.log('11:', colors); // ['red', 'blue', 'green', 'yellow']
+
+// 12. Push undefined and null
+let misc = [];
+misc.push(undefined);
+misc.push(null);
+console.log('12:', misc); // [undefined, null]
+
+
+
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
+
+// 02 - pop 
+
+// 1. Basic pop - remove the last item
+let fruits = ['apple', 'banana', 'orange'];
+let lastFruit = fruits.pop();
+console.log('1:', lastFruit); // 'orange'
+console.log('1:', fruits); // ['apple', 'banana']
+
+// 2. Pop from a single-element array
+let numbers = [42];
+let removed = numbers.pop();
+console.log('2:', removed); // 42
+console.log('2:', numbers); // []
+
+// 3. Pop from an empty array (returns undefined)
+let empty = [];
+let popped = empty.pop();
+console.log('3:', popped); // undefined
+console.log('3:', empty); // []
+
+// 4. Using pop in a loop
+let letters = ['a', 'b', 'c', 'd'];
+while (letters.length > 0) {
+  console.log('4:', letters.pop());
+}
+// Logs: d, c, b, a
+
+// 5. Pop from array of objects
+let users = [{ name: 'Alice' }, { name: 'Bob' }];
+let lastUser = users.pop();
+console.log('5:', lastUser); // { name: 'Bob' }
+console.log('5:', users); // [{ name: 'Alice' }]
+
+// 6. Pop inside a function
+function removeLast(arr) {
+  return arr.pop();
+}
+let colors = ['red', 'blue', 'green'];
+console.log('6:', removeLast(colors)); // 'green'
+console.log('6:', colors); // ['red', 'blue']
+
+// 7. Pop and store multiple values
+let stack = [1, 2, 3, 4];
+let a = stack.pop();
+let b = stack.pop();
+console.log('7:', a, b); // 4 3
+console.log('7:', stack); // [1, 2]
+
+// 8. Pop and handle with condition
+let items = ['pen', 'pencil', 'eraser'];
+let removedItem = items.pop();
+if (removedItem === 'eraser') {
+  console.log('8: Eraser was removed');
+}
+
+// 9. Pop in array of mixed types
+let mix = [1, 'hello', true];
+console.log('9:', mix.pop()); // true
+console.log('9:', mix); // [1, 'hello']
+
+// 10. Pop result used directly
+let things = ['box', 'bag', 'bottle'];
+console.log('10: Last item removed:', things.pop()); // 'bottle'
+console.log('10:', things); // ['box', 'bag']
+
+// 11. Chaining pop and push
+let logs = ['log1', 'log2', 'log3'];
+let temp = logs.pop();
+logs.push(temp + '_archived');
+console.log('11:', logs); // ['log1', 'log2', 'log3_archived']
+
+// 12. Pop with console trace
+let queue = ['task1', 'task2', 'task3'];
+console.log('12: Removing', queue.pop()); // task3
+console.log('12: Remaining tasks:', queue); // ['task1', 'task2']
+
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
+
+// 03 - unshift 
+
+// 1. Basic unshift - add one item at the beginning
+let fruits = ['banana', 'orange'];
+fruits.unshift('apple');
+console.log('1:', fruits); // ['apple', 'banana', 'orange']
+
+// 2. Unshift multiple items
+fruits.unshift('grape', 'mango');
+console.log('2:', fruits); // ['grape', 'mango', 'apple', 'banana', 'orange']
+
+// 3. Unshift into an empty array
+let numbers = [];
+numbers.unshift(10);
+console.log('3:', numbers); // [10]
+
+// 4. Unshift returns the new length of the array
+let newLength = numbers.unshift(20, 30);
+console.log('4: New length =', newLength); // 3
+console.log('4:', numbers); // [20, 30, 10]
+
+// 5. Unshift an object
+let users = [{ name: 'Bob' }];
+users.unshift({ name: 'Alice' });
+console.log('5:', users); // [{ name: 'Alice' }, { name: 'Bob' }]
+
+// 6. Unshift inside a function
+function addFirst(arr, item) {
+  arr.unshift(item);
+}
+let colors = ['blue', 'green'];
+addFirst(colors, 'red');
+console.log('6:', colors); // ['red', 'blue', 'green']
+
+// 7. Unshift using the result directly
+let values = [4, 5, 6];
+console.log('7: New array length:', values.unshift(1, 2, 3)); // 6
+console.log('7:', values); // [1, 2, 3, 4, 5, 6]
+
+// 8. Unshift with different data types
+let mix = ['hello'];
+mix.unshift(true);
+mix.unshift(null);
+mix.unshift(undefined);
+console.log('8:', mix); // [undefined, null, true, 'hello']
+
+// 9. Unshift inside a loop (reverse insert)
+let countdown = [];
+for (let i = 5; i >= 1; i--) {
+  countdown.unshift(i);
+}
+console.log('9:', countdown); // [1, 2, 3, 4, 5]
+
+// 10. Unshift with nested arrays
+let nested = [[3, 4]];
+nested.unshift([1, 2]);
+console.log('10:', nested); // [[1, 2], [3, 4]]
+
+// 11. Unshift a string (added as a single element)
+let greetings = ['world'];
+greetings.unshift('hello');
+console.log('11:', greetings); // ['hello', 'world']
+
+// 12. Combine unshift and push
+let queue = ['middle'];
+queue.unshift('start');
+queue.push('end');
+console.log('12:', queue); // ['start', 'middle', 'end']
+
+
+
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
+
+// 04 - shift 
+
+// 1. Basic shift - remove the first item
+let fruits = ['apple', 'banana', 'orange'];
+let firstFruit = fruits.shift();
+console.log('1:', firstFruit); // 'apple'
+console.log('1:', fruits); // ['banana', 'orange']
+
+// 2. Shift from a single-element array
+let numbers = [100];
+let removed = numbers.shift();
+console.log('2:', removed); // 100
+console.log('2:', numbers); // []
+
+// 3. Shift from an empty array (returns undefined)
+let empty = [];
+let shifted = empty.shift();
+console.log('3:', shifted); // undefined
+console.log('3:', empty); // []
+
+// 4. Shift inside a loop
+let queue = ['task1', 'task2', 'task3'];
+while (queue.length > 0) {
+  console.log('4: Removed', queue.shift());
+}
+// Logs: task1, task2, task3
+
+// 5. Shift from array of objects
+let users = [{ name: 'Alice' }, { name: 'Bob' }];
+let firstUser = users.shift();
+console.log('5:', firstUser); // { name: 'Alice' }
+console.log('5:', users); // [{ name: 'Bob' }]
+
+// 6. Shift inside a function
+function removeFirst(arr) {
+  return arr.shift();
+}
+let colors = ['red', 'green', 'blue'];
+console.log('6:', removeFirst(colors)); // 'red'
+console.log('6:', colors); // ['green', 'blue']
+
+// 7. Shift and store multiple values
+let letters = ['a', 'b', 'c'];
+let a = letters.shift();
+let b = letters.shift();
+console.log('7:', a, b); // 'a', 'b'
+console.log('7:', letters); // ['c']
+
+// 8. Shift from array of mixed types
+let mix = [true, 42, 'hello'];
+console.log('8:', mix.shift()); // true
+console.log('8:', mix); // [42, 'hello']
+
+// 9. Shift and check condition
+let things = ['eraser', 'pen', 'pencil'];
+let removedThing = things.shift();
+if (removedThing === 'eraser') {
+  console.log('9: Eraser was removed');
+}
+console.log('9:', things); // ['pen', 'pencil']
+
+// 10. Shift nested array
+let nested = [[1, 2], [3, 4]];
+let firstArray = nested.shift();
+console.log('10:', firstArray); // [1, 2]
+console.log('10:', nested); // [[3, 4]]
+
+// 11. Shift string values
+let words = ['first', 'second', 'third'];
+console.log('11:', words.shift()); // 'first'
+console.log('11:', words); // ['second', 'third']
+
+// 12. Combine unshift and shift
+let sequence = ['middle'];
+sequence.unshift('start');
+let removedStart = sequence.shift();
+console.log('12: Removed start =', removedStart); // 'start'
+console.log('12:', sequence); // ['middle']
+
+
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
+
+// 05 indexOf 
+
+// 1. Basic usage of indexOf
+let fruits = ['apple', 'banana', 'orange'];
+console.log('1:', fruits.indexOf('banana')); // 1
+
+// 2. Element not found
+console.log('2:', fruits.indexOf('grape')); // -1
+
+// 3. indexOf is case-sensitive
+console.log('3:', fruits.indexOf('Banana')); // -1
+
+// 4. indexOf on numbers
+let numbers = [10, 20, 30, 40, 50];
+console.log('4:', numbers.indexOf(30)); // 2
+
+// 5. Using indexOf with start position (fromIndex)
+let letters = ['a', 'b', 'a', 'c', 'a'];
+console.log('5:', letters.indexOf('a')); // 0
+console.log('5:', letters.indexOf('a', 1)); // 2
+console.log('5:', letters.indexOf('a', 3)); // 4
+
+// 6. indexOf with boolean values
+let bools = [true, false, true];
+console.log('6:', bools.indexOf(false)); // 1
+
+// 7. indexOf with objects (note: checks reference, not value)
+let obj1 = { name: 'Alice' };
+let obj2 = { name: 'Bob' };
+let people = [obj1, obj2];
+console.log('7:', people.indexOf(obj1)); // 0
+console.log('7:', people.indexOf({ name: 'Alice' })); // -1
+
+// 8. indexOf with undefined and null
+let misc = [undefined, null, 0];
+console.log('8:', misc.indexOf(undefined)); // 0
+console.log('8:', misc.indexOf(null)); // 1
+
+// 9. indexOf in a condition
+if (fruits.indexOf('orange') !== -1) {
+  console.log('9: Orange is in the list');
+}
+
+// 10. indexOf in an array of mixed types
+let mixed = [1, '1', true, 'true'];
+console.log('10:', mixed.indexOf('1')); // 1
+console.log('10:', mixed.indexOf(true)); // 2
+
+// 11. indexOf with NaN (does NOT find it)
+let weird = [NaN, 2, 3];
+console.log('11:', weird.indexOf(NaN)); // -1
+
+// 12. Use indexOf to find duplicates
+let items = ['pen', 'pencil', 'pen', 'marker'];
+let firstPen = items.indexOf('pen');
+let secondPen = items.indexOf('pen', firstPen + 1);
+console.log('12: First pen at', firstPen); // 0
+console.log('12: Second pen at', secondPen); // 2
+
+
+
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
+
+// 06 includes 
+
+// 1. Basic usage of includes
+let fruits = ['apple', 'banana', 'orange'];
+console.log('1:', fruits.includes('banana')); // true
+
+// 2. Element not included
+console.log('2:', fruits.includes('grape')); // false
+
+// 3. includes is case-sensitive
+console.log('3:', fruits.includes('Banana')); // false
+
+// 4. includes with numbers
+let numbers = [10, 20, 30];
+console.log('4:', numbers.includes(20)); // true
+console.log('4:', numbers.includes(40)); // false
+
+// 5. includes with fromIndex
+let letters = ['a', 'b', 'c', 'a'];
+console.log('5:', letters.includes('a')); // true
+console.log('5:', letters.includes('a', 2)); // true (search starts at index 2)
+console.log('5:', letters.includes('a', 3)); // true
+console.log('5:', letters.includes('a', 4)); // false
+
+// 6. includes with boolean values
+let bools = [true, false];
+console.log('6:', bools.includes(false)); // true
+console.log('6:', bools.includes(true)); // true
+
+// 7. includes with undefined and null
+let misc = [undefined, null, NaN];
+console.log('7:', misc.includes(undefined)); // true
+console.log('7:', misc.includes(null)); // true
+
+// 8. includes finds NaN (unlike indexOf)
+console.log('8:', misc.includes(NaN)); // true
+
+// 9. includes with mixed data types
+let mixed = [1, '1', true, 'true'];
+console.log('9:', mixed.includes('1')); // true
+console.log('9:', mixed.includes(1)); // true
+console.log('9:', mixed.includes(true)); // true
+
+// 10. includes with object references (not values)
+let obj1 = { name: 'Alice' };
+let obj2 = { name: 'Bob' };
+let people = [obj1, obj2];
+console.log('10:', people.includes(obj1)); // true
+console.log('10:', people.includes({ name: 'Alice' })); // false (different object reference)
+
+// 11. Use includes in if condition
+let items = ['pen', 'pencil', 'eraser'];
+if (items.includes('pen')) {
+  console.log('11: Pen is available');
+}
+
+// 12. includes on empty array
+let empty = [];
+console.log('12:', empty.includes('anything')); // false
+
+
+
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
+
+// 07 - 
+
+
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
