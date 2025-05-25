@@ -56,6 +56,13 @@
   display: none; /* hide the element */
   box-sizing: border-box; /* content-box, border-box */
 
+  /* tailwind  */
+  /* 
+block box-border
+hidden
+inline-block box-content 
+*/
+
   /* border */
   border-top-color: blue;
   border-right-color: green;
@@ -75,6 +82,19 @@
   border-radius: 10px 20px 30px 40px; /* top-left, top-right, bottom-right, bottom-left */
   border-radius: 10px 20px; /* top-left, bottom-right */
   border: 2px solid red;
+
+  /* tailwind */
+  /* 
+border-t-2 border-t-blue-500
+border-r-2 border-r-green-500
+border-b-2 border-b-yellow-500
+border-l-2 border-l-purple-500
+border-solid
+border-2 border-red-500
+rounded-[10px]                        
+rounded-[10px_20px_30px_40px]        
+rounded-[10px_20px]                   TL, BR (shorthand in CSS, needs custom in Tailwind) 
+*/
 
   /* width and height  */
   width: 100px; /* auto, percentage, px, em, rem, vw, vh */
@@ -229,6 +249,10 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+img {
+  object-fit: cover;
+}
+
 /* google font link add in the head section of the html file */
 /* <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> */
 
@@ -317,6 +341,7 @@ select {
 /* //////////////////////////////////////////////////////////////////////////////////////// */
 
 /* 07 - flex box  */
+/* main axis, cross axis */
 
 /* for the parent element */
 .parent {
@@ -324,8 +349,11 @@ select {
   flex-direction: row; /* row-reverse, column, column-reverse */
   flex-wrap: nowrap; /* wrap, wrap-reverse */
   justify-content: flex-start; /* center, space-between, space-around, space-evenly */
-  align-items: stretch; /* center, start, end, baseline for the single line  */
   align-content: stretch; /* center, start, end, baseline */
+  align-items: stretch; /* center, start, end, baseline for the single line  */
+  gap: 20px;
+  row-gap: 12px;
+  column-gap: 24px; /* has no effect unless using wrapping rows */
 }
 
 /* for the child element */
@@ -857,8 +885,6 @@ pseudo class
 absolute unit */
 /* px, cm, mm, in, pt, pc */
 
-
-
 /* //////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////// */
@@ -910,4 +936,3 @@ absolute unit */
 /* //////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////// */
-
