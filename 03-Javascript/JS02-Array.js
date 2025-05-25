@@ -629,6 +629,64 @@ console.log('12:', empty.includes('anything')); // false
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
+
+// 1. Basic array destructuring
+let [a, b] = [1, 2];
+console.log('1:', a, b); // 1 2
+
+// 2. Skipping elements
+let [x, , z] = [10, 20, 30];
+console.log('2:', x, z); // 10 30
+
+// 3. Default values
+let [p = 100, q = 200] = [10];
+console.log('3:', p, q); // 10 200
+
+// 4. Swapping variables
+let first = 'hello', second = 'world';
+[first, second] = [second, first];
+console.log('4:', first, second); // world hello
+
+// 5. Destructuring from function return
+function getCoordinates() {
+  return [12.5, 45.3];
+}
+let [lat, long] = getCoordinates();
+console.log('5:', lat, long); // 12.5 45.3
+
+// 6. Destructuring nested arrays
+let nested = [1, [2, 3]];
+let [m, [n, o]] = nested;
+console.log('6:', m, n, o); // 1 2 3
+
+// 7. Destructuring with rest operator
+let [head, ...tail] = [100, 200, 300, 400];
+console.log('7:', head); // 100
+console.log('7:', tail); // [200, 300, 400]
+
+// 8. Destructuring with fewer variables
+let [one, two] = [1, 2, 3, 4];
+console.log('8:', one, two); // 1 2
+
+// 9. Destructuring strings as arrays
+let [char1, char2, char3] = 'xyz';
+console.log('9:', char1, char2, char3); // x y z
+
+// 10. Destructuring with ignored values
+let [,, thirdValue] = [5, 6, 7];
+console.log('10:', thirdValue); // 7
+
+// 11. Destructuring with dynamic array (spread)
+let arr = [1, 2, 3, 4, 5];
+let [firstEl, secondEl, ...restEl] = arr;
+console.log('11:', firstEl, secondEl, restEl); // 1 2 [3, 4, 5]
+
+// 12. Nested destructuring with default
+let nestedDefaults = [undefined, [8]];
+let [val1 = 'default1', [val2 = 'default2']] = nestedDefaults;
+console.log('12:', val1, val2); // default1 8
+
+
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////

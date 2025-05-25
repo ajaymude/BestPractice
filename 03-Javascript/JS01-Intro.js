@@ -8,7 +8,6 @@
 // 08 - if, else if, and else in JavaScript
 // 09 - Turnery operator
 // 11 - Template Literals in JavaScript 
-// 11 - Template Literals in JavaScript 
 // 12 - Truthy and Falsy Values in JavaScript
 // 13 - Equality Operators (== vs ===) in JavaScript
 // 14 - Switch Statement
@@ -740,17 +739,15 @@ boundGreet();
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
-
 
 // 19 - loops 
 
 // 1️⃣ for loop
 // for (let i = 1; i <= 5; i++) {
-//     console.log("for loop Iteration:", i);
-// }
+  //     console.log("for loop Iteration:", i);
+  // }
 
-// 2️⃣ while loop
+  // 2️⃣ while loop
 // let count = 1;
 // while (count <= 5) {
 //     console.log("while loop Count:", count);
@@ -760,22 +757,22 @@ boundGreet();
 // 3️⃣ do...while loop
 // let num = 1;
 // do {
-//     console.log("do...while loop Number:", num);
-//     num++;
+  //     console.log("do...while loop Number:", num);
+  //     num++;
 // } while (num <= 5);
 
 // 4️⃣ for...in loop (Object iteration)
 // let person = { name: "Ajay", age: 25, city: "Delhi" };
 // for (let key in person) {
-//     console.log("for...in loop", key + ":", person[key]);
-// }
+  //     console.log("for...in loop", key + ":", person[key]);
+  // }
 
 // 5️⃣ for...of loop (Array iteration)
 // let numbers = [10, 20, 30, 40];
 // for (let num of numbers) {
-//     console.log("for...of loop Value:", num);
-// }
-
+  //     console.log("for...of loop Value:", num);
+  // }
+  
 // 6️⃣ for...of loop (String iteration)
 // let text = "Hello";
 // for (let char of text) {
@@ -799,61 +796,78 @@ boundGreet();
 // continue - where it get it start again from the start 
 
 
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 
+// 20 - The Spread Operator (...)
 
+// 1. Spread in array literals
+const arr1 = [1, 2];
+const arr2 = [3, 4];
+const combined = [...arr1, ...arr2];
+console.log('1:', combined); // [1, 2, 3, 4]
 
+// 2. Copying arrays
+const original = [10, 20, 30];
+const copy = [...original];
+console.log('2:', copy); // [10, 20, 30]
 
+// 3. Spread with strings (strings are iterable)
+const word = 'hello';
+const chars = [...word];
+console.log('3:', chars); // ['h', 'e', 'l', 'l', 'o']
 
+// 4. Spread in function arguments
+function sum(x, y, z) {
+  return x + y + z;
+}
+const nums = [1, 2, 3];
+console.log('4:', sum(...nums)); // 6
 
+// 5. Spread with rest parameters
+function logAll(...values) {
+  console.log('5:', values);
+}
+logAll(...[5, 6, 7]); // [5, 6, 7]
 
+// 6. Merge objects
+const obj1 = { a: 1 };
+const obj2 = { b: 2 };
+const merged = { ...obj1, ...obj2 };
+console.log('6:', merged); // { a: 1, b: 2 }
 
-// 21 - The Spread Operator (...)
+// 7. Clone object
+const user = { name: 'Alice', age: 25 };
+const cloned = { ...user };
+console.log('7:', cloned); // { name: 'Alice', age: 25 }
 
-// Copying an Array
-// const numbers = [1, 2, 3];
-// const copy = [...numbers];
+// 8. Overwriting properties while spreading
+const settings = { theme: 'light', fontSize: 12 };
+const updated = { ...settings, fontSize: 16 };
+console.log('8:', updated); // { theme: 'light', fontSize: 16 }
 
-// console.log(copy); // [1, 2, 3]
+// 9. Spread with nested arrays
+const nested = [[1, 2], [3, 4]];
+const flat = [...nested[0], ...nested[1]];
+console.log('9:', flat); // [1, 2, 3, 4]
 
-//  Merging Two Arrays
-const arr1 = [1, 2, 3];
-const arr2 = [4, 5, 6];
+// 10. Spread with Math functions
+const scores = [10, 25, 30];
+console.log('10: Max score =', Math.max(...scores)); // 30
 
-const merged = [...arr1, ...arr2];
-console.log(merged); // [1, 2, 3, 4, 5, 6]
+// 11. Spread in array destructuring
+const [first, ...rest] = [100, 200, 300];
+console.log('11:', first); // 100
+console.log('11:', rest); // [200, 300]
 
-
-//  Adding Elements to an Array
-// const numbers = [2, 3, 4];
-// const newNumbers = [1, ...numbers, 5];
-// console.log(newNumbers); // [1, 2, 3, 4, 5]
-
-
-
-
-// Merging Two Objects
-// const user = { name: "Ajay", age: 25 };
-// const details = { role: "Developer", country: "India" };
-
-// const merged = { ...user, ...details };
-
-// console.log(merged);
-// // { name: "Ajay", age: 25, role: "Developer", country: "India" }
-
-
-
-
-// Removing Duplicates Using Spread and Set
-// const numbers = [1, 2, 2, 3, 4, 4, 5];
-// const uniqueNumbers = [...new Set(numbers)];
-// console.log(uniqueNumbers); // [1, 2, 3, 4, 5]
-
-
-
-
-
-
-
+// 12. Spread multiple times
+const a = [1];
+const b = [2];
+const c = [3];
+const combinedABC = [...a, ...b, ...c];
+console.log('12:', combinedABC); // [1, 2, 3]
 
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -861,19 +875,67 @@ console.log(merged); // [1, 2, 3, 4, 5, 6]
 ////////////////////////////////////////////////////////////////////////////////////////
 
 // 22 - Rest Pattern and Parameters 
+
+
+// 1. Rest in function parameters
 function sum(...numbers) {
-    return numbers.reduce((acc, num) => acc + num, 0);
+  return numbers.reduce((acc, val) => acc + val, 0);
 }
+console.log('1:', sum(1, 2, 3, 4)); // 10
 
-console.log(sum(1, 2, 3, 4)); // 10
-console.log(sum(5, 10, 15)); // 30
+// 2. Rest with fixed + variable arguments
+function greet(greeting, ...names) {
+  return `${greeting} ${names.join(', ')}`;
+}
+console.log('2:', greet('Hello', 'Alice', 'Bob')); // Hello Alice, Bob
 
+// 3. Rest in array destructuring
+const [a, b, ...rest] = [10, 20, 30, 40, 50];
+console.log('3:', a, b);     // 10 20
+console.log('3:', rest);     // [30, 40, 50]
 
-// const numbers = [1, 2, 3, 4, 5];
-// const [first, second, ...rest] = numbers;
-// console.log(first); // 1
-// console.log(second); // 2
-// console.log(rest); // [3, 4, 5]
+// 4. Rest to ignore unwanted values
+const [first, , ...others] = [1, 2, 3, 4, 5];
+console.log('4:', first);    // 1
+console.log('4:', others);   // [3, 4, 5]
+
+// 5. Rest with object destructuring
+const user = { name: 'Alice', age: 25, role: 'admin' };
+const { name, ...info } = user;
+console.log('5:', name);     // Alice
+console.log('5:', info);     // { age: 25, role: 'admin' }
+
+// 6. Rest in nested array destructuring
+const nested = [1, [2, 3, 4], 5];
+const [x, [y, ...z], w] = nested;
+console.log('6:', x, y, z, w); // 1 2 [3, 4] 5
+
+// 7. Rest in function with default values
+function logValues(start = 0, ...values) {
+  console.log('7: start =', start);
+  console.log('7: values =', values);
+}
+logValues(1, 2, 3); // start = 1, values = [2, 3]
+
+// 8. Rest doesn't work in object literals directly (must be last)
+const product = { id: 1, title: 'Pen', price: 2 };
+const { id, ...details } = product;
+console.log('8:', id);       // 1
+console.log('8:', details);  // { title: 'Pen', price: 2 }
+
+// 9. Rest in a variadic function (dynamic arguments)
+function multiply(multiplier, ...nums) {
+  return nums.map(n => n * multiplier);
+}
+console.log('9:', multiply(2, 1, 2, 3)); // [2, 4, 6]
+
+// 10. Rest + spread used together
+function describeUser({ name, ...details }) {
+  return `User: ${name}, Details: ${JSON.stringify(details)}`;
+}
+console.log('10:', describeUser({ name: 'Tom', age: 32, city: 'NY' }));
+// User: Tom, Details: {"age":32,"city":"NY"}
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////

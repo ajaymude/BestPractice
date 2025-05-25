@@ -128,11 +128,149 @@ obj.valueOf();                                      // Get primitive value
 ///////////////////////////////////////////////////////////////////////////////////
 
 
+// 1. Basic object destructuring
+const user = { name: 'Alice', age: 25 };
+const { name, age } = user;
+console.log('1:', name, age); // Alice 25
+
+// 2. Destructuring with different variable names
+const person = { firstName: 'John', lastName: 'Doe' };
+const { firstName: f, lastName: l } = person;
+console.log('2:', f, l); // John Doe
+
+// 3. Default values
+const settings = { theme: 'dark' };
+const { theme, fontSize = 14 } = settings;
+console.log('3:', theme, fontSize); // dark 14
+
+// 4. Nested object destructuring
+const profile = {
+  userInfo: {
+    username: 'coder',
+    location: 'web'
+  }
+};
+const {
+  userInfo: { username, location }
+} = profile;
+console.log('4:', username, location); // coder web
+
+// 5. Destructuring in function parameters
+function greet({ name, age }) {
+  console.log(`5: Hello, ${name}. You are ${age} years old.`);
+}
+greet({ name: 'Bob', age: 30 });
+
+// 6. Destructuring with rest operator
+const obj = { a: 1, b: 2, c: 3 };
+const { a, ...rest } = obj;
+console.log('6:', a); // 1
+console.log('6:', rest); // { b: 2, c: 3 }
+
+// 7. Destructuring in loops
+const people = [
+  { name: 'Sam', age: 22 },
+  { name: 'Max', age: 28 }
+];
+for (const { name, age } of people) {
+  console.log('7:', name, age);
+}
+// Output: Sam 22, Max 28
+
+// 8. Destructuring from function return
+function getSettings() {
+  return { mode: 'auto', speed: 'fast' };
+}
+const { mode, speed } = getSettings();
+console.log('8:', mode, speed); // auto fast
+
+// 9. Destructuring with alias + default
+const config = { host: 'localhost' };
+const { host: h = '127.0.0.1', port: p = 8080 } = config;
+console.log('9:', h, p); // localhost 8080
+
+// 10. Destructure from array of objects
+const products = [
+  { id: 1, title: 'Pen' },
+  { id: 2, title: 'Notebook' }
+];
+const [{ title: firstProduct }, { title: secondProduct }] = products;
+console.log('10:', firstProduct, secondProduct); // Pen Notebook
+
+// 11. Destructure with computed property names (dynamic keys)
+const key = 'status';
+const response = { status: 'success', code: 200 };
+const { [key]: resultStatus } = response;
+console.log('11:', resultStatus); // success
 
 
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
+
+
+const user = {
+  name: 'Alice',
+  age: 30,
+  role: 'admin'
+};
+
+// 1. Object.keys() - Get all keys
+const keys = Object.keys(user);
+console.log('1:', keys); // ['name', 'age', 'role']
+
+// 2. Object.values() - Get all values
+const values = Object.values(user);
+console.log('2:', values); // ['Alice', 30, 'admin']
+
+// 3. Object.entries() - Get all key-value pairs
+const entries = Object.entries(user);
+console.log('3:', entries);
+// [['name', 'Alice'], ['age', 30], ['role', 'admin']]
+
+// 4. Loop over keys
+Object.keys(user).forEach(key => {
+  console.log('4:', key, user[key]);
+});
+
+// 5. Loop over values
+Object.values(user).forEach(value => {
+  console.log('5:', value);
+});
+
+// 6. Loop over entries (destructuring)
+Object.entries(user).forEach(([key, value]) => {
+  console.log('6:', `${key}: ${value}`);
+});
+
+// 7. Convert entries back to object
+const objFromEntries = Object.fromEntries(entries);
+console.log('7:', objFromEntries); // { name: 'Alice', age: 30, role: 'admin' }
+
+// 8. Get number of properties
+console.log('8: property count =', Object.keys(user).length); // 3
+
+// 9. Filter object properties (keep only strings)
+const filtered = Object.fromEntries(
+  Object.entries(user).filter(([_, value]) => typeof value === 'string')
+);
+console.log('9:', filtered); // { name: 'Alice', role: 'admin' }
+
+// 10. Map over entries to transform values
+const uppercased = Object.fromEntries(
+  Object.entries(user).map(([key, value]) =>
+    [key, typeof value === 'string' ? value.toUpperCase() : value]
+  )
+);
+console.log('10:', uppercased); // { name: 'ALICE', age: 30, role: 'ADMIN' }
+
+// 11. Get first key-value pair (manually)
+const [firstKey, firstValue] = Object.entries(user)[0];
+console.log('11:', firstKey, firstValue); // name Alice
+
+
+
+
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
