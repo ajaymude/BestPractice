@@ -166,39 +166,10 @@ console.log(typeof true);
 
 
 
-// falsy value 
-
-false
-0
--0
-0n         // BigInt zero
-""         // Empty string
-null
-undefined
-NaN
-
-
-
-// truthy value 
-
-true
-{}          // empty object
-[]          // empty array
-"0"         // non-empty string
-"false"     // non-empty string
-42          // any non-zero number
--42         // negative number
-3.14        // float
-"hello"     // non-empty string
-Infinity
--Infinity
-function() {}  // any function
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 // 05 - Type Conversion
 
@@ -224,7 +195,6 @@ const s = x.__proto__
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 // 06 - Types of Operators in JavaScript
 
@@ -289,7 +259,6 @@ console.log(canVote); // "Yes"
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
 // 07 - Operator Precedence in JavaScript
 
 // Operator precedence determines the order in which expressions are evaluated. 
@@ -329,15 +298,6 @@ console.log((true || false) && false); // false (Parentheses change execution or
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
-
-
-
-
-
-
 // 08 - if, else if, and else in JavaScript
 
 // if
@@ -376,20 +336,15 @@ console.log(message);
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 
-// 11 - Template Literals in JavaScript 
+// 10 - Strings and Template Literals in JavaScript  
 // let name = "Ajay";
 console.log(`Hello, ${name}!`);
 
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
-
-
-
-
-
-// 12 - Truthy and Falsy Values in JavaScript
+// 11 - Truthy and Falsy Values in JavaScript
 
 // 1️⃣ Falsy Values
 // A value is falsy if it converts to false when evaluated in a boolean context.
@@ -421,6 +376,34 @@ console.log(`Hello, ${name}!`);
 // Functions	            if (function() {}) {...}
 
 
+// falsy value 
+
+false
+0
+-0
+0n         // BigInt zero
+""         // Empty string
+null
+undefined
+NaN
+
+
+
+// truthy value 
+
+true
+{}          // empty object
+[]          // empty array
+"0"         // non-empty string
+"false"     // non-empty string
+42          // any non-zero number
+-42         // negative number
+3.14        // float
+"hello"     // non-empty string
+Infinity
+-Infinity
+function() {}  // any function
+
 
 console.log(Boolean(0));        // ❌ false (Falsy)
 console.log(Boolean(""));       // ❌ false (Falsy)
@@ -428,16 +411,11 @@ console.log(Boolean("Hello"));  // ✅ true (Truthy)
 console.log(Boolean([]));       // ✅ true (Truthy)
 console.log(Boolean({}));       // ✅ true (Truthy)
 
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
-
-
-
-
-
-// 13 - Equality Operators (== vs ===) in JavaScript
+// 12 - Equality Operators (== vs ===) in JavaScript
 
 // Operator     	Name	                Type	        Behavior
 // == 	        Loose Equality	            Non-strict	    Converts types before comparing
@@ -449,16 +427,11 @@ console.log(Boolean({}));       // ✅ true (Truthy)
 // !=	Loose Inequality	Converts types before comparing
 // !==	Strict Inequality	Compares both value and type
 
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
-
-
-
-
-
-// 14 - Switch Statement
+// 13 - Switch Statement
 
 let fruit = "apple";
 
@@ -487,16 +460,16 @@ switch (day) {
     case "monday":
         console.log("Start of the workweek.");
         break;
-    default:
+        default:
         console.log("It's a weekday.");
-}
-
-
-// Switch Without break (Fall-through)
-// let num = 2;
-
-switch (num) {
-    case 1:
+      }
+      
+      
+      // Switch Without break (Fall-through)
+      // let num = 2;
+      
+      switch (num) {
+        case 1:
         console.log("One");
     case 2:
         console.log("Two");
@@ -506,17 +479,12 @@ switch (num) {
         console.log("Default case");
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 
+// 14 -Boolean logic
 
-
-
-
-
-
-
-
-// 15 -Boolean logic
- 
 console.log(true && true);   // true
 console.log(true && false);  // false
 console.log(5 > 3 && 10 < 20); // true (both conditions are true)
@@ -536,33 +504,24 @@ console.log("Hello" || 42); // "Hello" (stops at first truthy value)
 console.log(0 || false || "Yes"); // "Yes" (last truthy value)
 
 
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
-
-
-
-
-// 16 - Nullish Coalescing
+// 15 - Nullish Coalescing
 // The ?? operator returns the first defined value (not null or undefined).
 
 // let name = null;
 console.log(name ?? "Guest"); // "Guest" (null is ignored)
 
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
-
-
-
-
-
-// 17 js update 
+// 16 js update 
 /*
 ========================================
-   JavaScript Updates by Year
+JavaScript Updates by Year
 ========================================
 */
 
@@ -575,7 +534,7 @@ console.log(name ?? "Guest"); // "Guest" (null is ignored)
 // ES6 / ES2015 (2015) - Major Update
 // - let & const (Block-scoped variables)
 // - Arrow Functions =>
-// - Template Literals `Hello ${name}`
+  // - Template Literals `Hello ${name}`
 // - Default Parameters (function greet(name = "Guest"))
 // - Spread & Rest Operator (...array)
 // - Destructuring Assignment
@@ -635,16 +594,11 @@ console.log(name ?? "Guest"); // "Guest" (null is ignored)
 
 // More updates will be added as JavaScript evolves!
 
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
-
-
-
-
-
-// 18 - What is Strict Mode?
+// 17 - What is Strict Mode?
 // Strict mode is a feature in JavaScript that helps catch common coding mistakes and unsafe actions.
 //  It enforces a stricter set of rules, making JavaScript more secure and optimized.
 
@@ -653,15 +607,11 @@ console.log(name ?? "Guest"); // "Guest" (null is ignored)
 // let x = 10;
 console.log(x); // ✅ Works fine
 
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
-
-
-
-
-// 19 functions 
+// 18 functions 
 
 // Function Declaration
 function greet() {
@@ -674,39 +624,63 @@ greet(); // Output: Hello, Ajay!
 function add(a, b) {
     return a + b;
   }
-console.log(add(5, 3)); // Output: 8
+console.log(add(5, 3)); // Output: 8 argument 
 
 
 // Function Expression
 const multiply = function(x, y) {
-    return x * y;
-  };
-  console.log(multiply(4, 5)); // Output: 20
+  return x * y;
+};
+console.log(multiply(4, 5)); // Output: 20
   
 
 //   Arrow Function (ES6)
 const subtract = (a, b) => a - b;
 console.log(subtract(10, 4)); // Output: 6
 
+// 1. Arrow function with multiple parameters and a block body
+const add = (a, b) => {
+  return a + b;
+};
+console.log("add(2, 3):", add(2, 3)); // 5
+
+// 2. Arrow function with multiple parameters and implicit return
+const multiply = (a, b) => a * b;
+console.log("multiply(4, 5):", multiply(4, 5)); // 20
+
+// 3. Arrow function with a single parameter (no parentheses)
+const square = x => x * x;
+console.log("square(6):", square(6)); // 36
+
+// 4. Arrow function with no parameters
+const greet = () => console.log("Hello!");
+greet(); // Hello!
+
+// 5. Arrow function returning an object (wrapped in parentheses)
+const getUser = () => ({ name: "Alice", age: 25 });
+console.log("getUser():", getUser()); // { name: "Alice", age: 25 }
+
+
+
 
 // IIFE (Immediately Invoked Function Expression)
 (function() {
-    console.log("IIFE executed!");
+  console.log("IIFE executed!");
   })();
 
 
 // Function with Default Parameters
 function greet(name = "Guest") {
-    console.log(`Hello, ${name}!`);
-  }
-  greet();        // Output: Hello, Guest!
-  greet("Ajay"); // Output: Hello, Ajay!
+  console.log(`Hello, ${name}!`);
+}
+greet();        // Output: Hello, Guest!
+greet("Ajay"); // Output: Hello, Ajay!
 
 
 // Rest Parameters (...)
 function sum(...numbers) {
-    return numbers.reduce((acc, num) => acc + num, 0);
-  }
+  return numbers.reduce((acc, num) => acc + num, 0);
+}
   console.log(sum(1, 2, 3, 4, 5)); // Output: 15
 
   
@@ -716,63 +690,60 @@ function process(callback) {
     callback();
   }
   process(() => console.log("Callback executed!"));
-
   
-// Higher-Order Function
-//A function that takes another function as a parameter or returns a function.
-
+  
+  // Higher-Order Function
+  //A function that takes another function as a parameter or returns a function.
+  
 function operate(fn, a, b) {
     return fn(a, b);
   }
   console.log(operate((x, y) => x * y, 3, 4)); // Output: 12
-
+  
   
 // Recursive Function
 //A function that calls itself.
 function factorial(n) {
-    return n === 0 ? 1 : n * factorial(n - 1);
-  }
-  console.log(factorial(5)); // Output: 120
+  return n === 0 ? 1 : n * factorial(n - 1);
+}
+console.log(factorial(5)); // Output: 120
 
 
 
 // // Example object
-// const person = {
-//   name: "Ajay",
-//   greet: function(city, country) {
-//     console.log(`Hello, my name is ${this.name} and I live in ${city}, ${country}.`);
-//   }
-// };
+const person = {
+  name: "Ajay",
+  greet: function(city, country) {
+      console.log(`Hello, my name is ${this.name} and I live in ${city}, ${country}.`);
+    }
+};
 
 // // Another object
-// const anotherPerson = {
-//   name: "Soham"
-// };
-
-// // -------- Using call --------
-// person.greet.call(anotherPerson, "Mumbai", "India");
-// // Output: Hello, my name is Soham and I live in Mumbai, India.
-
-// // -------- Using apply --------
-// person.greet.apply(anotherPerson, ["Pune", "India"]);
-// // Output: Hello, my name is Soham and I live in Pune, India.
-
-// // -------- Using bind --------
-// const boundGreet = person.greet.bind(anotherPerson, "Delhi", "India");
-// boundGreet(); 
-// // Output: Hello, my name is Soham and I live in Delhi, India.
-
+const anotherPerson = {
+    name: "Soham"
+  };
   
+  // -------- Using call --------
+person.greet.call(anotherPerson, "Mumbai", "India");
+// Output: Hello, my name is Soham and I live in Mumbai, India.
+
+// -------- Using apply --------
+person.greet.apply(anotherPerson, ["Pune", "India"]);
+// Output: Hello, my name is Soham and I live in Pune, India.
+
+// -------- Using bind --------
+const boundGreet = person.greet.bind(anotherPerson, "Delhi", "India");
+boundGreet(); 
+// Output: Hello, my name is Soham and I live in Delhi, India.
 
 
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
-
-
-
-
-// 20 - loops 
+// 19 - loops 
 
 // 1️⃣ for loop
 // for (let i = 1; i <= 5; i++) {

@@ -1,19 +1,14 @@
 // 01 - Creating an Array
-// 02 -  Accessing Array Elements
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
-
-
-
-// JavaScript Arrays
+// 01 - array operations , 
+//      creating, accessing , modify, properties, destructuring, skipping , default value 
+//      swap value , rest operator , nesting , for of 
 
 // 01 - Creating an Array
-
-const arr = new Array("a","a","b");
-
 
 let fruits = ["Apple", "Banana", "Cherry"];
 console.log(fruits); // ["Apple", "Banana", "Cherry"]
@@ -21,105 +16,89 @@ console.log(fruits); // ["Apple", "Banana", "Cherry"]
 let numbers = new Array(1, 2, 3, 4);
 console.log(numbers); // [1, 2, 3, 4]
 
-
-
-
 // 02 -  Accessing Array Elements
-
 // let fruits = ["Apple", "Banana", "Cherry"];
 console.log(fruits[0]); // Apple
 console.log(fruits[1]); // Banana
 console.log(fruits[2]); // Cherry
 
-
-//  Modifying Array Elements
+// 03 - Modifying Array Elements
 fruits[1] = "Blueberry";
 console.log(fruits); // ["Apple", "Blueberry", "Cherry"]
 
-
-// Array Properties
+// 04 - Array Properties
 console.log(fruits.length); // 3
 
+// 05 - Basic Array Destructuring
+const numbers = [10, 20, 30];
+const [a, b, c] = numbers;
+
+console.log(a); // 10
+console.log(b); // 20
+console.log(c); // 30
+
+// 06 - Skipping Elements
+const numbers = [1, 2, 3, 4, 5];
+const [first, , third] = numbers;
+
+console.log(first); // 1
+console.log(third); // 3
+
+// 07 - Default Values
+const numbers = [100];
+const [x, y = 200] = numbers;
+
+console.log(x); // 100
+console.log(y); // 200 (default value)
 
 
+// 8 swap the variable 
+let a = 5, b = 10;
+[a, b] = [b, a];
 
-// Basic Array Destructuring
-// const numbers = [10, 20, 30];
-// const [a, b, c] = numbers;
+console.log(a); // 10
+console.log(b); // 5
 
-// console.log(a); // 10
-// console.log(b); // 20
-// console.log(c); // 30
-
-
-
-// Skipping Elements
-// const numbers = [1, 2, 3, 4, 5];
-// const [first, , third] = numbers;
-
-// console.log(first); // 1
-// console.log(third); // 3
-
-
-
-// Default Values
-// const numbers = [100];
-// const [x, y = 200] = numbers;
-
-// console.log(x); // 100
-// console.log(y); // 200 (default value)
-
-
-
-
-// let a = 5, b = 10;
-// [a, b] = [b, a];
-
-// console.log(a); // 10
-// console.log(b); // 5
-
-
-
-
-// Using the Rest Operator (...)
+// 08 - Using the Rest Operator (...)
 const colors = ["Red", "Blue", "Green", "Yellow"];
 const [firstColor, secondColor, ...otherColors] = colors;
 
-console.log(firstColor);  // "Red"
+console.log(firstColor); // "Red"
 console.log(secondColor); // "Blue"
 console.log(otherColors); // ["Green", "Yellow"]
 
+// 09 -Nested Array Destructuring
+const numbers = [1, [2, 3], 4];
+const [one, [two, three], four] = numbers;
 
+console.log(one);   // 1
+console.log(two);   // 2
+console.log(three); // 3
+console.log(four);  // 4
 
-
-// Nested Array Destructuring
-// const numbers = [1, [2, 3], 4];
-// const [one, [two, three], four] = numbers;
-
-// console.log(one);   // 1
-// console.log(two);   // 2
-// console.log(three); // 3
-// console.log(four);  // 4
-
-
-
-
-// Using for...of with entries() for Index & Value
+// 10 - Using for...of with entries() for Index & Value
 const fruits = ["Apple", "Banana", "Cherry"];
 
 for (const [index, fruit] of fruits.entries()) {
-    console.log(`Index: ${index}, Fruit: ${fruit}`);
+  console.log(`Index: ${index}, Fruit: ${fruit}`);
 }
 
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
-
-
-
-
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
 
 // JavaScript Array Methods Categorized by Use Case
 
@@ -170,54 +149,34 @@ let fruits = ["Apple", "Banana", "Cherry"];
 // 30. console.log(nestedArray.flat(2)); // Flatten nested arrays
 // 31. console.log(numbers.toSpliced(2, 1, 99)); // Immutable splice
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 
 // Array.isArray() is a built-in JavaScript method used to check if a value is an array
-console.log(Array.isArray([1, 2, 3]));       // true
-console.log(Array.isArray('hello'));        // false
-console.log(Array.isArray({ a: 1 }));       // false
-console.log(Array.isArray(new Array()));    // true
-console.log(Array.isArray(undefined));      // false
-console.log(Array.isArray(null));           // false
-
-
-
+console.log(Array.isArray([1, 2, 3])); // true
+console.log(Array.isArray("hello")); // false
+console.log(Array.isArray({ a: 1 })); // false
+console.log(Array.isArray(new Array())); // true
+console.log(Array.isArray(undefined)); // false
+console.log(Array.isArray(null)); // false
 
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 
-const arr = Array.from([1, 2, 3], x => x * 2);
+const arr = Array.from([1, 2, 3], (x) => x * 2);
 console.log(arr); // Output: [2, 4, 6]
 
-
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 
-const colors = ['red', 'green', 'blue', 'yellow'];
+const colors = ["red", "green", "blue", "yellow"];
 
-console.log(colors.at(0));   // 'red'
-console.log(colors.at(2));   // 'blue'
-console.log(colors.at(-1));  // 'yellow' (last element)
-console.log(colors.at(-2));  // 'blue'
-
-
-
-
+console.log(colors.at(0)); // 'red'
+console.log(colors.at(2)); // 'blue'
+console.log(colors.at(-1)); // 'yellow' (last element)
+console.log(colors.at(-2)); // 'blue'
 
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -230,7 +189,6 @@ const result = str.replace("apple", "mango");
 console.log(result);
 // Output: "mango banana apple orange"
 
-
 // ✅ 2. .replaceAll() — Replaces all matches
 
 const str = "apple banana apple orange";
@@ -239,10 +197,6 @@ const result = str.replaceAll("apple", "mango");
 console.log(result);
 // Output: "mango banana mango orange"
 
-
-
-
-
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -288,5 +242,3 @@ console.log(result);
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
-
-
