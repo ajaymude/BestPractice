@@ -1,10 +1,7 @@
-// javascript  introduction
-
-
 // 01 - Hello world in js 
 // 02 - way of writing js in html
 // 03 - variable
-// 04 - Data type in js 
+// 04 - Data type in js and the truthy and falsy value 
 // 05 - Type Conversion
 // 06 - Types of Operators in JavaScript
 // 07 - Operator Precedence in JavaScript
@@ -36,27 +33,6 @@
 // 33 - Types of the error in the js 
 // 34 - timer 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -77,7 +53,7 @@ document.getElementById("demo").innerText = "Hello, World!";
 // 1 - inside html element 
 <button onclick="alert('Hello, World!')">Click Me</button>
 
-// 2 - in page 
+// 2 - in html page 
     <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -134,7 +110,7 @@ document.getElementById("demo").innerText = "Hello, World!";
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-// 04 - Data type in js 
+// 04 - Data type in js and the truthy and falsy value 
 
 // JavaScript has two main categories of data types:
 // 1️⃣ Primitive Data Types (Immutable, stored by value)
