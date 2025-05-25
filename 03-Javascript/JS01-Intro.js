@@ -205,10 +205,7 @@ function() {}  // any function
 // coercion refers to the automatic or implicit conversion
 //  of values from one data type to another.
 
-// Implicit (Type Coercion)
-// JavaScript automatically converts types in some cases
-
-// 
+// coercion 
 console.log("5" + 2);  // "52" (string + number → string)
 console.log("5" - 2);  // 3 (string - number → number)
 console.log("5" * 2);  // 10 (string * number → number)
