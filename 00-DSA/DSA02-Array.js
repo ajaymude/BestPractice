@@ -2377,6 +2377,151 @@ tests.forEach(({ input }, i) => {
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
+// 📌 Problem: Find the kth largest element in an unsorted array.
+// Return the kth largest element (not distinct). Cannot use full sort.
+
+// 🧪 Examples:
+// 1️⃣ Input: nums = [3,2,1,5,6,4], k = 2       ➞ Output: 5
+// 2️⃣ Input: nums = [3,2,3,1,2,4,5,5,6], k = 4 ➞ Output: 4
+
+const nums1 = [3, 2, 1, 5, 6, 4], k1 = 2;        // ➞ 5
+const nums2 = [3, 2, 3, 1, 2, 4, 5, 5, 6], k2 = 4;// ➞ 4
+
+// ✅ 1. Sort and index (simple, but not allowed)
+function kthLargestSort(nums, k) {
+  return [...nums].sort((a, b) => b - a)[k - 1];
+}
+
+// ✅ 2. Min Heap of size k
+function kthLargestMinHeap(nums, k) {
+  const heap = [];
+  for (const num of nums) {
+    if (heap.length < k) heap.push(num);
+    else {
+      let min = Math.min(...heap);
+      if (num > min) {
+        heap.splice(heap.indexOf(min), 1);
+        heap.push(num);
+      }
+    }
+  }
+  return Math.min(...heap);
+}
+
+// ✅ 3. Quickselect (Best in practice)
+function kthLargestQuickSelect(nums, k) {
+  const target = nums.length - k;
+  function quickSelect(l, r) {
+    const pivot = nums[r], p = l;
+    for (let i = l; i < r; i++) if (nums[i] <= pivot) [nums[i], nums[p++]] = [nums[p], nums[i]];
+    [nums[p], nums[r]] = [nums[r], nums[p]];
+    if (p === target) return nums[p];
+    return p < target ? quickSelect(p + 1, r) : quickSelect(l, p - 1);
+  }
+  return quickSelect(0, nums.length - 1);
+}
+
+// ✅ 4. Max Heap (negate values)
+function kthLargestMaxHeap(nums, k) {
+  let arr = nums.map(n => -n);
+  arr.sort((a, b) => a - b);
+  return -arr[k - 1];
+}
+
+// ✅ 5. Using Partial Sort (nth_element style)
+function kthLargestPartialSort(nums, k) {
+  return nums.sort((a, b) => b - a).slice(k - 1, k)[0];
+}
+
+// ✅ 6. Counting Sort (if values are small)
+function kthLargestCounting(nums, k) {
+  const offset = 10000;
+  const count = new Array(20001).fill(0);
+  for (let n of nums) count[n + offset]++;
+  for (let i = 20000; i >= 0; i--) {
+    k -= count[i];
+    if (k <= 0) return i - offset;
+  }
+}
+
+// ✅ 7. Using built-in Min Heap (if available, simulated here)
+function kthLargestSimulatedHeap(nums, k) {
+  const heap = [];
+  for (let num of nums) {
+    heap.push(num);
+    heap.sort((a, b) => a - b);
+    if (heap.length > k) heap.shift();
+  }
+  return heap[0];
+}
+
+// ✅ 8. Brute-force Top K
+function kthLargestBrute(nums, k) {
+  let top = [];
+  for (let n of nums) {
+    if (top.length < k) top.push(n);
+    else {
+      const min = Math.min(...top);
+      if (n > min) {
+        top.splice(top.indexOf(min), 1);
+        top.push(n);
+      }
+    }
+  }
+  return Math.min(...top);
+}
+
+// ✅ 9. Recursive Quickselect (alt form)
+function kthLargestQuickRecursive(nums, k) {
+  const target = nums.length - k;
+  const quick = arr => {
+    const pivot = arr[0], left = [], right = [];
+    for (let i = 1; i < arr.length; i++) {
+      (arr[i] < pivot ? left : right).push(arr[i]);
+    }
+    if (left.length === target) return pivot;
+    if (left.length > target) return quick(left);
+    return quick(right, target - left.length - 1);
+  };
+  return quick(nums);
+}
+
+// ✅ 10. Bucket sort method (bounded values)
+function kthLargestBucket(nums, k) {
+  const map = new Map();
+  for (let n of nums) map.set(n, (map.get(n) || 0) + 1);
+  const sorted = [...map.entries()].sort((a, b) => b[0] - a[0]);
+  for (let [val, freq] of sorted) {
+    if (k <= freq) return val;
+    k -= freq;
+  }
+}
+
+// 🔍 BEST METHOD: Quickselect is best for average O(n) and no extra space.
+
+// 🧪 Output Results
+const testCases = [
+  { nums: nums1, k: k1 },
+  { nums: nums2, k: k2 },
+];
+
+for (let [i, { nums, k }] of testCases.entries()) {
+  console.log(`\nExample ${i + 1}: nums = [${nums}], k = ${k}`);
+  console.log('1️⃣ Sort:              ', kthLargestSort([...nums], k));
+  console.log('2️⃣ MinHeap:           ', kthLargestMinHeap([...nums], k));
+  console.log('3️⃣ QuickSelect (Best):', kthLargestQuickSelect([...nums], k));
+  console.log('4️⃣ MaxHeap:           ', kthLargestMaxHeap([...nums], k));
+  console.log('5️⃣ Partial Sort:      ', kthLargestPartialSort([...nums], k));
+  console.log('6️⃣ Counting Sort:     ', kthLargestCounting([...nums], k));
+  console.log('7️⃣ Sim Heap:          ', kthLargestSimulatedHeap([...nums], k));
+  console.log('8️⃣ Brute Force TopK:  ', kthLargestBrute([...nums], k));
+  console.log('9️⃣ Quick Recursive:   ', kthLargestQuickRecursive([...nums], k));
+  console.log('10⃣ Bucket Sort:        ', kthLargestBucket([...nums], k));
+}
+
+
+
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
