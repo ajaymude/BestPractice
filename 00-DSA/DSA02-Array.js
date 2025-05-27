@@ -2524,6 +2524,129 @@ for (let [i, { nums, k }] of testCases.entries()) {
 
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
+// 📌 Problem:
+// Given an array of unique integers salary[], return the average salary excluding min and max.
+// Answers within 10^-5 of the actual answer are accepted.
+
+// 🧪 Examples:
+// Example 1: Input: [4000,3000,1000,2000] ➞ Output: 2500.00000
+// Example 2: Input: [1000,2000,3000]     ➞ Output: 2000.00000
+
+// ✅ 1. Basic Sort Method
+function averageSalarySort(salary) {
+  salary.sort((a, b) => a - b);
+  const sliced = salary.slice(1, -1);
+  return sliced.reduce((a, b) => a + b, 0) / sliced.length;
+}
+
+// ✅ 2. One-pass Min/Max/Total
+function averageSalaryOnePass(salary) {
+  let min = Infinity, max = -Infinity, total = 0;
+  for (let sal of salary) {
+    min = Math.min(min, sal);
+    max = Math.max(max, sal);
+    total += sal;
+  }
+  return (total - min - max) / (salary.length - 2);
+}
+
+// ✅ 3. Using Math.min/max + filter
+function averageSalaryFilter(salary) {
+  const min = Math.min(...salary);
+  const max = Math.max(...salary);
+  const filtered = salary.filter(s => s !== min && s !== max);
+  return filtered.reduce((a, b) => a + b, 0) / filtered.length;
+}
+
+// ✅ 4. Using reduce to find min/max/total in one go
+function averageSalaryReduce(salary) {
+  const { min, max, total } = salary.reduce((acc, val) => {
+    acc.total += val;
+    acc.min = Math.min(acc.min, val);
+    acc.max = Math.max(acc.max, val);
+    return acc;
+  }, { min: Infinity, max: -Infinity, total: 0 });
+  return (total - min - max) / (salary.length - 2);
+}
+
+// ✅ 5. Using forEach instead of for-of
+function averageSalaryForEach(salary) {
+  let min = Infinity, max = -Infinity, sum = 0;
+  salary.forEach(s => {
+    if (s < min) min = s;
+    if (s > max) max = s;
+    sum += s;
+  });
+  return (sum - min - max) / (salary.length - 2);
+}
+
+// ✅ 6. Recursive solution (for demonstration)
+function averageSalaryRecursive(salary, i = 0, sum = 0, min = Infinity, max = -Infinity) {
+  if (i === salary.length) return (sum - min - max) / (salary.length - 2);
+  return averageSalaryRecursive(salary, i + 1, sum + salary[i], Math.min(min, salary[i]), Math.max(max, salary[i]));
+}
+
+// ✅ 7. Functional-style chain
+function averageSalaryChain(salary) {
+  const min = Math.min(...salary);
+  const max = Math.max(...salary);
+  return salary
+    .filter(s => s !== min && s !== max)
+    .reduce((a, b) => a + b, 0) / (salary.length - 2);
+}
+
+// ✅ 8. Manual min/max pass, then filter
+function averageSalaryManualFilter(salary) {
+  let min = salary[0], max = salary[0];
+  for (let s of salary) {
+    if (s < min) min = s;
+    if (s > max) max = s;
+  }
+  let sum = 0, count = 0;
+  for (let s of salary) {
+    if (s !== min && s !== max) {
+      sum += s;
+      count++;
+    }
+  }
+  return sum / count;
+}
+
+// ✅ 9. Using Math.min/max with Set (inefficient but different)
+function averageSalaryWithSet(salary) {
+  const unique = new Set(salary);
+  unique.delete(Math.min(...salary));
+  unique.delete(Math.max(...salary));
+  let sum = 0;
+  for (let val of unique) sum += val;
+  return sum / unique.size;
+}
+
+// ✅ 10. Sort + pop + shift (mutating array)
+function averageSalaryShiftPop(salary) {
+  salary.sort((a, b) => a - b);
+  salary.pop();
+  salary.shift();
+  return salary.reduce((a, b) => a + b, 0) / salary.length;
+}
+
+// 🧪 TEST CASES
+const testCases = [
+  [4000, 3000, 1000, 2000],   // 2500
+  [1000, 2000, 3000],        // 2000
+  [6000, 1000, 4000, 3000],  // 3500
+];
+
+testCases.forEach((tc, i) => {
+  console.log(`Example ${i + 1}:`, averageSalaryOnePass([...tc]).toFixed(5));
+});
+
+// ⭐ Best Solution: averageSalaryOnePass → O(n) time, O(1) space, no mutation
+// 🧠 We provided 10+ different ways to solve this
+
+
+
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
