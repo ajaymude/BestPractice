@@ -2650,6 +2650,107 @@ testCases.forEach((tc, i) => {
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
+// 📌 Problem: Implement a LIFO stack using only queues.
+// Class: MyStack()
+// Methods:
+// - push(x): Push element x to stack
+// - pop(): Remove and return the top element
+// - top(): Return top element
+// - empty(): Return true if stack is empty
+
+// 🧪 Example:
+// ["MyStack", "push", "push", "top", "pop", "empty"]
+// [[],        [1],    [2],    [],     [],    []]
+// Output: [null, null, null,   2,      2,    false]
+
+// ✅ Solution 1: Using Two Queues
+class MyStack {
+  constructor() {
+    this.q1 = [];
+    this.q2 = [];
+  }
+
+  push(x) {
+    // Push to q2, then move everything from q1 to q2, then swap
+    this.q2.push(x);
+    while (this.q1.length) {
+      this.q2.push(this.q1.shift());
+    }
+    [this.q1, this.q2] = [this.q2, this.q1];
+  }
+
+  pop() {
+    return this.q1.shift();
+  }
+
+  top() {
+    return this.q1[0];
+  }
+
+  empty() {
+    return this.q1.length === 0;
+  }
+}
+
+// ✅ Follow-Up: Using One Queue (rotate on push)
+class MyStackSingleQueue {
+  constructor() {
+    this.q = [];
+  }
+
+  push(x) {
+    this.q.push(x);
+    for (let i = 0; i < this.q.length - 1; i++) {
+      this.q.push(this.q.shift());
+    }
+  }
+
+  pop() {
+    return this.q.shift();
+  }
+
+  top() {
+    return this.q[0];
+  }
+
+  empty() {
+    return this.q.length === 0;
+  }
+}
+
+// 🧪 Run both versions with example input
+const runExample = (StackClass) => {
+  const stack = new StackClass();
+  stack.push(1);
+  stack.push(2);
+  console.log(stack.top());   // ➜ 2
+  console.log(stack.pop());   // ➜ 2
+  console.log(stack.empty()); // ➜ false
+};
+
+console.log("🧪 Two Queue Implementation:");
+runExample(MyStack);
+
+console.log("🧪 One Queue Implementation:");
+runExample(MyStackSingleQueue);
+
+/*
+💡 Best Way:
+➡️ Use one queue (rotate during push) to save space.
+➡️ Time complexity remains O(n) for push, O(1) for others.
+
+📊 How many ways? ✅ At least 2:
+1. Using two queues (swap-based)
+2. Using one queue (rotation-based)
+
+🧵 Summary:
+Example 1 (Two Queues): ✔ Simple logic, but uses more space.
+Example 2 (One Queue): ✅ Best way — more efficient on memory and elegant rotation trick.
+Best = Example 2 ✅
+*/
+
+
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
