@@ -2754,6 +2754,143 @@ Best = Example 2 ✅
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
+/* 
+❖ Problem: Remove duplicates from sorted array in-place.
+  Input: nums = [1,1,2]
+  Output: 2, nums = [1,2,_]
+
+  Input: nums = [0,0,1,1,1,2,2,3,3,4]
+  Output: 5, nums = [0,1,2,3,4,_,_,_,_,_]
+*/
+
+const examples = [
+  [1, 1, 2],                            // #1
+  [0, 0, 1, 1, 1, 2, 2, 3, 3, 4],       // #2
+];
+
+// 1. Two-pointer (✔ Best)
+function removeDuplicatesTwoPointer(nums) {
+  let i = 0;
+  for (let j = 1; j < nums.length; j++)
+    if (nums[j] !== nums[i]) nums[++i] = nums[j];
+  return i + 1;
+}
+
+// 2. Using Set (not in-place truly)
+function removeDuplicatesSet(nums) {
+  let unique = [...new Set(nums)];
+  for (let i = 0; i < unique.length; i++) nums[i] = unique[i];
+  return unique.length;
+}
+
+// 3. Manual copy with temp array
+function removeDuplicatesManual(nums) {
+  let temp = [], k = 0;
+  for (let i = 0; i < nums.length; i++)
+    if (nums[i] !== nums[i - 1]) temp[k++] = nums[i];
+  for (let i = 0; i < k; i++) nums[i] = temp[i];
+  return k;
+}
+
+// 4. While loop pointer
+function removeDuplicatesWhile(nums) {
+  let i = 0, j = 1;
+  while (j < nums.length) {
+    if (nums[i] !== nums[j]) nums[++i] = nums[j];
+    j++;
+  }
+  return i + 1;
+}
+
+// 5. Recursion
+function removeDuplicatesRecursive(nums, i = 0, k = 1) {
+  if (i >= nums.length - 1) return k;
+  if (nums[i] !== nums[i + 1]) nums[k++] = nums[i + 1];
+  return removeDuplicatesRecursive(nums, i + 1, k);
+}
+
+// 6. Filter + index check (not truly in-place)
+function removeDuplicatesFilter(nums) {
+  let k = nums.filter((v, i, a) => i === 0 || v !== a[i - 1]);
+  for (let i = 0; i < k.length; i++) nums[i] = k[i];
+  return k.length;
+}
+
+// 7. ForEach tracking
+function removeDuplicatesForEach(nums) {
+  let last, k = 0;
+  nums.forEach(n => {
+    if (n !== last) nums[k++] = last = n;
+  });
+  return k;
+}
+
+// 8. Map simulation (not map obj)
+function removeDuplicatesMapStyle(nums) {
+  let map = {}, k = 0;
+  for (let n of nums) {
+    if (!map[n]) {
+      map[n] = 1;
+      nums[k++] = n;
+    }
+  }
+  return k;
+}
+
+// 9. Using reduce (not in-place)
+function removeDuplicatesReduce(nums) {
+  let res = nums.reduce((acc, cur) => {
+    if (acc.at(-1) !== cur) acc.push(cur);
+    return acc;
+  }, []);
+  for (let i = 0; i < res.length; i++) nums[i] = res[i];
+  return res.length;
+}
+
+// 10. Using splice inside loop
+function removeDuplicatesSplice(nums) {
+  let i = 1;
+  while (i < nums.length)
+    if (nums[i] === nums[i - 1]) nums.splice(i, 1);
+    else i++;
+  return nums.length;
+}
+
+// 11. In-place overwrite after filtering
+function removeDuplicatesOverwrite(nums) {
+  let k = 0;
+  for (let i = 0; i < nums.length; i++)
+    if (i === 0 || nums[i] !== nums[i - 1]) nums[k++] = nums[i];
+  return k;
+}
+
+// ✅ Run all methods on both examples
+const methods = [
+  removeDuplicatesTwoPointer, removeDuplicatesSet, removeDuplicatesManual, 
+  removeDuplicatesWhile, removeDuplicatesRecursive, removeDuplicatesFilter,
+  removeDuplicatesForEach, removeDuplicatesMapStyle, removeDuplicatesReduce,
+  removeDuplicatesSplice, removeDuplicatesOverwrite
+];
+
+examples.forEach((ex, idx) => {
+  console.log(`\nExample #${idx + 1}: Input = [${[...ex]}]`);
+  methods.forEach((fn, i) => {
+    let copy = [...ex];
+    let k = fn(copy);
+    console.log(` ${i + 1}. ${fn.name} → k=${k}, nums=[${copy.slice(0, k)}]`);
+  });
+});
+
+/*
+✓ Best Way: #1 Two-pointer (Example solution 1) 
+Reason: true in-place, O(n) time, O(1) space, clean & optimal.
+✓ Total Ways Shown: 11
+✓ All Output Printed with Input & Index
+✓ Fits in One Screen
+*/
+
+
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
