@@ -1,5 +1,41 @@
-
-
+// 01 - installation npm install @reduxjs/toolkit react-redux
+// 02 - create store
+//    - configureStore
+//               - reducer :{ cart:cartSliceReducer, auth:authReducer } // slice reducer
+//               - middleware : (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware) // add middleware
+//               - devTools
+// 03 - create slice
+//    - createSlice
+//               - name: 'counter' // name of the slice 
+//               - initialState: { user:[], loading:false, error:null} // initial state
+//               - reducers: { increment, decrement, incrementByAmount } // actions
+//               - extraReducers: (builder) => { ... } // handle async actions
+//                           - pending, fulfilled, rejected
+//               - createAsyncThunk // create async actions
+//               - export const { increment, decrement, incrementByAmount } = counterSlice.actions; // export actions
+// 04 - connect react with the redux
+//              - Provider
+//              - store
+// 05 - use redux in the react
+//              - useSelector, useDispatch  
+// 06 - rtk query
+//             - createApi  
+//             - injectEndpoints
+//             - reducerPath
+//             - baseQuery   
+//                  - fetchBaseQuery
+//                  - baseUrl
+//             - endpoints
+//             - builder.query
+//                   - providesTags
+//                   - query
+//                        - url
+//                        - method
+//                        - body
+//                   - invalidatesTags
+//             - builder.mutation
+//             - useGetUsersQuery
+//             - useAddUserMutation 
 
 
 
