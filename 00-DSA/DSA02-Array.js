@@ -2894,6 +2894,136 @@ Reason: true in-place, O(n) time, O(1) space, clean & optimal.
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
+/*
+❖ Problem: Merge sorted arrays nums1 and nums2 into nums1.
+   - nums1 has extra space (size m+n) to hold elements of nums2.
+   - Modify nums1 in-place to contain the merged sorted array.
+
+✳ Examples:
+1. nums1=[1,2,3,0,0,0], m=3, nums2=[2,5,6], n=3 → [1,2,2,3,5,6]
+2. nums1=[1], m=1, nums2=[], n=0             → [1]
+3. nums1=[0], m=0, nums2=[1], n=1             → [1]
+*/
+
+// ✅ 1. Best: Two-pointer (from end, O(m+n))
+function mergeTwoPointer(nums1, m, nums2, n) {
+  let i = m - 1, j = n - 1, k = m + n - 1;
+  while (j >= 0) nums1[k--] = (i >= 0 && nums1[i] > nums2[j]) ? nums1[i--] : nums2[j--];
+}
+
+// 2. Concat + sort
+function mergeConcatSort(nums1, m, nums2, n) {
+  nums1.splice(m, n, ...nums2);
+  nums1.sort((a, b) => a - b);
+}
+
+// 3. Brute insert and shift
+function mergeInsertShift(nums1, m, nums2, n) {
+  for (let i = 0; i < n; i++) {
+    nums1[m + i] = nums2[i];
+  }
+  for (let i = 0; i < m + n - 1; i++) {
+    for (let j = 0; j < m + n - i - 1; j++) {
+      if (nums1[j] > nums1[j + 1]) [nums1[j], nums1[j + 1]] = [nums1[j + 1], nums1[j]];
+    }
+  }
+}
+
+// 4. Merge into temp then copy
+function mergeToTemp(nums1, m, nums2, n) {
+  const temp = [];
+  let i = 0, j = 0;
+  while (i < m || j < n) {
+    if (j >= n || (i < m && nums1[i] < nums2[j])) temp.push(nums1[i++]);
+    else temp.push(nums2[j++]);
+  }
+  for (let i = 0; i < m + n; i++) nums1[i] = temp[i];
+}
+
+// 5. Using while-loop from front with splice (not in-place safe)
+function mergeSpliceSorted(nums1, m, nums2, n) {
+  let merged = nums1.slice(0, m).concat(nums2).sort((a, b) => a - b);
+  merged.forEach((v, i) => nums1[i] = v);
+}
+
+// 6. In-place pop-push from end
+function mergePopPush(nums1, m, nums2, n) {
+  while (n > 0) {
+    nums1[m + n - 1] = (m > 0 && nums1[m - 1] > nums2[n - 1]) ? nums1[--m] : nums2[--n];
+  }
+}
+
+// 7. Functional flat map and sort
+function mergeFlatSort(nums1, m, nums2, n) {
+  let result = [...nums1.slice(0, m), ...nums2].sort((a, b) => a - b);
+  result.forEach((v, i) => nums1[i] = v);
+}
+
+// 8. Manual merge with unshift (inefficient)
+function mergeWithUnshift(nums1, m, nums2, n) {
+  let combined = [];
+  while (m && n) {
+    if (nums1[m - 1] > nums2[n - 1]) combined.unshift(nums1[--m]);
+    else combined.unshift(nums2[--n]);
+  }
+  while (m--) combined.unshift(nums1[m]);
+  while (n--) combined.unshift(nums2[n]);
+  combined.forEach((v, i) => nums1[i] = v);
+}
+
+// 9. For loop manual pointer
+function mergeManualLoop(nums1, m, nums2, n) {
+  const temp = [];
+  let i = 0, j = 0;
+  while (i < m && j < n) {
+    temp.push(nums1[i] < nums2[j] ? nums1[i++] : nums2[j++]);
+  }
+  while (i < m) temp.push(nums1[i++]);
+  while (j < n) temp.push(nums2[j++]);
+  for (let i = 0; i < m + n; i++) nums1[i] = temp[i];
+}
+
+// 10. Merge via push + sort
+function mergePushSort(nums1, m, nums2, n) {
+  for (let i = 0; i < n; i++) nums1[m + i] = nums2[i];
+  nums1.sort((a, b) => a - b);
+}
+
+// 🔢 Inputs
+const testCases = [
+  { nums1: [1, 2, 3, 0, 0, 0], m: 3, nums2: [2, 5, 6], n: 3 }, // #1
+  { nums1: [1], m: 1, nums2: [], n: 0 },                       // #2
+  { nums1: [0], m: 0, nums2: [1], n: 1 }                       // #3
+];
+
+// 🧪 Run all methods on all test cases
+const methods = [
+  mergeTwoPointer, mergeConcatSort, mergeInsertShift,
+  mergeToTemp, mergeSpliceSorted, mergePopPush,
+  mergeFlatSort, mergeWithUnshift, mergeManualLoop, mergePushSort
+];
+
+testCases.forEach((t, i) => {
+  console.log(`\n🔸 Example #${i + 1}: nums1=${JSON.stringify(t.nums1)}, nums2=${JSON.stringify(t.nums2)}`);
+  methods.forEach((fn, j) => {
+    const nums1Copy = [...t.nums1]; // fresh copy
+    fn(nums1Copy, t.m, t.nums2, t.n);
+    console.log(`${j + 1}. ${fn.name.padEnd(20)} → ${JSON.stringify(nums1Copy)}`);
+  });
+});
+
+/*
+✅ Best: #1 (mergeTwoPointer)
+- Time: O(m + n)
+- Space: O(1)
+- In-place, efficient, stable
+📌 Total Methods: 10
+📌 Examples: 3
+📌 Best for Example #1, #2, #3
+*/
+
+
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
