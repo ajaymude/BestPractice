@@ -3027,6 +3027,147 @@ testCases.forEach((t, i) => {
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
+/*
+❖ Problem:
+You are given an array prices where prices[i] is the price of a stock on day i.
+Buy once and sell later to maximize profit.
+Return the max profit (or 0 if no profit possible).
+
+✳ Examples:
+1. prices = [7,1,5,3,6,4] → Output: 5
+2. prices = [7,6,4,3,1]   → Output: 0
+*/
+
+// ✅ 1. Best: Track minPrice while iterating
+function maxProfitMinTrack(prices) {
+  let min = Infinity, maxProfit = 0;
+  for (let p of prices) {
+    min = Math.min(min, p);
+    maxProfit = Math.max(maxProfit, p - min);
+  }
+  return maxProfit;
+}
+
+// 2. Brute force (O(n²))
+function maxProfitBruteForce(prices) {
+  let maxProfit = 0;
+  for (let i = 0; i < prices.length; i++)
+    for (let j = i + 1; j < prices.length; j++)
+      maxProfit = Math.max(maxProfit, prices[j] - prices[i]);
+  return maxProfit;
+}
+
+// 3. Sliding window
+function maxProfitSlidingWindow(prices) {
+  let left = 0, right = 1, maxProfit = 0;
+  while (right < prices.length) {
+    if (prices[right] > prices[left])
+      maxProfit = Math.max(maxProfit, prices[right] - prices[left]);
+    else
+      left = right;
+    right++;
+  }
+  return maxProfit;
+}
+
+// 4. Kadane’s Algorithm (modified)
+function maxProfitKadane(prices) {
+  let profit = 0, curr = 0;
+  for (let i = 1; i < prices.length; i++) {
+    curr = Math.max(0, curr + prices[i] - prices[i - 1]);
+    profit = Math.max(profit, curr);
+  }
+  return profit;
+}
+
+// 5. Reduce version
+function maxProfitReduce(prices) {
+  return prices.reduce((acc, price) => {
+    acc.min = Math.min(acc.min, price);
+    acc.max = Math.max(acc.max, price - acc.min);
+    return acc;
+  }, { min: Infinity, max: 0 }).max;
+}
+
+// 6. Sort future (inefficient)
+function maxProfitSortFuture(prices) {
+  let maxProfit = 0;
+  for (let i = 0; i < prices.length - 1; i++) {
+    let futureMax = Math.max(...prices.slice(i + 1));
+    maxProfit = Math.max(maxProfit, futureMax - prices[i]);
+  }
+  return maxProfit;
+}
+
+// 7. Using map + Math.max (not efficient but creative)
+function maxProfitMap(prices) {
+  let maxProfit = 0;
+  prices.map((price, i) => {
+    for (let j = i + 1; j < prices.length; j++) {
+      maxProfit = Math.max(maxProfit, prices[j] - price);
+    }
+  });
+  return maxProfit;
+}
+
+// 8. Stack approach (not optimal here, but alternative)
+function maxProfitStack(prices) {
+  let stack = [], maxProfit = 0;
+  for (let p of prices) {
+    while (stack.length && p < stack[stack.length - 1]) stack.pop();
+    if (stack.length) maxProfit = Math.max(maxProfit, p - stack[0]);
+    else stack.push(p);
+  }
+  return maxProfit;
+}
+
+// 9. For-loop optimized
+function maxProfitLoop(prices) {
+  let min = prices[0], profit = 0;
+  for (let i = 1; i < prices.length; i++) {
+    profit = Math.max(profit, prices[i] - min);
+    min = Math.min(min, prices[i]);
+  }
+  return profit;
+}
+
+// 10. Functional min-first pass
+function maxProfitFunctional(prices) {
+  let profits = prices.map((p, i) => Math.max(...prices.slice(i + 1).map(x => x - p) || [0]));
+  return Math.max(...profits);
+}
+
+// 🔢 Examples
+const testCases = [
+  { prices: [7, 1, 5, 3, 6, 4], desc: "Example 1" },  // #1 → 5
+  { prices: [7, 6, 4, 3, 1], desc: "Example 2" }     // #2 → 0
+];
+
+// 🧪 Run all solutions
+const methods = [
+  maxProfitMinTrack, maxProfitBruteForce, maxProfitSlidingWindow,
+  maxProfitKadane, maxProfitReduce, maxProfitSortFuture,
+  maxProfitMap, maxProfitStack, maxProfitLoop, maxProfitFunctional
+];
+
+testCases.forEach((t, i) => {
+  console.log(`\n🔸 ${t.desc}: prices = ${JSON.stringify(t.prices)}`);
+  methods.forEach((fn, j) => {
+    const result = fn(t.prices);
+    console.log(`${j + 1}. ${fn.name.padEnd(24)} → ${result}`);
+  });
+});
+
+/*
+✅ Best: #1 maxProfitMinTrack (O(n), space O(1))
+📌 Total solutions: 10
+📌 Examples tested: 2
+📌 Best for Example #1 and #2
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////

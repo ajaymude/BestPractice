@@ -362,6 +362,22 @@ spellcheck: Enables spell checking.
   <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Bitmap_VS_SVG.svg" alt="SVG Example" width="200">
 
 
+    <!-- Image with usemap -->
+  <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/HTML5_logo_and_wordmark.svg" alt="HTML5 Logo" usemap="#htmlmap" width="400">
+
+  <!-- Image map definition -->
+  <map name="htmlmap">
+    <!-- Circle area (e.g., center of logo) -->
+    <area shape="circle" coords="200,150,50" href="https://developer.mozilla.org/en-US/docs/Web/HTML" alt="HTML Docs" target="_blank">
+
+    <!-- Rectangle area (e.g., bottom text) -->
+    <area shape="rect" coords="50,300,350,380" href="https://en.wikipedia.org/wiki/HTML5" alt="HTML Wikipedia" target="_blank">
+
+    <!-- Polygon area (arbitrary shape - triangle as example) -->
+    <area shape="poly" coords="100,50,150,100,50,100" href="https://www.w3.org/TR/html5/" alt="HTML5 Spec" target="_blank">
+  </map>
+
+
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 
