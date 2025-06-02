@@ -3171,6 +3171,116 @@ testCases.forEach((t, i) => {
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
+
+/*
+❖ Problem:
+Given an array where every element appears twice except one, find that single one.
+⚠ Must run in O(n) time and use only O(1) extra space.
+
+✳ Examples:
+1. nums = [2,2,1]        → Output: 1
+2. nums = [4,1,2,1,2]    → Output: 4
+3. nums = [1]            → Output: 1
+*/
+
+// ✅ 1. Best: Bitwise XOR (O(n) time, O(1) space)
+function singleNumberXOR(nums) {
+  return nums.reduce((acc, num) => acc ^ num, 0);
+}
+
+// 2. Set sum trick: 2*sum(set) - sum(array)
+function singleNumberSetSum(nums) {
+  const set = new Set(nums);
+  const setSum = [...set].reduce((a, b) => a + b, 0);
+  const totalSum = nums.reduce((a, b) => a + b, 0);
+  return 2 * setSum - totalSum;
+}
+
+// 3. Object counting (not constant space)
+function singleNumberMap(nums) {
+  const count = {};
+  for (let num of nums) count[num] = (count[num] || 0) + 1;
+  for (let key in count) if (count[key] === 1) return +key;
+}
+
+// 4. Sort and compare neighbors
+function singleNumberSort(nums) {
+  nums.sort((a, b) => a - b);
+  for (let i = 0; i < nums.length; i += 2) {
+    if (nums[i] !== nums[i + 1]) return nums[i];
+  }
+  return nums[nums.length - 1];
+}
+
+// 5. Using filter (not efficient)
+function singleNumberFilter(nums) {
+  return nums.find(x => nums.indexOf(x) === nums.lastIndexOf(x));
+}
+
+// 6. Using map count and filter
+function singleNumberMapFilter(nums) {
+  const map = new Map();
+  nums.forEach(n => map.set(n, (map.get(n) || 0) + 1));
+  return [...map.entries()].find(([k, v]) => v === 1)[0];
+}
+
+// 7. Using while loop and splice (bad idea, for variety)
+function singleNumberSplice(nums) {
+  nums.sort((a, b) => a - b);
+  while (nums.length > 1) {
+    if (nums[0] === nums[1]) nums.splice(0, 2);
+    else return nums[0];
+  }
+  return nums[0];
+}
+
+// 8. XOR manually looped
+function singleNumberXORLoop(nums) {
+  let res = 0;
+  for (let num of nums) res ^= num;
+  return res;
+}
+
+// 9. Functional filter + reduce (creative)
+function singleNumberFilterReduce(nums) {
+  return nums.reduce((acc, num) => acc ^ num, 0);
+}
+
+// 🔢 Test cases
+const testCases = [
+  { nums: [2, 2, 1], expected: 1 },         // #1
+  { nums: [4, 1, 2, 1, 2], expected: 4 },   // #2
+  { nums: [1], expected: 1 }               // #3
+];
+
+// 🧪 Run all solutions
+const methods = [
+  singleNumberXOR, singleNumberSetSum, singleNumberMap,
+  singleNumberSort, singleNumberFilter, singleNumberMapFilter,
+  singleNumberSplice, singleNumberXORLoop, singleNumberFilterReduce
+];
+
+testCases.forEach((t, i) => {
+  console.log(`\n🔹 Example #${i + 1}: nums = ${JSON.stringify(t.nums)}`);
+  methods.forEach((fn, j) => {
+    const result = fn([...t.nums]);
+    console.log(`${j + 1}. ${fn.name.padEnd(26)} → ${result}`);
+  });
+});
+
+/*
+✅ Best Method: #1 singleNumberXOR
+   - Time: O(n)
+   - Space: O(1)
+   - Simple, fast, elegant
+📌 Total Solutions: 9
+📌 Total Examples: 3
+📌 Best method for all examples: #1
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
