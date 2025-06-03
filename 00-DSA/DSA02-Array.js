@@ -3284,6 +3284,132 @@ testCases.forEach((t, i) => {
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
+/*
+❖ Problem:
+Given an array of integers, return true if any value appears at least twice, else false.
+
+✳ Examples:
+1. nums = [1,2,3,1]                 → true
+2. nums = [1,2,3,4]                 → false
+3. nums = [1,1,1,3,3,4,3,2,4,2]     → true
+*/
+
+// ✅ 1. Best: Using Set to check duplicates
+function containsDuplicateSet(nums) {
+  return new Set(nums).size !== nums.length;
+}
+
+// 2. Brute force nested loop
+function containsDuplicateBrute(nums) {
+  for (let i = 0; i < nums.length; i++)
+    for (let j = i + 1; j < nums.length; j++)
+      if (nums[i] === nums[j]) return true;
+  return false;
+}
+
+// 3. Sort and compare neighbors
+function containsDuplicateSort(nums) {
+  nums.sort((a, b) => a - b);
+  for (let i = 1; i < nums.length; i++)
+    if (nums[i] === nums[i - 1]) return true;
+  return false;
+}
+
+// 4. Using object for counting
+function containsDuplicateObj(nums) {
+  const seen = {};
+  for (let num of nums) {
+    if (seen[num]) return true;
+    seen[num] = true;
+  }
+  return false;
+}
+
+// 5. Using Map
+function containsDuplicateMap(nums) {
+  const map = new Map();
+  for (let n of nums) {
+    if (map.has(n)) return true;
+    map.set(n, true);
+  }
+  return false;
+}
+
+// 6. Using filter + some (not optimal, for variety)
+function containsDuplicateFilter(nums) {
+  return nums.some((n, i) => nums.indexOf(n) !== i);
+}
+
+// 7. Using reduce and Set
+function containsDuplicateReduce(nums) {
+  const seen = new Set();
+  return nums.reduce((dup, n) => {
+    if (dup || seen.has(n)) return true;
+    seen.add(n);
+    return false;
+  }, false);
+}
+
+// 8. Using Set in loop
+function containsDuplicateLoopSet(nums) {
+  const set = new Set();
+  for (let num of nums) {
+    if (set.has(num)) return true;
+    set.add(num);
+  }
+  return false;
+}
+
+// 9. Frequency counter with array
+function containsDuplicateFreq(nums) {
+  const freq = Array(200001).fill(0); // for range -1e5 to 1e5
+  for (let num of nums) {
+    if (freq[num + 100000]++) return true;
+  }
+  return false;
+}
+
+// 10. Using new Set and checking diff
+function containsDuplicateDiff(nums) {
+  return nums.length > new Set(nums).size;
+}
+
+// 🔢 Test cases
+const testCases = [
+  { nums: [1, 2, 3, 1], expected: true },        // #1
+  { nums: [1, 2, 3, 4], expected: false },       // #2
+  { nums: [1,1,1,3,3,4,3,2,4,2], expected: true }// #3
+];
+
+// 🧪 Run all methods
+const methods = [
+  containsDuplicateSet, containsDuplicateBrute, containsDuplicateSort,
+  containsDuplicateObj, containsDuplicateMap, containsDuplicateFilter,
+  containsDuplicateReduce, containsDuplicateLoopSet, containsDuplicateFreq,
+  containsDuplicateDiff
+];
+
+testCases.forEach((t, i) => {
+  console.log(`\n🔹 Example #${i + 1}: nums = [${t.nums}]`);
+  methods.forEach((fn, j) => {
+    const result = fn([...t.nums]);
+    console.log(`${(j + 1).toString().padStart(2)}. ${fn.name.padEnd(30)} → ${result}`);
+  });
+});
+
+/*
+✅ Best Method: #1 containsDuplicateSet
+   - Time: O(n)
+   - Space: O(n)
+   - Clean, short, efficient for modern JS
+
+📌 Total Solutions: 10
+📌 Total Examples: 3
+📌 Best for all: Example #1, Method #1
+*/
+
+
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
