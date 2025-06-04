@@ -3413,6 +3413,166 @@ testCases.forEach((t, i) => {
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
+// Problem: Given a sorted, unique array `nums`, return the smallest list of ranges that cover all numbers.
+// A range [a, b] is printed as "a->b" if a != b, or "a" if a === b.
+
+// Example 1:
+const nums1 = [0, 1, 2, 4, 5, 7];
+// Output: ["0->2","4->5","7"]
+
+// Example 2:
+const nums2 = [0, 2, 3, 4, 6, 8, 9];
+// Output: ["0","2->4","6","8->9"]
+
+// --------------------- Solutions -------------------------
+
+// 1. Using while loop (BEST: #1)
+function summaryRanges1(nums) {
+  const res = [];
+  let i = 0;
+  while (i < nums.length) {
+    let start = i;
+    while (i + 1 < nums.length && nums[i + 1] === nums[i] + 1) i++;
+    res.push(start === i ? `${nums[start]}` : `${nums[start]}->${nums[i]}`);
+    i++;
+  }
+  return res;
+}
+
+// 2. For loop with range tracking
+function summaryRanges2(nums) {
+  const res = [], n = nums.length;
+  for (let i = 0; i < n; i++) {
+    let start = nums[i];
+    while (i + 1 < n && nums[i + 1] === nums[i] + 1) i++;
+    let end = nums[i];
+    res.push(start === end ? `${start}` : `${start}->${end}`);
+  }
+  return res;
+}
+
+// 3. Functional reduce approach
+function summaryRanges3(nums) {
+  return nums.reduce((acc, val, i) => {
+    if (!i || val !== nums[i - 1] + 1) acc.push([val]);
+    else acc[acc.length - 1][1] = val;
+    return acc;
+  }, []).map(([a, b]) => b === undefined ? `${a}` : `${a}->${b}`);
+}
+
+// 4. Using two pointers
+function summaryRanges4(nums) {
+  const res = [];
+  let start = 0;
+  for (let i = 1; i <= nums.length; i++) {
+    if (nums[i] !== nums[i - 1] + 1) {
+      const end = i - 1;
+      res.push(start === end ? `${nums[start]}` : `${nums[start]}->${nums[end]}`);
+      start = i;
+    }
+  }
+  return res;
+}
+
+// 5. Map from entries and convert
+function summaryRanges5(nums) {
+  const output = [], len = nums.length;
+  for (let i = 0; i < len;) {
+    let start = nums[i];
+    while (i + 1 < len && nums[i + 1] === nums[i] + 1) i++;
+    output.push(start === nums[i] ? `${start}` : `${start}->${nums[i]}`);
+    i++;
+  }
+  return output;
+}
+
+// 6. Recursive approach
+function summaryRanges6(nums, i = 0, res = []) {
+  if (i >= nums.length) return res;
+  let start = nums[i], end = start;
+  while (i + 1 < nums.length && nums[i + 1] === nums[i] + 1) end = nums[++i];
+  res.push(start === end ? `${start}` : `${start}->${end}`);
+  return summaryRanges6(nums, ++i, res);
+}
+
+// 7. With string builder
+function summaryRanges7(nums) {
+  let res = [], temp = "";
+  for (let i = 0; i < nums.length; i++) {
+    let start = nums[i];
+    while (i + 1 < nums.length && nums[i + 1] === nums[i] + 1) i++;
+    let end = nums[i];
+    temp = start === end ? `${start}` : `${start}->${end}`;
+    res.push(temp);
+  }
+  return res;
+}
+
+// 8. JSON-friendly version
+function summaryRanges8(nums) {
+  let output = [];
+  for (let i = 0; i < nums.length;) {
+    let a = nums[i];
+    while (i + 1 < nums.length && nums[i + 1] === nums[i] + 1) i++;
+    let b = nums[i];
+    output.push(a === b ? `${a}` : `${a}->${b}`);
+    i++;
+  }
+  return output;
+}
+
+// 9. Compact one-liner (uses loop inside map)
+function summaryRanges9(nums) {
+  let i = 0, result = [];
+  while (i < nums.length) {
+    let start = nums[i++];
+    while (i < nums.length && nums[i] === nums[i - 1] + 1) i++;
+    let end = nums[i - 1];
+    result.push(start === end ? `${start}` : `${start}->${end}`);
+  }
+  return result;
+}
+
+// 10. Generator-based range tracker
+function* rangeGen(nums) {
+  for (let i = 0; i < nums.length;) {
+    let start = nums[i];
+    while (i + 1 < nums.length && nums[i + 1] === nums[i] + 1) i++;
+    yield start === nums[i] ? `${start}` : `${start}->${nums[i]}`;
+    i++;
+  }
+}
+function summaryRanges10(nums) {
+  return [...rangeGen(nums)];
+}
+
+// --------------------- Outputs -------------------------
+
+console.log("Example: nums1 =", nums1);
+console.log("1:", summaryRanges1(nums1));
+console.log("2:", summaryRanges2(nums1));
+console.log("3:", summaryRanges3(nums1));
+console.log("4:", summaryRanges4(nums1));
+console.log("5:", summaryRanges5(nums1));
+console.log("6:", summaryRanges6(nums1));
+console.log("7:", summaryRanges7(nums1));
+console.log("8:", summaryRanges8(nums1));
+console.log("9:", summaryRanges9(nums1));
+console.log("10:", summaryRanges10(nums1));
+
+// ------------------ Best Explanation --------------------
+
+// ✅ BEST WAY: Solution #1 (summaryRanges1)
+// - Clear while-loop logic
+// - Efficient O(n) time
+// - Easy to read and modify
+// - No extra space used except result
+
+// ✅ Total Ways Solved: 10 (you can even add custom iterator or class-based solutions)
+// ✅ All examples and outputs are shown above for `nums1`
+
+
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
