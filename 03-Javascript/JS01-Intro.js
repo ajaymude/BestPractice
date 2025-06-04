@@ -1,36 +1,136 @@
+// ✅ JavaScript Full Syllabus with Categories (Basics to Expert)
+
+// 📘 BASICS & SYNTAX
 // 01 - Hello world in js 
-// 02 - way of writing js in html
-// 03 - variable
-// 04 - Data type in js and the truthy and falsy value 
+// 02 - Way of writing JS in HTML
+// 03 - Variable
+// 04 - Data Types in JS and the Truthy/Falsy values
 // 05 - Type Conversion
 // 06 - Types of Operators in JavaScript
 // 07 - Operator Precedence in JavaScript
+// 32 - Comments
+
+// 🔀 CONTROL FLOW
 // 08 - if, else if, and else in JavaScript
-// 09 - Turnery operator
-// 11 - Template Literals in JavaScript 
-// 12 - Truthy and Falsy Values in JavaScript
-// 13 - Equality Operators (== vs ===) in JavaScript
+// 09 - Ternary operator
 // 14 - Switch Statement
 // 15 - Boolean logic
+
+// 🔠 STRINGS & TEMPLATES
+// 11 - Template Literals in JavaScript
+// 13 - Equality Operators (== vs ===) in JavaScript
+
+// 🔁 LOOPS & CONDITIONS
+// 20 - Loops
 // 16 - Nullish Coalescing
-// 17 - js update 
-// 18 - What is Strict Mode?
-// 19 - functions 
-// 20 - loops 
-// 21 - The Spread Operator (...)
-// 22 - Rest Pattern and Parameters 
+// 24 - Nullish Coalescing Operator (??)
 // 23 - Short Circuiting (&& and ||)
-// 24 - The Nullish Coalescing Operator (??)
+
+// 🔣 FUNCTIONS
+// 19 - Functions
+// 22 - Rest Pattern and Parameters
+// 21 - Spread Operator (...)
+
+// 📦 DATA STRUCTURES
+// 26 - JavaScript Sets 🚀
+// 53 - Set & WeakSet
+// 52 - Map & WeakMap
+
+// ⚙️ ES6+ FEATURES
+// 17 - JavaScript Update (ES6+ features intro)
 // 25 - Optional Chaining (?.)
-// 26 - JavaScript Sets 🚀 
-// 27 - localStorage 
+
+// 🌐 BROWSER & STORAGE
+// 27 - localStorage
+// 63 - sessionStorage
+
+// 🧰 ERROR HANDLING
 // 28 - Promises in JavaScript
 // 29 - Throwing Errors Manually
+// 33 - Types of Errors in JS
+
+// 📦 MODULES & TOOLS
 // 30 - Exporting and Importing in ES6 Modules
-// 31 - NPM 
-// 32 - Comments 
-// 33 - Types of the error in the js 
-// 34 - timer 
+// 31 - NPM
+
+// ⏲️ TIMERS
+// 34 - Timer (setTimeout, setInterval)
+
+// 🔥 ADVANCED JAVASCRIPT
+// 35 - Closures
+// 36 - Lexical Scope & Scope Chain
+// 37 - Hoisting
+// 38 - Execution Context (Global & Functional)
+// 39 - Call Stack
+// 40 - Event Loop (Microtask vs Macrotask Queue)
+// 41 - Debouncing & Throttling
+// 42 - Memory Management & Garbage Collection
+
+// 🧱 OBJECT-ORIENTED JAVASCRIPT
+// 43 - this keyword in different contexts
+// 44 - Constructor Functions
+// 45 - Prototypes and Prototype Chain
+// 46 - Classes & Inheritance
+// 47 - Object.create() and Factory Functions
+
+// 🧶 ASYNC JAVASCRIPT DEEP DIVE
+// 48 - async and await in detail
+// 49 - Fetch API + Real-world API calls
+// 50 - Error handling in async/await
+// 51 - Chaining and parallel fetching
+
+// 📑 ADVANCED DATA STRUCTURES
+// 54 - Shallow Copy vs Deep Copy
+// 55 - JSON methods (parse, stringify)
+
+// 🧠 FUNCTIONAL PROGRAMMING CONCEPTS
+// 56 - Pure Functions
+// 57 - Immutability
+// 58 - Higher Order Functions
+// 59 - Currying & Composition
+
+// 🕸️ DOM AND BROWSER APIS
+// 60 - Event Delegation
+// 61 - Bubbling and Capturing
+// 62 - Custom Events
+// 64 - location, history, navigator objects
+
+// 🔧 MODERN TOOLING & ECOSYSTEM
+// 65 - Bundlers (Webpack, Vite - basics)
+// 66 - Transpilers (Babel)
+// 67 - ESLint & Prettier
+// 68 - Vitest or Jest Testing Basics
+
+// 🔄 EXTRA / OPTIONAL (ADVANCED)
+// 69 - Web Workers
+// 70 - Service Workers & PWA
+// 71 - Observables & RxJS
+// 72 - Design Patterns in JavaScript
+// 73 - Real-world Project Architecture
+
+// 🧠 EXPERT-LEVEL ADDITIONS
+// 74 - Private fields in classes (#field)
+// 75 - Tagged Template Literals
+// 76 - Custom bind, call, and apply
+// 77 - Tail Call Optimization
+// 78 - Event Targeting and Propagation in depth
+// 79 - Symbol and well-known Symbols
+// 80 - Iterators and Generators
+// 81 - CommonJS vs ESM deep dive
+// 82 - Dynamic import() and code splitting
+// 83 - IIFE (Immediately Invoked Function Expression)
+// 84 - Memoization and Caching Patterns
+// 85 - Function Composition and Pipeline
+// 86 - DevTools: Profiling and Memory Debugging
+// 87 - Proxies and Reflect API
+// 88 - Object.defineProperty, freeze, seal, etc.
+// 89 - Animation with requestAnimationFrame
+// 90 - File APIs (Blob, FileReader, drag & drop)
+// 91 - WebSockets
+// 92 - Crypto API
+// 93 - How JS engines work (V8, JIT, interpreter)
+// 94 - Internal memory model and GC in V8
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1453,6 +1553,7 @@ console.log(data);
 //####################### error  end ######################
 //####################### time logic start######################
 
+// 34 - timer 
 
 // ✅ 1. setTimeout() — Run a function once after a delay
 
@@ -1643,30 +1744,670 @@ function debounce(func, delay) {
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
+
+// 35 - closures
+
+{/* 🔥 Topic 35: Closures in JavaScript
+🔤 Definition (in simple words):
+A closure is a function that remembers variables from its outer scope, 
+even after that outer function has finished executing. */}
+
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
+
+// 36 - Lexical Scope & Scope Chain  
+
+// Lexical Scope: Variables are accessible based on where they are defined in the code.
+
+
+function outerFunction() {
+    let outerVar = "I am from outer function";
+
+    function innerFunction() {
+        console.log(outerVar); // Accessing outerVar from outer function
+    }
+
+    innerFunction(); // Call inner function
+}
+
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
+
+// 37 - 🪄 Hoisting in JavaScript
+
+/*
+🔍 What is Hoisting?
+- Hoisting is JavaScript's behavior of moving declarations to the top of their scope before code execution.
+- Only declarations are hoisted (not initializations).
+- var, function declarations are hoisted.
+- let, const are hoisted but remain in a Temporal Dead Zone (TDZ) until their line of declaration.
+*/
+
+/* 🔸 1. Hoisting with var */
+// ✅ 'x' is hoisted and initialized as undefined.
+console.log(x); // Output: undefined
+var x = 10;
+
+/* 🔸 2. Hoisting with let and const */
+// ❌ let and const are hoisted but not initialized, so accessing them before declaration throws ReferenceError.
+
+// console.log(a); // ❌ ReferenceError
+let a = 5;
+
+// console.log(b); // ❌ ReferenceError
+const b = 10;
+
+/* 🔸 3. Function Declaration is Fully Hoisted */
+// ✅ Function declarations are hoisted with their definitions.
+greet(); // Output: Hello
+
+function greet() {
+  console.log("Hello");
+}
+
+/* 🔸 4. Function Expression is Not Hoisted */
+// ❌ Only the variable 'sayHi' is hoisted (as undefined), not the function assignment.
+// sayHi(); // ❌ TypeError: sayHi is not a function
+
+var sayHi = function() {
+  console.log("Hi");
+};
+
+/* 🔸 5. Arrow Function with var is Not Hoisted */
+// ❌ Same as function expressions. The variable is hoisted as undefined.
+// arrow(); // ❌ TypeError: arrow is not a function
+
+var arrow = () => {
+  console.log("Arrow Function");
+};
+
+/* 📘 Summary Table
+
+| Type                        | Hoisted? | Initialized? | Can Use Before Declare? |
+|-----------------------------|----------|---------------|--------------------------|
+| var                         | ✅ Yes   | ✅ Yes         | ✅ Yes (undefined)       |
+| let / const                 | ✅ Yes   | ❌ No          | ❌ ReferenceError        |
+| function declaration        | ✅ Yes   | ✅ Yes         | ✅ Yes                   |
+| function expression (var)   | ✅ (var) | ❌ No          | ❌ TypeError             |
+| arrow function (with var)   | ✅ (var) | ❌ No          | ❌ TypeError             |
+
+*/
+
+/* 🧪 Practice Example */
+function test() {
+  console.log(a); // ✅ undefined (var is hoisted)
+  var a = 5;
+
+  // ❌ ReferenceError: Cannot access 'b' before initialization
+  // console.log(b);
+  let b = 10;
+}
+test();
+
+
+
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
+
+// 38 - 🧠 Execution Context (Global & Functional)
+
+/*
+🔍 What is an Execution Context?
+- It's the environment where JavaScript code is executed.
+- Every time a function is invoked, a new Execution Context is created.
+
+There are 3 main types:
+1. Global Execution Context (GEC)
+2. Functional Execution Context (FEC)
+3. Eval Execution Context (rarely used)
+
+---
+
+📘 1. Global Execution Context:
+- Created when JS file starts executing.
+- It contains:
+  ✅ Global Object (in browser: window)
+  ✅ this keyword (points to global object)
+  ✅ Memory for variables & functions
+
+*/
+
+var globalVar = "I'm global";
+
+function showGlobal() {
+  console.log(globalVar); // Accessible from GEC
+}
+
+showGlobal();
+
+/*
+📘 2. Functional Execution Context:
+- Created whenever a function is called.
+- It has its own:
+  ✅ Variable Environment (local memory)
+  ✅ Scope Chain (access to parent scopes)
+  ✅ this keyword (depends on how function is called)
+
+JavaScript uses a **Call Stack** to manage Execution Contexts.
+*/
+
+// Example:
+function outer() {
+  var outerVar = "I'm outer";
+
+  function inner() {
+    var innerVar = "I'm inner";
+    console.log(outerVar); // ✅ Can access outer scope
+    console.log(innerVar); // ✅ Local variable
+  }
+
+  inner();
+}
+
+outer();
+
+/*
+📘 Execution Flow:
+
+Step 1: GEC is created → `outer` is placed in memory
+Step 2: `outer()` is called → New FEC for outer
+Step 3: `inner()` is called → New FEC for inner
+Step 4: inner() finishes → inner FEC is removed
+Step 5: outer() finishes → outer FEC is removed
+
+Stack looks like:
+|--------------------------|
+| inner() Execution Context|
+| outer() Execution Context|
+| Global Execution Context |
+|--------------------------|
+
+*/
+
+// 🔄 Practice Example:
+function sum(a, b) {
+  function log() {
+    console.log("Adding", a, "+", b);
+  }
+
+  log(); // From inner FEC, uses outer scope (closure)
+  return a + b;
+}
+
+console.log("Result:", sum(5, 7)); // Result: 12
+
+/*
+🧠 Summary:
+- Each function call creates a new Execution Context.
+- Execution Contexts are managed via Call Stack.
+- Functions can access their outer variables (Lexical Scope).
+- Once execution finishes, context is removed from stack.
+*/
+
+
+
+
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
+
+// 39 - 📚 Call Stack in JavaScript
+
+/*
+🔍 What is the Call Stack?
+- The Call Stack is a data structure used by JavaScript to manage function invocation.
+- It works on the principle of **LIFO (Last In, First Out)**.
+- Each time a function is called, it is **pushed onto the stack**.
+- When a function finishes, it is **popped off the stack**.
+
+📌 Only one thing runs at a time in JavaScript (it's single-threaded),
+so the Call Stack plays a crucial role in handling function execution.
+*/
+
+// 🧪 Example 1: Simple Call Stack
+function functionOne() {
+  console.log("Function One Start");
+  functionTwo();
+  console.log("Function One End");
+}
+
+function functionTwo() {
+  console.log("Function Two Start");
+  functionThree();
+  console.log("Function Two End");
+}
+
+function functionThree() {
+  console.log("Function Three Start");
+  console.log("Function Three End");
+}
+
+functionOne();
+
+/*
+📘 What happens in the Call Stack:
+
+Step 1: functionOne() is called → pushed to the stack
+Step 2: functionOne() calls functionTwo() → pushed to the stack
+Step 3: functionTwo() calls functionThree() → pushed to the stack
+Step 4: functionThree() finishes → popped from the stack
+Step 5: functionTwo() finishes → popped from the stack
+Step 6: functionOne() finishes → popped from the stack
+
+🧠 Final Output:
+Function One Start
+Function Two Start
+Function Three Start
+Function Three End
+Function Two End
+Function One End
+*/
+
+// 🧪 Example 2: Stack Overflow Error (infinite recursion)
+function sayHello() {
+  sayHello(); // ❌ Recursive call with no exit condition
+}
+// sayHello(); // ❌ Un-commenting will cause: "Maximum call stack size exceeded"
+
+/*
+🚨 Stack Overflow:
+- Happens when functions keep calling themselves without an end.
+- JS engine keeps adding them to the stack until it runs out of memory.
+
+🧠 Summary:
+- The Call Stack is like a stack of plates — last in, first out.
+- JS uses it to keep track of where it is in code.
+- You can view the call stack in browser DevTools (Sources > Call Stack).
+*/
+
+
+
+
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
+
+// 40 - 🔄 Event Loop (Microtask vs Macrotask Queue)
+
+/*
+🔍 What is the Event Loop?
+- JavaScript is single-threaded but handles async code using an Event Loop.
+- The Event Loop manages execution between:
+  ✅ Call Stack (where sync code runs)
+  ✅ Task Queues (for async code)
+
+There are two main types of queues:
+1. 📦 Macrotask Queue (a.k.a. Task Queue)
+2. 🧵 Microtask Queue (higher priority)
+
+---
+
+📦 Macrotasks include:
+- setTimeout
+- setInterval
+- setImmediate (Node.js)
+- UI rendering
+
+🧵 Microtasks include:
+- Promise callbacks (.then/.catch/.finally)
+- queueMicrotask
+- MutationObserver
+
+🔁 Execution Order:
+1. Run all synchronous code (call stack)
+2. Run all microtasks in the Microtask Queue
+3. Then take one task from the Macrotask Queue
+4. Repeat
+
+This order ensures **promises run before setTimeout**, even if both have delay 0.
+*/
+
+// 🧪 Example 1: Promise vs setTimeout
+console.log("Start");
+
+setTimeout(() => {
+  console.log("Macrotask: setTimeout");
+}, 0);
+
+Promise.resolve().then(() => {
+  console.log("Microtask: Promise");
+});
+
+console.log("End");
+
+/*
+🧠 Output:
+Start
+End
+Microtask: Promise
+Macrotask: setTimeout
+
+Why? Because:
+- "Start" and "End" run in the main call stack (synchronous)
+- Promise (microtask) runs before setTimeout (macrotask)
+
+*/
+
+// 🧪 Example 2: Multiple Microtasks
+console.log("A");
+
+queueMicrotask(() => console.log("B"));
+Promise.resolve().then(() => console.log("C"));
+console.log("D");
+
+/*
+🧠 Output:
+A
+D
+B
+C
+(Microtasks B and C run after sync code but before macrotasks)
+*/
+
+// 🧪 Example 3: setTimeout vs Promise inside setTimeout
+setTimeout(() => {
+  console.log("Timeout 1");
+
+  Promise.resolve().then(() => {
+    console.log("Microtask inside Timeout");
+  });
+
+}, 0);
+
+/*
+🧠 Output:
+Start of main code...
+Timeout 1
+Microtask inside Timeout
+Why? Because:
+- Macrotask executes (Timeout 1)
+- Then microtask (inside that macrotask) runs immediately before next macrotask
+*/
+
+/*
+🔚 Summary:
+- Event Loop manages async execution
+- Microtasks (Promise, queueMicrotask) run before Macrotasks (setTimeout)
+- Always clear the call stack first, then run all microtasks, then one macrotask
+
+🧪 Visual Order:
+Call Stack → Microtask Queue → Macrotask Queue
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
+
+// 41 - 🚦 Debouncing & Throttling in JavaScript
+
+/*
+🔍 Why Do We Need Them?
+- When events like `scroll`, `resize`, or `input` fire rapidly, they can overload the browser.
+- Debouncing and throttling help optimize performance by **limiting how often functions run**.
+
+---
+
+📘 DEBOUNCING:
+- Debounce ensures that a function is executed **only after a certain delay** once the event has stopped firing.
+- Used in: search input, form validation, resize handling
+
+🔁 Example:
+- If user types continuously, debounce waits until the user **stops typing** for a certain time before running the function.
+*/
+
+function debounce(func, delay) {
+  let timer;
+  return function (...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
+  };
+}
+
+// 🧪 Usage Example:
+function handleSearchInput(e) {
+  console.log("Searching for:", e.target.value);
+}
+
+const debouncedSearch = debounce(handleSearchInput, 500);
+document.getElementById("searchInput")?.addEventListener("input", debouncedSearch);
+
+/*
+🧠 Behavior: Only runs `handleSearchInput` 500ms *after typing stops*.
+*/
+
+// -----------------------------------------
+
+/*
+📘 THROTTLING:
+- Throttle ensures a function is **called at most once in every X milliseconds**, no matter how often the event occurs.
+- Used in: scroll events, API rate limits, window resize
+
+🔁 Example:
+- If you scroll 100 times per second, throttling ensures function only runs every fixed interval (e.g., every 200ms)
+*/
+
+function throttle(func, limit) {
+  let lastCall = 0;
+  return function (...args) {
+    const now = new Date().getTime();
+    if (now - lastCall >= limit) {
+      lastCall = now;
+      func.apply(this, args);
+    }
+  };
+}
+
+// 🧪 Usage Example:
+function handleScroll() {
+  console.log("Scroll event:", new Date().toLocaleTimeString());
+}
+
+const throttledScroll = throttle(handleScroll, 1000);
+window.addEventListener("scroll", throttledScroll);
+
+/*
+🧠 Behavior: Even if scroll fires 100 times/sec, `handleScroll` will run once per second.
+
+---
+
+📌 Summary:
+
+| Feature    | Debounce                          | Throttle                          |
+|------------|-----------------------------------|-----------------------------------|
+| When it runs | After the event stops             | At regular intervals              |
+| Use case   | Search input, resize, validation  | Scroll, drag, resize              |
+| Timer reset | Every event                      | Does not reset on every call      |
+
+✅ Both patterns improve performance and prevent unnecessary function calls.
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
+
+// 42 - 🧹 Memory Management & Garbage Collection in JavaScript
+
+/*
+🔍 What is Memory Management?
+- Memory is allocated when variables, objects, functions are created.
+- Memory is freed (deallocated) when they are no longer needed.
+
+JavaScript automatically manages memory using **Garbage Collection (GC)**.
+You don’t need to manually free memory — but understanding how it works helps avoid memory leaks.
+*/
+
+/*
+📘 How JavaScript Allocates Memory:
+- Primitives (string, number, boolean) are stored directly in memory.
+- Objects, arrays, and functions are stored in the heap, and references are kept in variables.
+
+Example:
+*/
+
+let num = 100;              // Stored directly (primitive)
+let obj = { name: "Ajay" }; // Stored in heap, variable `obj` holds reference
+
+/*
+📦 JavaScript Garbage Collection:
+- JS engine uses **mark-and-sweep algorithm**.
+- When an object becomes **unreachable**, it is automatically removed from memory.
+
+🧠 An object is unreachable when:
+- No variable or closure can access it
+- It goes out of scope and is no longer referenced
+*/
+
+// 🧪 Example 1: Object becomes unreachable
+let user = {
+  name: "Ajay",
+};
+
+user = null; // ✅ The original object is now eligible for garbage collection
+
+// 🧪 Example 2: Scope-based memory release
+function createGreeting() {
+  const name = "Ajay"; // allocated
+  return `Hello, ${name}`;
+}
+createGreeting(); // name is cleaned up after function returns
+
+/*
+🚨 Common Cause of Memory Leaks:
+1. Global variables not cleared
+2. Closures that keep unnecessary references
+3. DOM elements not removed properly
+4. Timers or intervals not cleared
+*/
+
+// 🧪 Example 3: Memory Leak via setInterval
+function startLeaking() {
+  const data = new Array(1000000).fill("leak");
+  setInterval(() => {
+    console.log("Leaking...", data[0]); // ❌ Memory leak: data never gets collected
+  }, 1000);
+}
+// startLeaking(); // ⚠️ Don't run this in production
+
+/*
+✅ Best Practices to Avoid Leaks:
+- Use local variables inside functions where possible
+- Clear intervals and event listeners when not needed
+- Avoid global variables unless necessary
+- Nullify references if you’re done with them
+*/
+
+// 🧹 Manual cleanup example
+let myElement = document.getElementById("some-element");
+// Later:
+myElement = null; // ✅ Helps release memory if not used again
+
+/*
+📌 Summary:
+- JavaScript manages memory for you using garbage collection
+- Objects become eligible for cleanup when unreachable
+- You can avoid memory leaks by writing clean, limited-scope code
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
+
+// 43 - 🔍 `this` Keyword in Different Contexts
+
+/*
+📘 What is `this` in JavaScript?
+- `this` refers to the **object that is executing the current function**.
+- The value of `this` depends on **how** the function is called, not where it is defined.
+*/
+
+// 🔸 1. In Global Scope (non-strict mode)
+console.log(this); // 👉 In browser: `window` object
+
+// 🔸 2. Inside a Regular Function (non-strict mode)
+function regularFunction() {
+  console.log("Regular Function:", this);
+}
+regularFunction(); // 👉 In browser: `window`, in strict mode: `undefined`
+
+// 🔸 3. Inside a Method (Object's function)
+const obj = {
+  name: "Ajay",
+  greet: function () {
+    console.log("Method this:", this.name); // 👉 `this` refers to `obj`
+  },
+};
+obj.greet(); // Output: "Ajay"
+
+// 🔸 4. Arrow Function inside Object
+const obj2 = {
+  name: "Ajay",
+  greet: () => {
+    console.log("Arrow Function this:", this.name);
+  },
+};
+obj2.greet(); // ❌ `this` is not `obj2` — it’s inherited from parent (likely `window` or `undefined`)
+
+// 🔸 5. Inside a Constructor Function
+function Person(name) {
+  this.name = name;
+  this.sayHi = function () {
+    console.log("Hi, I'm", this.name);
+  };
+}
+const p1 = new Person("Ajay");
+p1.sayHi(); // 👉 `this` refers to the instance created by `new`
+
+// 🔸 6. Manually binding `this` using call, apply, bind
+const user = {
+  name: "Bind Example",
+};
+function showName() {
+  console.log("Manually bound this:", this.name);
+}
+showName.call(user);  // 👉 `this` is user
+showName.apply(user); // 👉 same as call
+const bound = showName.bind(user);
+bound();              // 👉 bound permanently to user
+
+// 🔸 7. In Event Listeners
+const button = document.getElementById("btn");
+button?.addEventListener("click", function () {
+  console.log("Event Listener this:", this); // 👉 refers to the element (`button`)
+});
+
+// ❌ Arrow function in event listener
+button?.addEventListener("click", () => {
+  console.log("Arrow in Event:", this); // ❌ `this` refers to enclosing scope, not the element
+});
+
+/*
+📌 Summary Table:
+
+| Context                         | What `this` refers to                            |
+|--------------------------------|--------------------------------------------------|
+| Global scope                   | `window` (non-strict), `undefined` (strict)     |
+| Regular function               | `window` or `undefined`                         |
+| Method (obj.func)              | The object before dot (`obj`)                   |
+| Arrow function                 | Inherits `this` from surrounding lexical scope  |
+| Constructor function           | The newly created object                        |
+| call/apply/bind                | Manually set `this`                             |
+| DOM Event Listener (normal fn) | The DOM element that triggered the event        |
+| DOM Event Listener (arrow fn)  | The surrounding (lexical) `this`                |
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
