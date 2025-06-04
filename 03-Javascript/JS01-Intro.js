@@ -2411,6 +2411,220 @@ button?.addEventListener("click", () => {
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
+
+// 44 - 🔨 Constructor Functions in JavaScript
+
+/*
+📘 What is a Constructor Function?
+- A **constructor function** is a special function used to create and initialize objects.
+- It's called using the `new` keyword.
+- By convention, constructor function names are written in **PascalCase** (FirstLetterCapitalized).
+*/
+
+// 🔸 1. Basic Constructor Example
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+  this.greet = function () {
+    console.log(`Hi, I'm ${this.name} and I'm ${this.age} years old.`);
+  };
+}
+
+const ajay = new Person("Ajay", 25);
+ajay.greet(); // Hi, I'm Ajay and I'm 25 years old.
+
+const sam = new Person("Sam", 30);
+sam.greet(); // Hi, I'm Sam and I'm 30 years old.
+
+/*
+🧠 What Happens When You Use `new Person("Ajay", 25)`:
+1. A new empty object is created: {}
+2. The `this` keyword is set to that new object.
+3. The object gets linked to Person.prototype.
+4. The constructor function runs and assigns properties to `this`.
+5. The object is returned.
+*/
+
+// 🔸 2. Constructor Without `new` (Mistake!)
+const broken = Person("Broken", 40);
+console.log(broken); // undefined
+console.log(window.name); // 😱 "Broken" (in browser: assigned to global object!)
+
+/*
+✅ Always use `new` when calling a constructor.
+Otherwise, `this` will refer to the global object (or be undefined in strict mode).
+*/
+
+// 🔸 3. Adding Shared Methods Using Prototype (Memory-efficient)
+function Car(model) {
+  this.model = model;
+}
+
+Car.prototype.drive = function () {
+  console.log(`${this.model} is driving.`);
+};
+
+const tesla = new Car("Tesla");
+tesla.drive(); // Tesla is driving.
+
+/*
+🧠 Benefit:
+- Functions like `drive()` are shared across all instances.
+- Memory efficient, since method is not recreated per object.
+*/
+
+// 🔸 4. Constructor Function vs Factory Function
+function createUser(name, age) {
+  return {
+    name,
+    age,
+    greet() {
+      console.log(`Hello, ${this.name}`);
+    },
+  };
+}
+
+const user1 = createUser("Mike", 22);
+user1.greet(); // Hello, Mike
+
+/*
+✅ Factory functions return object manually.
+✅ Constructor functions use `this` and return happens automatically.
+*/
+
+// 🧪 Quiz:
+function Animal(type) {
+  this.type = type;
+}
+const dog = new Animal("Dog");
+console.log(dog.type); // What will this print?
+
+/*
+📌 Summary:
+
+| Feature              | Constructor Function              |
+|----------------------|-----------------------------------|
+| Used with `new`      | Yes                               |
+| Uses `this`          | Yes (binds to new object)         |
+| Returns              | Automatically returns the object  |
+| Name style           | PascalCase (Capitalized)          |
+| Memory efficiency    | Better with prototype methods     |
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+
+// 45 - 🧬 Prototypes and Prototype Chain
+
+/*
+📘 What is a Prototype?
+- In JavaScript, every object has an internal link to another object called its **prototype**.
+- This prototype object can also have a prototype, forming a **prototype chain**.
+- This chain continues until it reaches `null` (end of the chain).
+
+👨‍👧 Think of it like inheritance — objects can inherit properties/methods from their prototypes.
+*/
+
+// 🔸 1. Basic Prototype Example
+const person = {
+  greet() {
+    console.log("Hello!");
+  },
+};
+
+const ajay = Object.create(person); // ajay is an empty object, prototype is `person`
+
+ajay.name = "Ajay";
+ajay.greet(); // Output: Hello! (from prototype)
+
+/*
+Even though `greet()` is not a property of `ajay`, JS engine looks up the prototype chain and finds it in `person`.
+*/
+
+// 🔸 2. Constructor Function with Prototypes
+function Animal(name) {
+  this.name = name;
+}
+
+Animal.prototype.sound = function () {
+  console.log(`${this.name} makes a sound.`);
+};
+
+const dog = new Animal("Dog");
+dog.sound(); // Dog makes a sound
+
+/*
+🧠 `dog` doesn't have a `sound` method.
+But it's found in Animal.prototype (via the prototype chain).
+*/
+
+// 🔸 3. The Prototype Chain in Action
+console.log(dog.__proto__ === Animal.prototype); // true
+console.log(Animal.prototype.__proto__ === Object.prototype); // true
+console.log(Object.prototype.__proto__); // null (end of the chain)
+
+/*
+🔗 Prototype Chain:
+dog → Animal.prototype → Object.prototype → null
+*/
+
+// 🔸 4. Overriding Prototype Properties
+dog.sound = function () {
+  console.log(`${this.name} barks!`);
+};
+dog.sound(); // Dog barks!
+
+delete dog.sound;
+dog.sound(); // Dog makes a sound (falls back to prototype)
+
+// 🔸 5. hasOwnProperty check
+console.log(dog.hasOwnProperty("name"));  // true
+console.log(dog.hasOwnProperty("sound")); // false (it's inherited)
+
+// 🔸 6. Don't Extend Built-In Prototypes in Real Code!
+String.prototype.sayHello = function () {
+  return "Hello, " + this;
+};
+
+console.log("Ajay".sayHello()); // Works but not recommended in production
+
+/*
+📌 Summary:
+
+| Term             | Meaning                                        |
+|------------------|------------------------------------------------|
+| `__proto__`      | Refers to the object's prototype               |
+| `prototype`      | Special property on constructor functions      |
+| Inheritance      | Object gets properties from its prototype      |
+| Chain End        | Object.prototype → null                        |
+| Look-up process  | JS searches properties up the chain            |
+
+✅ Use prototypes for method sharing (efficient memory)
+❌ Don't modify built-in prototypes (e.g., Array.prototype)
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
 
