@@ -870,6 +870,979 @@ Example (bad HTML):
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 11 - Props Basics (Data from Parent to Child)
+
+/*
+🔷 What are Props in React?
+
+📦 Props = "Properties"  
+They are **read-only** data passed from a **parent component** to a **child component**.
+
+Props let you:
+✅ Reuse components  
+✅ Customize behavior/content  
+✅ Keep components dynamic
+*/
+
+/// ✅ Example 1: Passing props from parent to child
+
+function App() {
+  return (
+    <div>
+      <Greeting name="Ajay" />
+      <Greeting name="Riya" />
+    </div>
+  );
+}
+
+function Greeting(props) {
+  return <h2>Hello, {props.name}!</h2>;
+}
+
+/// ✅ Example 2: Destructuring props
+
+function Welcome({ user }) {
+  return <p>Welcome, {user}!</p>;
+}
+
+// <Welcome user="Admin" />
+
+/// ✅ Example 3: Passing multiple props
+
+function Profile({ name, age }) {
+  return (
+    <p>
+      {name} is {age} years old.
+    </p>
+  );
+}
+
+// <Profile name="Ajay" age={25} />
+
+/// ✅ Example 4: Using default props
+
+function Button({ label = "Click Me" }) {
+  return <button>{label}</button>;
+}
+
+// <Button /> will render → "Click Me"
+// <Button label="Submit" /> will render → "Submit"
+
+/*
+🧠 Summary:
+- Props pass data **down** from parent to child.
+- They are **immutable** in the child.
+- Use **destructuring** for cleaner code.
+- Great for reusability and flexibility.
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 12 - Default Props
+
+/*
+🔷 What are Default Props?
+
+Default props are used to **set a fallback value** for a prop when it’s **not provided** by the parent component.
+
+This ensures your component works correctly and avoids undefined values.
+*/
+
+/// ✅ Example 1: Default prop using function parameter
+
+function Button({ label = "Click Me" }) {
+  return <button>{label}</button>;
+}
+
+// Usage:
+<Button />               // Output: Click Me
+<Button label="Submit" /> // Output: Submit
+
+/// ✅ Example 2: Default props using defaultProps (older way — not recommended for function components)
+
+function Welcome({ name }) {
+  return <h2>Hello, {name}</h2>;
+}
+
+Welcome.defaultProps = {
+  name: "Guest",
+};
+
+// Usage:
+<Welcome />          // Output: Hello, Guest
+<Welcome name="Ajay" /> // Output: Hello, Ajay
+
+/*
+🧠 Notes:
+- For function components, prefer setting default values **inside the function parameter**.
+- The `.defaultProps` syntax is mostly used with **class components**.
+*/
+
+/// ✅ Example 3: Using default values with multiple props
+
+function Profile({ name = "User", age = 18 }) {
+  return (
+    <p>
+      {name} is {age} years old.
+    </p>
+  );
+}
+
+// <Profile />              // Output: User is 18 years old
+// <Profile name="Ajay" />  // Output: Ajay is 18 years old
+
+/*
+🧠 Summary:
+- Default props make components safer and more predictable.
+- Use default values directly in destructuring for functional components.
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 13 - Prop Types Validation
+
+/*
+🔷 What is PropTypes?
+
+PropTypes help you **validate the type of props** passed to your React components.
+It’s a **development-time check** to catch bugs early and ensure components get the correct data.
+
+🧪 Think of it as "type-checking for props" in JavaScript.
+*/
+
+/// ✅ Step 1: Install prop-types (only once per project)
+/// Run this in terminal:
+/// npm install prop-types
+
+/// ✅ Example 1: Using PropTypes in a functional component
+
+import PropTypes from 'prop-types';
+
+function Greeting({ name, age }) {
+  return <p>{name} is {age} years old.</p>;
+}
+
+// ✅ Prop types validation
+Greeting.propTypes = {
+  name: PropTypes.string.isRequired,
+  age: PropTypes.number.isRequired,
+};
+
+/// ✅ Usage:
+<Greeting name="Ajay" age={25} />        // ✅ Valid
+<Greeting name={23} age="twenty" />      // ❌ Warning in console
+
+/*
+🧠 Explanation:
+- PropTypes.string → name must be a string
+- PropTypes.number → age must be a number
+- isRequired → required prop; warning if missing
+*/
+
+/// ✅ Example 2: PropTypes with default props
+
+function Button({ label }) {
+  return <button>{label}</button>;
+}
+
+Button.propTypes = {
+  label: PropTypes.string,
+};
+
+Button.defaultProps = {
+  label: "Click Me",
+};
+
+/// ✅ Example 3: Advanced types
+
+MyComponent.propTypes = {
+  isActive: PropTypes.bool,
+  hobbies: PropTypes.array,
+  user: PropTypes.shape({
+    name: PropTypes.string,
+    email: PropTypes.string,
+  }),
+  onClick: PropTypes.func,
+};
+
+/*
+🧠 Summary:
+- Use `prop-types` to ensure your components receive the correct type of data.
+- It adds safety and self-documentation to your components.
+- Only used during development – no runtime cost in production.
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 14 - useState Hook – Syntax, Updates, Patterns
+
+/*
+🔷 What is useState?
+
+`useState` is a React Hook that lets you **add state to functional components**.
+
+It helps your component remember information (like form data, toggles, counters, etc.).
+
+🔧 Syntax:
+const [state, setState] = useState(initialValue);
+*/
+
+/// ✅ Example 1: Counter
+
+import { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0); // initial value is 0
+
+  const increment = () => setCount(count + 1);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={increment}>+1</button>
+    </div>
+  );
+}
+
+/*
+🧠 Explanation:
+- `count` is the current state value.
+- `setCount` is the function used to update it.
+- useState(0) initializes `count` to 0.
+*/
+
+/// ✅ Example 2: useState with Strings
+
+function Greeting() {
+  const [name, setName] = useState("Guest");
+
+  return (
+    <div>
+      <h2>Hello, {name}</h2>
+      <button onClick={() => setName("Ajay")}>Change Name</button>
+    </div>
+  );
+}
+
+/// ✅ Example 3: useState with Objects
+
+function Profile() {
+  const [user, setUser] = useState({ name: "Ajay", age: 25 });
+
+  const updateAge = () => {
+    setUser({ ...user, age: user.age + 1 });
+  };
+
+  return (
+    <div>
+      <p>{user.name} is {user.age} years old.</p>
+      <button onClick={updateAge}>Increase Age</button>
+    </div>
+  );
+}
+
+/*
+🧠 Important Patterns:
+1. Never update state directly (e.g., user.age += 1 ❌)
+2. Use spread operator to preserve existing values
+3. Every state update causes a re-render
+*/
+
+/// ✅ Example 4: useState with Arrays
+
+function SkillsList() {
+  const [skills, setSkills] = useState(["HTML", "CSS"]);
+
+  const addSkill = () => setSkills([...skills, "JavaScript"]);
+
+  return (
+    <div>
+      <ul>
+        {skills.map((skill, index) => (
+          <li key={index}>{skill}</li>
+        ))}
+      </ul>
+      <button onClick={addSkill}>Add JS</button>
+    </div>
+  );
+}
+
+/*
+🧠 Summary:
+- `useState` is the most basic React hook
+- You can use it for strings, numbers, arrays, objects, booleans
+- Updating state causes React to re-render the component
+*/
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 15 - Initial State from Props or External Data
+
+/*
+🔷 Why set initial state from props or external data?
+
+Sometimes you want to:
+✅ Pre-fill forms  
+✅ Load state from props or API responses  
+✅ Reflect parent component values in local state
+*/
+
+/// ✅ Example 1: Initial state from props (form input)
+
+function InputField({ defaultValue }) {
+  const [value, setValue] = useState(defaultValue);
+
+  return (
+    <input
+      type="text"
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+    />
+  );
+}
+
+// Usage:
+<InputField defaultValue="Ajay" />
+
+/// 🧠 Note:
+- `defaultValue` sets the initial state.
+- After that, it becomes **independent of props** (controlled by local state).
+
+/// ✅ Example 2: Initial state from API (external data)
+
+function Users() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then((res) => res.json())
+      .then((data) => setUsers(data));
+  }, []);
+
+  return (
+    <ul>
+      {users.map((user) => (
+        <li key={user.id}>{user.name}</li>
+      ))}
+    </ul>
+  );
+}
+
+/*
+🧠 Explanation:
+- The initial state is an empty array.
+- Once the API returns data, `setUsers()` updates the state.
+- This is a common pattern for loading data on component mount.
+*/
+
+/// ✅ Example 3: Initial state from calculation
+
+function Timer({ start }) {
+  const [time, setTime] = useState(() => start * 60); // lazy init
+
+  return <p>Time left: {time} seconds</p>;
+}
+
+// Usage:
+<Timer start={5} /> // 5 minutes = 300 seconds
+
+/*
+🧠 Tips:
+- Use lazy initialization (useState(() => ...)) for performance
+- When state depends on props, capture the **initial value** only once
+- Do NOT expect it to auto-update if the prop changes later
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 16 - Event Handlers in React
+
+/*
+🔷 What are Event Handlers?
+
+Event handlers are functions that run when a specific **DOM event** happens (like click, change, submit, etc.).
+
+They work just like normal JS events but follow React’s **camelCase naming** and **JSX syntax**.
+*/
+
+/// ✅ Example 1: Click event
+
+function ClickButton() {
+  const handleClick = () => {
+    alert("Button clicked!");
+  };
+
+  return <button onClick={handleClick}>Click Me</button>;
+}
+
+/// ✅ Example 2: Change event (input field)
+
+function TextInput() {
+  const [text, setText] = useState("");
+
+  const handleChange = (e) => {
+    setText(e.target.value);
+  };
+
+  return (
+    <div>
+      <input type="text" value={text} onChange={handleChange} />
+      <p>You typed: {text}</p>
+    </div>
+  );
+}
+
+/// ✅ Example 3: Passing arguments to event handler
+
+function GreetUser({ name }) {
+  const sayHi = (username) => {
+    alert(`Hello, ${username}!`);
+  };
+
+  return <button onClick={() => sayHi(name)}>Say Hi</button>;
+}
+
+/// ✅ Example 4: Preventing default behavior
+
+function SubmitForm() {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert("Form submitted!");
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+
+/*
+🧠 Summary:
+- Event handlers use `onEventName={function}` (e.g., onClick, onChange)
+- Use arrow functions to pass arguments
+- `e.preventDefault()` stops default browser behavior
+- React events are synthetic, but behave like native browser events
+*/
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 17 - Passing Arguments to Event Handlers
+
+/*
+🔷 Why Pass Arguments?
+
+Sometimes you need to send **custom data** to an event handler function — like an ID, name, index, etc.
+
+You **cannot** call the function directly like `onClick={myFunc(data)}`  
+That would **run immediately** instead of on the event.
+
+Instead, use an **arrow function** or bind().
+*/
+
+/// ✅ Example 1: Passing data using arrow function
+
+function Product({ name, price }) {
+  const handleBuy = (itemName) => {
+    alert(`Buying ${itemName}`);
+  };
+
+  return (
+    <button onClick={() => handleBuy(name)}>
+      Buy {name} for ₹{price}
+    </button>
+  );
+}
+
+// Usage:
+// <Product name="Shoes" price={999} />
+
+/// ✅ Example 2: Passing multiple values
+
+function CartItem({ name, quantity }) {
+  const handleRemove = (item, qty) => {
+    alert(`Removing ${qty} of ${item}`);
+  };
+
+  return (
+    <button onClick={() => handleRemove(name, quantity)}>
+      Remove Item
+    </button>
+  );
+}
+
+/// ✅ Example 3: Inside a `.map()` list
+
+function UserList({ users }) {
+  const greet = (name) => alert(`Hi, ${name}`);
+
+  return (
+    <ul>
+      {users.map((user, index) => (
+        <li key={index}>
+          {user}
+          <button onClick={() => greet(user)}>Greet</button>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/// ✅ Example 4: Using .bind() (less common in modern React)
+
+function Greet({ name }) {
+  const sayHello = (name) => alert(`Hello, ${name}`);
+
+  return <button onClick={sayHello.bind(null, name)}>Say Hello</button>;
+}
+
+/*
+🧠 Summary:
+- Use arrow functions in `onClick={() => handle(arg)}`
+- Do not call the function directly (e.g., ❌ onClick={handle(arg)})
+- Avoid `.bind()` unless needed — arrow functions are cleaner
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 18 - Handling Forms and Input Fields
+
+/*
+🔷 Why Form Handling in React?
+
+React uses **controlled components** to manage form inputs — meaning the **form input's value is tied to React state**.
+
+This gives you full control over:
+✅ Field values  
+✅ Validation  
+✅ Conditional logic  
+✅ Resetting forms
+*/
+
+/// ✅ Example 1: Handling a single input
+
+function NameForm() {
+  const [name, setName] = useState("");
+
+  const handleChange = (e) => setName(e.target.value);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert(`Submitted: ${name}`);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input type="text" value={name} onChange={handleChange} />
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+
+/// ✅ Example 2: Handling multiple inputs (object state)
+
+function LoginForm() {
+  const [form, setForm] = useState({ email: "", password: "" });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(form);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input name="email" value={form.email} onChange={handleChange} placeholder="Email" />
+      <input name="password" value={form.password} onChange={handleChange} placeholder="Password" type="password" />
+      <button type="submit">Login</button>
+    </form>
+  );
+}
+
+/// ✅ Example 3: Reset form
+
+function ResetForm() {
+  const [input, setInput] = useState("");
+
+  const handleReset = () => setInput("");
+
+  return (
+    <div>
+      <input value={input} onChange={(e) => setInput(e.target.value)} />
+      <button onClick={handleReset}>Clear</button>
+    </div>
+  );
+}
+
+/*
+🧠 Tips:
+- Always use `value` + `onChange` = controlled component
+- Use `e.preventDefault()` to stop page refresh on submit
+- For multi-field forms, use an object and `name` attribute
+- Use `placeholder` for user hints
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 19 - Controlled vs Uncontrolled Components
+
+/*
+🔷 What’s the difference?
+
+In React, input elements can be either:
+1️⃣ **Controlled Components** – React fully controls the input
+2️⃣ **Uncontrolled Components** – The DOM handles the input directly (like vanilla JS)
+
+React recommends using **controlled components**.
+*/
+
+/// ✅ Example 1: Controlled Component (Recommended)
+
+function ControlledInput() {
+  const [value, setValue] = useState("");
+
+  return (
+    <div>
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+      <p>You typed: {value}</p>
+    </div>
+  );
+}
+
+/*
+🧠 Key Points:
+- React manages the input via state
+- You have full control over the value
+- Easy to validate, reset, format, or log values
+*/
+
+/// ✅ Example 2: Uncontrolled Component (Avoid when possible)
+
+import { useRef } from 'react';
+
+function UncontrolledInput() {
+  const inputRef = useRef();
+
+  const handleClick = () => {
+    alert(`Input: ${inputRef.current.value}`);
+  };
+
+  return (
+    <div>
+      <input type="text" ref={inputRef} />
+      <button onClick={handleClick}>Show Value</button>
+    </div>
+  );
+}
+
+/*
+🧠 Key Points:
+- Input is managed by the DOM, not React
+- Use `ref` to access the input value
+- Can be useful for quick reads (e.g. file inputs, focus management)
+- Not ideal for form handling and validation
+
+📌 Controlled vs Uncontrolled Summary:
+
+| Feature           | Controlled            | Uncontrolled         |
+|------------------|------------------------|----------------------|
+| Managed by       | React (state)          | DOM (ref)            |
+| onChange         | Required               | Optional             |
+| Default value    | value                  | defaultValue         |
+| Use case         | Forms, validation      | Quick refs, perf tools
+
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 20 - Keyboard and Mouse Events
+
+/*
+🔷 React supports all common DOM events like:
+✅ onClick  
+✅ onDoubleClick  
+✅ onMouseEnter / onMouseLeave  
+✅ onKeyDown / onKeyUp  
+✅ onKeyPress (deprecated, use onKeyDown)
+
+These events are handled using camelCase in JSX and receive a synthetic event object.
+*/
+
+/// ✅ Example 1: onClick event
+
+function ClickMe() {
+  const handleClick = () => {
+    alert("You clicked the button!");
+  };
+
+  return <button onClick={handleClick}>Click Me</button>;
+}
+
+/// ✅ Example 2: onDoubleClick
+
+function DoubleClickMe() {
+  return (
+    <p onDoubleClick={() => alert("Double clicked!")}>
+      Double click this text
+    </p>
+  );
+}
+
+/// ✅ Example 3: onMouseEnter and onMouseLeave
+
+function HoverBox() {
+  return (
+    <div
+      onMouseEnter={() => console.log("Mouse entered")}
+      onMouseLeave={() => console.log("Mouse left")}
+      style={{ padding: "20px", border: "1px solid black" }}
+    >
+      Hover over me
+    </div>
+  );
+}
+
+/// ✅ Example 4: onKeyDown event
+
+function KeyboardInput() {
+  const handleKeyDown = (e) => {
+    console.log("Key pressed:", e.key);
+    if (e.key === "Enter") alert("You pressed Enter!");
+  };
+
+  return <input type="text" onKeyDown={handleKeyDown} placeholder="Type and press Enter" />;
+}
+
+/*
+🧠 Tips:
+- Keyboard events work on input, textarea, and focused elements
+- Always check `e.key` or `e.code` for key value
+- Mouse events are useful for tooltips, drag/drop, etc.
+- You can combine multiple events for richer interactions
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 21 - Conditional Rendering in JSX (if, ternary, &&)
+
+/*
+🔷 What is Conditional Rendering?
+
+Conditional rendering means **showing or hiding parts of the UI** based on a condition (like user login, loading, etc.)
+
+React supports three main ways:
+1️⃣ `if` statements (outside return)
+2️⃣ Ternary operator
+3️⃣ Logical && operator
+*/
+
+/// ✅ Example 1: Using `if` outside return
+
+function Welcome({ isLoggedIn }) {
+  if (isLoggedIn) {
+    return <h2>Welcome back!</h2>;
+  }
+  return <h2>Please log in.</h2>;
+}
+
+/// ✅ Example 2: Ternary Operator inside JSX
+
+function Greeting({ name }) {
+  return (
+    <h2>
+      {name ? `Hello, ${name}!` : "Hello, Guest!"}
+    </h2>
+  );
+}
+
+/// ✅ Example 3: Logical AND (`&&`) for short conditions
+
+function ShowNotification({ hasNewMessage }) {
+  return (
+    <div>
+      <h3>Inbox</h3>
+      {hasNewMessage && <p>You have a new message!</p>}
+    </div>
+  );
+}
+
+/// ✅ Example 4: Conditional class or styles
+
+function Button({ disabled }) {
+  return (
+    <button
+      className={disabled ? "btn-disabled" : "btn-primary"}
+      disabled={disabled}
+    >
+      {disabled ? "Loading..." : "Submit"}
+    </button>
+  );
+}
+
+/*
+🧠 Summary:
+- Use `if` for complex logic outside JSX
+- Use `? :` for inline expressions inside JSX
+- Use `&&` for one-sided conditions
+- Avoid deeply nested ternaries — extract logic to variables if needed
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 22 - Rendering Fallback UI
+
+/*
+🔷 What is Fallback UI?
+
+A **fallback UI** is the UI you show when:
+✅ Data is still loading  
+✅ Something is missing  
+✅ An error occurred  
+✅ A user doesn’t meet a condition (like not logged in)
+
+It’s an essential part of creating a smooth user experience.
+*/
+
+/// ✅ Example 1: Loading state fallback
+
+function UserProfile({ isLoading, user }) {
+  if (isLoading) {
+    return <p>Loading user data...</p>; // fallback UI
+  }
+
+  return <h2>Welcome, {user.name}</h2>;
+}
+
+/// ✅ Example 2: Fallback for missing data
+
+function Avatar({ image }) {
+  return (
+    <img
+      src={image || "https://via.placeholder.com/150"}
+      alt="User Avatar"
+    />
+  );
+}
+
+/// ✅ Example 3: Fallback using ternary operator
+
+function Dashboard({ isLoggedIn }) {
+  return (
+    <div>
+      {isLoggedIn ? <h1>Dashboard</h1> : <p>Please log in to view your dashboard.</p>}
+    </div>
+  );
+}
+
+/// ✅ Example 4: Fallback in Suspense (for lazy loading)
+
+import { Suspense, lazy } from 'react';
+
+const LazyComponent = lazy(() => import('./HeavyComponent'));
+
+function App() {
+  return (
+    <Suspense fallback={<p>Loading component...</p>}>
+      <LazyComponent />
+    </Suspense>
+  );
+}
+
+/*
+🧠 Summary:
+- Fallback UI keeps your app from showing empty or broken views
+- Use it with loading states, errors, and missing data
+- `Suspense` allows built-in fallback for lazy components
+- Always show meaningful feedback (not just spinners)
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
