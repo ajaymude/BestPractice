@@ -2611,24 +2611,1281 @@ console.log("Ajay".sayHello()); // Works but not recommended in production
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
+
+// 46 - 🏛️ Classes & Inheritance
+
+/*
+📘 What are Classes?
+- Classes are syntactic sugar over constructor functions and prototypes.
+- Introduced in ES6 to make object-oriented programming easier and cleaner.
+
+📘 What is Inheritance?
+- Inheritance allows one class (child) to use the properties and methods of another class (parent).
+*/
+
+// 🔸 1. Basic Class Syntax
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  greet() {
+    console.log(`Hi, I'm ${this.name} and I'm ${this.age} years old.`);
+  }
+}
+
+const ajay = new Person("Ajay", 25);
+ajay.greet(); // Hi, I'm Ajay and I'm 25 years old
+
+// 🔸 2. Class Inheritance using `extends`
+class Student extends Person {
+  constructor(name, age, grade) {
+    super(name, age); // Call the parent constructor
+    this.grade = grade;
+  }
+
+  study() {
+    console.log(`${this.name} is studying in grade ${this.grade}.`);
+  }
+}
+
+const student1 = new Student("Riya", 18, "12th");
+student1.greet();  // From Person class
+student1.study();  // From Student class
+
+// 🔸 3. Method Overriding
+class Developer extends Person {
+  greet() {
+    console.log(`👨‍💻 Developer ${this.name} is coding.`);
+  }
+}
+
+const dev = new Developer("Rahul", 30);
+dev.greet(); // 👨‍💻 Developer Rahul is coding
+
+// 🔸 4. Static Methods
+class MathUtils {
+  static add(a, b) {
+    return a + b;
+  }
+}
+console.log(MathUtils.add(10, 20)); // 30
+
+/*
+🧠 Static methods belong to the class itself, not to instances.
+They’re used for utility/helper functions.
+*/
+
+// 🔸 5. Getters and Setters
+class Product {
+  constructor(name, price) {
+    this._name = name;
+    this._price = price;
+  }
+
+  get price() {
+    return this._price;
+  }
+
+  set price(value) {
+    if (value > 0) {
+      this._price = value;
+    } else {
+      console.log("Invalid price");
+    }
+  }
+}
+
+const pen = new Product("Pen", 10);
+console.log(pen.price); // 10
+pen.price = 20;         // sets price to 20
+pen.price = -5;         // Invalid price
+
+/*
+📌 Summary Table
+
+| Concept         | Description                                         |
+|-----------------|-----------------------------------------------------|
+| class           | Defines blueprint for objects                       |
+| constructor     | Initializes the object                              |
+| extends         | Enables inheritance                                 |
+| super()         | Calls parent class constructor                      |
+| static method   | Belongs to class, not to instances                  |
+| getter/setter   | Control access to object properties                 |
+| method override | Redefines a parent method in child class           |
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
+
+// 47 - 🏗️ Object.create() and Factory Functions
+
+/*
+🔹 OBJECT.CREATE()
+
+📘 What is Object.create()?
+- `Object.create()` creates a new object and sets its **prototype** to the object you provide.
+- It's an alternative to using constructor functions or classes.
+- Gives direct control over the prototype chain.
+*/
+
+// 🔸 1. Basic Example of Object.create()
+const personPrototype = {
+  greet() {
+    console.log(`Hello, my name is ${this.name}`);
+  },
+};
+
+const ajay = Object.create(personPrototype);
+ajay.name = "Ajay";
+ajay.greet(); // Hello, my name is Ajay
+
+/*
+🧠 Here, `ajay` is an object that **inherits** from `personPrototype`.
+- personPrototype is the prototype of ajay.
+- You can check using: `Object.getPrototypeOf(ajay) === personPrototype` → true
+*/
+
+
+// 🔸 2. Adding properties during creation
+const user = Object.create(personPrototype, {
+  name: { value: "Riya", writable: true, enumerable: true },
+});
+user.greet(); // Hello, my name is Riya
+
+/*
+🧠 The second argument to Object.create() is a property descriptor map
+(similar to Object.defineProperty)
+*/
+
+
+// 🔹 FACTORY FUNCTIONS
+
+/*
+📘 What is a Factory Function?
+- A function that returns a new object.
+- Unlike constructors, you don't use `new`, and you return the object manually.
+*/
+
+// 🔸 3. Basic Factory Function Example
+function createUser(name, age) {
+  return {
+    name,
+    age,
+    greet() {
+      console.log(`Hi, I'm ${name}, age ${age}`);
+    },
+  };
+}
+
+const user1 = createUser("Sam", 30);
+user1.greet(); // Hi, I'm Sam, age 30
+
+/*
+✅ Factory functions are useful when:
+- You want to avoid `this` and `new`
+- You want to create multiple similar objects
+*/
+
+
+// 🔸 4. Factory Function + Object.create()
+const personMethods = {
+  greet() {
+    console.log(`Hi, I'm ${this.name}`);
+  },
+};
+
+function createPerson(name) {
+  const person = Object.create(personMethods);
+  person.name = name;
+  return person;
+}
+
+const p1 = createPerson("Dev");
+p1.greet(); // Hi, I'm Dev
+
+/*
+🧠 This is a powerful pattern:
+- You keep shared methods in one object (`personMethods`)
+- Each new object created by `createPerson()` gets that as prototype
+- Memory efficient (like using prototype in constructors)
+*/
+
+
+/*
+📌 Summary:
+
+| Feature                | Object.create()                      | Factory Function                         |
+|------------------------|--------------------------------------|-------------------------------------------|
+| Purpose                | Create object with specific prototype| Return object from a function             |
+| Use prototype?         | Yes                                  | Not by default (but can with Object.create)|
+| Uses `new` keyword?    | No                                   | No                                        |
+| Uses `this`?           | Optional                             | No                                        |
+| Memory efficiency      | High (if methods on prototype)       | Medium (unless prototype used manually)   |
+
+✅ Use Object.create() for prototype-based inheritance
+✅ Use Factory Functions for flexible object creation without `this` or `new`
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////
+
+// 48 - ⏳ async and await in JavaScript (In Detail)
+
+/*
+📘 What is async/await?
+- `async` and `await` are modern syntax for handling asynchronous operations.
+- They make asynchronous code look and behave more like synchronous code.
+- Built on top of **Promises**.
+
+🧠 Why use async/await?
+- Cleaner and more readable than `.then()` and `.catch()`
+- Easier error handling with `try...catch`
+*/
+
+// 🔸 1. Basic async function
+async function greet() {
+  return "Hello"; // returns a Promise automatically
+}
+
+greet().then(msg => console.log(msg)); // Output: Hello
+
+/*
+🧠 An async function always returns a Promise.
+Even if you return a string, JS wraps it in a resolved Promise.
+*/
+
+// 🔸 2. Using await (only inside async functions)
+function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function showSteps() {
+  console.log("Step 1");
+  await wait(1000); // wait for 1 second
+  console.log("Step 2");
+  await wait(1000);
+  console.log("Step 3");
+}
+
+showSteps();
+/*
+Output:
+Step 1
+(wait 1 sec)
+Step 2
+(wait 1 sec)
+Step 3
+*/
+
+// 🔸 3. Fetching API data using async/await
+async function fetchData() {
+  try {
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts/1");
+    const data = await response.json();
+    console.log("Data:", data);
+  } catch (error) {
+    console.error("Fetch failed:", error);
+  }
+}
+fetchData();
+
+// 🔸 4. Error handling with try...catch
+async function getUser(id) {
+  try {
+    if (!id) throw new Error("ID is required");
+    const res = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
+    const user = await res.json();
+    console.log(user.name);
+  } catch (err) {
+    console.error("Error:", err.message);
+  }
+}
+getUser(1);
+getUser(); // Triggers manual error
+
+// 🔸 5. await in loops (sequential vs parallel)
+const ids = [1, 2, 3];
+
+// Sequential (waits one by one)
+async function loadUsersSequential() {
+  for (let id of ids) {
+    const res = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
+    const user = await res.json();
+    console.log("Sequential:", user.name);
+  }
+}
+
+// Parallel using Promise.all
+async function loadUsersParallel() {
+  const promises = ids.map(id =>
+    fetch(`https://jsonplaceholder.typicode.com/users/${id}`).then(res => res.json())
+  );
+  const users = await Promise.all(promises);
+  users.forEach(user => console.log("Parallel:", user.name));
+}
+
+/*
+✅ Use sequential when order or timing matters
+✅ Use parallel (Promise.all) for better performance when independent
+*/
+
+/*
+📌 Summary:
+
+| Concept        | Description                              |
+|----------------|------------------------------------------|
+| async function | Always returns a Promise                 |
+| await          | Pauses inside async until Promise resolves |
+| try...catch    | Handles errors in async/await            |
+| await in loop  | Slower (sequential) or use Promise.all   |
+
+🔄 async/await = cleaner syntax for promises
+
+✅ async/await makes code easier to read and maintain.
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
 
 
+// 49 - 🌐 Fetch API + Real-world API Calls
+
+/*
+📘 What is Fetch API?
+- Fetch API is used to make HTTP requests from the browser.
+- It returns a **Promise** that resolves to the Response object.
+
+✅ Common uses:
+- Get data from APIs
+- Post data to a server
+- Handle REST APIs (CRUD)
+*/
+
+// 🔸 1. Basic GET request using fetch()
+fetch("https://jsonplaceholder.typicode.com/posts/1")
+  .then(response => response.json()) // convert response to JSON
+  .then(data => console.log("GET:", data))
+  .catch(error => console.error("Error:", error));
+
+/*
+🧠 Steps:
+1. `fetch()` sends GET request
+2. `.then(response => response.json())` parses the response body
+3. `.then(data => ...)` handles the final data
+*/
+
+// 🔸 2. Using async/await with fetch (cleaner)
+async function fetchPost(id) {
+  try {
+    const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
+    const post = await response.json();
+    console.log("Async GET:", post);
+  } catch (error) {
+    console.error("Fetch error:", error.message);
+  }
+}
+fetchPost(2);
+
+// 🔸 3. POST request with fetch()
+async function createPost() {
+  const newPost = {
+    title: "Learn Fetch",
+    body: "Using the Fetch API in JS",
+    userId: 1,
+  };
+
+  try {
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newPost),
+    });
+
+    const data = await response.json();
+    console.log("POST Success:", data);
+  } catch (err) {
+    console.error("POST Error:", err.message);
+  }
+}
+createPost();
+
+// 🔸 4. PUT request (update)
+async function updatePost(id) {
+  const updatedData = {
+    title: "Updated Title",
+    body: "Updated body content",
+  };
+
+  const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updatedData),
+  });
+
+  const result = await response.json();
+  console.log("PUT Result:", result);
+}
+updatePost(1);
+
+// 🔸 5. DELETE request
+async function deletePost(id) {
+  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+    method: "DELETE",
+  });
+
+  if (res.ok) {
+    console.log(`Post ${id} deleted successfully.`);
+  } else {
+    console.log("Delete failed.");
+  }
+}
+deletePost(3);
+
+/*
+📌 Summary:
+
+| Method  | Action             | Use                        |
+|---------|--------------------|----------------------------|
+| GET     | Fetch data         | Read from API              |
+| POST    | Create new resource| Send data to server        |
+| PUT     | Replace resource   | Update data completely     |
+| PATCH   | Partially update   | Change a specific field    |
+| DELETE  | Remove resource    | Delete from server         |
+
+✅ Fetch API is promise-based and powerful
+✅ Use `try/catch` with async/await for clean error handling
+*/
 
 
 
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+
+// 50 - 🚨 Error Handling in async/await
+
+/*
+📘 Why Error Handling Matters?
+- When using `async/await`, errors can occur due to:
+  ✅ Invalid URLs
+  ✅ Server issues
+  ✅ Network problems
+  ✅ JSON parsing errors
+- You should always use `try...catch` with async/await for clean and safe error handling.
+*/
+
+// 🔸 1. Basic Error Handling Example
+async function fetchUserData(id) {
+  try {
+    const res = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
+    if (!res.ok) throw new Error("User not found");
+
+    const data = await res.json();
+    console.log("User:", data);
+  } catch (err) {
+    console.error("❌ Error:", err.message);
+  }
+}
+fetchUserData(1);   // ✅ Success
+fetchUserData(999); // ❌ Triggers manual error
+
+/*
+🧠 `res.ok` checks HTTP status (true for 2xx responses)
+If not OK, we throw a custom error.
+*/
+
+// 🔸 2. Catching Network Errors
+async function fetchInvalidURL() {
+  try {
+    const res = await fetch("https://invalid.api.url");
+    const data = await res.json(); // ❌ never reached
+  } catch (err) {
+    console.error("Network Error:", err.message);
+  }
+}
+fetchInvalidURL();
+
+/*
+✅ Catch block handles:
+- Network failures
+- CORS issues
+- Syntax errors
+- JSON errors
+*/
+
+// 🔸 3. Using `finally` with async/await
+async function loadAppData() {
+  try {
+    const res = await fetch("https://jsonplaceholder.typicode.com/posts/1");
+    const data = await res.json();
+    console.log("Loaded:", data);
+  } catch (err) {
+    console.warn("Something went wrong:", err.message);
+  } finally {
+    console.log("✅ Always runs: hide loader, cleanup...");
+  }
+}
+loadAppData();
+
+/*
+📌 Summary:
+
+| Block      | Use case                                |
+|------------|------------------------------------------|
+| try        | Run risky async code                     |
+| catch      | Handle errors from await or throw        |
+| finally    | Run cleanup code regardless of success   |
+
+✅ Always use try...catch with async/await in real-world apps
+✅ Check `res.ok` to handle server errors manually
+✅ Use `finally` to stop loaders, cleanup memory, etc.
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+
+// 51 - 🔗 Chaining and Parallel Fetching in JavaScript
+
+/*
+📘 What is Chaining in async/await?
+- Chaining means making one request after another where the next depends on the previous.
+
+📘 What is Parallel Fetching?
+- Fetch multiple resources at the same time (in parallel) using `Promise.all()` for better performance.
+
+🧠 Sequential = Wait → Wait → Wait
+🧠 Parallel = All wait together → Done
+*/
+
+// 🔸 1. Chaining (Sequential Requests)
+async function fetchChained() {
+  try {
+    const userRes = await fetch("https://jsonplaceholder.typicode.com/users/1");
+    const user = await userRes.json();
+
+    const postRes = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${user.id}`);
+    const posts = await postRes.json();
+
+    console.log("User:", user.name);
+    console.log("Posts:", posts.map(p => p.title));
+  } catch (err) {
+    console.error("Chain Error:", err.message);
+  }
+}
+fetchChained();
+
+/*
+✅ Here, we first fetch the user.
+✅ Then, based on their ID, we fetch their posts.
+*/
+
+// 🔸 2. Parallel Fetching with Promise.all()
+async function fetchParallel() {
+  try {
+    const urls = [
+      "https://jsonplaceholder.typicode.com/posts/1",
+      "https://jsonplaceholder.typicode.com/posts/2",
+      "https://jsonplaceholder.typicode.com/posts/3",
+    ];
+
+    const promises = urls.map(url => fetch(url).then(res => res.json()));
+    const results = await Promise.all(promises);
+
+    results.forEach((post, index) => {
+      console.log(`Post ${index + 1}:`, post.title);
+    });
+  } catch (err) {
+    console.error("Parallel Fetch Error:", err.message);
+  }
+}
+fetchParallel();
+
+/*
+🧠 Promise.all() waits for all requests in parallel.
+⚠️ If one promise fails, the whole `.all()` fails. Use `.allSettled()` if you want to handle individual results.
+
+✅ Use parallel fetching to improve speed when calls are independent.
+✅ Use chaining when each request depends on the result of the previous.
+*/
+
+// 🔸 3. Parallel + Safe (using Promise.allSettled)
+async function fetchSafeParallel() {
+  const urls = [
+    "https://jsonplaceholder.typicode.com/posts/1",
+    "https://wrong.url.com/abc", // ❌ fails
+    "https://jsonplaceholder.typicode.com/posts/3",
+  ];
+
+  const promises = urls.map(url =>
+    fetch(url).then(res => res.json())
+  );
+
+  const results = await Promise.allSettled(promises);
+
+  results.forEach((res, i) => {
+    if (res.status === "fulfilled") {
+      console.log(`✅ Post ${i + 1}:`, res.value.title);
+    } else {
+      console.warn(`❌ Failed for Post ${i + 1}:`, res.reason.message);
+    }
+  });
+}
+fetchSafeParallel();
+
+/*
+📌 Summary:
+
+| Type             | Purpose                        | Best For                          |
+|------------------|--------------------------------|------------------------------------|
+| Chaining         | Sequential requests            | When next request needs previous  |
+| Promise.all      | Parallel, fail on first error  | Fast results when all must succeed|
+| Promise.allSettled| Parallel, no fail if one fails | Resilient batch operations         |
+
+✅ Master both for professional-grade async work.
+*/
+
+
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+
+// 54 - 🧬 Shallow Copy vs Deep Copy in JavaScript
+
+/*
+📘 What is a Copy in JavaScript?
+- A copy is when you duplicate the value of a variable into another variable.
+- For primitive values (string, number, boolean), a real copy is made.
+- For objects/arrays, a **reference** is copied — unless we manually perform a copy.
+
+There are two types:
+1. 🔹 Shallow Copy – only top-level is copied
+2. 🔸 Deep Copy – full recursive copy of nested structures
+*/
+
+// 🔸 1. Primitive Example (copied by value)
+let a = 10;
+let b = a;
+b = 20;
+console.log("a:", a); // 10
+console.log("b:", b); // 20
+
+// 🔹 2. Reference Example (copied by reference)
+const obj1 = { name: "Ajay" };
+const obj2 = obj1;
+obj2.name = "Sam";
+console.log("obj1:", obj1.name); // Sam (affected)
+console.log("obj2:", obj2.name); // Sam
+
+/*
+Both obj1 and obj2 point to the same object in memory.
+*/
+
+// 🔸 3. Shallow Copy using spread (...)
+const original = {
+  name: "Ajay",
+  address: {
+    city: "Pune",
+    pin: 123456,
+  },
+};
+
+const shallow = { ...original };
+shallow.name = "Sam";          // ✅ Affects only `shallow`
+shallow.address.city = "Delhi" // ❌ Mutates `original.address.city`
+
+console.log("Original:", original.address.city); // Delhi
+console.log("Shallow:", shallow.address.city);   // Delhi
+
+/*
+🧠 Spread operator only creates a one-level copy. Nested objects are still linked.
+*/
+
+// 🔸 4. Deep Copy using JSON methods
+const deep = JSON.parse(JSON.stringify(original));
+deep.address.city = "Mumbai";
+
+console.log("Original:", original.address.city); // Delhi
+console.log("Deep:", deep.address.city);         // Mumbai
+
+/*
+✅ JSON method creates a full deep copy.
+❌ Limitations: can't copy functions, undefined, circular references, Dates, Maps, Sets
+*/
+
+// 🔸 5. Deep Copy using structuredClone (modern, recommended)
+const deepClone = structuredClone(original);
+deepClone.address.city = "Chennai";
+
+console.log("Original:", original.address.city);  // Delhi
+console.log("Structured Clone:", deepClone.address.city); // Chennai
+
+/*
+✅ structuredClone is modern and works with Dates, Maps, Sets, Arrays, nested objects, etc.
+❌ Not supported in very old browsers
+*/
+
+// 🔸 6. Deep Copy with Libraries (Lodash)
+/// npm install lodash
+// import cloneDeep from 'lodash/cloneDeep';
+// const copied = cloneDeep(original);
+
+/*
+📌 Summary Table:
+
+| Type         | Technique               | Copies Nested? | Limitations                        |
+|--------------|--------------------------|----------------|------------------------------------|
+| Shallow Copy | Object.assign(), spread  | ❌ No           | Nested objects still linked        |
+| Deep Copy    | JSON.parse(JSON.stringify)| ✅ Yes         | No functions, Dates, circular refs |
+| Deep Copy    | structuredClone()        | ✅ Yes         | Modern browsers only               |
+| Deep Copy    | cloneDeep (lodash)       | ✅ Yes         | Requires library                   |
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+
+// 55 - 📦 JSON Methods in JavaScript: parse() and stringify()
+
+/*
+📘 What is JSON?
+- JSON (JavaScript Object Notation) is a lightweight format to store and exchange data.
+- It is used to send/receive data between a client and a server.
+- It looks like JavaScript object syntax, but it's actually a string.
+
+✅ Two main methods:
+1. JSON.stringify() – Convert JS object to JSON string
+2. JSON.parse() – Convert JSON string back to JS object
+*/
+
+// 🔸 1. JSON.stringify() – Object to JSON String
+const user = {
+  name: "Ajay",
+  age: 25,
+  skills: ["JS", "React"],
+};
+
+const jsonString = JSON.stringify(user);
+console.log("JSON String:", jsonString);
+/*
+Output:
+{"name":"Ajay","age":25,"skills":["JS","React"]}
+*/
+
+// 🔸 2. JSON.parse() – JSON String to Object
+const backToObject = JSON.parse(jsonString);
+console.log("Parsed Object:", backToObject);
+/*
+Output:
+{ name: "Ajay", age: 25, skills: ["JS", "React"] }
+*/
+
+// 🔸 3. Use in real-world (API response)
+fetch("https://jsonplaceholder.typicode.com/users/1")
+  .then(res => res.json()) // ⬅️ res.json() uses JSON.parse under the hood
+  .then(data => console.log("API Data:", data));
+
+// 🔸 4. stringify() removes functions and undefined
+const sample = {
+  name: "Code",
+  doSomething: () => console.log("Hello"),
+  temp: undefined,
+};
+
+console.log("Stringify:", JSON.stringify(sample));
+/*
+Output: {"name":"Code"}
+Functions & undefined are ignored.
+*/
+
+// 🔸 5. Pretty Printing (indentation for readability)
+console.log(JSON.stringify(user, null, 2));
+/*
+{
+  "name": "Ajay",
+  "age": 25,
+  "skills": ["JS", "React"]
+}
+*/
+
+// 🔸 6. Use JSON.parse(JSON.stringify()) for deep copy
+const deepCopy = JSON.parse(JSON.stringify(user));
+deepCopy.name = "Riya";
+console.log("Original:", user.name);     // Ajay
+console.log("Copied:", deepCopy.name);   // Riya
+
+/*
+✅ Deep copy for simple objects only
+❌ Does not support:
+- Functions
+- Symbols
+- Date objects (converted to strings)
+- undefined
+- Circular references
+*/
+
+// 🔸 7. Errors – Catching Invalid JSON
+try {
+  const broken = JSON.parse("{name: 'Ajay'}"); // ❌ Invalid JSON (keys must be in double quotes)
+} catch (err) {
+  console.error("Parse Error:", err.message);
+}
+
+/*
+📌 Summary Table:
+
+| Method           | Purpose                           |
+|------------------|------------------------------------|
+| JSON.stringify() | Convert object → JSON string       |
+| JSON.parse()     | Convert JSON string → object       |
+
+✅ Used in:
+- APIs
+- LocalStorage (can only store strings)
+- Deep cloning simple data
+- Sending structured data between systems
+*/
+
+
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+
+// 56 - 🧼 Pure Functions in JavaScript
+
+/*
+📘 What is a Pure Function?
+- A pure function is a function that:
+  ✅ Always returns the same output for the same input
+  ✅ Does NOT cause side effects (no I/O, no changing external variables)
+
+🧠 Benefits of pure functions:
+- Easy to test
+- Predictable
+- Easier to debug
+- Reusable and composable
+*/
+
+// 🔸 1. Example of a Pure Function
+function add(a, b) {
+  return a + b;
+}
+console.log(add(2, 3)); // 5
+console.log(add(2, 3)); // 5 (same input = same output)
+
+/*
+✅ No side effects
+✅ Doesn't modify anything outside the function
+*/
+
+// 🔸 2. Impure Function Example
+let counter = 0;
+
+function increaseCounter() {
+  counter++;
+  return counter;
+}
+console.log(increaseCounter()); // ❌ Impure: modifies external variable
+console.log(increaseCounter()); // ❌ Returns different output for same call
+
+// 🔸 3. Another Impure Example (side effect: console.log)
+function logMessage(msg) {
+  console.log(msg); // ❌ Side effect
+  return true;
+}
+
+// 🔸 4. Pure Function with Array
+function getDoubled(arr) {
+  return arr.map(num => num * 2); // ✅ No mutation
+}
+console.log(getDoubled([1, 2, 3])); // [2, 4, 6]
+
+// ❌ Impure version (mutates original array)
+function doubleInPlace(arr) {
+  for (let i in arr) {
+    arr[i] = arr[i] * 2;
+  }
+  return arr;
+}
+const nums = [1, 2, 3];
+console.log(doubleInPlace(nums)); // [2, 4, 6]
+console.log(nums); // ❌ nums is now changed
+
+/*
+✅ Pure functions:
+- Don’t change inputs (immutable)
+- Don’t rely on external state
+- Don’t perform side effects
+*/
+
+// 🔸 5. Pure Function + Functional Style
+function toUpperCase(str) {
+  return str.toUpperCase(); // ✅ No side effects
+}
+
+const names = ["ajay", "riya", "mukesh"];
+const upperNames = names.map(toUpperCase); // Pure transformation
+console.log(upperNames); // [ 'AJAY', 'RIYA', 'MUKESH' ]
+
+/*
+📌 Summary:
+
+| Property           | Pure Function       | Impure Function          |
+|--------------------|---------------------|---------------------------|
+| Same input/output  | ✅ Always            | ❌ May vary               |
+| Side effects       | ❌ None              | ✅ Yes (I/O, mutation)    |
+| Changes arguments  | ❌ Never             | ✅ Sometimes              |
+| Easy to test       | ✅ Very              | ❌ Difficult              |
+
+✅ Prefer pure functions for data transformation
+✅ Avoid mutating data or depending on external state
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+
+// 57 - 🧊 Immutability in JavaScript
+
+/*
+📘 What is Immutability?
+- Immutability means **data cannot be changed after it is created**.
+- Instead of modifying the original data, you create and return a **new copy**.
+
+✅ Benefits:
+- Predictable behavior
+- Easier debugging
+- Safer state management (especially in React, Redux, etc.)
+*/
+
+// 🔸 1. Mutable Example (Bad Practice)
+const user = { name: "Ajay", age: 25 };
+user.age = 30; // ❌ Mutating the original object
+console.log("Mutable User:", user);
+
+// 🔸 2. Immutable Version (Good Practice)
+const originalUser = { name: "Ajay", age: 25 };
+const updatedUser = { ...originalUser, age: 30 };
+console.log("Original User:", originalUser); // age: 25
+console.log("Updated User:", updatedUser);   // age: 30
+
+/*
+✅ We used spread (...) to create a new object
+❌ We did not mutate originalUser
+*/
+
+// 🔸 3. Arrays – Mutable vs Immutable
+const numbers = [1, 2, 3];
+
+// ❌ Mutating
+numbers.push(4);
+console.log("Mutable Array:", numbers); // [1, 2, 3, 4]
+
+// ✅ Immutable approach
+const oldArr = [1, 2, 3];
+const newArr = [...oldArr, 4];
+console.log("Original:", oldArr); // [1, 2, 3]
+console.log("New:", newArr);      // [1, 2, 3, 4]
+
+// 🔸 4. Updating items in an array immutably
+const users = [
+  { id: 1, name: "Ajay" },
+  { id: 2, name: "Riya" },
+];
+
+// Update user with id = 2
+const updatedUsers = users.map(user =>
+  user.id === 2 ? { ...user, name: "Anjali" } : user
+);
+
+console.log("Immutable Update:", updatedUsers);
+
+/*
+✅ We did not modify the original array or its objects
+*/
+
+// 🔸 5. Deep Immutability (nested objects)
+const state = {
+  user: { name: "Ajay", location: "Pune" },
+  posts: [],
+};
+
+// ❌ Mutating
+state.user.name = "Riya";
+
+// ✅ Immutable (nested copy)
+const newState = {
+  ...state,
+  user: {
+    ...state.user,
+    name: "Riya",
+  },
+};
+console.log("Original State:", state);
+console.log("New State:", newState);
+
+/*
+📌 Summary:
+
+| Mutable             | Immutable                               |
+|---------------------|------------------------------------------|
+| Changes the original| Creates a new copy                       |
+| Can cause bugs      | Safer and more predictable               |
+| Fast & easy         | Slower but more reliable                 |
+| Used in vanilla JS  | Preferred in React, Redux, functional JS |
+
+✅ Use spread operator or array methods like map, filter, concat
+✅ Avoid push, splice, direct object mutation if immutability is important
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+
+// 58 - 🔁 Higher Order Functions (HOFs)
+
+/*
+📘 What is a Higher Order Function?
+A **Higher Order Function** is a function that:
+1. Takes another function as an argument, or
+2. Returns a function as its result
+
+✅ In JavaScript, functions are "first-class citizens", meaning:
+- You can pass them as arguments
+- You can return them from other functions
+- You can assign them to variables
+*/
+
+// 🔸 1. A Function that Accepts Another Function (callback)
+function greet(name, formatter) {
+  return "Hello, " + formatter(name);
+}
+
+function toUpper(text) {
+  return text.toUpperCase();
+}
+
+console.log(greet("ajay", toUpper)); // Hello, AJAY
+
+/*
+🧠 `greet` is a higher order function
+🧠 `toUpper` is a callback passed to it
+*/
+
+// 🔸 2. A Function that Returns Another Function
+function multiplier(factor) {
+  return function (number) {
+    return number * factor;
+  };
+}
+
+const double = multiplier(2);
+const triple = multiplier(3);
+
+console.log(double(5)); // 10
+console.log(triple(5)); // 15
+
+/*
+✅ `multiplier()` returns a function customized with `factor`
+*/
+
+// 🔸 3. Array Methods as Higher Order Functions
+const numbers = [1, 2, 3, 4, 5];
+
+const doubled = numbers.map(num => num * 2); // ✅ map takes a callback
+console.log("Doubled:", doubled); // [2, 4, 6, 8, 10]
+
+const even = numbers.filter(num => num % 2 === 0); // ✅ filter takes a callback
+console.log("Even:", even); // [2, 4]
+
+const sum = numbers.reduce((total, current) => total + current, 0); // ✅ reduce uses callback
+console.log("Sum:", sum); // 15
+
+/*
+✅ These methods (map, filter, reduce) are higher order functions
+✅ You provide a function to customize how they behave
+*/
+
+// 🔸 4. Custom HOF Example
+function repeatAction(action, times) {
+  for (let i = 0; i < times; i++) {
+    action(i); // Call the passed function
+  }
+}
+
+repeatAction(index => {
+  console.log("Repeating:", index);
+}, 3);
+
+/*
+📌 Summary:
+
+| Feature                  | Description                             |
+|--------------------------|-----------------------------------------|
+| Takes function as input  | ✅ Example: map, filter, reduce          |
+| Returns a function       | ✅ Example: multiplier(), closures       |
+| Benefits                 | Custom logic, reuse, functional style   |
+
+✅ Mastering HOFs = mastering modern JS
+✅ Essential for React, functional programming, data manipulation
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+
+// 59 - 🧪 Currying & Composition in JavaScript
+
+/*
+📘 What is Currying?
+- Currying is the process of converting a function with **multiple arguments** into a **sequence of functions**, each taking **one argument at a time**.
+
+✅ Currying allows **function reuse**, **partial application**, and better **functional composition**.
+*/
+
+// 🔸 1. Normal Function (multi-argument)
+function multiply(a, b) {
+  return a * b;
+}
+console.log(multiply(2, 3)); // 6
+
+// 🔸 2. Curried Version
+function curriedMultiply(a) {
+  return function (b) {
+    return a * b;
+  };
+}
+
+const double = curriedMultiply(2); // partially applied
+console.log(double(5)); // 10
+console.log(curriedMultiply(3)(4)); // 12
+
+/*
+🧠 Each call returns a new function waiting for the next argument.
+*/
+
+// 🔸 3. Arrow Function Currying
+const curriedAdd = a => b => c => a + b + c;
+console.log(curriedAdd(1)(2)(3)); // 6
+
+/*
+✅ Useful when you want to pass arguments one by one.
+*/
+
+// 🔸 4. Use Case: Custom Logger with Partial Arguments
+function logger(prefix) {
+  return function (msg) {
+    console.log(`[${prefix}] ${msg}`);
+  };
+}
+
+const info = logger("INFO");
+info("Server started"); // [INFO] Server started
+
+const error = logger("ERROR");
+error("Something went wrong"); // [ERROR] Something went wrong
+
+// ----------------------------------------------------------
+
+/*
+📘 What is Function Composition?
+- Composition is combining two or more functions to form a new function.
+- Data flows from right to left: `compose(f, g)(x)` = f(g(x))
+*/
+
+// 🔸 5. Compose Function Example
+const toUpper = str => str.toUpperCase();
+const exclaim = str => str + "!";
+const greet = str => `Hello, ${str}`;
+
+function compose(f, g) {
+  return function (value) {
+    return f(g(value));
+  };
+}
+
+const welcome = compose(exclaim, greet);
+console.log(welcome("Ajay")); // Hello, Ajay!
+
+/*
+✅ `greet` runs first, then `exclaim` wraps the result.
+✅ This is functional composition.
+*/
+
+// 🔸 6. Compose Multiple Functions
+const composeMany = (...fns) => input =>
+  fns.reduceRight((acc, fn) => fn(acc), input);
+
+const shoutGreet = composeMany(exclaim, toUpper, greet);
+console.log(shoutGreet("ajay")); // HELLO, AJAY!
+
+/*
+📌 Summary:
+
+| Feature     | Currying                         | Composition                      |
+|-------------|----------------------------------|-----------------------------------|
+| Meaning     | Break function into single args  | Combine functions into pipeline  |
+| Form        | f(a)(b)                          | f(g(x)) or compose(f, g)         |
+| Use Cases   | Reuse, config, partials          | Clean chaining, transformations  |
+
+✅ Currying is good for flexibility
+✅ Composition is good for readable pipelines
+*/
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
