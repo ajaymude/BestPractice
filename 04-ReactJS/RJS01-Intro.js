@@ -4319,60 +4319,1240 @@ function RHFErrorUX() {
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 51 - Fetching Data with fetch() in React
+
+/*
+📌 Why fetch data?
+
+✅ React apps often need to get data from APIs  
+✅ You can use the built-in `fetch()` function to make HTTP requests
+
+You usually fetch:
+- Lists of users/posts
+- Product info
+- Auth responses
+*/
+
+/// ✅ Example: Fetching data in useEffect
+
+import { useEffect, useState } from 'react';
+
+function UserList() {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/users') // sample API
+      .then((response) => response.json())
+      .then((data) => {
+        setUsers(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching users:', error);
+        setLoading(false);
+      });
+  }, []); // empty array → run only once on mount
+
+  if (loading) return <p>Loading users...</p>;
+
+  return (
+    <ul>
+      {users.map((user) => (
+        <li key={user.id}>{user.name}</li>
+      ))}
+    </ul>
+  );
+}
+
+/*
+🧠 Notes:
+- `fetch(url)` returns a Promise
+- Always call `.json()` to parse response
+- Always handle errors using `.catch()` or try/catch in async/await
+- Use `useEffect()` to perform side effects (like fetching)
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 52 - Axios Integration in React
+
+/*
+📌 Why use Axios?
+
+`axios` is a promise-based HTTP client that simplifies:
+✅ Making API requests  
+✅ Adding headers (like auth tokens)  
+✅ Handling request/response interceptors  
+✅ Better error handling than fetch
+*/
+
+/// ✅ Step 1: Install Axios
+// npm install axios
+
+/// ✅ Example: Basic Axios usage in useEffect
+
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+function AxiosUserList() {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    axios
+      .get('https://jsonplaceholder.typicode.com/users')
+      .then((response) => {
+        setUsers(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error with Axios:', error.message);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <p>Loading users...</p>;
+
+  return (
+    <ul>
+      {users.map((u) => (
+        <li key={u.id}>{u.name}</li>
+      ))}
+    </ul>
+  );
+}
+
+/// ✅ Axios with async/await
+
+async function fetchUsers() {
+  try {
+    const response = await axios.get('https://jsonplaceholder.typicode.com/users');
+    console.log(response.data);
+  } catch (error) {
+    console.error('Axios Error:', error.message);
+  }
+}
+
+/*
+🧠 Axios Tips:
+- `axios.get`, `axios.post`, `axios.put`, `axios.delete`
+- Supports request/response interceptors
+- Set global config: `axios.defaults.baseURL`, `axios.defaults.headers.common['Authorization']`
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 53 - useEffect with fetch()
+
+/*
+📌 Why combine useEffect with fetch?
+
+✅ `useEffect` handles side-effects (like API calls)  
+✅ It runs after the first render  
+✅ You can trigger `fetch()` inside it to load data from APIs
+*/
+
+/// ✅ Example: Simple useEffect + fetch combo
+
+import { useEffect, useState } from 'react';
+
+function PostList() {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function getPosts() {
+      try {
+        const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+        const data = await res.json();
+        setPosts(data.slice(0, 5)); // limit to 5 posts
+      } catch (error) {
+        console.error('Failed to fetch posts:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    getPosts();
+  }, []); // run once when component mounts
+
+  if (loading) return <p>Loading...</p>;
+
+  return (
+    <ul>
+      {posts.map((post) => (
+        <li key={post.id}>
+          <strong>{post.title}</strong>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/*
+🧠 Key Notes:
+- Always use async function inside useEffect (can't mark useEffect async directly)
+- Wrap API logic in `try-catch-finally` for better control
+- `[]` ensures fetch runs only on first mount
+*/
+
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 54 - useState + useEffect Pattern for API Calls
+
+/*
+📌 This pattern is the most common in React for fetching API data:
+✅ `useState` stores the data and loading/error states  
+✅ `useEffect` performs the fetch when the component mounts  
+✅ Clean structure, separates logic and display
+*/
+
+/// ✅ Example: useState + useEffect for fetching users
+
+import { useEffect, useState } from 'react';
+
+function APIUsers() {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const getUsers = async () => {
+      setLoading(true);
+      setError('');
+
+      try {
+        const res = await fetch('https://jsonplaceholder.typicode.com/users');
+        if (!res.ok) throw new Error('Network response was not ok');
+        const data = await res.json();
+        setUsers(data);
+      } catch (err) {
+        setError(err.message || 'Something went wrong');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getUsers();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p style={{ color: 'red' }}>{error}</p>;
+
+  return (
+    <ul>
+      {users.map((u) => (
+        <li key={u.id}>{u.name}</li>
+      ))}
+    </ul>
+  );
+}
+
+/*
+🧠 Pattern Breakdown:
+- `useState()` → stores data and states
+- `useEffect()` → fetches on mount
+- `try/catch/finally` → error and cleanup handling
+- Optional: move fetch logic to custom hook for reusability
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 55 - Async/Await with API Calls in React
+
+/*
+📌 Why use async/await?
+
+✅ Cleaner and more readable than `.then()`  
+✅ Works great with `try/catch` for error handling  
+✅ Perfect for use inside `useEffect` or event handlers
+*/
+
+/// ✅ Example: Async/await inside useEffect
+
+import { useEffect, useState } from 'react';
+
+function AsyncPosts() {
+  const [posts, setPosts] = useState([]);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+        if (!response.ok) throw new Error('Failed to fetch posts');
+        const data = await response.json();
+        setPosts(data.slice(0, 5)); // Limit to 5 posts
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
+  if (loading) return <p>Loading posts...</p>;
+  if (error) return <p style={{ color: 'red' }}>{error}</p>;
+
+  return (
+    <ul>
+      {posts.map((post) => (
+        <li key={post.id}><strong>{post.title}</strong></li>
+      ))}
+    </ul>
+  );
+}
+
+/// ✅ Example: Async/await in form submit handler
+
+function LoginForm() {
+  const [email, setEmail] = useState('');
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        body: JSON.stringify({ email }),
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      if (!res.ok) throw new Error('Login failed');
+      const data = await res.json();
+      alert(`Welcome, ${data.username}`);
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  return (
+    <form onSubmit={handleLogin}>
+      <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+      <button type="submit">Login</button>
+    </form>
+  );
+}
+
+/*
+🧠 Tips:
+- Use `await` with `.json()` to parse responses
+- Always wrap `await` in `try/catch` to handle API failures
+- Combine with `loading` and `error` state for smooth UX
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 56 - Loader and Error States in React
+
+/*
+📌 Why manage loader and error states?
+
+✅ Improves user experience during API calls  
+✅ Provides clear feedback when something goes wrong  
+✅ Prevents UI from breaking due to undefined data
+*/
+
+/// ✅ Example: Full pattern with loader and error
+
+import { useEffect, useState } from 'react';
+
+function ProductList() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      setError('');
+
+      try {
+        const res = await fetch('https://fakestoreapi.com/products');
+        if (!res.ok) throw new Error('Failed to fetch products');
+        const data = await res.json();
+        setProducts(data);
+      } catch (err) {
+        setError(err.message || 'Unexpected error occurred');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (loading) return <p>Loading products...</p>;
+  if (error) return <p style={{ color: 'red' }}>❌ {error}</p>;
+
+  return (
+    <ul>
+      {products.map((p) => (
+        <li key={p.id}>{p.title}</li>
+      ))}
+    </ul>
+  );
+}
+
+/*
+🧠 Best Practices:
+- Use `loading` to show a spinner, skeleton, or loading text
+- Show `error` only when one exists
+- Use `try/catch/finally` to toggle states properly
+- Keep UX clear: don't show stale data on failure
+*/
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 57 - Lifting State Up in React
+
+/*
+📌 What is "Lifting State Up"?
+
+✅ When two or more child components need to share the same state,  
+✅ Move that state to their closest common parent  
+✅ Pass the state & setter function down via props
+*/
+
+/// ✅ Example: Lifted state for syncing child components
+
+import { useState } from 'react';
+
+function ParentComponent() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <>
+      <h2>Parent Count: {count}</h2>
+      <ChildA count={count} />
+      <ChildB count={count} onIncrement={() => setCount(count + 1)} />
+    </>
+  );
+}
+
+function ChildA({ count }) {
+  return <p>Child A sees count: {count}</p>;
+}
+
+function ChildB({ count, onIncrement }) {
+  return (
+    <>
+      <p>Child B sees count: {count}</p>
+      <button onClick={onIncrement}>Increment</button>
+    </>
+  );
+}
+
+/*
+🧠 Why Lift State Up?
+- Keeps a single source of truth
+- Prevents mismatched values between components
+- Promotes better data flow in the app
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 58 - Prop Drilling Problem in React
+
+/*
+📌 What is Prop Drilling?
+
+When data (state or functions) is passed from a top-level component  
+→ down through many intermediate components  
+→ just to reach a deeply nested child.
+
+🔴 This makes the code harder to maintain and understand.
+*/
+
+/// ✅ Example: Prop Drilling (3 layers just to send `theme`)
+
+import { useState } from 'react';
+
+function App() {
+  const [theme, setTheme] = useState('dark');
+  return <Parent theme={theme} />;
+}
+
+function Parent({ theme }) {
+  return <Child theme={theme} />;
+}
+
+function Child({ theme }) {
+  return <DeepChild theme={theme} />;
+}
+
+function DeepChild({ theme }) {
+  return <p>Theme: {theme}</p>;
+}
+
+/*
+🧠 Problem:
+- Even if intermediate components (Parent, Child) don't use `theme`,
+  they still need to receive and pass it down.
+- This is called "prop drilling".
+
+✅ Better alternatives:
+- React Context API
+- State management tools (Redux, Zustand)
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 59 - Global State with React Context
+
+/*
+📌 Why use Context?
+
+✅ Solves prop drilling by providing global access to state  
+✅ Any component can read or update shared state directly  
+✅ Best for theming, auth, user settings, language, etc.
+*/
+
+/// ✅ Step 1: Create a Context file
+
+// ThemeContext.js
+import { createContext, useState } from 'react';
+export const ThemeContext = createContext();
+
+export function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState('light');
+  const toggleTheme = () => setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
+/// ✅ Step 2: Wrap your app with the provider
+
+// App.js
+import { ThemeProvider } from './ThemeContext';
+import Main from './Main';
+
+function App() {
+  return (
+    <ThemeProvider>
+      <Main />
+    </ThemeProvider>
+  );
+}
+
+export default App;
+
+/// ✅ Step 3: Use context in any component
+
+// Main.js
+import { useContext } from 'react';
+import { ThemeContext } from './ThemeContext';
+
+function Main() {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+
+  return (
+    <>
+      <h1>Current theme: {theme}</h1>
+      <button onClick={toggleTheme}>Toggle Theme</button>
+    </>
+  );
+}
+
+/*
+🧠 Benefits of Context:
+- Clean: avoids passing props manually
+- Flexible: accessible from any depth
+- Composable: can separate contexts (ThemeContext, AuthContext, etc.)
+
+📦 Tip: Use Context only for truly shared global state.
+For large apps with complex state, prefer Redux Toolkit or Zustand.
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 60 - useReducer Hook in React
+
+/*
+📌 Why useReducer?
+
+✅ Ideal for managing complex state logic  
+✅ Better than useState when:
+   - You have multiple related values
+   - State updates depend on previous state
+   - You want centralized state logic (like Redux)
+
+🧠 Syntax:
+const [state, dispatch] = useReducer(reducerFn, initialState);
+*/
+
+/// ✅ Example: useReducer for counter logic
+
+import { useReducer } from 'react';
+
+const initialState = { count: 0 };
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return { count: state.count + 1 };
+    case 'decrement':
+      return { count: state.count - 1 };
+    case 'reset':
+      return initialState;
+    default:
+      return state;
+  }
+}
+
+function CounterWithReducer() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  return (
+    <>
+      <h2>Count: {state.count}</h2>
+      <button onClick={() => dispatch({ type: 'increment' })}>➕</button>
+      <button onClick={() => dispatch({ type: 'decrement' })}>➖</button>
+      <button onClick={() => dispatch({ type: 'reset' })}>🔁 Reset</button>
+    </>
+  );
+}
+
+/*
+🧠 useReducer Advantages:
+- Cleaner state logic in one reducer function
+- Action-driven updates (good for complex workflows)
+- Looks and feels like Redux (great transition)
+
+🧩 Tip:
+- Combine useReducer + Context to build a basic global store.
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 67 - Inline Styling in React
+
+/*
+📌 What is Inline Styling?
+
+✅ You apply CSS directly inside JSX using the `style` prop  
+✅ Takes an object with camelCased property names  
+✅ Useful for dynamic styles or quick styling
+*/
+
+/// ✅ Example: Basic inline styles
+
+function InlineStyledBox() {
+  const boxStyle = {
+    backgroundColor: 'lightblue',
+    padding: '20px',
+    borderRadius: '8px',
+    color: 'darkblue',
+    fontWeight: 'bold',
+    textAlign: 'center'
+  };
+
+  return <div style={boxStyle}>I am styled with inline CSS!</div>;
+}
+
+/// ✅ Example: Dynamic inline styles
+
+function DynamicText({ isError }) {
+  return (
+    <p
+      style={{
+        color: isError ? 'red' : 'green',
+        fontSize: '18px'
+      }}
+    >
+      {isError ? 'There was an error!' : 'Everything is good ✅'}
+    </p>
+  );
+}
+
+/*
+🧠 Tips:
+- Always use camelCase for property names (e.g., `backgroundColor`, not `background-color`)
+- Can be helpful for conditional styles or quick prototypes
+- For long or reusable styles, prefer CSS Modules or styled-components
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 68 - CSS Modules in React
+
+/*
+📌 What are CSS Modules?
+
+✅ CSS Modules let you scope styles to a specific component  
+✅ Avoid global class name conflicts  
+✅ Filename ends with `.module.css`  
+✅ Classes are imported as JS objects
+*/
+
+/// ✅ Step 1: Create a CSS Module file
+// File: Button.module.css
+
+/*
+.button {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+*/
+
+/// ✅ Step 2: Use the styles in a component
+
+// File: Button.jsx
+import styles from './Button.module.css';
+
+function CustomButton({ label }) {
+  return <button className={styles.button}>{label}</button>;
+}
+
+export default CustomButton;
+
+/*
+🧠 Key Points:
+- `styles.button` refers to `.button` class from Button.module.css
+- Styles are scoped → no conflicts with other components
+- You can dynamically combine styles: `className={`${styles.btn} ${styles.active}`}`
+- Works out-of-the-box with Vite, CRA, and Next.js
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 69 - Styled-components in React
+
+/*
+📌 What are styled-components?
+
+✅ A CSS-in-JS library for styling React components  
+✅ Write real CSS syntax inside JavaScript  
+✅ Automatically scopes styles and supports dynamic props  
+✅ No class name collisions
+*/
+
+/// ✅ Step 1: Install styled-components
+// npm install styled-components
+
+/// ✅ Step 2: Use styled-components
+
+import styled from 'styled-components';
+
+const Card = styled.div`
+  background-color: #f5f5f5;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 0 10px #ccc;
+  max-width: 300px;
+  margin: auto;
+`;
+
+const Title = styled.h2`
+  color: #333;
+`;
+
+const Button = styled.button`
+  background-color: ${(props) => (props.primary ? '#007bff' : '#ccc')};
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+
+  &:hover {
+    opacity: 0.9;
+  }
+`;
+
+function StyledCard() {
+  return (
+    <Card>
+      <Title>Hello from styled-components</Title>
+      <Button primary>Primary Button</Button>
+      <Button>Secondary Button</Button>
+    </Card>
+  );
+}
+
+export default StyledCard;
+
+/*
+🧠 Why use styled-components?
+- Styles live next to components
+- Supports conditional styling with props
+- No need for class names or separate CSS files
+- Fully dynamic and theme-able
+
+📦 Bonus: Supports theming, animations, media queries, and global styles
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 70 - Tailwind CSS in React
+
+/*
+📌 What is Tailwind CSS?
+
+✅ A utility-first CSS framework  
+✅ You style directly in className using small utility classes  
+✅ No need to write custom CSS  
+✅ Fast to build, easy to maintain
+
+📦 Popular with React because:
+- Works with CRA, Vite, Next.js, etc.
+- Combines perfectly with component-based UI
+*/
+
+/// ✅ Step 1: Install Tailwind in your React project
+
+// For Vite:
+// npm install -D tailwindcss postcss autoprefixer
+// npx tailwindcss init -p
+
+// In tailwind.config.js → enable content scanning:
+content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"]
+
+// In src/index.css → add base styles:
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/// ✅ Step 2: Use Tailwind classes in JSX
+
+function TailwindCard() {
+  return (
+    <div className="max-w-sm mx-auto p-6 bg-white rounded-xl shadow-md space-y-4">
+      <h2 className="text-xl font-bold text-gray-900">Tailwind Card</h2>
+      <p className="text-gray-600">This card is styled using Tailwind utility classes.</p>
+      <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
+        Click Me
+      </button>
+    </div>
+  );
+}
+
+export default TailwindCard;
+
+/*
+🧠 Why Tailwind?
+- Fast styling without leaving JSX
+- Mobile-first & responsive utilities
+- Custom themes with tailwind.config.js
+- Huge plugin ecosystem (e.g., typography, forms)
+
+✅ Tailwind is highly productive once you're familiar with the class names
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 71 - Classname Conditionals in React (clsx / classnames)
+
+/*
+📌 Why use classnames or clsx?
+
+✅ Dynamically toggle CSS classes  
+✅ Clean syntax instead of ternary chaos  
+✅ Great with Tailwind or any CSS approach
+
+📦 Popular Libraries:
+- `clsx` → small, modern, zero-dependency
+- `classnames` → widely used, similar syntax
+*/
+
+/// ✅ Step 1: Install one of them
+
+// npm install clsx
+// OR
+// npm install classnames
+
+/// ✅ Example using `clsx` with Tailwind
+
+import clsx from 'clsx';
+
+function Button({ isPrimary, disabled }) {
+  const btnClass = clsx(
+    'px-4 py-2 rounded font-semibold',
+    {
+      'bg-blue-600 text-white hover:bg-blue-700': isPrimary,
+      'bg-gray-300 text-gray-700 cursor-not-allowed': disabled,
+    }
+  );
+
+  return <button className={btnClass} disabled={disabled}>Click</button>;
+}
+
+/// ✅ Example using `classnames`
+
+import cn from 'classnames';
+
+function Alert({ type }) {
+  const alertClass = cn('p-4 rounded', {
+    'bg-red-100 text-red-800': type === 'error',
+    'bg-green-100 text-green-800': type === 'success',
+    'bg-yellow-100 text-yellow-800': type === 'warning',
+  });
+
+  return <div className={alertClass}>This is a {type} alert!</div>;
+}
+
+/*
+🧠 Why it's useful:
+- Clean conditional logic for classes
+- Easier to read than nested ternaries
+- Works with Tailwind, CSS Modules, global classes
+
+💡 Bonus: You can use expressions and conditions directly inside `clsx()` or `classnames()`
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 72 - Smart vs Dumb Components in React
+
+/*
+📌 What are Smart vs Dumb Components?
+
+✅ Smart Component (Container):
+- Handles logic, state, side effects, API calls
+- Passes data down to dumb components
+- Often connected to Context, Redux, etc.
+
+✅ Dumb Component (Presentational):
+- Focuses only on UI
+- Receives data via props
+- Doesn't manage state (except maybe local UI states)
+*/
+
+/// ✅ Example: Smart (Container) + Dumb (UI) split
+
+// SmartComponent.jsx
+import { useEffect, useState } from 'react';
+import UserList from './UserList';
+
+function SmartComponent() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then((res) => res.json())
+      .then((data) => setUsers(data.slice(0, 3)));
+  }, []);
+
+  return <UserList users={users} />;
+}
+
+/// ✅ DumbComponent.jsx (UserList)
+
+function UserList({ users }) {
+  return (
+    <ul style={{ fontFamily: 'monospace' }}>
+      {users.map((u) => (
+        <li key={u.id}>{u.name}</li>
+      ))}
+    </ul>
+  );
+}
+
+export default UserList;
+
+/*
+🧠 Why separate them?
+- Improves reusability and testing
+- Makes logic easier to debug and reason about
+- Encourages clean UI vs data separation
+
+📦 Tip: 
+- Use hooks in Smart components, not in Dumb ones.
+- Use Dumb components for display, forms, cards, etc.
+*/
+
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+
+// ✅ 73 - Container vs Presentational Components
+
+/*
+📌 Difference Between Container vs Presentational Components
+
+✅ Container Component:
+- Handles logic, state, side effects
+- Fetches data, manages events
+- Sends data down via props
+
+✅ Presentational Component:
+- Only displays UI
+- Pure function of props
+- No side effects or API calls
+*/
+
+/// ✅ Container: manages logic
+
+// ProductContainer.jsx
+import { useEffect, useState } from 'react';
+import ProductList from './ProductList';
+
+function ProductContainer() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch('https://fakestoreapi.com/products?limit=3')
+      .then((res) => res.json())
+      .then((data) => setProducts(data));
+  }, []);
+
+  return <ProductList items={products} />;
+}
+
+export default ProductContainer;
+
+/// ✅ Presentational: handles display
+
+// ProductList.jsx
+function ProductList({ items }) {
+  return (
+    <div style={{ display: 'flex', gap: '1rem' }}>
+      {items.map((p) => (
+        <div key={p.id} style={{ padding: '1rem', border: '1px solid #ccc' }}>
+          <h4>{p.title}</h4>
+          <p>₹{p.price}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default ProductList;
+
+/*
+🧠 Summary:
+- Keep Container components smart: stateful and logic-heavy
+- Keep Presentational components clean, focused on layout
+- Makes testing and reusability much easier
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 74 - Folder Structure for Scaling React Projects
+
+/*
+📌 Why a good folder structure matters?
+
+✅ Easier to scale and maintain  
+✅ Encourages separation of concerns  
+✅ Makes team collaboration smoother  
+✅ Helps manage features as your app grows
+*/
+
+/// ✅ Recommended scalable folder structure
+
+src/
+├── assets/               // images, icons, fonts
+├── components/           // reusable dumb UI components
+│   ├── Button.jsx
+│   ├── Card.jsx
+│   └── ...
+├── features/             // feature-specific logic + UI
+│   ├── auth/
+│   │   ├── AuthPage.jsx
+│   │   ├── authSlice.js
+│   │   └── LoginForm.jsx
+│   ├── products/
+│   │   ├── ProductList.jsx
+│   │   ├── ProductCard.jsx
+│   │   └── productAPI.js
+│   └── ...
+├── hooks/                // custom hooks (e.g., useAuth, useDebounce)
+│   └── useFetch.js
+├── context/              // React Context providers
+│   └── ThemeContext.js
+├── store/                // Redux slices, store.js
+│   ├── store.js
+│   └── productSlice.js
+├── pages/                // route-level components (React Router)
+│   ├── Home.jsx
+│   └── Profile.jsx
+├── routes/               // route definitions
+│   └── AppRoutes.jsx
+├── utils/                // helper functions, constants
+│   ├── formatPrice.js
+│   └── constants.js
+├── App.jsx               // root component
+├── main.jsx              // entry point
+└── index.css             // global styles
+
+/*
+🧠 Tips:
+- Group by "features" not just "type" for better scalability
+- Keep small reusable components in `/components`
+- Use folders per feature inside `/features` to avoid chaos
+- Don’t over-optimize for small projects, but plan for growth
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 75 - Custom Hooks and Separation of Logic in React
+
+/*
+📌 Why create custom hooks?
+
+✅ Reuse logic across components  
+✅ Keep components clean and focused on rendering  
+✅ Extract side effects, API calls, listeners, etc.
+
+🧠 Rule: A custom hook is just a function that starts with "use"
+*/
+
+/// ✅ Example: Custom hook for fetching data
+
+// hooks/useFetch.js
+import { useEffect, useState } from 'react';
+
+function useFetch(url) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('Failed to fetch');
+        const json = await res.json();
+        setData(json);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [url]);
+
+  return { data, loading, error };
+}
+
+export default useFetch;
+
+/// ✅ How to use the custom hook in a component
+
+// components/UserList.jsx
+import useFetch from '../hooks/useFetch';
+
+function UserList() {
+  const { data: users, loading, error } = useFetch('https://jsonplaceholder.typicode.com/users');
+
+  if (loading) return <p>Loading users...</p>;
+  if (error) return <p>{error}</p>;
+
+  return (
+    <ul>
+      {users.map((u) => (
+        <li key={u.id}>{u.name}</li>
+      ))}
+    </ul>
+  );
+}
+
+/*
+🧠 Tips:
+- Custom hooks make components smaller and easier to read
+- You can pass parameters into hooks (like URLs, debounce time, etc.)
+- Hooks can even return functions or handle complex logic (e.g., useAuth, useCart)
+
+💡 Rule: Only call hooks inside other hooks or components – never inside normal functions
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
