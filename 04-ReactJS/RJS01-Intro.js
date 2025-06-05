@@ -1808,7 +1808,2533 @@ function App() {
 */
 
 
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 
+// ✅ 22 - Rendering Fallback UI
+
+/*
+🔷 What is Fallback UI?
+
+A **fallback UI** is the UI you show when:
+✅ Data is still loading  
+✅ Something is missing  
+✅ An error occurred  
+✅ A user doesn’t meet a condition (like not logged in)
+
+It’s an essential part of creating a smooth user experience.
+*/
+
+/// ✅ Example 1: Loading state fallback
+
+function UserProfile({ isLoading, user }) {
+  if (isLoading) {
+    return <p>Loading user data...</p>; // fallback UI
+  }
+
+  return <h2>Welcome, {user.name}</h2>;
+}
+
+/// ✅ Example 2: Fallback for missing data
+
+function Avatar({ image }) {
+  return (
+    <img
+      src={image || "https://via.placeholder.com/150"}
+      alt="User Avatar"
+    />
+  );
+}
+
+/// ✅ Example 3: Fallback using ternary operator
+
+function Dashboard({ isLoggedIn }) {
+  return (
+    <div>
+      {isLoggedIn ? <h1>Dashboard</h1> : <p>Please log in to view your dashboard.</p>}
+    </div>
+  );
+}
+
+/// ✅ Example 4: Fallback in Suspense (for lazy components only)
+
+import { Suspense, lazy } from 'react';
+
+const LazyComponent = lazy(() => import('./HeavyComponent'));
+
+function App() {
+  return (
+    <Suspense fallback={<p>Loading component...</p>}>
+      <LazyComponent />
+    </Suspense>
+  );
+}
+
+/*
+🧠 Summary:
+- Fallback UI keeps your app from showing empty or broken views
+- Use it with loading states, errors, and missing data
+- `Suspense` allows built-in fallback for lazy components
+- Always show meaningful feedback (not just spinners)
+*/
+
+/// ✅ Example 5: React Router + Suspense + Lazy Routes
+
+import { Suspense, lazy } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+// Lazy load route components
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const Contact = lazy(() => import('./pages/Contact'));
+
+function MainApp() {
+  return (
+    <Router>
+      <Suspense fallback={<p>Loading page...</p>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+      </Suspense>
+    </Router>
+  );
+}
+
+/*
+🧠 How it works:
+- `lazy()` loads route components on demand
+- `Suspense` shows fallback during the lazy loading
+- Use it around <Routes> to lazy-load full pages
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+// ✅ 23 - Showing / Hiding Elements in React
+
+/*
+🔷 Why show/hide elements?
+
+React lets you conditionally show or hide parts of your UI based on state, props, or logic — this improves UX and keeps the UI clean.
+*/
+
+/// ✅ Example 1: Toggle visibility with boolean state
+
+function ToggleMessage() {
+  const [show, setShow] = useState(false);
+
+  return (
+    <div>
+      <button onClick={() => setShow(!show)}>
+        {show ? "Hide" : "Show"} Message
+      </button>
+
+      {show && <p>This is a toggleable message!</p>}
+    </div>
+  );
+}
+
+/// ✅ Example 2: Hide element using ternary
+
+function LoginStatus({ isLoggedIn }) {
+  return (
+    <div>
+      {isLoggedIn ? (
+        <p>You are logged in!</p>
+      ) : (
+        <button>Login</button>
+      )}
+    </div>
+  );
+}
+
+/// ✅ Example 3: Dynamically change style/display
+
+function Box({ visible }) {
+  return (
+    <div style={{ display: visible ? 'block' : 'none' }}>
+      This box is conditionally rendered.
+    </div>
+  );
+}
+
+/// ✅ Example 4: Inline logic to skip rendering
+
+function AdminPanel({ role }) {
+  if (role !== 'admin') return null;
+
+  return <h3>Welcome to the admin panel.</h3>;
+}
+
+/*
+🧠 Summary:
+- Use `&&` for simple toggles
+- Use `? :` for alternate content
+- Use `display: 'none'` for hiding while keeping in DOM
+- `return null` is the cleanest way to skip rendering
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+// ✅ 24 - Rendering Lists using `.map()`
+
+/*
+🔷 Why use `.map()` in React?
+
+When you have an array of data (like users, products, etc.), you can render each item using `.map()` — it's the most common way to display lists dynamically in React.
+*/
+
+/// ✅ Example 1: Render list of strings
+
+function FruitsList() {
+  const fruits = ['Apple', 'Banana', 'Mango'];
+
+  return (
+    <ul>
+      {fruits.map((fruit, index) => (
+        <li key={index}>{fruit}</li>
+      ))}
+    </ul>
+  );
+}
+
+/// ✅ Example 2: Render list of objects
+
+function Users() {
+  const users = [
+    { id: 1, name: 'Ajay' },
+    { id: 2, name: 'Riya' },
+    { id: 3, name: 'Vikram' }
+  ];
+
+  return (
+    <ul>
+      {users.map((user) => (
+        <li key={user.id}>{user.name}</li>
+      ))}
+    </ul>
+  );
+}
+
+/// ✅ Example 3: Use with custom components
+
+function UserCard({ name }) {
+  return <div className="card">Name: {name}</div>;
+}
+
+function UsersList() {
+  const names = ['Alice', 'Bob', 'Charlie'];
+
+  return (
+    <div>
+      {names.map((name, idx) => (
+        <UserCard key={idx} name={name} />
+      ))}
+    </div>
+  );
+}
+
+/// ✅ Example 4: Conditional list rendering
+
+function TodoList({ todos }) {
+  return (
+    <div>
+      {todos.length === 0 ? (
+        <p>No tasks for today!</p>
+      ) : (
+        <ul>
+          {todos.map((todo, i) => (
+            <li key={i}>{todo}</li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+/*
+🧠 Key Notes:
+- Always add a unique `key` to each list item (prefer `id` over `index`)
+- Avoid using `index` as key unless you have no unique value
+- You can pass each item to a sub-component
+- Clean lists = better performance and debugging
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+// ✅ 25 - Using Keys Correctly in React Lists
+
+/*
+🔷 Why are Keys Important?
+
+Keys help React identify **which items changed**, were **added**, or **removed** in a list.  
+They improve **performance** and avoid rendering bugs when the list updates.
+
+🔸 React uses the `key` prop internally to track each element.
+*/
+
+/// ✅ Example 1: Using unique `id` as key (Best Practice)
+
+function Products() {
+  const items = [
+    { id: 101, name: 'Shoes' },
+    { id: 102, name: 'T-Shirt' },
+    { id: 103, name: 'Hat' },
+  ];
+
+  return (
+    <ul>
+      {items.map((item) => (
+        <li key={item.id}>{item.name}</li>
+      ))}
+    </ul>
+  );
+}
+
+/// ✅ Example 2: Using `index` as key (Not recommended for dynamic lists)
+
+function SimpleList() {
+  const data = ['One', 'Two', 'Three'];
+
+  return (
+    <ul>
+      {data.map((value, index) => (
+        <li key={index}>{value}</li>
+      ))}
+    </ul>
+  );
+}
+
+/*
+⚠️ Use index as key ONLY IF:
+- List is static (won’t change order or values)
+- You don’t have a unique identifier (like `id`)
+
+Why avoid index as key?
+❌ It breaks component state tracking when list items are reordered, deleted, or added dynamically.
+*/
+
+/// ✅ Example 3: Wrong key = React warning
+
+const items = ['X', 'Y', 'Z'];
+
+// ❌ Don't do this:
+<li key="random-key">{item}</li> // Each will get the same key!
+
+/*
+🧠 Summary:
+- ✅ Use a unique and stable `key` (like database `id`)
+- ❌ Avoid using index unless no better option
+- Never leave out the key — React will warn you
+- Key should be added to the direct child inside `.map()`
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+// ✅ 26 - Conditional Rendering with Lists
+
+/*
+🔷 What is Conditional List Rendering?
+
+Sometimes, you want to render a list **only if it has items**, or display a fallback message when the list is **empty**.
+
+This improves user feedback and handles edge cases.
+*/
+
+/// ✅ Example 1: Show list if not empty, else show message
+
+function TaskList({ tasks }) {
+  return (
+    <div>
+      {tasks.length === 0 ? (
+        <p>No tasks for today 😴</p>
+      ) : (
+        <ul>
+          {tasks.map((task, index) => (
+            <li key={index}>{task}</li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+/// ✅ Example 2: Filter list before rendering
+
+function Users({ users }) {
+  return (
+    <ul>
+      {users
+        .filter((user) => user.active)
+        .map((user) => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+    </ul>
+  );
+}
+
+/// ✅ Example 3: Show only if a condition is met
+
+function Notifications({ messages }) {
+  return (
+    <div>
+      <h3>Inbox</h3>
+      {messages.length > 0 && <p>You have {messages.length} new messages.</p>}
+      <ul>
+        {messages.map((msg, i) => (
+          <li key={i}>{msg}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+/// ✅ Example 4: Inline check inside `.map()`
+
+function ProductList({ products }) {
+  return (
+    <ul>
+      {products.map((product) =>
+        product.inStock ? (
+          <li key={product.id}>{product.name}</li>
+        ) : null
+      )}
+    </ul>
+  );
+}
+
+/*
+🧠 Summary:
+- Use `.length === 0` or `!array.length` to check if list is empty
+- Use `filter()` before mapping to skip unwanted items
+- You can show messages, loaders, or alternate UI when no data
+- Combine conditional rendering with `.map()` for flexible lists
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+// ✅ 27 - Nested List Rendering
+
+/*
+🔷 What is Nested List Rendering?
+
+Sometimes data is structured in **arrays within arrays** (e.g., categories → products, teams → players).  
+To render it, we **nest `.map()` calls** to go deeper into the structure.
+*/
+
+/// ✅ Example 1: Categories with items
+
+const data = [
+  {
+    category: 'Fruits',
+    items: ['Apple', 'Banana', 'Mango']
+  },
+  {
+    category: 'Vegetables',
+    items: ['Carrot', 'Broccoli']
+  }
+];
+
+function NestedList() {
+  return (
+    <div>
+      {data.map((group, index) => (
+        <div key={index}>
+          <h3>{group.category}</h3>
+          <ul>
+            {group.items.map((item, idx) => (
+              <li key={idx}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/// ✅ Example 2: Teams with players
+
+const teams = [
+  {
+    name: 'Team A',
+    players: ['Ajay', 'Riya']
+  },
+  {
+    name: 'Team B',
+    players: ['Sam', 'Tina', 'Rahul']
+  }
+];
+
+function TeamsList() {
+  return (
+    <div>
+      {teams.map((team, i) => (
+        <div key={i}>
+          <h4>{team.name}</h4>
+          <ul>
+            {team.players.map((player, j) => (
+              <li key={j}>{player}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/*
+🧠 Summary:
+- You can use `.map()` inside another `.map()` to render nested lists
+- Always provide a unique key for each level of iteration
+- Helps when rendering grouped, hierarchical, or structured data
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+
+// ✅ 28 - useState (Hook Basics with Functional Updates)
+
+/*
+🔷 What is `useState`?
+
+`useState` lets you add **reactive state** to functional components.
+
+It returns:
+- A state variable
+- A function to update that variable
+*/
+
+/// ✅ Syntax:
+const [state, setState] = useState(initialValue);
+
+/// ✅ Example 1: Counter with functional update (best practice)
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  const increment = () => {
+    // Functional update: ensures you're always working with latest value
+    setCount((prevCount) => prevCount + 1);
+  };
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={increment}>+1</button>
+    </div>
+  );
+}
+
+/// ✅ Example 2: String state
+
+function WelcomeBox() {
+  const [name, setName] = useState("Guest");
+
+  return (
+    <div>
+      <p>Hello, {name}!</p>
+      <button onClick={() => setName("Ajay")}>Change Name</button>
+    </div>
+  );
+}
+
+/// ✅ Example 3: useState with object + functional update
+
+function Profile() {
+  const [user, setUser] = useState({ name: "Ajay", age: 25 });
+
+  const increaseAge = () => {
+    setUser((prevUser) => ({
+      ...prevUser,
+      age: prevUser.age + 1
+    }));
+  };
+
+  return (
+    <div>
+      <p>{user.name} is {user.age} years old.</p>
+      <button onClick={increaseAge}>Increase Age</button>
+    </div>
+  );
+}
+
+/// ✅ Example 4: useState with array + functional update
+
+function Skills() {
+  const [skills, setSkills] = useState(["HTML", "CSS"]);
+
+  const addSkill = () => {
+    setSkills((prevSkills) => [...prevSkills, "React"]);
+  };
+
+  return (
+    <div>
+      <ul>
+        {skills.map((skill, i) => (
+          <li key={i}>{skill}</li>
+        ))}
+      </ul>
+      <button onClick={addSkill}>Add React</button>
+    </div>
+  );
+}
+
+/*
+🧠 Functional Update Pattern:
+- Useful when your new state depends on the previous one
+- Safer when multiple state updates are queued
+- Always use it for counters, toggles, and dynamic updates
+
+✅ Good: setCount(prev => prev + 1)
+❌ Bad: setCount(count + 1) (may be outdated in async updates)
+*/
+
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 29 - useEffect (React Hook for Side Effects)
+
+/*
+🔷 What is `useEffect`?
+
+`useEffect` is a React Hook that lets you **run side effects** in functional components.
+
+📦 Examples of side effects:
+- Fetching data from an API
+- Setting up subscriptions or timers
+- Listening for window scroll/resize
+- Updating the DOM manually
+
+useEffect replaces lifecycle methods like:
+- componentDidMount
+- componentDidUpdate
+- componentWillUnmount
+*/
+
+/// ✅ Syntax:
+useEffect(() => {
+  // effect logic here
+  return () => {
+    // optional cleanup (like removing event listeners)
+  };
+}, [dependencies]);
+
+/// ✅ Example 1: Run on every render (no dependency array)
+
+useEffect(() => {
+  console.log("Component rendered or updated");
+});
+
+/// ✅ Example 2: Run only once (on mount)
+
+useEffect(() => {
+  console.log("Component mounted once");
+}, []); // empty dependency array = run only once
+
+/// ✅ Example 3: Run when a value changes
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log("Count changed:", count);
+  }, [count]); // only runs when count changes
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount((prev) => prev + 1)}>+1</button>
+    </div>
+  );
+}
+
+/// ✅ Example 4: Fetch data on mount (API call)
+
+function Users() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((res) => res.json())
+      .then((data) => setUsers(data));
+  }, []);
+
+  return (
+    <ul>
+      {users.map((u) => (
+        <li key={u.id}>{u.name}</li>
+      ))}
+    </ul>
+  );
+}
+
+/// ✅ Example 5: Cleanup with return (like componentWillUnmount)
+
+function Timer() {
+  useEffect(() => {
+    const id = setInterval(() => {
+      console.log("Tick");
+    }, 1000);
+
+    return () => {
+      clearInterval(id); // cleanup
+      console.log("Component unmounted");
+    };
+  }, []);
+
+  return <p>Timer running...</p>;
+}
+
+/*
+🧠 Summary:
+- `useEffect` lets you handle side effects in functional components
+- Control when it runs using the dependency array:
+  - `[]` → run once
+  - `[value]` → run when `value` changes
+  - no array → run on every render
+- Use return for cleanup (like removing listeners or intervals)
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 30 - useRef (Reference Hook in React)
+
+/*
+🔷 What is `useRef`?
+
+`useRef` is a React Hook that lets you:
+✅ Store a **mutable value** that doesn't trigger re-render  
+✅ Access **DOM elements** directly (like `document.querySelector`)  
+✅ Keep track of previous values across renders
+
+🔧 Syntax:
+const myRef = useRef(initialValue);
+*/
+
+/// ✅ Example 1: Accessing a DOM element (like focus)
+
+function FocusInput() {
+  const inputRef = useRef();
+
+  const handleFocus = () => {
+    inputRef.current.focus(); // focus the input
+  };
+
+  return (
+    <div>
+      <input type="text" ref={inputRef} placeholder="Type here" />
+      <button onClick={handleFocus}>Focus Input</button>
+    </div>
+  );
+}
+
+/// ✅ Example 2: Persisting previous value without re-render
+
+function PreviousCounter() {
+  const [count, setCount] = useState(0);
+  const prevCount = useRef();
+
+  useEffect(() => {
+    prevCount.current = count; // store current count before updating
+  });
+
+  return (
+    <div>
+      <p>Current: {count}</p>
+      <p>Previous: {prevCount.current}</p>
+      <button onClick={() => setCount((c) => c + 1)}>+1</button>
+    </div>
+  );
+}
+
+/// ✅ Example 3: Store timeout ID (useRef instead of state)
+
+function TimerControl() {
+  const timerId = useRef(null);
+
+  const startTimer = () => {
+    timerId.current = setInterval(() => {
+      console.log("Tick");
+    }, 1000);
+  };
+
+  const stopTimer = () => {
+    clearInterval(timerId.current);
+    console.log("Stopped");
+  };
+
+  return (
+    <div>
+      <button onClick={startTimer}>Start</button>
+      <button onClick={stopTimer}>Stop</button>
+    </div>
+  );
+}
+
+/*
+🧠 Summary:
+- `useRef()` returns a `.current` object you can update without re-rendering
+- Great for DOM access, timers, intervals, storing previous values
+- It doesn’t notify React when it changes — use `useState` for UI updates
+*/
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 31 - useContext (Sharing Global Data in React)
+
+/*
+🔷 What is `useContext`?
+
+`useContext` is a React Hook that lets you **access global data** without passing props manually through every component level.
+
+It works with `React.createContext()` to share:
+✅ Theme  
+✅ Language  
+✅ User Info  
+✅ Auth Status  
+✅ App-wide settings
+*/
+
+/// ✅ Step 1: Create a context
+
+import { createContext, useContext, useState } from 'react';
+
+const ThemeContext = createContext(); // can be named anything
+
+/// ✅ Step 2: Create a Provider Component
+
+function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState("light");
+
+  const toggleTheme = () => setTheme((prev) => (prev === "light" ? "dark" : "light"));
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
+/// ✅ Step 3: Use the context in child components
+
+function ThemeToggleButton() {
+  const { theme, toggleTheme } = useContext(ThemeContext); // access global data
+
+  return (
+    <button onClick={toggleTheme}>
+      Switch to {theme === "light" ? "dark" : "light"} mode
+    </button>
+  );
+}
+
+function DisplayTheme() {
+  const { theme } = useContext(ThemeContext);
+
+  return <p>Current theme: {theme}</p>;
+}
+
+/// ✅ Step 4: Wrap your app with the provider
+
+function App() {
+  return (
+    <ThemeProvider>
+      <DisplayTheme />
+      <ThemeToggleButton />
+    </ThemeProvider>
+  );
+}
+
+/*
+🧠 Summary:
+- `createContext()` creates the global context
+- `Context.Provider` wraps the tree and provides values
+- `useContext()` reads the value anywhere inside that tree
+- Useful for avoidi
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 32 - Custom Hooks (Reusable Logic in React)
+
+/*
+🔷 What are Custom Hooks?
+
+Custom Hooks let you **extract and reuse stateful logic** between components.
+
+They’re regular functions that:
+✅ Start with the word `use`  
+✅ Can use other hooks (like `useState`, `useEffect`, etc.)  
+✅ Help avoid duplicated code and improve modularity
+*/
+
+/// ✅ Example 1: Custom hook to manage counter
+
+import { useState } from 'react';
+
+function useCounter(initialValue = 0) {
+  const [count, setCount] = useState(initialValue);
+
+  const increment = () => setCount((prev) => prev + 1);
+  const decrement = () => setCount((prev) => prev - 1);
+  const reset = () => setCount(initialValue);
+
+  return { count, increment, decrement, reset };
+}
+
+// ✅ Use in component
+function CounterBox() {
+  const { count, increment, decrement, reset } = useCounter(5);
+
+  return (
+    <div>
+      <h2>Count: {count}</h2>
+      <button onClick={increment}>+1</button>
+      <button onClick={decrement}>-1</button>
+      <button onClick={reset}>Reset</button>
+    </div>
+  );
+}
+
+/// ✅ Example 2: Custom hook to fetch data
+
+import { useState, useEffect } from 'react';
+
+function useFetch(url) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+        setLoading(false);
+      });
+  }, [url]);
+
+  return { data, loading };
+}
+
+// ✅ Use in component
+function Users() {
+  const { data: users, loading } = useFetch('https://jsonplaceholder.typicode.com/users');
+
+  if (loading) return <p>Loading...</p>;
+
+  return (
+    <ul>
+      {users.map((u) => (
+        <li key={u.id}>{u.name}</li>
+      ))}
+    </ul>
+  );
+}
+
+/*
+🧠 Summary:
+- Custom Hooks = Reusable logic using React’s built-in hooks
+- Always name them starting with `use` (e.g., `useAuth`, `useForm`, `useTheme`)
+- Keeps components clean and separates logic from UI
+- Can return anything: state, functions, objects, arrays
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 33 - Rules of Hooks (How to Use Hooks Properly)
+
+/*
+🔷 Why Rules of Hooks?
+
+React Hooks have **strict usage rules** to ensure:
+✅ Predictable behavior  
+✅ Correct lifecycle tracking  
+✅ Proper function reactivity
+
+🚫 Breaking these rules may lead to bugs, memory leaks, or broken state.
+*/
+
+/// ✅ Rule 1: Only call Hooks at the **top level**
+/*
+- ❌ Don’t use hooks inside loops, conditions, or nested functions
+- ✅ Always call hooks directly inside the main body of your component or custom hook
+*/
+
+function GoodComponent() {
+  // ✅ correct usage
+  const [count, setCount] = useState(0);
+
+  return <p>{count}</p>;
+}
+
+function BadComponent() {
+  if (true) {
+    // ❌ wrong: conditional hook call
+    // const [count, setCount] = useState(0);
+  }
+  return <p>Invalid</p>;
+}
+
+/// ✅ Rule 2: Only call Hooks in **functional components** or **custom hooks**
+
+function useCounter() {
+  const [count, setCount] = useState(0);
+  return { count, setCount };
+}
+
+// ❌ Don’t call useState/useEffect inside:
+class Bad extends React.Component {
+  // useState() ❌ Not allowed
+}
+
+/// ✅ Rule 3: Custom hooks must start with `use`
+
+function useUser() {
+  const [name, setName] = useState("Ajay");
+  return { name, setName };
+}
+
+// ❌ This is not a valid hook:
+function fetchData() {
+  useEffect(() => {}, []); // 🚫 React won’t track this as a hook
+}
+
+/*
+🧠 React enforces these rules using ESLint plugin:
+Install with:
+🔹 npm install eslint-plugin-react-hooks --save-dev
+🔹 And add in ESLint config:
+"plugins": ["react-hooks"],
+"rules": {
+  "react-hooks/rules-of-hooks": "error",
+  "react-hooks/exhaustive-deps": "warn"
+}
+*/
+
+/// ✅ Bonus: Dependency array in useEffect must include all used variables
+
+useEffect(() => {
+  console.log("Using some external variable");
+}, []); // ❌ if the variable is used inside, it should be in deps
+
+/*
+🧠 Summary:
+- ✅ Call hooks at the top level only
+- ✅ Call them only inside React function components or custom hooks
+- ✅ Hook names must start with `use`
+- ✅ useEffect must declare all external dependencies
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 34 - Lifecycle Phases in React (Function Components)
+
+/*
+🔷 React component lifecycle refers to **stages a component goes through**:
+1️⃣ Mount → added to the DOM  
+2️⃣ Update → re-render due to state/props change  
+3️⃣ Unmount → removed from the DOM
+
+🧠 In class components, we had methods like:
+- componentDidMount()
+- componentDidUpdate()
+- componentWillUnmount()
+
+✅ In function components, we use `useEffect()` to handle all these phases.
+*/
+
+/// ✅ Example 1: Mount (run only once)
+
+useEffect(() => {
+  console.log("Component mounted ✅");
+}, []); // empty array → run once
+
+/// ✅ Example 2: Update (watching dependencies)
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log("Count updated:", count);
+  }, [count]); // runs every time `count` changes
+
+  return (
+    <div>
+      <p>{count}</p>
+      <button onClick={() => setCount((c) => c + 1)}>+1</button>
+    </div>
+  );
+}
+
+/// ✅ Example 3: Unmount (cleanup when component is removed)
+
+function Timer() {
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("Tick");
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+      console.log("Timer stopped ⏹️");
+    };
+  }, []); // only runs on mount and cleanup on unmount
+
+  return <p>Running timer...</p>;
+}
+
+/*
+🧠 Summary of Lifecycle Phases in `useEffect`:
+
+| Phase     | How to Handle                       |
+|-----------|-------------------------------------|
+| Mount     | useEffect(() => {}, [])             |
+| Update    | useEffect(() => {}, [dependencies]) |
+| Unmount   | useEffect(() => { return () => {} }, [])
+
+✅ You can combine multiple useEffect calls for different phases
+*/
+
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 35 - Replacing Lifecycle Methods with Hooks
+
+/*
+🔷 In class components, lifecycle methods are split:
+- componentDidMount → runs after initial render
+- componentDidUpdate → runs on state/prop update
+- componentWillUnmount → runs before component is destroyed
+
+🧠 In functional components, all these are replaced using `useEffect()` with different dependency patterns.
+*/
+
+/// ✅ Equivalent to componentDidMount (run once)
+
+useEffect(() => {
+  console.log("Mounted: componentDidMount");
+}, []);
+
+/// ✅ Equivalent to componentDidUpdate (run on specific value change)
+
+useEffect(() => {
+  console.log("Updated: count changed");
+}, [count]); // only runs when `count` changes
+
+/// ✅ Equivalent to componentWillUnmount (cleanup function)
+
+useEffect(() => {
+  const interval = setInterval(() => {
+    console.log("Tick");
+  }, 1000);
+
+  return () => {
+    clearInterval(interval);
+    console.log("Unmounted: componentWillUnmount");
+  };
+}, []); // cleanup runs when component unmounts
+
+/// ✅ Simulating all 3 in one component
+
+function LifecycleDemo({ show }) {
+  const [count, setCount] = useState(0);
+
+  // Mount
+  useEffect(() => {
+    console.log("🚀 Mounted");
+    return () => console.log("❌ Unmounted");
+  }, []);
+
+  // Update
+  useEffect(() => {
+    if (count !== 0) {
+      console.log("🔁 Updated: count =", count);
+    }
+  }, [count]);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount((c) => c + 1)}>+1</button>
+    </div>
+  );
+}
+
+/*
+🧠 Summary:
+- useEffect can simulate all lifecycle methods
+- Just change the dependency array:
+  ✅ [] for mount
+  ✅ [value] for updates
+  ✅ return cleanup() for unmount
+*/
+
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 36 - Cleanup Functions in useEffect
+
+/*
+🔷 What is a Cleanup Function?
+
+A cleanup function in `useEffect()` is used to:
+✅ Remove timers, event listeners, or subscriptions  
+✅ Prevent memory leaks  
+✅ Clean up anything set up during the effect
+
+🧠 It acts like `componentWillUnmount` in class components.
+*/
+
+/// ✅ Syntax
+
+useEffect(() => {
+  // setup code (runs on mount or update)
+
+  return () => {
+    // cleanup code (runs before unmount OR next effect run)
+  };
+}, [dependencies]);
+
+/// ✅ Example 1: Cleanup an interval
+
+function Timer() {
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("⏱️ Tick");
+    }, 1000);
+
+    // cleanup
+    return () => {
+      clearInterval(interval);
+      console.log("🛑 Timer stopped");
+    };
+  }, []);
+
+  return <p>Timer is running...</p>;
+}
+
+/// ✅ Example 2: Remove event listener
+
+function WindowWidthTracker() {
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+
+    window.addEventListener('resize', handleResize);
+
+    // cleanup the listener
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      console.log("📏 Resize listener removed");
+    };
+  }, []);
+
+  return <p>Window width: {width}px</p>;
+}
+
+/// ✅ Example 3: Cleanup before re-run
+
+function AutoSave({ content }) {
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      console.log("💾 Auto-saving:", content);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeout); // clear previous timeout before setting new one
+    };
+  }, [content]);
+}
+
+/*
+🧠 Summary:
+- Cleanup functions help avoid duplicate setups and memory leaks
+- They run:
+  ✅ when the component unmounts
+  ✅ OR before the effect re-runs due to dependency changes
+- Always return a function from `useEffect()` if setup needs reversal
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 37 - Installing React Router
+
+/*
+🔷 What is React Router?
+
+React Router is a standard **routing library** for React.  
+It lets you handle:
+✅ Multiple pages (routes)  
+✅ Navigation without full reloads (SPA)  
+✅ Dynamic routing and nested routes
+*/
+
+/// ✅ Step 1: Install React Router
+
+# For React Router v6 (latest stable version)
+npm install react-router-dom
+
+/// ✅ Step 2: Set up the router in your React app
+
+// ✅ main.jsx or index.js
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+);
+
+/// ✅ Step 3: Define Routes in App.jsx
+
+import { Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+    </Routes>
+  );
+}
+
+/// ✅ Step 4: Add navigation
+
+import { Link } from 'react-router-dom';
+
+function Navbar() {
+  return (
+    <nav>
+      <Link to="/">Home</Link> | <Link to="/about">About</Link>
+    </nav>
+  );
+}
+
+/// ✅ Folder structure suggestion
+
+my-app/
+├── src/
+│   ├── App.jsx
+│   ├── main.jsx
+│   ├── pages/
+│   │   ├── Home.jsx
+│   │   └── About.jsx
+│   └── components/
+│       └── Navbar.jsx
+
+/*
+🧠 Summary:
+- Install `react-router-dom`
+- Wrap your app with `<BrowserRouter>`
+- Use `<Routes>` and `<Route>` to declare paths
+- Use `<Link>` for internal navigation (not `<a href>`)
+
+You're now ready to build single-page apps with multiple views!
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 38 - Route, Link, and BrowserRouter in React Router
+
+/*
+🔷 These are the **core building blocks** of client-side routing in React.
+
+✅ `<BrowserRouter>` – Sets up routing context  
+✅ `<Routes>` – Groups all your routes  
+✅ `<Route>` – Defines individual pages/components  
+✅ `<Link>` – For internal navigation without page reload
+*/
+
+/// ✅ 1. <BrowserRouter>
+
+import { BrowserRouter } from 'react-router-dom';
+
+function Root() {
+  return (
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  );
+}
+
+/// ✅ 2. <Routes> and <Route>
+
+import { Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
+
+function App() {
+  return (
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </>
+  );
+}
+
+/// ✅ 3. <Link> (for client-side navigation)
+
+import { Link } from 'react-router-dom';
+
+function Navbar() {
+  return (
+    <nav>
+      <Link to="/">🏠 Home</Link> | <Link to="/about">📘 About</Link>
+    </nav>
+  );
+}
+
+/*
+🔸 Difference from <a href="">
+- `<a href="">` reloads the page (not SPA)
+- `<Link to="">` updates the URL **without reload**
+
+✅ Output:
+- Going to "/" renders <Home />
+- Going to "/about" renders <About />
+*/
+
+/// ✅ Optional: <Navigate> for redirection
+
+import { Navigate } from 'react-router-dom';
+
+function ProtectedRoute({ isLoggedIn }) {
+  return isLoggedIn ? <Dashboard /> : <Navigate to="/login" />;
+}
+
+/*
+🧠 Summary:
+- Use `<BrowserRouter>` once at the root level
+- Wrap routes inside `<Routes>`
+- Use `<Route>` for each page
+- Use `<Link>` instead of `<a>` for in-app navigation
+- Optional: Use `<Navigate />` to redirect programmatically
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 39 - useParams and useNavigate (React Router Hooks)
+
+/*
+🔷 React Router provides useful hooks to access route data and perform navigation:
+✅ `useParams()` → get dynamic URL params  
+✅ `useNavigate()` → programmatically navigate to another route
+*/
+
+/// ✅ Example 1: useParams – Read URL parameters
+
+// URL: /user/ajay
+
+import { useParams } from 'react-router-dom';
+
+function UserProfile() {
+  const { username } = useParams(); // "ajay"
+
+  return <h2>Welcome, {username}</h2>;
+}
+
+/// ✅ Setup Route with dynamic param
+
+<Routes>
+  <Route path="/user/:username" element={<UserProfile />} />
+</Routes>
+
+/// ✅ Example 2: useNavigate – Navigate in code
+
+import { useNavigate } from 'react-router-dom';
+
+function Login() {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    // ... login logic
+    navigate('/dashboard'); // programmatically go to dashboard
+  };
+
+  return <button onClick={handleLogin}>Login</button>;
+}
+
+/// ✅ Example 3: Redirect with state
+
+navigate('/profile', { state: { from: 'login' } });
+
+/// ✅ Example 4: Back or Forward Navigation
+
+navigate(-1); // Go back
+navigate(1);  // Go forward
+
+/*
+🧠 Summary:
+- `useParams()` reads dynamic parts of the URL (e.g. /user/:id)
+- `useNavigate()` lets you navigate like history.push()
+- Can use to redirect after login, onClick, form submit, etc.
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 39 - useParams and useNavigate (React Router Hooks)
+
+/*
+🔷 React Router provides useful hooks to access route data and perform navigation:
+✅ `useParams()` → get dynamic URL params  
+✅ `useNavigate()` → programmatically navigate to another route
+*/
+
+/// ✅ Example 1: useParams – Read URL parameters
+
+// URL: /user/ajay
+
+import { useParams } from 'react-router-dom';
+
+function UserProfile() {
+  const { username } = useParams(); // "ajay"
+
+  return <h2>Welcome, {username}</h2>;
+}
+
+/// ✅ Setup Route with dynamic param
+
+<Routes>
+  <Route path="/user/:username" element={<UserProfile />} />
+</Routes>
+
+/// ✅ Example 2: useNavigate – Navigate in code
+
+import { useNavigate } from 'react-router-dom';
+
+function Login() {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    // ... login logic
+    navigate('/dashboard'); // programmatically go to dashboard
+  };
+
+  return <button onClick={handleLogin}>Login</button>;
+}
+
+/// ✅ Example 3: Redirect with state
+
+navigate('/profile', { state: { from: 'login' } });
+
+/// ✅ Example 4: Back or Forward Navigation
+
+navigate(-1); // Go back
+navigate(1);  // Go forward
+
+/*
+🧠 Summary:
+- `useParams()` reads dynamic parts of the URL (e.g. /user/:id)
+- `useNavigate()` lets you navigate like history.push()
+- Can use to redirect after login, onClick, form submit, etc.
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 40 - Nested Routes in React Router
+
+/*
+🔷 What are Nested Routes?
+
+Nested routes allow you to render components **inside other components**, matching a **parent/child path structure**.
+
+Useful for:
+✅ Layouts (Sidebar, Navbar)  
+✅ Sections within a page (tabs, subpages)  
+✅ Better route organization
+*/
+
+/// ✅ Example Setup: App with nested <Dashboard /> and child routes
+
+// App.jsx
+import { Routes, Route } from 'react-router-dom';
+import Dashboard from './pages/Dashboard';
+import Settings from './pages/Settings';
+import Profile from './pages/Profile';
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/dashboard" element={<Dashboard />}>
+        <Route path="settings" element={<Settings />} />
+        <Route path="profile" element={<Profile />} />
+      </Route>
+    </Routes>
+  );
+}
+
+/// ✅ Dashboard.jsx (must include <Outlet />)
+
+import { Outlet, Link } from 'react-router-dom';
+
+function Dashboard() {
+  return (
+    <div>
+      <h2>Dashboard</h2>
+      <nav>
+        <Link to="profile">Profile</Link> | <Link to="settings">Settings</Link>
+      </nav>
+      <Outlet /> {/* Render nested child route here */}
+    </div>
+  );
+}
+
+/// ✅ Now these paths work:
+- /dashboard → renders <Dashboard /> only
+- /dashboard/profile → renders <Dashboard /> + <Profile />
+- /dashboard/settings → renders <Dashboard /> + <Settings />
+
+/*
+🧠 Notes:
+- Use `<Outlet />` where you want child components to appear
+- Child route paths are **relative** to the parent
+- This helps keep layouts reusable and structured
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 40 - Nested Routes in React Router
+
+/*
+🔷 What are Nested Routes?
+
+Nested routes allow you to render components **inside other components**, matching a **parent/child path structure**.
+
+Useful for:
+✅ Layouts (Sidebar, Navbar)  
+✅ Sections within a page (tabs, subpages)  
+✅ Better route organization
+*/
+
+/// ✅ Example Setup: App with nested <Dashboard /> and child routes
+
+// App.jsx
+import { Routes, Route } from 'react-router-dom';
+import Dashboard from './pages/Dashboard';
+import Settings from './pages/Settings';
+import Profile from './pages/Profile';
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/dashboard" element={<Dashboard />}>
+        <Route path="settings" element={<Settings />} />
+        <Route path="profile" element={<Profile />} />
+      </Route>
+    </Routes>
+  );
+}
+
+/// ✅ Dashboard.jsx (must include <Outlet />)
+
+import { Outlet, Link } from 'react-router-dom';
+
+function Dashboard() {
+  return (
+    <div>
+      <h2>Dashboard</h2>
+      <nav>
+        <Link to="profile">Profile</Link> | <Link to="settings">Settings</Link>
+      </nav>
+      <Outlet /> {/* Render nested child route here */}
+    </div>
+  );
+}
+
+/// ✅ Now these paths work:
+- /dashboard → renders <Dashboard /> only
+- /dashboard/profile → renders <Dashboard /> + <Profile />
+- /dashboard/settings → renders <Dashboard /> + <Settings />
+
+/*
+🧠 Notes:
+- Use `<Outlet />` where you want child components to appear
+- Child route paths are **relative** to the parent
+- This helps keep layouts reusable and structured
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 41 - Redirects and NotFound Pages in React Router
+
+/*
+🔷 React Router allows you to:
+✅ Redirect users (e.g., after login)  
+✅ Handle unknown routes with a 404 Not Found page
+*/
+
+/// ✅ Redirect using <Navigate />
+
+import { Navigate } from 'react-router-dom';
+
+function ProtectedRoute({ isLoggedIn, children }) {
+  if (!isLoggedIn) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+}
+
+// ✅ Usage in route
+<Route
+  path="/dashboard"
+  element={
+    <ProtectedRoute isLoggedIn={userLoggedIn}>
+      <Dashboard />
+    </ProtectedRoute>
+  }
+/>
+
+/// ✅ Navigate inside event handler (useNavigate)
+
+import { useNavigate } from 'react-router-dom';
+
+function LoginForm() {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    // ... login logic
+    navigate('/dashboard'); // programmatic redirect
+  };
+
+  return <button onClick={handleLogin}>Login</button>;
+}
+
+/// ✅ 404 NotFound Page (Catch-all route)
+
+function NotFound() {
+  return <h2>404 - Page Not Found</h2>;
+}
+
+// ✅ Add this route at the end
+<Routes>
+  <Route path="/" element={<Home />} />
+  <Route path="/about" element={<About />} />
+  <Route path="*" element={<NotFound />} /> {/* Catch-all */}
+</Routes>
+
+/*
+🧠 Summary:
+- Use `<Navigate />` to redirect based on conditions (like auth)
+- Use `useNavigate()` for redirects inside JS logic
+- Add `<Route path="*">` last to catch all unknown URLs for a 404 page
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+
+// ✅ 42 - Creating and Using Context in React (with useContext)
+
+/*
+🔷 React Context is used to **share global data** (like auth, theme, user info) across components **without prop drilling**.
+
+Steps:
+1️⃣ Create Context  
+2️⃣ Provide the context value  
+3️⃣ Consume the context using `useContext()`
+*/
+
+/// ✅ Step 1: Create Context
+
+import { createContext, useState } from 'react';
+
+export const AuthContext = createContext();
+
+/// ✅ Step 2: Create a Provider Component
+
+export function AuthProvider({ children }) {
+  const [user, setUser] = useState(null);
+
+  const login = (username) => setUser({ name: username });
+  const logout = () => setUser(null);
+
+  return (
+    <AuthContext.Provider value={{ user, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+/// ✅ Step 3: Use Provider in root (main.jsx or App.jsx)
+
+import { AuthProvider } from './context/AuthContext';
+
+function AppWrapper() {
+  return (
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  );
+}
+
+/// ✅ Step 4: Access context with useContext()
+
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
+
+function Profile() {
+  const { user, logout } = useContext(AuthContext);
+
+  return user ? (
+    <div>
+      <h2>Welcome, {user.name}</h2>
+      <button onClick={logout}>Logout</button>
+    </div>
+  ) : (
+    <p>Please log in</p>
+  );
+}
+
+/// ✅ Step 5: Log in using context
+
+function LoginPage() {
+  const { login } = useContext(AuthContext);
+
+  return <button onClick={() => login("Ajay")}>Log In as Ajay</button>;
+}
+
+/*
+🧠 Summary:
+- `createContext()` defines the context
+- Provider wraps your app and passes shared values
+- `useContext()` reads the context from any child
+- Context avoids deeply nested props and makes global state clean
+*/
+
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 43 - Updating Context Values in React
+
+/*
+🔷 To update context values, you usually provide **state-updating functions** inside the context value.
+
+This allows any child component to:
+✅ Read the current value  
+✅ Call functions to update that value
+*/
+
+/// ✅ Example: Auth Context with state and updater
+
+import { createContext, useState } from 'react';
+
+export const AuthContext = createContext();
+
+export function AuthProvider({ children }) {
+  const [user, setUser] = useState(null);
+
+  const login = (username) => {
+    setUser({ name: username });
+  };
+
+  const logout = () => {
+    setUser(null);
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+/// ✅ Consuming and updating context in a child
+
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
+
+function AuthStatus() {
+  const { user, logout } = useContext(AuthContext);
+
+  return user ? (
+    <div>
+      <p>Welcome, {user.name}!</p>
+      <button onClick={logout}>Logout</button>
+    </div>
+  ) : (
+    <p>You are not logged in.</p>
+  );
+}
+
+function LoginButton() {
+  const { login } = useContext(AuthContext);
+
+  return <button onClick={() => login("Ajay")}>Login as Ajay</button>;
+}
+
+/*
+🧠 Key Concept:
+- Context value can contain state AND updater functions
+- Any child component can trigger updates by calling those functions
+- This is how React manages **global writable state** with Context API
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 44 - Sharing Global Data in React
+
+/*
+🔷 Global data is any value needed in **many components**:
+✅ User authentication status  
+✅ Theme settings (dark/light)  
+✅ Language preferences  
+✅ Shopping cart, profile, etc.
+
+Instead of **prop drilling**, you can share global data with:
+1️⃣ React Context + useContext  
+2️⃣ Redux Toolkit (for large apps)
+3️⃣ Zustand, Jotai, or Recoil (alternative lightweight stores)
+*/
+
+/// ✅ Option 1: React Context (built-in way)
+
+import { createContext, useContext, useState } from 'react';
+
+const ThemeContext = createContext();
+
+function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState('light');
+
+  const toggleTheme = () =>
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
+// ✅ Consuming context in a child
+function ThemeToggler() {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  return (
+    <div>
+      <p>Current theme: {theme}</p>
+      <button onClick={toggleTheme}>Toggle Theme</button>
+    </div>
+  );
+}
+
+// ✅ Wrap App with provider
+function App() {
+  return (
+    <ThemeProvider>
+      <ThemeToggler />
+    </ThemeProvider>
+  );
+}
+
+/// ✅ Option 2: Redux (for scalable apps)
+// Redux gives central control of app-wide state.
+// Not shown here – better for large/global complex states.
+
+/*
+🧠 Summary:
+- For small/medium apps → useContext with React Context
+- For large, complex apps → use Redux Toolkit or Zustand
+- Avoid prop drilling by using providers and hooks
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 45 - Updating Context Values
+
+/*
+🔷 To update context values in React:
+✅ Use `useState` or `useReducer` inside the context provider
+✅ Expose updater functions (like `setUser`, `login`, `logout`)
+✅ Access them using `useContext()` in any child
+*/
+
+/// ✅ Sample Context Setup
+
+import { createContext, useState } from 'react';
+export const AuthContext = createContext();
+
+export function AuthProvider({ children }) {
+  const [user, setUser] = useState(null);
+
+  const login = (username) => setUser({ name: username });
+  const logout = () => setUser(null);
+
+  return (
+    <AuthContext.Provider value={{ user, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+/// ✅ Sample usage in components
+
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
+
+function LoginPage() {
+  const { login } = useContext(AuthContext);
+  return <button onClick={() => login("Ajay")}>Login</button>;
+}
+
+function Profile() {
+  const { user, logout } = useContext(AuthContext);
+  return user ? (
+    <>
+      <p>Welcome {user.name}</p>
+      <button onClick={logout}>Logout</button>
+    </>
+  ) : (
+    <p>Please login</p>
+  );
+}
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 46 - Controlled Inputs in React
+
+/*
+🔷 What are Controlled Inputs?
+
+In React, a **controlled input** means:
+✅ The input's value is controlled by React state  
+✅ Changes are handled via `onChange` and `useState`
+
+This gives you full control over the form elements.
+*/
+
+/// ✅ Example: Controlled Input with useState
+
+import { useState } from 'react';
+
+function NameForm() {
+  const [name, setName] = useState('');
+
+  const handleChange = (e) => {
+    setName(e.target.value); // update state with input value
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert(`Submitted name: ${name}`);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        Name:
+        <input type="text" value={name} onChange={handleChange} />
+      </label>
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+
+/// ✅ Multi-field Controlled Form
+
+function ContactForm() {
+  const [form, setForm] = useState({ email: '', message: '' });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(form);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input name="email" value={form.email} onChange={handleChange} />
+      <textarea name="message" value={form.message} onChange={handleChange} />
+      <button type="submit">Send</button>
+    </form>
+  );
+}
+
+/*
+🧠 Summary:
+- Controlled inputs are bound to React state
+- Each keystroke updates state → re-renders input with latest value
+- This is useful for:
+  ✅ Validation
+  ✅ Conditional rendering
+  ✅ Dynamic form behavior
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 47 - Form Submission Handling in React
+
+/*
+📌 What happens when you submit a form?
+
+In React, you usually:
+✅ Prevent the default form submission  
+✅ Read the current input values from state  
+✅ Process or validate the data  
+✅ Optionally reset the form
+*/
+
+/// ✅ Example: Basic Form Submission
+
+import { useState } from 'react';
+
+function ContactForm() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); // stop page reload
+    console.log('Form submitted:', formData);
+    alert(`Hello, ${formData.name}! Your email is ${formData.email}`);
+    setFormData({ name: '', email: '' }); // reset form
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        name="name"
+        value={formData.name}
+        onChange={handleChange}
+        placeholder="Name"
+      />
+      <input
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+        placeholder="Email"
+      />
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+
+/*
+🧠 Notes:
+- `e.preventDefault()` is critical to avoid page refresh
+- You can reset the form using `setState` after submission
+- Logs, alerts, and API calls usually happen in `handleSubmit`
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 48 - Validating Input Manually in React
+
+/*
+📌 Manual input validation means:
+✅ You check form field values in JS logic (e.g. inside handleSubmit)
+✅ Show custom error messages based on the condition
+✅ Prevent form submission if inputs are invalid
+
+This is useful for simple validation without using libraries.
+*/
+
+/// ✅ Example: Manual Validation on Form Submit
+
+import { useState } from 'react';
+
+function SignupForm() {
+  const [formData, setFormData] = useState({ name: '', email: '' });
+  const [error, setError] = useState('');
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setError(''); // clear error when user types
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // ✅ Basic validation
+    if (formData.name.trim() === '' || formData.email.trim() === '') {
+      setError('All fields are required!');
+      return;
+    }
+
+    if (!formData.email.includes('@')) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+
+    // ✅ Submit the form
+    alert(`Submitted: ${formData.name}, ${formData.email}`);
+    setFormData({ name: '', email: '' });
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <input
+        name="name"
+        value={formData.name}
+        onChange={handleChange}
+        placeholder="Name"
+      />
+      <input
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+        placeholder="Email"
+      />
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+
+/*
+🧠 Tips:
+- Show errors conditionally using state
+- Use `.trim()` to ignore whitespace
+- Use `.includes('@')`, `.length`, or regex for email/phone validation
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 49 - Using Libraries: Formik / React Hook Form
+
+/*
+📌 Why use a form library?
+
+Libraries like Formik and React Hook Form help:
+✅ Handle form state easily  
+✅ Add validation  
+✅ Reduce boilerplate  
+✅ Scale forms in large apps
+*/
+
+/// ✅ Option 1: Using Formik
+
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+
+function FormikForm() {
+  const initialValues = { name: '', email: '' };
+
+  const validationSchema = Yup.object({
+    name: Yup.string().required('Name is required'),
+    email: Yup.string().email('Invalid email').required('Email is required')
+  });
+
+  const handleSubmit = (values) => {
+    console.log('Submitted via Formik:', values);
+  };
+
+  return (
+    <Formik
+      initialValues={initialValues}
+      onSubmit={handleSubmit}
+      validationSchema={validationSchema}
+    >
+      <Form>
+        <Field name="name" placeholder="Name" />
+        <ErrorMessage name="name" component="p" />
+
+        <Field name="email" placeholder="Email" />
+        <ErrorMessage name="email" component="p" />
+
+        <button type="submit">Submit</button>
+      </Form>
+    </Formik>
+  );
+}
+
+/// ✅ Option 2: Using React Hook Form
+
+import { useForm } from 'react-hook-form';
+
+function RHForm() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm();
+
+  const onSubmit = (data) => {
+    console.log('Submitted via React Hook Form:', data);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input {...register('name', { required: 'Name is required' })} placeholder="Name" />
+      {errors.name && <p>{errors.name.message}</p>}
+
+      <input
+        {...register('email', {
+          required: 'Email is required',
+          pattern: {
+            value: /^[^@]+@[^@]+\.[^@]+$/,
+            message: 'Invalid email format'
+          }
+        })}
+        placeholder="Email"
+      />
+      {errors.email && <p>{errors.email.message}</p>}
+
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+
+/*
+🧠 Comparison:
+- ✅ Formik → more setup, uses Yup for schema-based validation
+- ✅ React Hook Form → less code, faster performance, easier integration
+
+Use whichever matches your team’s style or project needs.
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 50 - Error Messages and UX in React Forms
+
+/*
+📌 Why focus on error messages?
+
+✅ Help users fix mistakes quickly  
+✅ Improve form completion rate  
+✅ Show feedback clearly and in context
+*/
+
+/// ✅ Example: Inline error messages (manual validation)
+
+import { useState } from 'react';
+
+function FormWithErrors() {
+  const [form, setForm] = useState({ email: '' });
+  const [error, setError] = useState('');
+
+  const handleChange = (e) => {
+    setForm({ email: e.target.value });
+    setError('');
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!form.email.includes('@')) {
+      setError('Email must include @');
+      return;
+    }
+    alert('Form submitted successfully!');
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        name="email"
+        placeholder="Email"
+        value={form.email}
+        onChange={handleChange}
+      />
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+
+/// ✅ UX Enhancements
+
+/*
+✅ Use red for errors and green for success  
+✅ Don't show errors on first load – only after user interacts  
+✅ Use aria attributes for accessibility  
+✅ Add real-time validation for better experience
+*/
+
+/// ✅ Example: Touch-based error with React Hook Form
+
+import { useForm } from 'react-hook-form';
+
+function RHFErrorUX() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, touchedFields }
+  } = useForm();
+
+  const onSubmit = (data) => {
+    alert(JSON.stringify(data));
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input
+        {...register('username', { required: 'Username is required' })}
+        placeholder="Username"
+      />
+      {touchedFields.username && errors.username && (
+        <p style={{ color: 'red' }}>{errors.username.message}</p>
+      )}
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+
+/*
+🧠 Tips for Great Form UX:
+- Use simple messages ("Email is required")
+- Delay error messages until after user touches or submits
+- Highlight only the affected field
+- Group errors near inputs, not in alert boxes
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
