@@ -5556,63 +5556,451 @@ function UserList() {
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////
 
 
+// ✅ 75 - Custom Hooks and Separation of Logic in React
 
+/*
+📌 Why create custom hooks?
 
+✅ Reuse logic across components  
+✅ Keep components clean and focused on rendering  
+✅ Extract side effects, API calls, listeners, etc.
 
+🧠 Rule: A custom hook is just a function that starts with "use"
+*/
 
+/// ✅ Example: Custom hook for fetching data
 
+// hooks/useFetch.js
+import { useEffect, useState } from 'react';
 
+function useFetch(url) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('Failed to fetch');
+        const json = await res.json();
+        setData(json);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [url]);
 
-// 01 - installation 
-// npm create vite@latest
-// npm create vite@latest foldername -- --template  react 
-
-
-
-// 02 - component
-
-
-
-
-
-// 03 - data 
-// create a data for the list like nav list or link this can make your code cleaner 
-// always map your data , don't hard code every time 
-
-
-
-
-// 04 - short circuit 
-
-function WelcomeMessage({ isLoggedIn }) {
-    return (
-      <div>
-        <h1>Welcome to the App</h1>
-        {isLoggedIn && <p>You are logged in!</p>}
-      </div>
-    );
-  }
-
-  
-
-function Greeting({ name }) {
-  return <h1>Hello, {name || "Guest"}!</h1>;
+  return { data, loading, error };
 }
 
+export default useFetch;
+
+/// ✅ How to use the custom hook in a component
+
+// components/UserList.jsx
+import useFetch from '../hooks/useFetch';
+
+function UserList() {
+  const { data: users, loading, error } = useFetch('https://jsonplaceholder.typicode.com/users');
+
+  if (loading) return <p>Loading users...</p>;
+  if (error) return <p>{error}</p>;
+
+  return (
+    <ul>
+      {users.map((u) => (
+        <li key={u.id}>{u.name}</li>
+      ))}
+    </ul>
+  );
+}
+
+/*
+🧠 Tips:
+- Custom hooks make components smaller and easier to read
+- You can pass parameters into hooks (like URLs, debounce time, etc.)
+- Hooks can even return functions or handle complex logic (e.g., useAuth, useCart)
+
+💡 Rule: Only call hooks inside other hooks or components – never inside normal functions
+*/
 
 
-//Short-Circuit vs Ternary (? :)
-{isLoggedIn ? <p>You are logged in!</p> : <p>Please log in.</p>}
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+
+// ✅ 76 - Testing Basics with Jest in React
+
+/*
+📌 Why use Jest?
+
+✅ Jest is the most popular testing framework for JavaScript  
+✅ Built-in support for mocking, assertions, test runners  
+✅ Often used with React Testing Library for component testing
+*/
+
+/// ✅ Step 1: Install Jest (already included in CRA, Vite + Vitest for alternatives)
+
+// For Vite users (recommended alternative):
+// npm install --save-dev vitest
+
+// For Create React App:
+// Already comes with Jest configured!
+
+/// ✅ Step 2: Basic test file structure
+
+// Example: math.js
+export const add = (a, b) => a + b;
+
+// Example: math.test.js
+import { add } from './math';
+
+test('adds 2 + 3 to equal 5', () => {
+  expect(add(2, 3)).toBe(5);
+});
+
+/// ✅ Step 3: Run the tests
+
+// For CRA:
+// npm test
+
+// For Vite + Vitest:
+// npx vitest run
+
+/*
+🧠 Test Structure:
+- `test()` or `it()` defines a test case
+- `expect()` defines the assertion
+- `.toBe()`, `.toEqual()`, `.toContain()`, etc. check conditions
+
+📦 Tip: Put test files next to your code OR inside a `/__tests__/` folder
+
+✅ Testing React Components? Use React Testing Library with Jest (next lesson)
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 77 - React Testing Library (RTL) Basics
+
+/*
+📌 What is React Testing Library?
+
+✅ Library for testing React components in a way that mimics user behavior  
+✅ Works with Jest to make assertions on what is rendered  
+✅ Encourages testing from the user's perspective
+*/
+
+/// ✅ Step 1: Install React Testing Library (if not in CRA)
+
+// npm install --save-dev @testing-library/react @testing-library/jest-dom
+
+/// ✅ Step 2: Simple Component to Test
+
+// File: Greet.jsx
+export function Greet({ name }) {
+  return <h1>Hello, {name ? name : 'Guest'}!</h1>;
+}
+
+/// ✅ Step 3: Writing a test for this component
+
+// File: Greet.test.jsx
+import { render, screen } from '@testing-library/react';
+import { Greet } from './Greet';
+import '@testing-library/jest-dom';
+
+test('renders default greeting', () => {
+  render(<Greet />);
+  expect(screen.getByText('Hello, Guest!')).toBeInTheDocument();
+});
+
+test('renders personalized greeting', () => {
+  render(<Greet name="Ajay" />);
+  expect(screen.getByText('Hello, Ajay!')).toBeInTheDocument();
+});
+
+/*
+🧠 What did we use?
+- `render()` mounts the component in a virtual DOM
+- `screen.getByText()` finds visible elements
+- `expect(...).toBeInTheDocument()` comes from `@testing-library/jest-dom`
+
+🧪 Bonus Tip:
+- You can test input, clicks, forms, and async behavior too with `fireEvent` or `userEvent`
+
+✅ RTL is great for writing tests that simulate how users interact with your app.
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+
+// ✅ 78 - Unit Testing React Components (with Jest + RTL)
+
+/*
+📌 What is Unit Testing?
+
+✅ Unit tests verify that individual components or functions work correctly  
+✅ Helps catch bugs early and improve confidence during refactoring  
+✅ In React, we unit test components using React Testing Library (RTL) + Jest
+*/
+
+/// ✅ Example: Simple Button Component
+
+// File: ToggleButton.jsx
+import { useState } from 'react';
+
+export function ToggleButton() {
+  const [visible, setVisible] = useState(false);
+
+  return (
+    <div>
+      <button onClick={() => setVisible((v) => !v)}>
+        {visible ? 'Hide' : 'Show'}
+      </button>
+      {visible && <p data-testid="message">Hello, I am visible!</p>}
+    </div>
+  );
+}
+
+/// ✅ Writing Unit Tests
+
+// File: ToggleButton.test.jsx
+import { render, screen, fireEvent } from '@testing-library/react';
+import { ToggleButton } from './ToggleButton';
+import '@testing-library/jest-dom';
+
+test('button toggles message visibility', () => {
+  render(<ToggleButton />);
+
+  // Message should not be in the DOM initially
+  expect(screen.queryByTestId('message')).not.toBeInTheDocument();
+
+  // Click to show the message
+  fireEvent.click(screen.getByText('Show'));
+  expect(screen.getByTestId('message')).toBeInTheDocument();
+
+  // Click to hide the message
+  fireEvent.click(screen.getByText('Hide'));
+  expect(screen.queryByTestId('message')).not.toBeInTheDocument();
+});
+
+/*
+🧠 Key Concepts Used:
+- `fireEvent.click()` simulates a user clicking
+- `queryByTestId()` doesn't throw error if element is missing (useful for visibility tests)
+- `toBeInTheDocument()` from jest-dom helps with assertions
+
+✅ This is a true "unit test" because we’re testing one small component in isolation.
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 79 - Mocking API Requests in React Testing (Jest + RTL)
+
+/*
+📌 Why Mock API Requests?
+
+✅ Prevents real network calls during tests  
+✅ Gives full control over API responses  
+✅ Helps simulate success, error, and loading states
+*/
+
+/// ✅ Component That Fetches Data
+
+// File: UserList.jsx
+import { useEffect, useState } from 'react';
+
+export function UserList() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/users?_limit=2')
+      .then((res) => res.json())
+      .then((data) => setUsers(data));
+  }, []);
+
+  return (
+    <ul>
+      {users.map((u) => (
+        <li key={u.id}>{u.name}</li>
+      ))}
+    </ul>
+  );
+}
+
+/// ✅ Test with Mocked Fetch
+
+// File: UserList.test.jsx
+import { render, screen, waitFor } from '@testing-library/react';
+import { UserList } from './UserList';
+
+// Mock global fetch
+beforeEach(() => {
+  global.fetch = jest.fn(() =>
+    Promise.resolve({
+      json: () =>
+        Promise.resolve([
+          { id: 1, name: 'Alice' },
+          { id: 2, name: 'Bob' },
+        ]),
+    })
+  );
+});
+
+afterEach(() => {
+  jest.restoreAllMocks(); // Clean up after each test
+});
+
+test('renders users from mocked fetch', async () => {
+  render(<UserList />);
+
+  await waitFor(() => {
+    expect(screen.getByText('Alice')).toBeInTheDocument();
+    expect(screen.getByText('Bob')).toBeInTheDocument();
+  });
+});
+
+/*
+🧠 Key Concepts:
+- `jest.fn()` mocks any function (like fetch)
+- `waitFor()` waits for async DOM changes
+- Mocking avoids real HTTP calls in tests
+
+✅ Also useful for testing loading states, error messages, retry logic, etc.
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// ✅ 80 - Memoization with React.memo in React
+
+/*
+📌 What is React.memo?
+
+✅ `React.memo` is a Higher Order Component (HOC) that prevents unnecessary re-renders  
+✅ It only re-renders a component if its props change  
+✅ Great for optimizing performance in large lists or heavy UI components
+*/
+
+/// ✅ Example: Without React.memo
+
+function Child({ name }) {
+  console.log('👶 Child re-rendered');
+  return <p>Hello, {name}</p>;
+}
+
+function Parent() {
+  const [count, setCount] = useState(0);
+  return (
+    <div>
+      <button onClick={() => setCount((c) => c + 1)}>Count: {count}</button>
+      <Child name="Ajay" />
+    </div>
+  );
+}
+
+/// ❌ Even though the `name` prop hasn't changed, <Child /> re-renders every time!
+
+/// ✅ Optimized with React.memo
+
+const MemoChild = React.memo(function MemoChild({ name }) {
+  console.log('✨ MemoChild re-rendered');
+  return <p>Hello, {name}</p>;
+});
+
+function MemoParent() {
+  const [count, setCount] = useState(0);
+  return (
+    <div>
+      <button onClick={() => setCount((c) => c + 1)}>Count: {count}</button>
+      <MemoChild name="Ajay" />
+    </div>
+  );
+}
+
+/*
+🧠 Summary:
+- Use `React.memo` to prevent re-renders when props don’t change
+- Only works for **function components**
+- Deep objects or inline functions can still cause re-renders (fix with `useMemo`, `useCallback`)
+
+💡 Bonus:
+- Combine `React.memo` with `useMemo`, `useCallback` for best results in nested components or big UIs
+*/
+
+
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
 
