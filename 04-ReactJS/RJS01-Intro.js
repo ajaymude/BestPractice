@@ -5956,42 +5956,965 @@ function MemoParent() {
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 80 - Memoization with React.memo in React
+
+/*
+📌 What is React.memo?
+
+✅ `React.memo` is a Higher Order Component (HOC) that prevents unnecessary re-renders  
+✅ It only re-renders a component if its props change  
+✅ Great for optimizing performance in large lists or heavy UI components
+*/
+
+/// ✅ Example: Without React.memo
+
+function Child({ name }) {
+  console.log('👶 Child re-rendered');
+  return <p>Hello, {name}</p>;
+}
+
+function Parent() {
+  const [count, setCount] = useState(0);
+  return (
+    <div>
+      <button onClick={() => setCount((c) => c + 1)}>Count: {count}</button>
+      <Child name="Ajay" />
+    </div>
+  );
+}
+
+/// ❌ Even though the `name` prop hasn't changed, <Child /> re-renders every time!
+
+/// ✅ Optimized with React.memo
+
+const MemoChild = React.memo(function MemoChild({ name }) {
+  console.log('✨ MemoChild re-rendered');
+  return <p>Hello, {name}</p>;
+});
+
+function MemoParent() {
+  const [count, setCount] = useState(0);
+  return (
+    <div>
+      <button onClick={() => setCount((c) => c + 1)}>Count: {count}</button>
+      <MemoChild name="Ajay" />
+    </div>
+  );
+}
+
+/*
+🧠 Summary:
+- Use `React.memo` to prevent re-renders when props don’t change
+- Only works for **function components**
+- Deep objects or inline functions can still cause re-renders (fix with `useMemo`, `useCallback`)
+
+💡 Bonus:
+- Combine `React.memo` with `useMemo`, `useCallback` for best results in nested components or big UIs
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 81 - useMemo and useCallback in React
+
+/*
+📌 Why use useMemo and useCallback?
+
+✅ useMemo → memoizes a **value** (e.g., filtered list, computed result)  
+✅ useCallback → memoizes a **function**, useful to avoid re-renders in children  
+✅ Both optimize performance in expensive or repetitive computations
+*/
+
+import React, { useMemo, useCallback, useState } from 'react';
+
+/// ✅ Example: useMemo to memoize a filtered list
+function FilteredList({ items, search }) {
+  const filtered = useMemo(() => {
+    console.log('🔍 Filtering...');
+    return items.filter((item) => item.toLowerCase().includes(search.toLowerCase()));
+  }, [items, search]);
+
+  return (
+    <ul>
+      {filtered.map((item, idx) => (
+        <li key={idx}>{item}</li>
+      ))}
+    </ul>
+  );
+}
+
+/// ✅ Example: useCallback to memoize an event handler
+const Button = React.memo(({ onClick }) => {
+  console.log('🔘 Button rendered');
+  return <button onClick={onClick}>Click Me</button>;
+});
+
+function App() {
+  const [count, setCount] = useState(0);
+  const [search, setSearch] = useState('');
+
+  const items = ['Apple', 'Banana', 'Grapes', 'Avocado'];
+
+  const handleClick = useCallback(() => {
+    setCount((c) => c + 1);
+  }, []);
+
+  return (
+    <div style={{ fontFamily: 'sans-serif' }}>
+      <h2>Count: {count}</h2>
+      <Button onClick={handleClick} />
+
+      <input
+        placeholder="Search fruit"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        style={{ marginTop: '20px', display: 'block' }}
+      />
+      <FilteredList items={items} search={search} />
+    </div>
+  );
+}
+
+export default App;
+
+/*
+🧠 Summary:
+
+useMemo(() => computeValue, [dependencies])
+→ Caches the value until dependencies change
+
+useCallback(() => fn, [dependencies])
+→ Caches the function until dependencies change
+
+✅ Use when:
+- Components re-render often
+- Props/functions are passed to memoized children
+- You’re doing expensive computations
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 82 - Lazy Loading and Suspense in React
+
+/*
+📌 What is Lazy Loading?
+
+✅ React.lazy lets you load components only when needed (on demand)  
+✅ Improves performance by reducing initial bundle size  
+✅ Requires wrapping in <Suspense> with a fallback UI
+*/
+
+import React, { Suspense, useState } from 'react';
+
+// ✅ Lazy-load a component
+const LazyProfile = React.lazy(() => import('./Profile'));
+
+function App() {
+  const [show, setShow] = useState(false);
+
+  return (
+    <div style={{ fontFamily: 'sans-serif', padding: '20px' }}>
+      <h2>🚀 React Lazy & Suspense Demo</h2>
+      <button onClick={() => setShow((s) => !s)}>
+        {show ? 'Hide' : 'Show'} Profile
+      </button>
+
+      {/* ✅ Wrap lazy component in Suspense with a fallback */}
+      {show && (
+        <Suspense fallback={<p>Loading Profile...</p>}>
+          <LazyProfile />
+        </Suspense>
+      )}
+    </div>
+  );
+}
+
+export default App;
+
+/// ✅ Profile.jsx (Component to be lazy-loaded)
+function Profile() {
+  return (
+    <div style={{ marginTop: '20px', padding: '10px', border: '1px solid #ccc' }}>
+      <h3>👤 Ajay Mude</h3>
+      <p>Full Stack Developer | MERN | React Enthusiast</p>
+    </div>
+  );
+}
+
+export default Profile;
+
+/*
+🧠 Summary:
+
+- `React.lazy(() => import('./Component'))` = dynamic import
+- `<Suspense fallback={...}>` = shows fallback UI while loading
+- Works best with route-based code splitting, or large UI sections
+
+⚠️ Lazy loading only works for **default exports**
+✅ You can use it in combination with React Router or other dynamic UIs
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 83 - Code Splitting with React.lazy (Dynamic Imports)
+
+/*
+📌 What is Code Splitting?
+
+✅ Code Splitting means breaking your JS bundle into smaller chunks  
+✅ React supports this natively with `React.lazy` and `Suspense`  
+✅ Improves performance by loading code **only when needed**
+*/
+
+import React, { Suspense, useState } from 'react';
+
+// ✅ Dynamically import components
+const LazyAbout = React.lazy(() => import('./pages/About'));
+const LazyContact = React.lazy(() => import('./pages/Contact'));
+
+function App() {
+  const [tab, setTab] = useState('about');
+
+  return (
+    <div style={{ fontFamily: 'sans-serif' }}>
+      <h2>📦 Code Splitting Example</h2>
+      <button onClick={() => setTab('about')}>About</button>
+      <button onClick={() => setTab('contact')}>Contact</button>
+
+      {/* ✅ Load components conditionally */}
+      <Suspense fallback={<p>Loading...</p>}>
+        {tab === 'about' && <LazyAbout />}
+        {tab === 'contact' && <LazyContact />}
+      </Suspense>
+    </div>
+  );
+}
+
+export default App;
+
+/// ✅ About.jsx
+function About() {
+  return <p>This is the About page loaded lazily!</p>;
+}
+export default About;
+
+/// ✅ Contact.jsx
+function Contact() {
+  return <p>This is the Contact page loaded lazily!</p>;
+}
+export default Contact;
+
+/*
+🧠 Summary:
+
+- `React.lazy()` + `Suspense` = built-in code splitting
+- Works for route-based or tab-based loading
+- Reduces initial JS bundle size = faster load time
+
+💡 Bonus:
+- Use tools like `vite-plugin-inspect` or Webpack Bundle Analyzer to visualize your chunks
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 84 - Virtualized Lists with react-window
+
+/*
+📌 What is List Virtualization?
+
+✅ It renders only visible items in a long list  
+✅ Boosts performance with huge datasets (thousands of items)  
+✅ `react-window` is a lightweight library for this purpose
+*/
+
+/// ✅ Step 1: Install react-window
+// npm install react-window
+
+import React from 'react';
+import { FixedSizeList as List } from 'react-window';
+
+const data = Array.from({ length: 1000 }, (_, i) => `Item ${i + 1}`);
+
+function Row({ index, style }) {
+  return (
+    <div style={{ ...style, padding: '10px', borderBottom: '1px solid #ccc' }}>
+      {data[index]}
+    </div>
+  );
+}
+
+function VirtualList() {
+  return (
+    <div style={{ fontFamily: 'sans-serif' }}>
+      <h2>🧾 Virtualized List Example</h2>
+      <List
+        height={300}     // height of the scroll container
+        itemCount={data.length}
+        itemSize={35}     // height of each row
+        width={300}
+      >
+        {Row}
+      </List>
+    </div>
+  );
+}
+
+export default VirtualList;
+
+/*
+🧠 Why use react-window?
+
+- Reduces DOM nodes by rendering only visible elements
+- Improves scrolling performance with large lists
+- Easy to use and customize
+
+💡 Variants:
+- `FixedSizeList` → all items have the same height
+- `VariableSizeList` → items with different heights
+- Also supports columns via `FixedSizeGrid`
+
+⚠️ Wrap your rows in a `style` prop provided by the library (important!)
+*/
+
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 93 - Refs and DOM Access in React
+
+/*
+📌 What is a Ref?
+
+✅ A Ref is a reference to a DOM element or a React component  
+✅ It allows direct access to manipulate or read from the DOM  
+✅ Common use cases:
+   - Focusing an input
+   - Scrolling to an element
+   - Reading values without triggering re-renders
+*/
+
+import React, { useRef } from 'react';
+
+function RefsExample() {
+  const inputRef = useRef(null); // ✅ Create a ref
+
+  const focusInput = () => {
+    if (inputRef.current) {
+      inputRef.current.focus(); // ✅ Access DOM element directly
+    }
+  };
+
+  const logValue = () => {
+    if (inputRef.current) {
+      console.log('Input Value:', inputRef.current.value);
+    }
+  };
+
+  return (
+    <div style={{ fontFamily: 'sans-serif' }}>
+      <h2>📌 useRef for DOM Access</h2>
+      <input ref={inputRef} type="text" placeholder="Type something..." />
+      <br />
+      <button onClick={focusInput}>Focus Input</button>
+      <button onClick={logValue} style={{ marginLeft: '10px' }}>
+        Log Value
+      </button>
+    </div>
+  );
+}
+
+export default RefsExample;
+
+/*
+🧠 Summary:
+- `useRef()` creates a mutable object with `.current`
+- Doesn't trigger re-render when the value changes
+- Useful for:
+   → DOM access (focus, scroll)
+   → Storing timers
+   → Keeping previous values
+
+⚠️ Do NOT use refs for state management. Only use when necessary.
+*/
+
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 94 - Forwarding Refs in React
+
+/*
+📌 What is Ref Forwarding?
+
+✅ Allows parent components to directly access the DOM or methods of a child component  
+✅ Useful when you want to expose internal behavior (like focusing an input)  
+✅ Achieved using `React.forwardRef()`
+*/
+
+import React, { useRef, forwardRef } from 'react';
+
+/// ✅ Step 1: Create a child component that forwards the ref
+
+const CustomInput = forwardRef((props, ref) => {
+  return <input ref={ref} {...props} placeholder="Enter something..." />;
+});
+
+/// ✅ Step 2: Use the forwarded ref in a parent component
+
+function ForwardRefExample() {
+  const inputRef = useRef(null);
+
+  const handleFocus = () => {
+    inputRef.current?.focus();
+  };
+
+  return (
+    <div style={{ fontFamily: 'sans-serif' }}>
+      <h2>🔁 Forwarding Refs Example</h2>
+      <CustomInput ref={inputRef} />
+      <br />
+      <button onClick={handleFocus} style={{ marginTop: '10px' }}>
+        Focus Custom Input
+      </button>
+    </div>
+  );
+}
+
+export default ForwardRefExample;
+
+/*
+🧠 Summary:
+
+- `forwardRef((props, ref) => ...)` wraps child component
+- Allows ref access from parent → to child DOM node
+- Best used when:
+  → Wrapping native elements (like <input>)
+  → Building reusable input components
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 95 - Portals in React
+
+/*
+📌 What are React Portals?
+
+✅ Portals allow you to render a component **outside** the root DOM hierarchy  
+✅ Useful for:
+   - Modals
+   - Tooltips
+   - Toasts
+   - Popovers
+✅ Helps prevent z-index and overflow issues
+*/
+
+/// ✅ Step 1: Add a portal target to your HTML (e.g., public/index.html)
+/*
+  <body>
+    <div id="root"></div>
+    <div id="modal-root"></div> <!-- Portal target -->
+  </body>
+*/
+
+/// ✅ Step 2: Create the modal using ReactDOM.createPortal
+
+import ReactDOM from 'react-dom';
+import React, { useState } from 'react';
+
+function Modal({ children, onClose }) {
+  return ReactDOM.createPortal(
+    <div
+      style={{
+        position: 'fixed',
+        top: 0, left: 0, right: 0, bottom: 0,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+      }}
+      onClick={onClose}
+    >
+      <div
+        style={{ background: 'white', padding: 20, borderRadius: 8 }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {children}
+      </div>
+    </div>,
+    document.getElementById('modal-root') // ✅ Portal target
+  );
+}
+
+/// ✅ Step 3: Use the Modal component
+
+function App() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div style={{ fontFamily: 'sans-serif', padding: 20 }}>
+      <h2>🌀 React Portal Demo</h2>
+      <button onClick={() => setOpen(true)}>Open Modal</button>
+      {open && (
+        <Modal onClose={() => setOpen(false)}>
+          <h3>Hello from the Modal!</h3>
+          <p>This is rendered outside the root DOM hierarchy.</p>
+        </Modal>
+      )}
+    </div>
+  );
+}
+
+export default App;
+
+/*
+🧠 Summary:
+
+- `ReactDOM.createPortal(child, container)` renders `child` outside main DOM tree
+- Helps with styling and layout issues for overlays
+- Make sure to add the portal target (`#modal-root`) in your HTML
+
+💡 Bonus:
+- Works perfectly with Framer Motion or animations inside modals
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+
+// ✅ 96 - Error Boundaries in React
+
+/*
+📌 What are Error Boundaries?
+
+✅ React components that catch JavaScript errors in child components  
+✅ Prevent the entire app from crashing  
+✅ Display fallback UI instead of broken component
+
+⚠️ Only works for class components (as of React 18)
+*/
+
+import React from 'react';
+
+/// ✅ Step 1: Create the Error Boundary
+
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true }; // Update state to show fallback UI
+  }
+
+  componentDidCatch(error, info) {
+    console.error('Error caught by boundary:', error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <h2>⚠️ Something went wrong.</h2>;
+    }
+
+    return this.props.children;
+  }
+}
+
+/// ✅ Step 2: Create a component that may throw an error
+
+function BuggyComponent() {
+  throw new Error('This component has crashed!');
+  return <p>This won’t render</p>;
+}
+
+/// ✅ Step 3: Use the ErrorBoundary
+
+function App() {
+  return (
+    <div style={{ fontFamily: 'sans-serif' }}>
+      <h2>🛡️ Error Boundary Example</h2>
+      <ErrorBoundary>
+        <BuggyComponent />
+      </ErrorBoundary>
+    </div>
+  );
+}
+
+export default App;
+
+/*
+🧠 Summary:
+
+- Use `getDerivedStateFromError()` and `componentDidCatch()` in a class
+- Wrap risky components with <ErrorBoundary> to catch render-time errors
+- Does NOT catch:
+  - Event handler errors
+  - Asynchronous code (e.g., fetch)
+  - Server-side rendering issues
+
+💡 Tip: Use separate boundaries for different sections of your app
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 97 - Render Props and HOCs in React
+
+/*
+📌 What is a Render Prop?
+
+✅ A technique where a component’s child is a function  
+✅ Gives control back to the parent to render based on internal logic
+
+📌 What is a Higher-Order Component (HOC)?
+
+✅ A function that takes a component and returns a new enhanced component  
+✅ Useful for code reuse across components (like auth, logging, etc.)
+*/
+
+/// ✅ Example: Render Props
+
+function MouseTracker({ render }) {
+  const [pos, setPos] = React.useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e) => {
+    setPos({ x: e.clientX, y: e.clientY });
+  };
+
+  return (
+    <div onMouseMove={handleMouseMove} style={{ height: '150px', border: '1px solid gray' }}>
+      {render(pos)}
+    </div>
+  );
+}
+
+function RenderPropExample() {
+  return (
+    <div>
+      <h3>🐭 Mouse Position (Render Prop)</h3>
+      <MouseTracker render={({ x, y }) => <p>X: {x}, Y: {y}</p>} />
+    </div>
+  );
+}
+
+/// ✅ Example: Higher Order Component (HOC)
+
+function withLogger(WrappedComponent) {
+  return function EnhancedComponent(props) {
+    console.log('🧾 Props:', props);
+    return <WrappedComponent {...props} />;
+  };
+}
+
+function Hello({ name }) {
+  return <h3>Hello, {name}!</h3>;
+}
+
+const HelloWithLogger = withLogger(Hello);
+
+function HOCExample() {
+  return (
+    <div>
+      <h3>🧠 HOC Example</h3>
+      <HelloWithLogger name="Ajay" />
+    </div>
+  );
+}
+
+/// ✅ Combined App
+
+function App() {
+  return (
+    <div style={{ fontFamily: 'sans-serif', padding: 20 }}>
+      <RenderPropExample />
+      <HOCExample />
+    </div>
+  );
+}
+
+export default App;
+
+/*
+🧠 Summary:
+
+🔹 Render Props:
+- Pass a function as a child
+- Flexible, but can get deeply nested
+
+🔹 HOCs:
+- Wrap a component and return a new one
+- Good for shared logic like auth, logging, tracking
+
+💡 Bonus: You can achieve similar goals using custom hooks too!
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+// ✅ 98 - Compound Components Pattern in React
+
+/*
+📌 What is the Compound Components Pattern?
+
+✅ A design pattern where components work together and share implicit state  
+✅ Parent component manages the state, children use it via context or props  
+✅ Gives flexibility and composability like native HTML elements (e.g., <select> and <option>)
+*/
+
+import React, { createContext, useContext, useState } from 'react';
+
+/// ✅ Step 1: Create a context for internal state
+const ToggleContext = createContext();
+
+/// ✅ Step 2: Parent component controls the state
+function Toggle({ children }) {
+  const [on, setOn] = useState(false);
+  const toggle = () => setOn((prev) => !prev);
+
+  return (
+    <ToggleContext.Provider value={{ on, toggle }}>
+      {children}
+    </ToggleContext.Provider>
+  );
+}
+
+/// ✅ Step 3: Child components that use shared state
+
+Toggle.On = function On({ children }) {
+  const { on } = useContext(ToggleContext);
+  return on ? children : null;
+};
+
+Toggle.Off = function Off({ children }) {
+  const { on } = useContext(ToggleContext);
+  return on ? null : children;
+};
+
+Toggle.Button = function Button() {
+  const { toggle } = useContext(ToggleContext);
+  return <button onClick={toggle}>Toggle</button>;
+};
+
+/// ✅ Step 4: Usage example
+
+function CompoundExample() {
+  return (
+    <div style={{ fontFamily: 'sans-serif' }}>
+      <h3>🎛️ Compound Components Pattern</h3>
+      <Toggle>
+        <Toggle.On>The toggle is ON</Toggle.On>
+        <Toggle.Off>The toggle is OFF</Toggle.Off>
+        <Toggle.Button />
+      </Toggle>
+    </div>
+  );
+}
+
+export default CompoundExample;
+
+/*
+🧠 Summary:
+
+- Compound components allow consumers to compose features naturally
+- All child components share the parent's context/state
+- Offers clean API and avoids prop drilling
+
+💡 Great for:
+- Tabs, Accordions, Modals, Form Steps, Multi-step Wizards
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+
+// ✅ 99 - Declarative Animations with Framer Motion in React
+
+/*
+📌 What is Framer Motion?
+
+✅ A popular animation library for React  
+✅ Declarative, simple, and powerful  
+✅ Great for:
+  - Page transitions
+  - Hover/tap animations
+  - Shared layout animations
+*/
+
+/// ✅ Step 1: Install the package
+// npm install framer-motion
+
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+function MotionBox({ isVisible }) {
+  return (
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          transition={{ duration: 0.5 }}
+          style={{
+            marginTop: 20,
+            padding: 20,
+            background: '#cce5ff',
+            borderRadius: 8,
+          }}
+        >
+          ✨ I am animated in and out!
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+function FramerMotionExample() {
+  const [show, setShow] = useState(true);
+
+  return (
+    <div style={{ fontFamily: 'sans-serif', padding: 20 }}>
+      <h2>🎬 Framer Motion Animation</h2>
+      <button onClick={() => setShow((prev) => !prev)}>
+        {show ? 'Hide' : 'Show'} Box
+      </button>
+      <MotionBox isVisible={show} />
+    </div>
+  );
+}
+
+export default FramerMotionExample;
+
+/*
+🧠 Summary:
+
+- `motion.div` = animatable div with props
+- `AnimatePresence` = enables exit animations
+- Props:
+  → `initial` = start state
+  → `animate` = end state
+  → `exit` = leave animation
+  → `transition` = how it animates
+
+💡 Framer Motion also supports:
+- `whileHover`, `whileTap`, `drag`, layout transitions
+- Keyframes, spring, and physics-based animations
+- Shared layout animations (for reordering)
+
+✅ Lightweight, powerful, and ideal for UI polish
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
+
+
+// ✅ 100 - Server Components (React 19+ Preview)
+
+/*
+📌 What are React Server Components?
+
+✅ React components that run on the server  
+✅ Can fetch data, render JSX, and send it to the client as HTML  
+✅ Result: smaller bundle sizes + faster load + better SEO
+
+⚠️ Still experimental (available in React 19+ with frameworks like Next.js or RSC-enabled setups)
+*/
+
+/// ✅ Example (Next.js + React Server Components Concept)
+
+/// ✅ File: /app/page.jsx (server component by default in Next.js App Router)
+
+export default async function Home() {
+  const res = await fetch('https://api.example.com/products', {
+    cache: 'no-store', // server-only, no cache
+  });
+  const products = await res.json();
+
+  return (
+    <div>
+      <h1>🖥️ Server Component Example</h1>
+      <ul>
+        {products.map((p) => (
+          <li key={p.id}>{p.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+/*
+🧠 Key Concepts:
+
+- Runs on the server (no useEffect/useState allowed)
+- Can fetch data without waterfalls
+- No client-side JS for server components = smaller bundles
+- Great for performance, SEO, and initial load
+
+✅ Use Cases:
+- Static content pages
+- Server-rendered data lists
+- Faster loading dashboards
+
+❗ Use Client Components (`"use client"`) when you need interactivity
+*/
+
+/// ✅ File: /app/components/ClientButton.jsx
+"use client";
+
+export function ClientButton() {
+  const handleClick = () => alert("Button clicked!");
+  return <button onClick={handleClick}>Click me</button>;
+}
+
+/*
+💡 Server components and client components can mix together:
+- Server components = fast, no JS
+- Client components = interactivity
+
+💥 Requires React 19 or Next.js App Router setup to use properly
+*/
+
+
+
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
