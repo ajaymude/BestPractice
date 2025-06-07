@@ -2479,28 +2479,1116 @@ for (let x = 1; x <= 3; x++) {
 
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
+
+/*
+22 - Function Declaration vs Function Expression
+
+This note explains:
+1. Function Declaration: hoisted, named, defined with the `function` keyword at top level of a scope.
+2. Function Expression: created when the execution reaches that line, can be anonymous or named, stored in a variable.
+3. Differences in hoisting, naming, and when they become available.
+*/
+
+// 🔹 1. Function Declaration
+// - Hoisted: available before its appearance in code.
+// - Always has a name.
+// - Cannot be assigned to a variable (though its reference can).
+
+console.log(declared(3, 4)); // Works because declaration is hoisted: Output 7
+
+function declared(a, b) {
+  return a + b;
+}
+
+// 🔹 2. Function Expression (Anonymous)
+// - Not hoisted in the same way: variable is hoisted, but initialized to undefined until assignment.
+// - Available only after the line is executed.
+
+try {
+  console.log(expr(5, 2)); // Error: expr is not a function
+} catch (e) {
+  console.log("Error calling expr before definition:", e.message);
+}
+
+const expr = function(a, b) {
+  return a * b;
+};
+
+console.log(expr(5, 2)); // Output 10
+
+// 🔹 3. Function Expression (Named)
+// - Similar to anonymous, but has its own internal name for recursion or debugging.
+// - The variable still holds the function after assignment.
+
+const factorial = function fact(n) {
+  return n <= 1 ? 1 : n * fact(n - 1);
+};
+
+console.log(factorial(5)); // Output 120
+
+// 🔹 4. Arrow Function Expression
+// - A type of function expression with lexical `this`, no own `arguments`, cannot be used as constructors.
+
+const arrowSum = (x, y) => x + y;
+console.log(arrowSum(10, 15)); // Output 25
+
+// 🔹 5. Hoisting Comparison
+// Declaration hoisted:
+console.log(typeof declared); // "function"
+// Expression variable hoisted but not initialized:
+console.log(typeof exprVar);   // "undefined"
+const exprVar = function() {};
+
+// 🔹 6. Using as Callbacks
+// Both declarations and expressions can be passed as callbacks:
+
+function applyOperation(a, b, operation) {
+  console.log("Result:", operation(a, b));
+}
+
+applyOperation(8, 2, declared);    // Uses declaration: Output 10
+applyOperation(8, 2, function(a, b) { return a / b; }); // Anonymous expression: Output 4
+
+// 🔹 7. Immediately Invoked Function Expression (IIFE)
+// Uses function expression syntax to run code immediately.
+
+(function() {
+  console.log("IIFE ran immediately");
+})();
+
+// 🔹 8. Best Practices
+/*
+- Use function declarations for named, reusable functions where hoisting is acceptable.
+- Use function expressions (or arrow functions) for callbacks, one-off functions, or to control scope.
+- Name function expressions when recursion or clearer stack traces are needed.
+- Avoid relying on hoisting in large codebases; declare functions before use for readability.
+*/
+
+
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
+
+/*
+23 - Arrow Functions: Syntax & this-Binding Differences
+
+This note explains:
+1. Arrow function syntax (concise vs block bodies).
+2. Implicit return for single-expression bodies.
+3. Lexical this binding (no own this).
+4. No arguments object; cannot be used as constructors.
+5. Examples comparing arrow vs regular functions.
+*/
+
+// 🔹 1. Basic Arrow Function Syntax
+
+// Single parameter, implicit return:
+const square = n => n * n;
+console.log("square(5):", square(5)); // 25
+
+// Multiple parameters, implicit return:
+const add = (a, b) => a + b;
+console.log("add(3,4):", add(3, 4)); // 7
+
+// No parameters:
+const getRandom = () => Math.random();
+console.log("getRandom():", getRandom()); // e.g. 0.123456
+
+// Block body with explicit return:
+const factorial = n => {
+  let result = 1;
+  for (let i = 2; i <= n; i++) {
+    result *= i;
+  }
+  return result;
+};
+console.log("factorial(4):", factorial(4)); // 24
+
+// 🔹 2. Implicit vs Explicit Return
+const greetImplicit = name => `Hello, ${name}!`;
+console.log(greetImplicit("Ajay")); // Hello, Ajay!
+
+const greetBlock = name => {
+  const msg = `Hello, ${name}!`;
+  return msg;
+};
+console.log(greetBlock("Riya")); // Hello, Riya!
+
+// 🔹 3. Lexical this Binding
+
+const obj = {
+  value: 10,
+  regularMethod: function() {
+    console.log("regularMethod this.value:", this.value);
+  },
+  arrowMethod: () => {
+    console.log("arrowMethod this.value:", this.value);
+  },
+  delayedRegular: function() {
+    setTimeout(function() {
+      console.log("delayedRegular this.value:", this.value);
+    }, 0);
+  },
+  delayedArrow: function() {
+    setTimeout(() => {
+      console.log("delayedArrow this.value:", this.value);
+    }, 0);
+  }
+};
+
+obj.regularMethod();    // 10 (this → obj)
+obj.arrowMethod();      // undefined (this → global or undefined)
+obj.delayedRegular();   // undefined in strict mode (this → global/undefined)
+obj.delayedArrow();     // 10 (lexical this from delayedArrow)
+
+// 🔹 4. No arguments Object
+
+function showArgs() {
+  console.log("regular showArgs arguments:", arguments);
+}
+showArgs(1, 2, 3); // [1, 2, 3]
+
+const arrowShowArgs = () => {
+  try {
+    console.log(arguments);
+  } catch (e) {
+    console.log("arrowShowArgs arguments error:", e.message);
+  }
+};
+arrowShowArgs(4, 5, 6); // ReferenceError: arguments is not defined
+
+// 🔹 5. Cannot be Used as Constructors
+
+function RegularPerson(name) {
+  this.name = name;
+}
+const p1 = new RegularPerson("Ajay");
+console.log("RegularPerson name:", p1.name); // Ajay
+
+const ArrowPerson = name => {
+  this.name = name;
+};
+// const p2 = new ArrowPerson("Riya"); // TypeError: ArrowPerson is not a constructor
+
+// 🔹 6. Use Cases for Arrow Functions
+// - Short callbacks:
+const nums = [1, 2, 3];
+const doubled = nums.map(x => x * 2);
+console.log("doubled array:", doubled); // [2, 4, 6]
+
+// - Preserving this in methods that use nested callbacks:
+class Counter {
+  constructor() {
+    this.count = 0;
+  }
+  incrementAsync() {
+    setTimeout(() => {
+      this.count++;
+      console.log("Counter after async:", this.count);
+    }, 0);
+  }
+}
+const c = new Counter();
+c.incrementAsync(); // Counter after async: 1
+
+// 🔹 7. Best Practices
+/*
+- Use arrow functions for short, non-method callbacks.
+- Avoid arrow methods when you need dynamic this (e.g., object methods or constructors).
+- Prefer concise syntax for simple returns; use block body when multiple statements or clarity is needed.
+*/
+
+
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
+
+/*
+24 - Parameters and Arguments (default parameters, rest operator)
+
+This note explains:
+1. Default parameters: assign default values to function parameters.
+2. Rest operator: gather remaining arguments into an array.
+*/
+
+// 🔹 Default Parameters
+// You can assign defaults to parameters when declaring the function.
+function greet(name = "Guest", greeting = "Hello") {
+  console.log(`${greeting}, ${name}!`);
+}
+
+greet();                     // Hello, Guest!
+greet("Ajay");               // Hello, Ajay!
+greet("Riya", "Hi");         // Hi, Riya!
+
+// 🔹 Rest Operator
+// Use ... before the last parameter to collect all remaining arguments into an array.
+function sum(...numbers) {
+  return numbers.reduce((total, n) => total + n, 0);
+}
+
+console.log(sum(1, 2, 3, 4)); // 10
+console.log(sum());           // 0
+
+// 🔹 Combining Default & Rest
+function buildName(firstName, lastName = "Doe", ...titles) {
+  console.log("Name:", `${firstName} ${lastName}`);
+  console.log("Titles:", titles);
+}
+
+buildName("John");                                       
+// Name: John Doe
+// Titles: []
+
+buildName("John", "Smith", "PhD", "Esq");                
+// Name: John Smith
+// Titles: ["PhD", "Esq"]
+
+// 🔹 arguments Object vs Rest
+// The special 'arguments' object contains all passed args but is not a real array.
+function showArgs(a, b, ...rest) {
+  console.log("a:", a);
+  console.log("b:", b);
+  console.log("rest (Array):", rest);
+  console.log("arguments (Array-like):", arguments);
+}
+
+showArgs(1, 2, 3, 4, 5);
+// a: 1
+// b: 2
+// rest (Array): [3, 4, 5]
+// arguments (Array-like): [1, 2, 3, 4, 5]
+
+// 🔹 Best Practices
+// - Place parameters with defaults after required ones.
+// - Use rest only once as the last parameter to avoid ambiguity.
+// - Prefer rest over arguments for better array methods support.
+
+
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
+
+/*
+25 - Return Values
+
+This note explains:
+1. How functions return values with the return keyword.
+2. The default return value undefined when no return is used.
+3. Early returns to exit a function.
+4. Returning expressions, objects, and arrow-function implicit returns.
+5. Common pitfalls and best practices.
+*/
+
+// 🔹 1. Basic return
+function add(a, b) {
+  return a + b;            // Returns the sum to the caller
+}
+const sum = add(3, 4);
+console.log("add(3,4) returns:", sum); // 7
+
+// 🔹 2. Default return undefined
+function noReturn() {
+  const x = 10 + 5;        // No return statement
+}
+const result = noReturn();
+console.log("noReturn() returns:", result); // undefined
+
+// 🔹 3. Early return
+function checkEven(num) {
+  if (num % 2 !== 0) {
+    return false;          // Exit immediately if odd
+  }
+  // Only reached if num is even
+  return true;
+}
+console.log("checkEven(3):", checkEven(3)); // false
+console.log("checkEven(8):", checkEven(8)); // true
+
+// 🔹 4. Returning objects
+function createUser(name, age) {
+  return { name, age };    // Shorthand for { name: name, age: age }
+}
+const user = createUser("Ajay", 25);
+console.log("createUser returns:", user); // { name: "Ajay", age: 25 }
+
+// 🔹 5. Arrow function implicit return
+const square = n => n * n; // No braces → implicit return
+console.log("square(5):", square(5)); // 25
+
+// 🔹 6. Returning object literal in arrow function
+// Wrap the object in parentheses to distinguish from block body.
+const makePoint = (x, y) => ({ x, y });
+console.log("makePoint(2,3):", makePoint(2, 3)); // { x: 2, y: 3 }
+
+// 🔹 7. Returning from loops
+function findIndex(arr, target) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === target) {
+      return i;            // Returns index on first match
+    }
+  }
+  return -1;                // Returned if loop completes without match
+}
+console.log("findIndex:", findIndex([10,20,30], 20)); // 1
+console.log("findIndex:", findIndex([10,20,30], 40)); // -1
+
+// 🔹 8. Pitfall: unreachable code after return
+function example() {
+  return "done";
+  console.log("This line never runs");
+}
+
+// 🔹 9. Best practices
+/*
+- Always use return to send data from a function.
+- Use early returns to simplify nested conditions.
+- Ensure arrow functions with braces include an explicit return.
+- Wrap object literals in parentheses when using implicit return.
+*/
+
+
+
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
+
+/*
+26 - First-class Functions and Callbacks
+
+This note explains:
+1. First-class functions: treating functions as values (assign, pass, return).
+2. Higher-order functions: functions that take or return functions.
+3. Callbacks: passing a function to be invoked later.
+4. Error-first callback pattern (Node.js style).
+5. Common use cases and best practices.
+*/
+
+// 🔹 1. First-class Functions
+// Functions in JavaScript can be:
+// - Assigned to variables
+// - Passed as arguments to other functions
+// - Returned from functions
+// - Stored in data structures
+
+// Assigning a function to a variable
+const sayHello = function(name) {
+  console.log("Hello, " + name);
+};
+sayHello("Ajay"); // Hello, Ajay
+
+// Arrow function assigned to a variable
+const square = x => x * x;
+console.log("square(4):", square(4)); // 16
+
+// 🔹 2. Higher-order Functions
+// A function that takes one or more functions as arguments, or returns a function
+
+// Returning a function (function factory)
+function createLogger(prefix) {
+  return function(message) {
+    console.log(`[${prefix}] ${message}`);
+  };
+}
+const infoLogger = createLogger("INFO");
+infoLogger("This is an informational message."); // [INFO] This is an informational message.
+
+// 🔹 3. Callbacks
+// Passing a function to be called (back) inside another function
+
+// Example: simple callback
+function greetUser(name, callback) {
+  console.log("Preparing to greet...");
+  callback(name);
+  console.log("Greeted user.");
+}
+greetUser("Riya", name => {
+  console.log("Hello, " + name + "!");
+});
+// Output:
+// Preparing to greet...
+// Hello, Riya!
+// Greeted user.
+
+// Array method using callbacks
+const numbers = [1, 2, 3];
+const doubled = numbers.map(n => n * 2);
+console.log("Doubled:", doubled); // [2, 4, 6]
+
+// 🔹 4. Asynchronous Callback Example
+console.log("Start timer");
+setTimeout(() => {
+  console.log("Timeout callback executed after 1 second");
+}, 1000);
+console.log("End timer");
+
+// 🔹 5. Error-First Callback Pattern (Node.js style)
+// callback signature: function(err, result)
+
+function fetchData(id, callback) {
+  setTimeout(() => {
+    if (typeof id !== "number") {
+      return callback(new Error("ID must be a number"));
+    }
+    const data = { id, name: "User" + id };
+    callback(null, data);
+  }, 500);
+}
+
+fetchData(1, (err, data) => {
+  if (err) {
+    console.error("Error fetching data:", err.message);
+  } else {
+    console.log("Fetched data:", data);
+  }
+});
+
+fetchData("a", (err, data) => {
+  if (err) {
+    console.error("Error fetching data:", err.message); // ID must be a number
+  }
+});
+
+// 🔹 6. Best Practices
+/*
+- Keep callbacks simple and avoid deeply nested callbacks (“callback hell”).
+- Use named functions for clarity when callbacks contain multiple lines.
+- For asynchronous code, consider Promises or async/await for readability.
+- In Node.js-style APIs, always check the first (error) argument before processing results.
+*/
+
+
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
+
+/*
+27 - Higher-order Functions
+- A higher-order function (HOF) is a function that:
+  1. Takes one or more functions as arguments, or
+  2. Returns a function as its result.
+- HOFs enable function composition, abstraction, and reuse.
+*/
+
+// 🔹 1. Taking Functions as Arguments (Callbacks)
+
+function operate(a, b, operation) {
+  // 'operation' is a function passed in
+  return operation(a, b);
+}
+
+function add(x, y) {
+  return x + y;
+}
+function multiply(x, y) {
+  return x * y;
+}
+
+console.log( operate(5, 3, add) );       // 8
+console.log( operate(5, 3, multiply) );  // 15
+
+// 🔹 2. Returning Functions (Function Factories)
+
+function makePower(exponent) {
+  // Returns a new function that raises its input to 'exponent'
+  return function(base) {
+    return base ** exponent;
+  };
+}
+
+const square = makePower(2);
+const cube   = makePower(3);
+
+console.log( square(4) ); // 16
+console.log( cube( 3) );  // 27
+
+// 🔹 3. Combining Both: Currying
+
+function curryMultiply(a) {
+  // Returns a function that multiplies 'a' by its argument
+  return function(b) {
+    return a * b;
+  };
+}
+
+const double = curryMultiply(2);
+const triple = curryMultiply(3);
+
+console.log( double(7) );  // 14
+console.log( triple(7) );  // 21
+
+// 🔹 4. Using Built-in HOFs: map, filter, reduce
+
+const nums = [1, 2, 3, 4, 5];
+
+// map: takes a function, returns a new array
+const doubled = nums.map(n => n * 2);
+console.log("doubled:", doubled); // [2, 4, 6, 8, 10]
+
+// filter: takes a predicate, returns elements that pass
+const evens = nums.filter(n => n % 2 === 0);
+console.log("evens:", evens);     // [2, 4]
+
+// reduce: takes an accumulator function
+const sum = nums.reduce((acc, n) => acc + n, 0);
+console.log("sum:", sum);         // 15
+
+// 🔹 5. Practical Example: Event Handler HOF
+
+function on(eventType, element, handler) {
+  // Simplified event listener wrapper
+  element.addEventListener(eventType, handler);
+}
+
+// Usage:
+// on('click', document.getElementById('btn'), () => console.log('Clicked!'));
+
+// 🔹 6. Best Practices
+// - Pass only the behavior you need (single-responsibility).
+// - Return named functions when recursion or strong debugging is required.
+// - Leverage built-in HOFs (map, filter, reduce) instead of manual loops.
+
+// Example: Reusable timer HOF
+function withDelay(fn, ms) {
+  return function(...args) {
+    setTimeout(() => fn(...args), ms);
+  };
+}
+
+const delayedLog = withDelay(msg => console.log("Delayed:", msg), 1000);
+delayedLog("Hello after 1s"); // Logs after 1 second
+
+
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
+
+/*
+28 - Immediately Invoked Function Expressions (IIFE)
+
+This note explains:
+1. What an IIFE is and why it's used.
+2. Syntax variations.
+3. Use cases for scoping and initialization.
+*/
+
+// 🔹 1. Basic IIFE Syntax
+// Wrapping a function in parentheses and invoking it immediately:
+(function() {
+  const message = "Hello from IIFE!";
+  console.log(message);
+})(); // Output: Hello from IIFE!
+
+// 🔹 2. IIFE with Parameters
+// You can pass arguments to an IIFE just like any function.
+(function(name) {
+  console.log(`Welcome, ${name}!`);
+})("Ajay"); // Output: Welcome, Ajay!
+
+// 🔹 3. Arrow Function IIFE
+// Using an arrow function inside parentheses and invoking:
+(() => {
+  console.log("Arrow IIFE running");
+})(); // Output: Arrow IIFE running
+
+// 🔹 4. IIFE Returning a Value
+// You can return data from an IIFE and assign it.
+const initialData = (function() {
+  const secret = 42;
+  return { secret, timestamp: Date.now() };
+})();
+console.log("initialData:", initialData);
+// Output: { secret: 42, timestamp: 163... }
+
+// 🔹 5. Namespaced IIFE
+// Create a private namespace to avoid polluting global scope.
+const MyApp = {};
+(function(ns) {
+  ns.version = "1.0.0";
+  ns.sayHello = function() {
+    console.log(`MyApp v${ns.version} says hi!`);
+  };
+})(MyApp);
+
+MyApp.sayHello(); // Output: MyApp v1.0.0 says hi!
+
+// 🔹 6. Use Cases for IIFE
+// - Encapsulate variables to avoid global leaks
+// - Initialize modules or configuration at load time
+// - Provide private scope for one-off setup logic
+
+// 🔹 7. Best Practices
+/*
+- Always wrap your IIFE in parentheses to ensure correct parsing.
+- Use parameters to inject dependencies (e.g., window, document) for better testability.
+- Prefer block scoping with modules (ESM) in modern code, but IIFE remains useful in legacy environments.
+*/
+
+
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
+
+/*
+29 - Function Scope vs Block Scope
+
+This note explains:
+1. Function Scope (var, function declarations)
+2. Block Scope (let, const)
+3. How variables behave differently in functions vs blocks
+4. Common pitfalls and best practices
+*/
+
+// 🔹 1. Function Scope with var
+// - Variables declared with var are scoped to the nearest function, not to blocks.
+function functionScopeExample() {
+  if (true) {
+    var x = 10;
+    console.log("Inside if block, x =", x); // 10
+  }
+  console.log("Inside function, x still =", x); // 10 (x is function-scoped)
+}
+functionScopeExample();
+
+try {
+  console.log(x); // ReferenceError: x is not defined (x is not global)
+} catch (e) {
+  console.log("Outside function, x error:", e.message);
+}
+
+// 🔹 2. Block Scope with let and const
+// - Variables declared with let or const are scoped to the nearest enclosing block.
+function blockScopeExample() {
+  if (true) {
+    let y = 20;
+    const z = 30;
+    console.log("Inside if block, y =", y); // 20
+    console.log("Inside if block, z =", z); // 30
+  }
+  try {
+    console.log(y); // ReferenceError
+  } catch (e) {
+    console.log("Outside if block, y error:", e.message);
+  }
+  try {
+    console.log(z); // ReferenceError
+  } catch (e) {
+    console.log("Outside if block, z error:", e.message);
+  }
+}
+blockScopeExample();
+
+// 🔹 3. var in loops vs let/const
+// var is function-scoped, so it does not create a new binding per iteration.
+for (var i = 0; i < 3; i++) {
+  // ...
+}
+console.log("After for(var), i =", i); // 3 (i leaked out of loop)
+
+for (let j = 0; j < 3; j++) {
+  // ...
+}
+try {
+  console.log("After for(let), j =", j);
+} catch (e) {
+  console.log("After for(let), j error:", e.message); // ReferenceError
+}
+
+// 🔹 4. Function-scoped vs block-scoped closures
+const funcs = [];
+for (var k = 0; k < 3; k++) {
+  funcs.push(function() {
+    console.log("var k in closure:", k);
+  });
+}
+funcs.forEach(fn => fn()); 
+// Prints 3, 3, 3 (all share same function-scoped k)
+
+const funcs2 = [];
+for (let m = 0; m < 3; m++) {
+  funcs2.push(function() {
+    console.log("let m in closure:", m);
+  });
+}
+funcs2.forEach(fn => fn()); 
+// Prints 0, 1, 2 (each block iteration has its own m)
+
+// 🔹 5. IIFE to emulate block scope for var (legacy)
+// Before let/const, an IIFE created a new function scope per iteration.
+const legacy = [];
+for (var n = 0; n < 3; n++) {
+  (function(nCopy) {
+    legacy.push(function() {
+      console.log("IIFE nCopy:", nCopy);
+    });
+  })(n);
+}
+legacy.forEach(fn => fn()); 
+// Prints 0, 1, 2
+
+// 🔹 6. Best Practices
+/*
+- Prefer let and const for predictable block scoping.
+- Avoid var to prevent accidental leaks outside blocks.
+- Use const for variables that shouldn’t be reassigned.
+- Use let for variables that will be reassigned.
+*/
+
+
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
+
+/*
+29 - Function Scope vs Block Scope
+
+This note explains:
+1. Function Scope (var, function declarations)
+2. Block Scope (let, const)
+3. How variables behave differently in functions vs blocks
+4. Common pitfalls and best practices
+*/
+
+// 🔹 1. Function Scope with var
+// - Variables declared with var are scoped to the nearest function, not to blocks.
+function functionScopeExample() {
+  if (true) {
+    var x = 10;
+    console.log("Inside if block, x =", x); // 10
+  }
+  console.log("Inside function, x still =", x); // 10 (x is function-scoped)
+}
+functionScopeExample();
+
+try {
+  console.log(x); // ReferenceError: x is not defined (x is not global)
+} catch (e) {
+  console.log("Outside function, x error:", e.message);
+}
+
+// 🔹 2. Block Scope with let and const
+// - Variables declared with let or const are scoped to the nearest enclosing block.
+function blockScopeExample() {
+  if (true) {
+    let y = 20;
+    const z = 30;
+    console.log("Inside if block, y =", y); // 20
+    console.log("Inside if block, z =", z); // 30
+  }
+  try {
+    console.log(y); // ReferenceError
+  } catch (e) {
+    console.log("Outside if block, y error:", e.message);
+  }
+  try {
+    console.log(z); // ReferenceError
+  } catch (e) {
+    console.log("Outside if block, z error:", e.message);
+  }
+}
+blockScopeExample();
+
+// 🔹 3. var in loops vs let/const
+// var is function-scoped, so it does not create a new binding per iteration.
+for (var i = 0; i < 3; i++) {
+  // ...
+}
+console.log("After for(var), i =", i); // 3 (i leaked out of loop)
+
+for (let j = 0; j < 3; j++) {
+  // ...
+}
+try {
+  console.log("After for(let), j =", j);
+} catch (e) {
+  console.log("After for(let), j error:", e.message); // ReferenceError
+}
+
+// 🔹 4. Function-scoped vs block-scoped closures
+const funcs = [];
+for (var k = 0; k < 3; k++) {
+  funcs.push(function() {
+    console.log("var k in closure:", k);
+  });
+}
+funcs.forEach(fn => fn()); 
+// Prints 3, 3, 3 (all share same function-scoped k)
+
+const funcs2 = [];
+for (let m = 0; m < 3; m++) {
+  funcs2.push(function() {
+    console.log("let m in closure:", m);
+  });
+}
+funcs2.forEach(fn => fn()); 
+// Prints 0, 1, 2 (each block iteration has its own m)
+
+// 🔹 5. IIFE to emulate block scope for var (legacy)
+// Before let/const, an IIFE created a new function scope per iteration.
+const legacy = [];
+for (var n = 0; n < 3; n++) {
+  (function(nCopy) {
+    legacy.push(function() {
+      console.log("IIFE nCopy:", nCopy);
+    });
+  })(n);
+}
+legacy.forEach(fn => fn()); 
+// Prints 0, 1, 2
+
+// 🔹 6. Best Practices
+/*
+- Prefer let and const for predictable block scoping.
+- Avoid var to prevent accidental leaks outside blocks.
+- Use const for variables that shouldn’t be reassigned.
+- Use let for variables that will be reassigned.
+*/
+
+
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
+
+/*
+30 - Closures: Lexical Environment & Private Variables
+
+This note explains:
+1. Lexical Environment: the internal record of local variables and the scope chain.
+2. How closures “close over” variables from their defining scope.
+3. Using closures to create private variables and module-like patterns.
+*/
+
+// 🔹 1. Basic Closure: function remembers its outer variables
+function makeGreeter(name) {
+  // 'name' is part of makeGreeter's lexical environment
+  return function greet() {
+    console.log(`Hello, ${name}!`);
+  };
+}
+const greetAjay = makeGreeter("Ajay");
+greetAjay(); // Hello, Ajay!
+
+// 🔹 2. Lexical Environment & Scope Chain demonstration
+function A() {
+  let a = "A value";
+  function B() {
+    let b = "B value";
+    function C() {
+      let c = "C value";
+      // C can access c, b, and a via the scope chain
+      console.log(a, b, c);
+    }
+    return C;
+  }
+  return B;
+}
+const runC = A()(); // A() returns B, B() returns C
+runC(); // Output: A value B value C value
+
+// 🔹 3. Private Variables with Closures (Module Pattern)
+function createCounter() {
+  let count = 0;               // private variable
+  return {
+    increment() {
+      count++;
+    },
+    decrement() {
+      count--;
+    },
+    getCount() {
+      return count;
+    }
+  };
+}
+const counter = createCounter();
+console.log(counter.getCount()); // 0
+counter.increment();
+counter.increment();
+console.log(counter.getCount()); // 2
+counter.decrement();
+console.log(counter.getCount()); // 1
+// Note: There is no way to access 'count' directly from outside
+
+// 🔹 4. Closure Pitfall: shared loop variable with var
+const funcs = [];
+for (var i = 0; i < 3; i++) {
+  funcs.push(function() {
+    console.log("var i:", i);
+  });
+}
+funcs.forEach(fn => fn()); // prints 3, 3, 3
+
+// Fix with block-scoped let:
+const funcs2 = [];
+for (let j = 0; j < 3; j++) {
+  funcs2.push(function() {
+    console.log("let j:", j);
+  });
+}
+funcs2.forEach(fn => fn()); // prints 0, 1, 2
+
+// 🔹 5. Memory Considerations
+/*
+- Closures keep referenced variables alive even after outer function returns.
+- Avoid retaining large objects in closures if not needed (can lead to memory leaks).
+*/
+
+// 🔚 Summary:
+// • A closure is a function + its lexical environment.
+// • It can access variables where it was defined, even after that scope has ended.
+// • Use closures to encapsulate private state in JavaScript.
+
+
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
+
+/*
+31 - Function.prototype.call, apply, and bind
+
+This note explains:
+1. call: invoke a function with an explicit this value and individual arguments.
+2. apply: invoke a function with an explicit this value and arguments provided as an array.
+3. bind: create a new function with a permanently bound this value and optional leading arguments.
+*/
+
+// 🔹 1. call()
+// Syntax: func.call(thisArg, arg1, arg2, …)
+// Calls func with this set to thisArg and arguments listed individually.
+const person1 = { name: "Ajay" };
+function greet(greeting, punctuation) {
+  console.log(`${greeting}, ${this.name}${punctuation}`);
+}
+greet.call(person1, "Hello", "!");   // Hello, Ajay!
+
+// 🔹 2. apply()
+// Syntax: func.apply(thisArg, [arg1, arg2, …])
+// Calls func with this set to thisArg and arguments from an array.
+greet.apply(person1, ["Hi", "!!!"]);  // Hi, Ajay!!!
+
+// 🔹 3. bind()
+// Syntax: const boundFn = func.bind(thisArg[, arg1[, arg2[, …]]]);
+// Returns a new function with this permanently set to thisArg, and optional initial args.
+const greetAjay = greet.bind(person1);
+greetAjay("Hey", "?");                // Hey, Ajay?
+
+// Partial application with bind:
+const sayHelloToAjay = greet.bind(person1, "Hello");
+sayHelloToAjay("!!!");                // Hello, Ajay!!!
+
+// 🔹 4. Method Borrowing
+const person2 = { name: "Riya" };
+const details = {
+  print: function(age, city) {
+    console.log(`${this.name} is ${age} years old and lives in ${city}.`);
+  }
+};
+details.print.call(person2, 30, "Mumbai");
+// Riya is 30 years old and lives in Mumbai.
+
+details.print.apply(person2, [31, "Delhi"]);
+// Riya is 31 years old and lives in Delhi.
+
+// 🔹 5. bind() with constructor-like use for callbacks
+class Counter {
+  constructor() {
+    this.count = 0;
+  }
+  increment() {
+    this.count++;
+    console.log("Count:", this.count);
+  }
+}
+const c = new Counter();
+// Passing method without binding loses this:
+setTimeout(c.increment, 0);        // Count: NaN or error (this !== c)
+// Properly bind:
+setTimeout(c.increment.bind(c), 0); // Count: 1
+
+// 🔹 6. call/apply/bind and Arrow Functions
+// Arrow functions have lexical this and cannot be rebound.
+const arrowFn = () => console.log(this);
+arrowFn.call(person1);  // this still refers to outer lexical this, not person1
+arrowFn.apply(person1);
+const boundArrow = arrowFn.bind(person1);
+boundArrow();
+
+// 🔹 7. Best Practices
+/*
+- Use call/apply to borrow methods from one object for another.
+- Use bind to ensure methods keep the correct this when passed as callbacks.
+- Prefer bind over creating wrapper functions in event handlers or async code.
+- Remember apply takes an array of args; call lists them individually.
+- Arrow functions ignore call/apply/bind for this binding.
+*/
+
+
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
+
+/*
+32 - Recursion (Recursion vs Iteration)
+
+This note explains:
+1. What recursion is: a function that calls itself.
+2. Base case and recursive case to prevent infinite loops.
+3. Comparison to iterative solutions using loops.
+4. Examples: factorial and Fibonacci implemented both ways.
+5. Pros and cons of recursion vs iteration.
+*/
+
+// 🔹 1. Recursive Factorial
+// - Uses a base case (n === 0) and a recursive case (n * factorial(n - 1)).
+function factorialRecursive(n) {
+  if (n < 0) throw new Error("n must be non-negative");
+  if (n === 0) return 1;           // Base case
+  return n * factorialRecursive(n - 1); // Recursive call
+}
+console.log("Recursive factorial of 5:", factorialRecursive(5)); // 120
+
+// 🔹 2. Iterative Factorial
+// - Uses a loop to multiply values from 1 to n.
+function factorialIterative(n) {
+  if (n < 0) throw new Error("n must be non-negative");
+  let result = 1;
+  for (let i = 1; i <= n; i++) {
+    result *= i;
+  }
+  return result;
+}
+console.log("Iterative factorial of 5:", factorialIterative(5)); // 120
+
+// 🔹 3. Recursive Fibonacci
+// - Exponential time due to repeated calculations.
+function fibonacciRecursive(n) {
+  if (n < 0) throw new Error("n must be non-negative");
+  if (n === 0) return 0;           // Base case 1
+  if (n === 1) return 1;           // Base case 2
+  return fibonacciRecursive(n - 1) + fibonacciRecursive(n - 2); // Recursive calls
+}
+console.log("Recursive Fibonacci of 7:", fibonacciRecursive(7)); // 13
+
+// 🔹 4. Iterative Fibonacci
+// - Linear time using a loop and two variables.
+function fibonacciIterative(n) {
+  if (n < 0) throw new Error("n must be non-negative");
+  let a = 0, b = 1;
+  for (let i = 0; i < n; i++) {
+    [a, b] = [b, a + b];
+  }
+  return a;
+}
+console.log("Iterative Fibonacci of 7:", fibonacciIterative(7)); // 13
+
+// 🔹 5. Recursion vs Iteration
+// Pros of Recursion:
+//  • Code can be more concise and expressive for tree/graph algorithms.
+//  • Natural fit for divide-and-conquer problems.
+// Cons of Recursion:
+//  • Higher call-stack usage; risk of stack overflow for deep recursion.
+//  • Often slower due to function-call overhead.
+// Pros of Iteration:
+//  • Generally more efficient in time and memory (no call-stack growth).
+//  • Predictable looping structure.
+// Cons of Iteration:
+//  • Code can be more verbose for complex recursive patterns.
+//  • Harder to express some algorithms (e.g., traversals) without additional data structures.
+
+// 🔹 6. When to Use Which:
+// - Use recursion when the problem is naturally recursive (trees, graphs, backtracking).
+// - Use iteration when performance and stack safety are critical (simple loops, large n).
+
+
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
