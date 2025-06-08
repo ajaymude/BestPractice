@@ -53,26 +53,6 @@
 // 49 - Regular Expressions: syntax, flags (g, i, m, u, y, s)
 // 50 - Common RegExp Methods: test, exec, match, matchAll, replace with regex, search
 
-// 🔄 ES6+ SYNTAX & FEATURES
-// 51 - let vs const vs var deep dive
-// 52 - Arrow Functions in depth (lexical this, implicit return, no arguments object)
-// 53 - Template Literals advanced: expressions, tagged templates
-// 54 - Destructuring Assignment: objects, arrays, nested patterns, default values
-// 55 - Spread and Rest Operators for arrays and objects
-// 56 - Object Property Shorthand and Computed Property Names
-// 57 - Enhanced Object Literals: method shorthand, __proto__, super in objects
-// 58 - Block-scoped Declarations and Temporal Dead Zone
-// 59 - for…of loops vs for…in loops
-// 60 - Optional Chaining (?.) and Nullish Coalescing (??)
-// 61 - Short-circuit evaluation with && and ||
-// 62 - Dynamic Imports and import() promises
-// 63 - Modules: import/export syntax, default vs named exports
-// 64 - ES6 Promises: creating, chaining, error handling
-// 65 - Promise.all, Promise.race, Promise.allSettled, Promise.any
-// 66 - Async/Await: syntax, error handling with try/catch/finally
-// 67 - Generators and Iterators: function* syntax, yield, next(), for…of iteration
-// 68 - Symbols: creation, use as property keys, well-known symbols (Symbol.iterator, Symbol.toStringTag)
-// 69 - BigInt: syntax, use cases, limitations
 
 // 🔌 BOM & DOM MANIPULATION
 // 70 - Window Object: global scope, alert, prompt, confirm
