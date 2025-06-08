@@ -45,20 +45,6 @@
 // 31 - Function.prototype.call, apply, and bind
 // 32 - Recursion (recursion vs iteration)
 
-// 🗂 OBJECTS & ARRAYS
-// 33 - Object Literals: properties, methods
-// 34 - Accessing and Modifying Object Properties (dot notation, bracket notation)
-// 35 - Object.create, Object.assign, Object.freeze, Object.keys/values/entries
-// 36 - Prototypes and Prototype Chain
-// 37 - Constructor Functions and the new Operator
-// 38 - ES6 Classes: class syntax, extends, super, static methods
-// 39 - instanceof operator and prototype methods
-// 40 - Arrays: literal syntax, Array constructor
-// 41 - Accessing and Modifying Array Elements
-// 42 - Array Methods: push, pop, shift, unshift, splice, slice, concat, join
-// 43 - Iteration Methods: forEach, map, filter, reduce, some, every, find, findIndex
-// 44 - Array Destructuring, Array.from, Array.isArray
-// 45 - Nested Arrays and Multidimensional Arrays
 
 // ✂️ STRING & REGULAR EXPRESSIONS
 // 46 - String Literals, Template Literals (backticks), string concatenation
