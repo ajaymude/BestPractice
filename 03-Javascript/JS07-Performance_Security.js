@@ -15,6 +15,23 @@
 // 132 - Safe use of eval(), Function(), and dynamic code execution.
 
 
+// 🌐 NETWORKING & API INTEGRATION
+// 133 - RESTful API principles: CRUD operations, status codes.
+// 134 - Working with JSON data: parse(), stringify(), handling large JSON.
+// 135 - GraphQL basics: queries vs mutations, using GraphQL client libraries (Apollo, URQL).
+// 136 - WebSockets for real-time communication: WebSocket API, libraries like Socket.IO.
+// 137 - Server-Sent Events (SSE) for one-way data streaming.
+// 138 - Fetching binary data: ArrayBuffer, Blob, FileReader.
+
+// 💾 STORAGE & STATE MANAGEMENT
+// 139 - Browser Storage: localStorage, sessionStorage, differences and use cases.
+// 140 - IndexedDB basics: storing structured data, key–value object stores.
+// 141 - Cache API for storing network responses, service worker integration.
+// 142 - State Management Libraries: Redux fundamentals in vanilla JS, Redux Toolkit overview.
+// 143 - MobX for reactive state, observables, actions.
+// 144 - Zustand and Jotai: minimalistic state management patterns.
+// 145 - Reactivity in Frameworks: comparison with Vue reactivity and Svelte stores.
+
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 
@@ -990,6 +1007,1002 @@ async function loadModule(name) {
 - Remember dynamic code hinders debugging and static analysis—use sparingly.
 */
 
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+
+/*
+133 - RESTful API Principles: CRUD Operations, Status Codes
+
+This note explains:
+1. CRUD mapping to HTTP methods and resource URLs
+2. Common HTTP status codes for success and errors
+3. Example Express routes for GET, POST, PUT, DELETE
+4. Sending proper JSON responses and status codes
+5. Best-practice guidelines
+*/
+
+// Express setup (install with `npm install express`)
+const express = require('express');
+const app = express();
+app.use(express.json()); // parse JSON bodies
+
+// In-memory “database”
+let items = []; 
+let nextId = 1;
+
+// 1. CREATE → POST /items
+app.post('/items', (req, res) => {
+  const { name } = req.body;
+  if (!name) {
+    return res.status(400).json({ error: 'Name is required' }); // Bad Request
+  }
+  const newItem = { id: nextId++, name };
+  items.push(newItem);
+  res.status(201).json(newItem); // Created
+});
+
+// 2. READ ALL → GET /items
+app.get('/items', (req, res) => {
+  res.status(200).json(items); // OK
+});
+
+// 3. READ ONE → GET /items/:id
+app.get('/items/:id', (req, res) => {
+  const id = Number(req.params.id);
+  const item = items.find(i => i.id === id);
+  if (!item) {
+    return res.status(404).json({ error: 'Item not found' }); // Not Found
+  }
+  res.status(200).json(item); // OK
+});
+
+// 4. UPDATE → PUT /items/:id
+app.put('/items/:id', (req, res) => {
+  const id = Number(req.params.id);
+  const { name } = req.body;
+  const item = items.find(i => i.id === id);
+  if (!item) {
+    return res.status(404).json({ error: 'Item not found' }); // Not Found
+  }
+  if (!name) {
+    return res.status(400).json({ error: 'Name is required' }); // Bad Request
+  }
+  item.name = name;
+  res.status(200).json(item); // OK
+});
+
+// 5. DELETE → DELETE /items/:id
+app.delete('/items/:id', (req, res) => {
+  const id = Number(req.params.id);
+  const index = items.findIndex(i => i.id === id);
+  if (index === -1) {
+    return res.status(404).json({ error: 'Item not found' }); // Not Found
+  }
+  items.splice(index, 1);
+  res.sendStatus(204); // No Content
+});
+
+// Start server
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`API server listening on port ${PORT}`);
+});
+
+/*
+Best Practices:
+- Use nouns (resources) in URLs, not verbs (e.g., /items not /getItems).
+- Map CRUD to HTTP methods: POST, GET, PUT/PATCH, DELETE.
+- Return 201 with the created resource on POST.
+- Return 200 with JSON data for successful GET/PUT.
+- Return 204 No Content for successful DELETE.
+- Validate input and return 400 Bad Request for invalid data.
+- Return 404 Not Found when a resource doesn’t exist.
+- Handle unexpected errors with 500 Internal Server Error (via middleware).
+*/
+
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+
+/*
+134 - Working with JSON Data: parse(), stringify(), Handling Large JSON
+
+This note explains:
+1. JSON.parse() – converting a JSON string into a JavaScript object with error handling.
+2. JSON.stringify() – converting a JavaScript object into a JSON string, using replacers and pretty-printing.
+3. Handling large JSON payloads – chunked processing to avoid blocking and high memory usage.
+*/
+
+// 1. JSON.parse() with error handling
+const validJson = '{"id":1,"name":"Item"}';
+const invalidJson = '{id:1,name:"Item"}'; // invalid JSON
+
+function safeParse(jsonStr) {
+  try {
+    const obj = JSON.parse(jsonStr);
+    console.log('Parsed object:', obj);
+    return obj;
+  } catch (err) {
+    console.error('JSON.parse error:', err.message);
+    return null;
+  }
+}
+
+safeParse(validJson);    // Parsed object: { id: 1, name: 'Item' }
+safeParse(invalidJson);  // JSON.parse error: Unexpected token i in JSON at position 1
+
+// 2. JSON.stringify() with replacer and spacing
+const user = {
+  id: 42,
+  name: 'Alice',
+  password: 'secret',     // we might not want to serialize this
+  preferences: { theme: 'dark' }
+};
+
+// Replacer to omit the password field
+function userReplacer(key, value) {
+  if (key === 'password') return undefined;
+  return value;
+}
+
+// Pretty-print with 2-space indentation
+const jsonString = JSON.stringify(user, userReplacer, 2);
+console.log('Stringified user:', jsonString);
+/*
+Stringified user:
+{
+  "id": 42,
+  "name": "Alice",
+  "preferences": {
+    "theme": "dark"
+  }
+}
+*/
+
+// 3. Handling Large JSON Payloads
+// Simulate a large JSON array of objects
+const largeArray = Array.from({ length: 10000 }, (_, i) => ({ index: i, value: `Item${i}` }));
+const largeJsonStr = JSON.stringify(largeArray);
+
+// Naïve parse (may block and use lots of memory)
+console.time('naiveParse');
+const fullData = JSON.parse(largeJsonStr);
+console.timeEnd('naiveParse'); // e.g. ~50ms
+
+// Chunked processing: parse fully but process items in batches to avoid UI freeze
+console.time('chunkedProcessing');
+const BATCH_SIZE = 1000;
+for (let i = 0; i < fullData.length; i += BATCH_SIZE) {
+  const batch = fullData.slice(i, i + BATCH_SIZE);
+  // processBatch(batch) – your batch processing logic here
+  console.log(`Processed items ${i}–${i + batch.length - 1}`);
+}
+console.timeEnd('chunkedProcessing');
+
+// Streaming parse example (Node.js, using JSONStream)
+// const fs = require('fs');
+// const JSONStream = require('JSONStream');
+// fs.createReadStream('large.json')
+//   .pipe(JSONStream.parse('*'))
+//   .on('data', obj => {
+//     // process each object without loading all into memory
+//     console.log('Streamed item:', obj);
+//   });
+
+// Best Practices:
+/*
+- Always wrap JSON.parse in try/catch for robust error handling.
+- Use JSON.stringify replacers to exclude sensitive data.
+- Pretty-print with the third argument of stringify for readable logs.
+- For very large JSON, process in batches or use streaming parsers (JSONStream in Node.js).
+- Avoid blocking the main thread: batch work with setTimeout or requestIdleCallback between chunks.
+*/
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+
+/*
+135 - GraphQL Basics: Queries vs Mutations, Using GraphQL Client Libraries (Apollo, URQL)
+
+This note explains:
+1. GraphQL operations: Query (read-only) vs Mutation (write).
+2. Using Apollo Client to fetch queries and perform mutations.
+3. Using URQL to fetch queries and perform mutations.
+4. Key differences and setup for both clients.
+5. Best-practice guidelines.
+*/
+
+// 1. GraphQL Query vs Mutation
+const GET_USERS = `
+  query GetUsers {
+    users {
+      id
+      name
+      email
+    }
+  }
+`;
+const CREATE_USER = `
+  mutation CreateUser($name: String!, $email: String!) {
+    createUser(input: { name: $name, email: $email }) {
+      id
+      name
+      email
+    }
+  }
+`;
+
+// 2. Apollo Client Usage
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+
+const apolloClient = new ApolloClient({
+  uri: 'https://api.example.com/graphql',
+  cache: new InMemoryCache(),
+});
+
+// Fetch data
+apolloClient
+  .query({
+    query: gql(GET_USERS),
+  })
+  .then(result => console.log('Apollo query result:', result.data.users))
+  .catch(error => console.error('Apollo query error:', error));
+
+// Perform mutation
+apolloClient
+  .mutate({
+    mutation: gql(CREATE_USER),
+    variables: { name: 'Ajay', email: 'ajay@example.com' },
+  })
+  .then(result => console.log('Apollo mutation result:', result.data.createUser))
+  .catch(error => console.error('Apollo mutation error:', error));
+
+// 3. URQL Client Usage
+import { createClient, gql as urqlGql } from 'urql';
+
+const urqlClient = createClient({
+  url: 'https://api.example.com/graphql',
+});
+
+// Fetch data
+urqlClient
+  .query(urqlGql(GET_USERS))
+  .toPromise()
+  .then(result => console.log('URQL query result:', result.data.users))
+  .catch(error => console.error('URQL query error:', error));
+
+// Perform mutation
+urqlClient
+  .mutation(urqlGql(CREATE_USER), { name: 'Riya', email: 'riya@example.com' })
+  .toPromise()
+  .then(result => console.log('URQL mutation result:', result.data.createUser))
+  .catch(error => console.error('URQL mutation error:', error));
+
+// 4. Client Differences
+// Apollo: full-featured caching and tooling.
+// URQL: lightweight, modular, smaller bundle.
+
+// 5. Best Practices:
+/*
+- Use Query for data retrieval, Mutation for state-changing operations.
+- Always use variables (no string interpolation) to avoid injection.
+- Handle errors in .catch() or using error policies.
+- Choose your client based on app requirements: caching needs vs bundle size.
+*/
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+
+/*
+136 - WebSockets for real-time communication: WebSocket API, libraries like Socket.IO
+
+This note explains:
+1. Native WebSocket API – client and server examples
+2. Sending and receiving messages
+3. Handling connection lifecycle events (open, message, error, close)
+4. Socket.IO – simplified API with fallbacks and rooms
+5. Server-side Socket.IO setup
+6. Best practices: reconnection, heartbeats, secure WSS
+*/
+
+// 1. Native WebSocket Client
+const ws = new WebSocket('wss://example.com/socket');
+ws.onopen = () => {
+  console.log('WebSocket open');
+  ws.send('Hello from client');
+};
+ws.onmessage = e => console.log('Received message:', e.data);
+ws.onerror = e => console.error('WebSocket error:', e);
+ws.onclose = e => console.log('WebSocket closed:', e.code, e.reason);
+
+// 2. Native WebSocket Server (Node.js with ws)
+const WebSocket = require('ws');
+const wss = new WebSocket.Server({ port: 8080 });
+wss.on('connection', socket => {
+  console.log('Client connected');
+  socket.on('message', msg => {
+    console.log('Server received:', msg);
+    socket.send(`Echo: ${msg}`);
+  });
+  socket.on('close', () => console.log('Client disconnected'));
+});
+
+// 3. Socket.IO Server (Node.js)
+const http = require('http').createServer();
+const io = require('socket.io')(http);
+io.on('connection', socket => {
+  console.log('Socket.IO client connected:', socket.id);
+  socket.on('chat message', msg => {
+    io.emit('chat message', msg);
+  });
+  socket.on('disconnect', () => console.log('Socket.IO client disconnected'));
+});
+http.listen(3000, () => console.log('Socket.IO server listening on port 3000'));
+
+// 4. Socket.IO Client
+import { io as createSocket } from 'socket.io-client';
+const socketIoClient = createSocket('https://example.com', { transports: ['websocket'] });
+socketIoClient.on('connect', () => console.log('Connected, ID:', socketIoClient.id));
+socketIoClient.emit('chat message', 'Hello World');
+socketIoClient.on('chat message', msg => console.log('Chat message:', msg));
+
+// Best Practices:
+/*
+- Use ping/pong or heartbeat protocols to detect broken connections and auto-reconnect.
+- Implement exponential backoff for reconnection attempts.
+- Always use wss:// (TLS) in production to secure data in transit.
+- Validate and sanitize all incoming messages on the server to prevent injection attacks.
+- Clean up event listeners (e.g., socket.removeAllListeners()) to avoid memory leaks.
+- Choose Socket.IO if you need automatic fallback transports, rooms, and built-in reconnection.
+*/
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+/*
+137 - Server-Sent Events (SSE) for One-Way Data Streaming
+
+This note explains:
+1. What SSE is and how it differs from WebSockets.
+2. Server-side implementation using Node.js and Express.
+3. Client-side usage with EventSource.
+4. Sending periodic updates from the server.
+5. Automatic reconnection and closing the connection.
+6. Best-practice guidelines.
+*/
+
+//
+// 1. Server-Side: Express SSE Endpoint (server.js)
+//
+const express = require('express');
+const app = express();
+
+app.get('/stream', (req, res) => {
+  // Set headers for SSE
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+
+  // Send a comment to keep connection alive in some proxies
+  res.write(': connected\n\n');
+
+  // Send an event every second
+  const intervalId = setInterval(() => {
+    const data = { time: new Date().toISOString() };
+    res.write(`data: ${JSON.stringify(data)}\n\n`);
+  }, 1000);
+
+  // Cleanup on client disconnect
+  req.on('close', () => {
+    clearInterval(intervalId);
+  });
+});
+
+app.listen(3000, () => console.log('SSE server listening on port 3000'));
+
+
+//
+// 2. Client-Side: Using EventSource (index.html)
+//
+/*
+<!DOCTYPE html>
+<html>
+<head><title>SSE Demo</title></head>
+<body>
+  <h1>Server-Sent Events Demo</h1>
+  <div id="output"></div>
+  <script>
+    // Create EventSource to listen to /stream
+    const eventSource = new EventSource('/stream');
+
+    eventSource.onmessage = event => {
+      const data = JSON.parse(event.data);
+      document.getElementById('output').textContent =
+        `Server time: ${data.time}`;
+    };
+
+    eventSource.onerror = err => {
+      console.error('SSE error:', err);
+      // Connection will automatically retry by default
+    };
+  </script>
+</body>
+</html>
+*/
+
+//
+// 3. Notes on Behavior
+// • SSE is unidirectional: server → client only.
+// • The client reconnects automatically on network errors.
+// • You can send custom named events using:
+//     res.write('event: update\n');
+//     res.write(`data: ${JSON.stringify(payload)}\n\n`);
+//
+// 4. Best Practices:
+/*
+- Keep messages small and JSON-encoded for easy parsing.
+- Send a heartbeat comment (`: keep-alive\n\n`) every 30s to prevent timeouts.
+- Handle eventSource.onerror to notify users of disconnects.
+- Use HTTPS in production (wss not needed; SSE over HTTPS is secure).
+- For bidirectional communication, consider WebSockets or Socket.IO instead.
+*/
+
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+
+/*
+138 - Fetching Binary Data: ArrayBuffer, Blob, FileReader
+
+This note explains:
+1. Using fetch() to retrieve binary data as ArrayBuffer or Blob.
+2. Converting ArrayBuffer to typed arrays (Uint8Array).
+3. Creating object URLs from Blobs for use in <img> or <a> elements.
+4. Reading Blobs with FileReader for text or data URL.
+5. Best-practice guidelines for handling binary data.
+*/
+
+// 1. Fetch binary as ArrayBuffer
+fetch('https://example.com/data.bin')
+  .then(response => {
+    if (!response.ok) throw new Error('Network response was not ok');
+    return response.arrayBuffer();
+  })
+  .then(buffer => {
+    console.log('ArrayBuffer byteLength:', buffer.byteLength);
+    // 2. Convert to typed array for processing
+    const bytes = new Uint8Array(buffer);
+    console.log('First 10 bytes:', bytes.slice(0, 10));
+  })
+  .catch(error => console.error('Fetch ArrayBuffer error:', error));
+
+// 3. Fetch binary as Blob and create object URL
+fetch('https://example.com/image.png')
+  .then(response => response.blob())
+  .then(blob => {
+    console.log('Fetched Blob size:', blob.size, 'type:', blob.type);
+    const img = document.createElement('img');
+    // Create a temporary URL for the blob
+    img.src = URL.createObjectURL(blob);
+    img.alt = 'Fetched from Blob';
+    document.body.appendChild(img);
+    // Revoke URL after image loads to free memory
+    img.onload = () => URL.revokeObjectURL(img.src);
+  })
+  .catch(error => console.error('Fetch Blob error:', error));
+
+// 4. Reading Blob with FileReader
+fetch('https://example.com/textfile.txt')
+  .then(res => res.blob())
+  .then(blob => {
+    const reader = new FileReader();
+    // a) Read as text
+    reader.onload = () => {
+      console.log('FileReader text result:', reader.result);
+    };
+    // b) Or read as data URL (base64)
+    // reader.readAsDataURL(blob);
+    reader.readAsText(blob);
+  })
+  .catch(error => console.error('FileReader error:', error));
+
+// 5. Best Practices:
+/*
+- Prefer response.arrayBuffer() for raw binary processing.
+- Use Blob and URL.createObjectURL() to display or download binary data without base64 overhead.
+- Always revokeObjectURL() after use to avoid memory leaks.
+- For small text files or images, FileReader.readAsDataURL can embed content directly.
+- Handle errors on both network and parsing stages.
+- Respect CORS: ensure server sends appropriate Access-Control-Allow-Origin header for binary endpoints.
+*/
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+
+/*
+139 - Browser Storage: localStorage, sessionStorage, Differences and Use Cases
+
+This note explains:
+1. localStorage – persistent key/value storage per origin, survives browser restarts.
+2. sessionStorage – per-tab key/value storage, cleared when the tab/window is closed.
+3. Differences – lifetime, scope, storage limits (≈5MB), accessibility.
+4. Use cases – localStorage for user preferences, caching; sessionStorage for temporary form state, one-time flags.
+5. Best-practice guidelines – JSON serialization, quota handling, security considerations.
+*/
+
+// 1. localStorage: persistent across sessions
+// Set a value
+localStorage.setItem('theme', 'dark');
+// Get a value
+console.log('localStorage theme:', localStorage.getItem('theme'));
+// Remove a value
+localStorage.removeItem('theme');
+// Clear all localStorage for this origin
+// localStorage.clear();
+
+// 2. sessionStorage: per-tab persistence
+sessionStorage.setItem('sessionID', 'abc123');
+console.log('sessionStorage sessionID:', sessionStorage.getItem('sessionID'));
+sessionStorage.removeItem('sessionID');
+
+// 3. Storing complex data via JSON
+const user = { id: 1, name: 'Ajay', prefs: { notifications: true } };
+localStorage.setItem('user', JSON.stringify(user));
+const stored = JSON.parse(localStorage.getItem('user'));
+console.log('Parsed user from localStorage:', stored);
+
+// 4. Lifecycle demonstration (try this in console):
+// Open two tabs on the same origin:
+//  • Tab A: sessionStorage.setItem('x','1');
+//  • Tab B: console.log(sessionStorage.getItem('x')); // null (different session)
+//  • localStorage.setItem('y','2');
+//  • Both Tab A and B: console.log(localStorage.getItem('y')); // "2"
+
+// 5. Handling storage quota exceptions
+try {
+  // Attempt to fill storage beyond limit
+  let large = 'x'.repeat(1024 * 1024 * 6); // ~6MB
+  localStorage.setItem('big', large);
+} catch (e) {
+  console.error('Storage quota exceeded:', e);
+}
+
+// 6. Best Practices:
+/*
+- Serialize objects with JSON.stringify/parse.
+- Wrap storage calls in try/catch to handle QuotaExceededError.
+- Do not store sensitive data (tokens, PII) in localStorage/sessionStorage.
+- Consider expiry logic manually (store timestamp + value).
+- Use cookies with HttpOnly for truly secure tokens.
+*/
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+
+/*
+140 - IndexedDB Basics: Storing Structured Data, Key–Value Object Stores
+
+This note explains:
+1. Opening a database with versioning and onupgradeneeded.
+2. Creating object stores with keyPath and indexes.
+3. Performing CRUD operations: add, get, getAll, put (update), delete.
+4. Handling transactions, success and error events.
+5. Using async/await wrappers for cleaner code.
+*/
+
+// 1. Open (or create) the database with versioning
+function openDatabase() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open('MyDB', 1);
+    request.onupgradeneeded = event => {
+      const db = event.target.result;
+      // Create 'users' store with autoIncrementing 'id'
+      if (!db.objectStoreNames.contains('users')) {
+        const store = db.createObjectStore('users', { keyPath: 'id', autoIncrement: true });
+        // Create an index on the 'name' property
+        store.createIndex('nameIdx', 'name', { unique: false });
+      }
+    };
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+}
+
+// 2. Add a record to the 'users' store
+async function addUser(user) {
+  const db = await openDatabase();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction('users', 'readwrite');
+    const store = tx.objectStore('users');
+    const addReq = store.add(user);
+    addReq.onsuccess = () => resolve(addReq.result); // returns the new id
+    addReq.onerror = () => reject(addReq.error);
+  });
+}
+
+// 3. Retrieve all records from the 'users' store
+async function getAllUsers() {
+  const db = await openDatabase();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction('users', 'readonly');
+    const store = tx.objectStore('users');
+    const getAllReq = store.getAll();
+    getAllReq.onsuccess = () => resolve(getAllReq.result);
+    getAllReq.onerror = () => reject(getAllReq.error);
+  });
+}
+
+// 4. Retrieve a single record by key
+async function getUser(id) {
+  const db = await openDatabase();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction('users', 'readonly');
+    const store = tx.objectStore('users');
+    const getReq = store.get(id);
+    getReq.onsuccess = () => resolve(getReq.result);
+    getReq.onerror = () => reject(getReq.error);
+  });
+}
+
+// 5. Update (put) an existing record
+async function updateUser(user) {
+  const db = await openDatabase();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction('users', 'readwrite');
+    const store = tx.objectStore('users');
+    const putReq = store.put(user);
+    putReq.onsuccess = () => resolve(putReq.result);
+    putReq.onerror = () => reject(putReq.error);
+  });
+}
+
+// 6. Delete a record by key
+async function deleteUser(id) {
+  const db = await openDatabase();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction('users', 'readwrite');
+    const store = tx.objectStore('users');
+    const delReq = store.delete(id);
+    delReq.onsuccess = () => resolve();
+    delReq.onerror = () => reject(delReq.error);
+  });
+}
+
+// 7. Usage Examples
+(async () => {
+  // Add two users
+  const aliceId = await addUser({ name: 'Alice', email: 'alice@example.com' });
+  console.log('Added Alice with id', aliceId);
+  const bobId = await addUser({ name: 'Bob', email: 'bob@example.com' });
+  console.log('Added Bob with id', bobId);
+
+  // Get all users
+  console.log('All users:', await getAllUsers());
+
+  // Get one user
+  console.log('User', aliceId, await getUser(aliceId));
+
+  // Update a user
+  await updateUser({ id: aliceId, name: 'Alice Smith', email: 'alice.smith@example.com' });
+  console.log('Alice after update:', await getUser(aliceId));
+
+  // Delete a user
+  await deleteUser(bobId);
+  console.log('All users after deleting Bob:', await getAllUsers());
+})();
+
+/*
+Best Practices:
+- Always handle onupgradeneeded to define or migrate schema.
+- Wrap IDB operations in Promises or use helper libraries (e.g., idb).
+- Close transactions promptly; handle errors in onerror handlers.
+- Use keyPath and indexes to efficiently query structured data.
+- Avoid global references to the db object; open per-operation or cache carefully.
+*/
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+
+/*
+142 - State Management Libraries: Redux Fundamentals in Vanilla JS, Redux Toolkit Overview
+
+This note explains:
+1. Redux fundamentals: store, reducer, actions, dispatch, subscribe.
+2. Vanilla JS Redux example: counter store.
+3. Redux Toolkit basics: configureStore, createSlice.
+4. Using an async thunk with Redux Toolkit.
+5. Best-practice guidelines.
+*/
+
+// 1. Vanilla JS Redux Fundamentals
+function createStore(reducer, initialState) {
+  let state = initialState;
+  const listeners = [];
+  return {
+    dispatch(action) {
+      state = reducer(state, action);
+      listeners.forEach(fn => fn());
+    },
+    getState() {
+      return state;
+    },
+    subscribe(fn) {
+      listeners.push(fn);
+      return () => listeners.splice(listeners.indexOf(fn), 1);
+    }
+  };
+}
+
+// Reducer for a simple counter
+function counterReducer(state = { count: 0 }, action) {
+  switch (action.type) {
+    case 'increment': return { count: state.count + 1 };
+    case 'decrement': return { count: state.count - 1 };
+    case 'reset':     return { count: 0 };
+    default:          return state;
+  }
+}
+
+// Create store
+const store = createStore(counterReducer);
+
+// Subscribe to state changes
+const unsubscribe = store.subscribe(() => {
+  console.log('Vanilla Redux state:', store.getState());
+});
+
+// Dispatch some actions
+store.dispatch({ type: 'increment' }); // { count: 1 }
+store.dispatch({ type: 'increment' }); // { count: 2 }
+store.dispatch({ type: 'decrement' }); // { count: 1 }
+store.dispatch({ type: 'reset' });     // { count: 0 }
+unsubscribe();
+
+// 2. Redux Toolkit Basics
+// (Requires @reduxjs/toolkit installed)
+
+import { configureStore, createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
+// Async thunk example (simulated fetch)
+const fetchCount = createAsyncThunk('counter/fetchCount', async (amount) => {
+  const result = await new Promise(res => setTimeout(() => res({ data: amount }), 500));
+  return result.data;
+});
+
+// createSlice generates actions and reducer
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState: { count: 0, status: 'idle' },
+  reducers: {
+    increment(state) {
+      state.count++;
+    },
+    decrement(state) {
+      state.count--;
+    }
+  },
+  extraReducers: builder => {
+    builder
+      .addCase(fetchCount.pending, state => {
+        state.status = 'loading';
+      })
+      .addCase(fetchCount.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.count = action.payload;
+      })
+      .addCase(fetchCount.rejected, state => {
+        state.status = 'failed';
+      });
+  }
+});
+
+const { increment, decrement } = counterSlice.actions;
+
+// configureStore sets up Redux store with middleware
+const rtkStore = configureStore({
+  reducer: { counter: counterSlice.reducer }
+});
+
+// Subscribe to RTK store updates
+rtkStore.subscribe(() => {
+  console.log('RTK state:', rtkStore.getState());
+});
+
+// Dispatch RTK actions
+rtkStore.dispatch(increment());   // count: 1
+rtkStore.dispatch(decrement());   // count: 0
+
+// Dispatch async thunk
+rtkStore.dispatch(fetchCount(5)); // after ~500ms → count: 5, status: 'succeeded'
+
+// 3. Best Practices:
+/*
+- Use Redux Toolkit for concise, maintainable code and built-in immutability.
+- Keep state shape simple and serializable.
+- Co-locate slice logic (actions + reducer) using createSlice.
+- Use createAsyncThunk for side effects instead of manual middleware.
+- Avoid deeply nested state; normalize when needed.
+- Use TypeScript for type safety in larger apps.
+*/
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+
+/*
+143 - MobX for Reactive State, Observables, Actions
+
+This note explains:
+1. Defining observables to track reactive state.
+2. Defining actions to modify state in a transaction.
+3. Using autorun to react to state changes.
+4. Using computed for derived values.
+*/
+
+// 1. Import MobX functions
+import { makeObservable, observable, action, computed, autorun } from 'mobx';
+
+// 2. Defining a reactive state class with observables and actions
+class CounterStore {
+  count = 0; // observable property
+
+  constructor() {
+    makeObservable(this, {
+      count: observable,
+      increment: action,
+      decrement: action,
+      double: computed
+    });
+  }
+
+  // 3. Actions: modify state
+  increment() {
+    this.count++;
+  }
+
+  decrement() {
+    this.count--;
+  }
+
+  // 4. Computed: derived value
+  get double() {
+    return this.count * 2;
+  }
+}
+
+// 5. Instantiating the store and observing changes
+const counterStore = new CounterStore();
+
+// autorun will run immediately and whenever any observable used changes
+autorun(() => {
+  console.log(`Count: ${counterStore.count}, Double: ${counterStore.double}`);
+});
+
+// 6. Invoking actions to update the store
+counterStore.increment(); // Count: 1, Double: 2
+counterStore.increment(); // Count: 2, Double: 4
+counterStore.decrement(); // Count: 1, Double: 2
+
+/*
+Best Practices:
+- Use observable for state that needs to be tracked.
+- Encapsulate all state modifications inside actions.
+- Use computed for derived values for caching and tracking dependencies.
+- Use autorun or reaction to trigger side effects on state changes.
+- Avoid modifying observables outside of actions for predictability.
+*/
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+/*
+144 - Zustand and Jotai: Minimalistic State Management Patterns
+
+This note explains:
+1. Zustand – creating a simple global store with hooks.
+2. Jotai – creating atoms and using them in components.
+3. Comparing patterns: direct setters vs hooks.
+4. Best-practice guidelines for minimal overhead.
+*/
+
+// 1. Zustand Example
+// Install: npm install zustand
+
+import create from 'zustand';
+
+// Define a store with state and actions
+const useStore = create(set => ({
+  count: 0,
+  increment: () => set(state => ({ count: state.count + 1 })),
+  decrement: () => set(state => ({ count: state.count - 1 })),
+}));
+
+// Usage in a React component
+function CounterZustand() {
+  const { count, increment, decrement } = useStore();
+  return (
+    <div>
+      <h2>Zustand Count: {count}</h2>
+      <button onClick={increment}>+1</button>
+      <button onClick={decrement}>−1</button>
+    </div>
+  );
+}
+
+// 2. Jotai Example
+// Install: npm install jotai
+
+import { atom, useAtom } from 'jotai';
+
+// Define an atom for state
+const countAtom = atom(0);
+
+// Define an atom with write capability (optional)
+const doubledAtom = atom(
+  get => get(countAtom) * 2,
+  (get, set, action) => {
+    const current = get(countAtom);
+    set(countAtom, action === 'inc' ? current + 1 : current - 1);
+  }
+);
+
+// Usage in a React component
+function CounterJotai() {
+  const [count, setCount] = useAtom(countAtom);
+  const [double, dispatch] = useAtom(doubledAtom);
+  return (
+    <div>
+      <h2>Jotai Count: {count}, Doubled: {double}</h2>
+      <button onClick={() => dispatch('inc')}>+1</button>
+      <button onClick={() => dispatch('dec')}>−1</button>
+    </div>
+  );
+}
+
+// 3. Comparison
+/*
+- Zustand: single store object, actions update state directly; simple hook usage.
+- Jotai: atomic state pieces, compose atoms for derived data; hooks per atom.
+- Both avoid boilerplate and providers; state is global by default.
+*/
+
+// 4. Best Practices
+/*
+- Keep store definitions minimal and colocated with related logic.
+- Use selectors in Zustand to subscribe only to needed slices.
+- In Jotai, split state into atoms to optimize re-renders.
+- Avoid over-splitting: group related state logically.
+- Leverage React DevTools to inspect atom/store state.
+*/
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
