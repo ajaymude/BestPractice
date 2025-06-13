@@ -29,6 +29,41 @@
 // 24 - Scoped packages (@scope/package) and private registries
 // 25 - npm scripts advanced: chaining, cross-env, environment-variable usage
 
+
+// 💻 FILE SYSTEM & I/O
+// 26 - fs module basics: fs.readFile, fs.writeFile, fs.appendFile, fs.unlink
+// 27 - fs.createReadStream and fs.createWriteStream for streaming large files
+// 28 - fs.promises API and async/await usage
+// 29 - Synchronous vs asynchronous fs methods: blocking vs non-blocking behavior
+// 30 - Directory operations: fs.readdir, fs.mkdir, fs.rmdir, fs.stat, fs.rename
+// 31 - Handling file paths with path and fs
+// 32 - Watching files and directories: fs.watch, fs.watchFile
+// 33 - Buffer basics: Buffer.alloc, Buffer.from, Buffer.concat, buffer encoding/decoding
+
+// 🔄 ASYNCHRONOUS PATTERNS & EVENT LOOP
+// 34 - Callback pattern: callback hell, error-first callbacks
+// 35 - Promisify: util.promisify, converting callbacks to Promises
+// 36 - Promise patterns: creating, chaining, error handling
+// 37 - Async/Await: syntax, try/catch, error propagation
+// 38 - Event Loop: call stack, callback queue, microtasks queue (process.nextTick, Promises), phases (timers, I/O callbacks, idle prepare, poll, check, close callbacks)
+// 39 - setImmediate vs setTimeout vs process.nextTick
+// 40 - EventEmitter: creating events, .on, .once, .emit, removing listeners, memory leaks
+// 41 - Custom event emitters: extending EventEmitter class
+
+// ⚙ CORE NODE.JS MODULES & API
+// 42 - HTTP module: creating an HTTP server, handling requests and responses
+// 43 - HTTPS module: creating secure servers with SSL certificates
+// 44 - URL module: URL parsing and formatting, URLSearchParams
+// 45 - Querystring module: parsing and stringifying application/x-www-form-urlencoded data
+// 46 - Crypto module: hashing (sha256, md5), encryption/decryption, randomBytes
+// 47 - Timers module: setTimeout, setInterval, clearInterval, clearTimeout
+// 48 - Process module: process.env, process.argv, process.exit, process.cwd, process.pid
+// 49 - Child Processes: child_process.exec, execFile, spawn, fork – running external commands, IPC between parent and child
+// 50 - Cluster module: leveraging multiple CPU cores, master/worker communication
+// 51 - Worker Threads: creating threads for CPU-bound tasks, message passing, SharedArrayBuffer
+// 52 - OS module: os.platform, os.cpus, os.freemem, os.uptime, os.homedir
+// 53 - Crypto Streams: encrypting/decrypting data using stream pipelines
+
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
 
@@ -1341,6 +1376,1761 @@ npm set registry https://registry.npmjs.org/
   "parallel": "npm-run-all --parallel lint test"                       
 }
 
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+
+// 26 – fs module basics: fs.readFile, fs.writeFile, fs.appendFile, fs.unlink
+//
+// The fs module provides APIs to interact with the file system.
+// All methods have asynchronous (callback) and synchronous counterparts.
+// Asynchronous methods do not block the event loop; synchronous ones do.
+//
+// fs.readFile(path, [options], callback):
+// • Reads file contents into memory.
+// • callback(err, data)
+// • options: encoding (e.g., 'utf8') to get string, or omit for Buffer.
+//
+// fs.writeFile(path, data, [options], callback):
+// • Writes data to file, replacing if it exists or creating new.
+// • Options: { encoding, mode, flag }.
+//
+// fs.appendFile(path, data, [options], callback):
+// • Appends data to file, creating the file if it doesn’t exist.
+//
+// fs.unlink(path, callback):
+// • Deletes a file.
+//
+// Synchronous variants exist (fs.readFileSync, fs.writeFileSync, etc.); use
+// them only for scripts or startup tasks, not in production servers.
+//
+// — Next Steps:
+// • Experiment with synchronous methods in the REPL.
+// • Chain operations: read a file, transform its contents, then write.
+// • Handle common errors (e.g., check err.code for ENOENT).
+//
+const fs = require('fs');
+
+// Example 1: Asynchronous file read
+fs.readFile('example.txt', 'utf8', (err, data) => {
+  if (err) return console.error('Read error:', err);
+  console.log('File contents:', data);
+});
+
+// Example 2: Asynchronous file write
+fs.writeFile('output.txt', 'Hello, Node.js!\n', (err) => {
+  if (err) return console.error('Write error:', err);
+  console.log('File written: output.txt');
+});
+
+// Example 3: Asynchronous file append
+fs.appendFile('output.txt', 'Appended line.\n', (err) => {
+  if (err) return console.error('Append error:', err);
+  console.log('Data appended to output.txt');
+});
+
+// Example 4: Asynchronous file delete
+fs.unlink('temp.txt', (err) => {
+  if (err) {
+    if (err.code === 'ENOENT') return console.warn('temp.txt does not exist');
+    return console.error('Unlink error:', err);
+  }
+  console.log('temp.txt successfully deleted');
+});
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+// 27 – fs.createReadStream and fs.createWriteStream for streaming large files
+//
+// Streaming lets you process data piece-by-piece without loading the entire file into memory.
+// This is essential for large files (logs, media, backups) to avoid high memory usage.
+//
+// Key points:
+// • createReadStream(path, [options]) returns a Readable stream.
+//   – options.highWaterMark: size of each data chunk (default 64 KB).
+//   – encoding option to get strings instead of Buffers.
+// • createWriteStream(path, [options]) returns a Writable stream.
+// • You can listen to 'data', 'end', 'error' events on streams.
+// • Piping (`readable.pipe(writable)`) connects streams and handles backpressure.
+// • Use `stream.pipeline()` (or the promise-based API) for robust error handling.
+//
+// ——————————————————————————————————————————————————————————————
+// Example 1: Basic read stream
+const fs = require('fs');
+const readStream = fs.createReadStream('largefile.txt', {
+  encoding: 'utf8',
+  highWaterMark: 64 * 1024  // 64 KB
+});
+readStream.on('data', (chunk) => {
+  console.log('Received chunk of size:', chunk.length);
+});
+readStream.on('end', () => {
+  console.log('Finished reading file.');
+});
+readStream.on('error', (err) => {
+  console.error('Read error:', err);
+});
+
+// ——————————————————————————————————————————————————————————————
+// Example 2: Basic write stream
+const writeStream = fs.createWriteStream('output.log');
+writeStream.write('Line 1\n');
+writeStream.write('Line 2\n');
+writeStream.end(() => {
+  console.log('Finished writing output.log.');
+});
+writeStream.on('error', (err) => {
+  console.error('Write error:', err);
+});
+
+// ——————————————————————————————————————————————————————————————
+// Example 3: Piping read stream into write stream
+const src = fs.createReadStream('largefile.txt');
+const dest = fs.createWriteStream('copy.txt');
+src.pipe(dest);
+dest.on('finish', () => {
+  console.log('File successfully copied to copy.txt.');
+});
+dest.on('error', (err) => {
+  console.error('Pipeline error:', err);
+});
+
+// ——————————————————————————————————————————————————————————————
+// Example 4: Using pipeline for automatic cleanup and error handling
+const { pipeline } = require('stream/promises');
+(async () => {
+  try {
+    await pipeline(
+      fs.createReadStream('largefile.txt'),
+      fs.createWriteStream('copy2.txt')
+    );
+    console.log('Pipeline succeeded, copy2.txt created.');
+  } catch (err) {
+    console.error('Pipeline failed:', err);
+  }
+})();
+
+// ——————————————————————————————————————————————————————————————
+// Next Steps:
+// • Adjust highWaterMark to tune performance for your workload.
+// • Chain Transform streams to modify data on the fly (e.g., compression).
+// • Explore fs.createReadStream options like `start` and `end` for partial reads.
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+
+// 28 – fs.promises API and async/await usage
+//
+// Node.js provides Promise-based file operations via fs.promises.
+// Use async/await for clearer, non-blocking code.
+//
+// Available methods:
+// • readFile(path, options)       → Promise<Buffer|string>
+// • writeFile(path, data, options)→ Promise<void>
+// • appendFile(path, data, options)→ Promise<void>
+// • unlink(path)                  → Promise<void>
+// • readdir(path, options)        → Promise<string[]>
+// • mkdir(path, options)          → Promise<void>
+// • rename(oldPath, newPath)      → Promise<void>
+//
+// Always wrap operations in try/catch to handle errors and avoid unhandled rejections.
+
+const fs = require('fs').promises;
+
+(async () => {
+  try {
+    // Read a file asynchronously
+    const content = await fs.readFile('example.txt', 'utf8');
+    console.log('Read content:', content);
+
+    // Write a new file (overwrites if exists)
+    await fs.writeFile('output.txt', 'Hello fs.promises!\n');
+    console.log('Wrote output.txt');
+
+    // Append to an existing file (creates if missing)
+    await fs.appendFile('output.txt', 'Appended line\n');
+    console.log('Appended to output.txt');
+
+    // List directory contents
+    const entries = await fs.readdir('.');
+    console.log('Directory entries:', entries);
+
+    // Create a directory (recursive ensures parent folders)
+    await fs.mkdir('logs', { recursive: true });
+    console.log('Created logs directory');
+
+    // Rename or move a file
+    await fs.rename('output.txt', 'logs/renamed.txt');
+    console.log('Renamed output.txt to logs/renamed.txt');
+
+    // Delete a file
+    await fs.unlink('logs/renamed.txt');
+    console.log('Deleted logs/renamed.txt');
+  } catch (err) {
+    console.error('File operation error:', err);
+  }
+})();
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+// 29 – Synchronous vs asynchronous fs methods: blocking vs non-blocking behavior
+//
+// Synchronous methods (fs.readFileSync, fs.writeFileSync, etc.) block the event loop
+// until the operation completes—this can delay or stall other tasks in a server.
+// Asynchronous methods (fs.readFile, fs.writeFile with callbacks or Promises) perform I/O
+// in the background and resume via callback/Promise, keeping the event loop free.
+//
+// Use synchronous methods for one-off scripts or startup tasks.
+// Use asynchronous methods for production servers and performance-sensitive code.
+
+const fs = require('fs');
+fs.readFile('example.txt', 'utf8', (err, data) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(data);
+    fs.writeFile('output.txt', data, (err) => {
+      if (err) console.error(err);
+      else console.log('write complete');
+    });
+  }
+});
+console.log('after async operation');
+
+try {
+  const dataSync = fs.readFileSync('example.txt', 'utf8');
+  console.log(dataSync);
+  fs.writeFileSync('output-sync.txt', dataSync);
+  console.log('sync write complete');
+} catch (err) {
+  console.error(err);
+}
+console.log('after sync operation');
+
+const fsp = require('fs').promises;
+(async () => {
+  try {
+    const dataAwait = await fsp.readFile('example.txt', 'utf8');
+    console.log(dataAwait);
+    await fsp.writeFile('output-await.txt', dataAwait);
+    console.log('await write complete');
+  } catch (err) {
+    console.error(err);
+  }
+})();
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+// 30 – Directory operations: fs.readdir, fs.mkdir, fs.rmdir, fs.stat, fs.rename
+//
+// Use these methods to list, create, remove, inspect, and rename directories/files.
+// • fs.readdir – list directory contents
+// • fs.mkdir – create a new directory
+// • fs.rmdir – remove an empty directory
+// • fs.stat – get file or directory metadata
+// • fs.rename – rename or move files/directories
+
+const fs = require('fs');
+const fsp = require('fs').promises;
+
+// fs.readdir (callback)
+fs.readdir('./data', { withFileTypes: true }, (err, entries) => {
+  if (err) throw err;
+  entries.forEach(entry => {
+    console.log(entry.name, entry.isDirectory() ? '(dir)' : '(file)');
+  });
+});
+
+// fs.promises.readdir (async/await)
+(async () => {
+  const entries = await fsp.readdir('./data', { withFileTypes: true });
+  for (const entry of entries) {
+    console.log(entry.name, entry.isDirectory() ? '(dir)' : '(file)');
+  }
+})();
+
+// fs.mkdir (callback)
+fs.mkdir('./new-folder/sub', { recursive: true }, err => {
+  if (err) throw err;
+  console.log('Directory created.');
+});
+
+// fs.promises.mkdir (async/await)
+(async () => {
+  await fsp.mkdir('./new-folder/sub', { recursive: true });
+  console.log('Directory created (promise).');
+})();
+
+// fs.rmdir (callback) – remove empty directory
+fs.rmdir('./old-folder', err => {
+  if (err) console.error('Remove error:', err);
+  else console.log('Empty directory removed.');
+});
+
+// fs.promises.rmdir (async/await)
+(async () => {
+  try {
+    await fsp.rmdir('./old-folder');
+    console.log('Empty directory removed (promise).');
+  } catch (err) {
+    console.error('Remove error:', err);
+  }
+})();
+
+// fs.stat (callback)
+fs.stat('example.txt', (err, stats) => {
+  if (err) throw err;
+  console.log('Is file:', stats.isFile());
+  console.log('Size:', stats.size);
+  console.log('Created:', stats.birthtime);
+});
+
+// fs.promises.stat (async/await)
+(async () => {
+  const stats = await fsp.stat('example.txt');
+  console.log('Is file:', stats.isFile());
+  console.log('Size:', stats.size);
+  console.log('Created:', stats.birthtime);
+})();
+
+// fs.rename (callback) – rename or move
+fs.rename('temp.txt', 'logs/temp.txt', err => {
+  if (err) throw err;
+  console.log('Renamed or moved.');
+});
+
+// fs.promises.rename (async/await)
+(async () => {
+  await fsp.rename('logs/temp.txt', 'temp-archived.txt');
+  console.log('Renamed or moved (promise).');
+})();
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+
+// 31 – Handling file paths with path and fs
+//
+// Node’s path and fs modules work together to resolve, normalize, and operate on file paths.
+// Use path to build cross-platform, absolute paths, and fs to perform file operations on those paths.
+//
+// Key methods:
+// • path.join(...segments)    – join segments into a single path, normalizing separators.
+// • path.resolve(...segments) – resolve a sequence of paths into an absolute path.
+// • path.normalize(p)         – normalize '..', '.', and redundant separators.
+// • path.extname(p)           – get the file extension.
+// • path.basename(p, ext)     – get the last portion of a path, optionally stripping an extension.
+// • fs.existsSync(p)          – synchronously test if a path exists.
+// • fs.access(p, mode, cb)    – asynchronously test permissions on a path.
+// • fs.readFile / fs.promises.readFile – read file contents into memory.
+// • fs.createReadStream / fs.createWriteStream – stream data to/from files.
+//
+// ——————————————————————————————————————————————————————————————
+// Example 1: Construct and read a JSON file
+const path = require('path');
+const fs = require('fs');
+
+const configPath = path.join(__dirname, 'config', 'settings.json');
+fs.readFile(configPath, 'utf8', (err, data) => {
+  if (err) return console.error('Read error:', err);
+  console.log('Config data:', JSON.parse(data));
+});
+
+// ——————————————————————————————————————————————————————————————
+// Example 2: Using fs.promises with path.resolve
+const { promises: fsp } = require('fs');
+
+(async () => {
+  try {
+    const logPath = path.resolve('logs', 'app.log');
+    const content = await fsp.readFile(logPath, 'utf8');
+    console.log('Log contents:', content);
+  } catch (err) {
+    console.error('Async read error:', err);
+  }
+})();
+
+// ——————————————————————————————————————————————————————————————
+// Example 3: Checking for file existence and permissions
+const fileToCheck = path.join(__dirname, 'temp.txt');
+if (fs.existsSync(fileToCheck)) {
+  fs.access(fileToCheck, fs.constants.R_OK | fs.constants.W_OK, (err) => {
+    console.log(err ? 'No access to temp.txt' : 'temp.txt is readable and writable');
+  });
+} else {
+  console.warn('temp.txt does not exist');
+}
+
+// ——————————————————————————————————————————————————————————————
+// Example 4: Copying a large file by piping streams
+const srcPath = path.join(__dirname, 'largefile.dat');
+const destPath = path.join(__dirname, 'backup', 'largefile.dat');
+fs.createReadStream(srcPath)
+  .pipe(fs.createWriteStream(destPath))
+  .on('finish', () => console.log('File copied to backup/largefile.dat'))
+  .on('error', (err) => console.error('Copy error:', err));
+
+// ——————————————————————————————————————————————————————————————
+// Example 5: Normalizing and inspecting path components
+const weirdPath = 'foo//bar/../baz//qux.txt';
+const normalized = path.normalize(weirdPath);
+console.log('Normalized path:', normalized);
+console.log('Directory name:', path.dirname(normalized));
+console.log('Base name:', path.basename(normalized));
+console.log('Extension:', path.extname(normalized));
+
+// Next Steps:
+// • Experiment in the REPL: require('path') and fs methods to build and inspect paths.
+// • Combine with fs.promises and stream pipelines for advanced file workflows.
+// • Use these patterns in CLI tools or server code to handle file locations reliably.
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+// 32 – Watching files and directories: fs.watch, fs.watchFile
+//
+// Node.js can monitor changes in files or directories and react immediately.
+// • fs.watch(path[, options], listener) uses OS-level events (efficient, but may miss events or deliver duplicates).
+// • fs.watchFile(path[, options], listener) uses polling (less efficient, but more consistent across platforms).
+// • Choose fs.watch for real-time updates, fs.watchFile for reliable polling when needed.
+//
+// Options for fs.watch:
+// • { persistent: true, recursive: false, encoding: 'utf8' }
+// • recursive:true watches subdirectories (only on supported platforms).
+//
+// Options for fs.watchFile:
+// • { interval: 5007 } — polling interval in milliseconds.
+//
+// ——————————————————————————————————————————————————————————————
+// Example 1: fs.watch a single file
+const fs = require('fs');
+
+const watcher = fs.watch('example.txt', { encoding: 'utf8' }, (eventType, filename) => {
+  if (filename) {
+    console.log(`File ${filename} changed: ${eventType}`);
+  } else {
+    console.log(`example.txt changed: ${eventType}`);
+  }
+});
+
+// Stop watching after 30 seconds
+setTimeout(() => {
+  watcher.close();
+  console.log('Stopped fs.watch on example.txt');
+}, 30_000);
+
+// ——————————————————————————————————————————————————————————————
+// Example 2: fs.watch a directory (non-recursive)
+const dirWatcher = fs.watch('logs', (eventType, filename) => {
+  console.log(`logs/${filename} event: ${eventType}`);
+});
+
+// ——————————————————————————————————————————————————————————————
+// Example 3: fs.watch recursively (platform support varies)
+const recWatcher = fs.watch('.', { recursive: true }, (eventType, filename) => {
+  console.log(`Change in project: ${filename} (${eventType})`);
+});
+
+// ——————————————————————————————————————————————————————————————
+// Example 4: fs.watchFile polling a file
+fs.watchFile('config.json', { interval: 1000 }, (curr, prev) => {
+  if (curr.mtime !== prev.mtime) {
+    console.log(`config.json updated at ${curr.mtime.toLocaleTimeString()}`);
+  }
+});
+
+// Stop polling after 30 seconds
+setTimeout(() => {
+  fs.unwatchFile('config.json');
+  console.log('Stopped fs.watchFile on config.json');
+}, 30_000);
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+
+// 33 – Buffer basics: Buffer.alloc, Buffer.from, Buffer.concat, buffer encoding/decoding
+//
+// Node.js Buffer is a global class for handling raw binary data.
+// • Buffer.alloc(size[, fill[, encoding]]) – create a zero-filled Buffer.
+// • Buffer.allocUnsafe(size) – create an uninitialized Buffer (faster).
+// • Buffer.from(array) – create a Buffer from an array of byte values.
+// • Buffer.from(string[, encoding]) – create a Buffer from a string.
+// • Buffer.concat(list[, totalLength]) – concatenate an array of Buffers.
+// • buffer.toString([encoding[, start[, end]]]) – decode Buffer to string.
+// • Buffer.byteLength(string[, encoding]) – get byte length of a string.
+// • Buffer.isBuffer(obj) – check if obj is a Buffer.
+//
+// ——————————————————————————————————————————————————————————————
+// Example 1: Allocating and writing to a Buffer
+const buf1 = Buffer.alloc(10);
+buf1.write('hello');
+console.log(buf1);               // <Buffer 68 65 6c 6c 6f 00 00 00 00>
+
+// ——————————————————————————————————————————————————————————————
+// Example 2: Creating Buffers from strings and arrays
+const buf2 = Buffer.from('Node.js Buffer', 'utf8');
+const buf3 = Buffer.from([0x48, 0x65, 0x6c, 0x6c, 0x6f]);
+console.log(buf3.toString());    // 'Hello'
+
+// ——————————————————————————————————————————————————————————————
+// Example 3: Concatenating Buffers
+const buf4 = Buffer.concat([buf1, buf3]);
+console.log(buf4.toString());    // 'helloHello'
+
+// ——————————————————————————————————————————————————————————————
+// Example 4: Encoding and decoding
+const hexStr    = buf2.toString('hex');
+const base64Str = buf2.toString('base64');
+const bufFromHex    = Buffer.from(hexStr, 'hex');
+const bufFromBase64 = Buffer.from(base64Str, 'base64');
+console.log(hexStr);             // hex representation
+console.log(base64Str);          // base64 representation
+console.log(bufFromHex.toString());    // original string
+console.log(bufFromBase64.toString()); // original string
+
+// ——————————————————————————————————————————————————————————————
+// Example 5: Byte length and type checking
+console.log(Buffer.byteLength('hello', 'utf8')); // 5
+console.log(Buffer.isBuffer(buf2));              // true
+
+// ——————————————————————————————————————————————————————————————
+// Next Steps:
+// • Experiment with Buffer.allocUnsafe and compare performance.
+// • Use Buffers for streaming binary data (e.g., images, network packets).
+// • Explore Buffer.slice() to create sub-buffers without copying.
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+
+// 34 – Callback pattern: callback hell, error-first callbacks
+//
+// Node.js standard for async APIs is the “error-first” callback:
+//   callback(err, result)
+// • If err is non-null, an error occurred.
+// • Otherwise, result holds the successful value.
+//
+// Callback Hell:
+// • Deeply nested callbacks lead to “pyramid” code.
+// • Hard to read, maintain, or handle errors uniformly.
+//
+// Mitigation patterns:
+// • Modularize callbacks into named functions.
+// • Use control-flow libraries (async.waterfall, series).
+// • Prefer Promises or async/await (covered in later topics).
+
+const fs = require('fs');
+
+// Example 1: Simple error-first callback
+fs.readFile('file1.txt', 'utf8', (err, data1) => {
+  if (err) {
+    console.error('Error reading file1:', err);
+    return;
+  }
+  console.log('File1 contents:', data1);
+});
+
+// Example 2: Callback Hell (nested callbacks)
+fs.readFile('file1.txt', 'utf8', (err, data1) => {
+  if (err) return console.error(err);
+  fs.readFile('file2.txt', 'utf8', (err, data2) => {
+    if (err) return console.error(err);
+    fs.readFile('file3.txt', 'utf8', (err, data3) => {
+      if (err) return console.error(err);
+      console.log('Contents:', data1, data2, data3);
+    });
+  });
+});
+
+// Example 3: Named callbacks to flatten structure
+function onFileRead(path) {
+  return (err, data) => {
+    if (err) {
+      console.error(`Error reading ${path}:`, err);
+      return;
+    }
+    console.log(`${path} contents:`, data);
+  };
+}
+fs.readFile('file1.txt', 'utf8', onFileRead('file1.txt'));
+fs.readFile('file2.txt', 'utf8', onFileRead('file2.txt'));
+
+// Example 4: Using async.waterfall for sequential flow
+const async = require('async');
+async.waterfall([
+  callback => fs.readFile('file1.txt', 'utf8', callback),
+  (data1, callback) => {
+    fs.readFile('file2.txt', 'utf8', (err, data2) => callback(err, data1, data2));
+  },
+  (data1, data2, callback) => {
+    console.log('Waterfall result:', data1, data2);
+    callback(null);
+  }
+], err => {
+  if (err) console.error('Waterfall error:', err);
+});
+
+// Next Steps:
+// • Convert these patterns to Promises (fs.promises) and async/await.
+// • Explore libraries like util.promisify to wrap error-first callbacks.
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+
+// 35 – Promisify: util.promisify, converting callbacks to Promises
+//
+// Node’s util.promisify converts error-first callback APIs into functions
+// that return Promises. This simplifies async code by enabling async/await
+// and promise chaining.
+//
+// Steps:
+// 1. Import promisify from util.
+// 2. Pass your callback-based function to promisify.
+// 3. Call the returned function, which returns a Promise.
+// 4. Handle results with then/catch or async/await.
+//
+// ——————————————————————————————————————————————————————————————
+// Example 1: Promisify fs.readFile
+const fs = require('fs');
+const { promisify } = require('util');
+const readFileAsync = promisify(fs.readFile);
+
+(async () => {
+  try {
+    const data = await readFileAsync('example.txt', 'utf8');
+    console.log('File contents:', data);
+  } catch (err) {
+    console.error('Read error:', err);
+  }
+})();
+
+// ——————————————————————————————————————————————————————————————
+// Example 2: Promisify a custom callback function
+function multiply(a, b, callback) {
+  if (typeof a !== 'number' || typeof b !== 'number') {
+    return callback(new TypeError('Arguments must be numbers'));
+  }
+  setTimeout(() => callback(null, a * b), 100);
+}
+
+const multiplyAsync = promisify(multiply);
+
+multiplyAsync(3, 4)
+  .then(result => console.log('3 × 4 =', result))
+  .catch(err => console.error('Multiply error:', err));
+
+// ——————————————————————————————————————————————————————————————
+// Example 3: Promisify a method on an object
+const db = {
+  getUser(id, callback) {
+    // simulate async DB lookup
+    setTimeout(() => {
+      if (id !== 1) return callback(new Error('User not found'));
+      callback(null, { id: 1, name: 'Alice' });
+    }, 100);
+  }
+};
+
+db.getUserAsync = promisify(db.getUser);
+
+(async () => {
+  try {
+    const user = await db.getUserAsync(1);
+    console.log('User:', user);
+  } catch (err) {
+    console.error('DB error:', err);
+  }
+})();
+
+// ——————————————————————————————————————————————————————————————
+// Next Steps:
+// • Convert other Node callback APIs (dns.lookup, crypto.randomBytes) with promisify.
+// • Use fs.promises where built-in promise versions exist.
+// • For functions with custom callback signatures, wrap manually in new Promise().
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+
+// 36 – Promise patterns: creating, chaining, error handling
+//
+// Creating Promises:
+// • new Promise((resolve, reject) => { … })
+// • resolve(value) to fulfill, reject(error) to reject
+//
+// Chaining:
+// • promise.then(result => …).then(nextResult => …)
+// • Return values or Promises inside then for chained flows
+//
+// Error handling:
+// • Use .catch(err => …) at end of chain to handle any rejection
+// • .finally(() => …) for cleanup code regardless of outcome
+//
+// Advanced patterns:
+// • Promise.all([...])       – runs in parallel, rejects on first failure
+// • Promise.allSettled([...])– waits for all, returns array of {status, value/reason}
+// • Promise.race([...])      – settles with first settled Promise (resolve or reject)
+// • Promise.any([...])       – first fulfilled, rejects if all reject (Node ≥15)
+// • async/await              – syntactic sugar over Promises; use try/catch/finally
+
+// Example 1: Creating and resolving/rejecting
+const p1 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    const success = true;
+    if (success) resolve('Result');
+    else reject(new Error('Failure'));
+  }, 100);
+});
+
+// Example 2: Chaining then and catch
+p1
+  .then(result => {
+    console.log('First then:', result);
+    return result.length;
+  })
+  .then(length => {
+    console.log('Length:', length);
+  })
+  .catch(err => {
+    console.error('Error caught:', err);
+  })
+  .finally(() => {
+    console.log('Cleanup after promise chain');
+  });
+
+// Example 3: Parallel execution with Promise.all
+const p2 = Promise.resolve(2);
+const p3 = Promise.resolve(3);
+Promise.all([p1, p2, p3])
+  .then(values => console.log('Promise.all values:', values))
+  .catch(err => console.error('Promise.all error:', err));
+
+// Example 4: Promise.allSettled
+Promise.allSettled([p1, Promise.reject('err'), p3])
+  .then(results => console.log('Promise.allSettled:', results));
+
+// Example 5: Promise.race
+Promise.race([
+  new Promise(res => setTimeout(() => res('fast'), 50)),
+  new Promise(res => setTimeout(() => res('slow'), 100))
+]).then(winner => console.log('Promise.race winner:', winner));
+
+// Example 6: Promise.any (first fulfilled)
+Promise.any([
+  Promise.reject('err'),
+  Promise.resolve('first success'),
+  Promise.resolve('second')
+])
+  .then(value => console.log('Promise.any success:', value))
+  .catch(err => console.error('Promise.any all rejected:', err));
+
+// Example 7: Async/await with try/catch/finally
+async function runAsync() {
+  try {
+    const res = await p1;
+    console.log('Async res:', res);
+  } catch (e) {
+    console.error('Async error:', e);
+  } finally {
+    console.log('Async cleanup');
+  }
+}
+runAsync();
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+
+// 37 – Async/Await: syntax, try/catch, error propagation
+//
+// Async functions always return a Promise.
+// Use `await` inside async functions to pause until a Promise settles.
+// Wrap `await` calls in try/catch to handle rejections.
+// Throwing an error inside an async function causes its returned Promise to reject.
+// You can catch propagated errors with .catch() or try/catch around function calls.
+//
+// ——————————————————————————————————————————————————————————————
+// Example 1: Basic async function and returned Promise
+async function fetchNumber() {
+  return 42;
+}
+fetchNumber().then(value => console.log('Fetched number:', value));
+// Output: Fetched number: 42
+//
+// ——————————————————————————————————————————————————————————————
+// Example 2: Awaiting a resolved Promise
+async function fetchData() {
+  const data = await Promise.resolve('Hello, Async/Await!');
+  return data;
+}
+(async () => {
+  const result = await fetchData();
+  console.log(result);
+})();
+// Output: Hello, Async/Await!
+//
+// ——————————————————————————————————————————————————————————————
+// Example 3: try/catch for error handling
+async function mayFail() {
+  throw new Error('Something went wrong');
+}
+(async () => {
+  try {
+    await mayFail();
+    console.log('This line will not run');
+  } catch (err) {
+    console.error('Caught error:', err.message);
+  } finally {
+    console.log('Cleanup after error or success');
+  }
+})();
+// Output:
+// Caught error: Something went wrong
+// Cleanup after error or success
+//
+// ——————————————————————————————————————————————————————————————
+// Example 4: Propagating errors to caller
+async function wrapper() {
+  // No try/catch here, so error propagates
+  await mayFail();
+}
+wrapper()
+  .catch(err => console.error('Wrapper caught:', err.message));
+// Output: Wrapper caught: Something went wrong
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+
+// 38 – Event Loop: call stack, callback queue, microtasks queue, phases
+//
+// Node’s runtime uses an event loop to manage async operations and callbacks.
+// Phases of the event loop in each tick:
+// 1. **timers**       – execute callbacks from setTimeout/setInterval whose threshold elapsed
+// 2. **pending callbacks** – I/O callbacks deferred from previous cycles
+// 3. **idle, prepare**     – internal Node.js operations
+// 4. **poll**         – retrieve new I/O events; execute their callbacks
+// 5. **check**        – execute callbacks from setImmediate()
+// 6. **close callbacks** – e.g. socket.on('close')
+// 
+// In between each phase, Node processes the **microtasks queue**:
+// • process.nextTick() callbacks always run before other microtasks in the next tick
+// • Promise .then/.catch callbacks run after nextTick tasks but before moving to the next phase
+//
+// This ordering ensures predictable callback execution. Below examples illustrate the sequence.
+
+// Example 1: timers vs immediates vs microtasks
+const fs = require('fs');
+
+console.log('Start');
+
+setTimeout(() => console.log('Timeout callback'), 0);
+
+setImmediate(() => console.log('Immediate callback'));
+
+process.nextTick(() => console.log('Next Tick callback'));
+
+Promise.resolve().then(() => console.log('Promise.then callback'));
+
+// I/O will occur in the poll phase
+fs.readFile(__filename, () => {
+  console.log('File read callback');
+
+  // These nested callbacks illustrate inner-phase ordering
+  process.nextTick(() => console.log('  Nested nextTick'));
+  Promise.resolve().then(() => console.log('  Nested promise.then'));
+  setTimeout(() => console.log('  Nested setTimeout'), 0);
+  setImmediate(() => console.log('  Nested setImmediate'));
+});
+
+console.log('End');
+
+// Expected console order:
+// 1. Start
+// 2. End
+// 3. Next Tick callback        (microtask before promises)
+// 4. Promise.then callback     (microtask after nextTick)
+// 5. Timeout callback          (timers phase)
+// 6. Immediate callback        (check phase)
+// 7. File read callback        (poll phase when I/O completes)
+// 8.   Nested nextTick         (microtask in I/O callback)
+// 9.   Nested promise.then
+// 10.  Nested setTimeout       (timers of next tick)
+// 11.  Nested setImmediate     (check of next tick)
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+
+// 39 – setImmediate vs setTimeout vs process.nextTick
+//
+// • process.nextTick(fn):
+//   – Adds fn to the “next tick” queue (a microtask queue).
+//   – Executes before any other I/O or timer callbacks, even before resolved Promises.
+//   – Use for immediate internal callbacks that must run before the event loop continues.
+//
+// • setImmediate(fn):
+//   – Schedules fn to run on the “check” phase, after I/O events’ callbacks.
+//   – Executes after I/O callbacks but before timers of the next loop iteration.
+//   – Use for deferring work until after the current poll phase.
+//
+// • setTimeout(fn, 0):
+//   – Schedules fn on the “timers” phase after at least 0ms has elapsed.
+//   – Executes after the check phase and I/O; subject to system timer granularity.
+//   – Use for deferring work to the next loop iteration with minimal delay.
+//
+// ——————————————————————————————————————————————————————————————
+// Top-level ordering example
+process.nextTick(() => console.log('nextTick'));
+setImmediate(() => console.log('setImmediate'));
+setTimeout(() => console.log('setTimeout'), 0);
+console.log('synchronous');
+
+// Expected output order:
+// 1. synchronous
+// 2. nextTick
+// 3. setImmediate
+// 4. setTimeout
+//
+// ——————————————————————————————————————————————————————————————
+// Inside an I/O callback
+const fs = require('fs');
+fs.readFile(__filename, () => {
+  console.log('I/O callback start');
+  process.nextTick(() => console.log('  nested nextTick'));
+  setImmediate(() => console.log('  nested setImmediate'));
+  setTimeout(() => console.log('  nested setTimeout'), 0);
+  console.log('I/O callback end');
+});
+
+// Expected inside I/O:
+//  I/O callback start
+//  I/O callback end
+//  nested nextTick
+//  nested setImmediate
+//  nested setTimeout
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+
+// 40 – EventEmitter: creating events, .on, .once, .emit, removing listeners, memory leaks
+//
+// Node’s EventEmitter implements the publish/subscribe pattern:
+// • Create an emitter via require('events').EventEmitter.
+// • .on(event, listener) registers a persistent listener.
+// • .once(event, listener) registers a one-time listener.
+// • .emit(event, ...args) synchronously invokes listeners with args.
+// • .removeListener(event, listener) or .off(event, listener) removes a specific listener.
+// • .removeAllListeners([event]) removes all listeners for an event (or all events).
+// • Default maxListeners = 10; adding more logs a memory-leak warning.
+//   Use .setMaxListeners(n) to increase the limit or 0 for unlimited.
+
+// Example 1: Basic EventEmitter usage
+const { EventEmitter } = require('events');
+const emitter = new EventEmitter();
+
+emitter.on('message', (text) => {
+  console.log('Received message:', text);
+});
+
+emitter.emit('message', 'Hello EventEmitter!');
+
+// Example 2: once – listener invoked only the first time
+emitter.once('greet', (name) => {
+  console.log(`Hello, ${name}! (once)`);
+});
+
+emitter.emit('greet', 'Alice');
+emitter.emit('greet', 'Bob');  // no output
+
+// Example 3: Removing listeners
+function onData(data) {
+  console.log('Data event:', data);
+}
+
+emitter.on('data', onData);
+emitter.emit('data', 123);     // logs 123
+
+emitter.removeListener('data', onData);
+// emitter.off('data', onData); // alias of removeListener
+
+emitter.emit('data', 456);     // no output
+
+// Example 4: Memory-leak warning and setMaxListeners
+for (let i = 0; i < 11; i++) {
+  emitter.on('leak', () => {});
+}
+// Node logs: (node:PID) Warning: Possible EventEmitter memory leak detected.
+// Increase or disable limit:
+emitter.setMaxListeners(20);
+
+// Example 5: removeAllListeners
+emitter.removeAllListeners('leak');
+// emitter.removeAllListeners(); // removes all events on emitter
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+
+// 41 – Custom event emitters: extending EventEmitter class
+//
+// Subclass EventEmitter to create domain-specific emitters.
+// • Call super() in the constructor.
+// • Use this.emit('eventName', data) inside methods.
+// • Consumers use .on() and .once() to register listeners.
+// • Remember to clear timers or resources to avoid leaks.
+
+// Example 1: TaskQueue that emits 'taskAdded', 'taskStart', 'taskDone', 'taskError'
+const { EventEmitter } = require('events');
+class TaskQueue extends EventEmitter {
+  constructor() {
+    super();
+    this.queue = [];
+  }
+  add(task) {
+    this.queue.push(task);
+    this.emit('taskAdded', task);
+  }
+  run() {
+    while (this.queue.length) {
+      const task = this.queue.shift();
+      this.emit('taskStart', task);
+      try {
+        const result = task();
+        this.emit('taskDone', result);
+      } catch (err) {
+        this.emit('taskError', err);
+      }
+    }
+  }
+}
+const q = new TaskQueue();
+q.on('taskAdded', t => console.log('Added task:', t.name));
+q.on('taskStart', t => console.log('Starting task:', t.name));
+q.on('taskDone', r => console.log('Task result:', r));
+q.on('taskError', e => console.error('Task failed:', e.message));
+q.add(Object.assign(() => 1 + 1, { name: 'Addition' }));
+q.add(Object.assign(() => { throw new Error('Oops'); }, { name: 'ErrorTask' }));
+q.run();
+
+// Example 2: Timer that emits 'tick' on each interval and 'end' after maxTicks
+class Timer extends EventEmitter {
+  constructor(interval, maxTicks) {
+    super();
+    this.interval = interval;
+    this.maxTicks = maxTicks;
+    this.ticks = 0;
+    this.timerId = null;
+  }
+  start() {
+    this.timerId = setInterval(() => {
+      this.ticks++;
+      this.emit('tick', this.ticks);
+      if (this.ticks >= this.maxTicks) {
+        this.stop();
+        this.emit('end');
+      }
+    }, this.interval);
+  }
+  stop() {
+    clearInterval(this.timerId);
+  }
+}
+const timer = new Timer(1000, 3);
+timer.on('tick', n => console.log(`Tick ${n}`));
+timer.once('end', () => console.log('Timer ended'));
+timer.start();
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+// 42 – HTTP module: creating an HTTP server, handling requests and responses
+//
+// Node’s built-in http module allows creating lightweight web servers.
+// Use http.createServer(callback) to handle incoming requests.
+// The callback receives:
+//  • req: http.IncomingMessage (method, url, headers, data events)
+//  • res: http.ServerResponse (writeHead, write, end)
+// You can set status codes, headers, and stream bodies.
+// For routing, inspect req.method and req.url.
+
+// Example 1: Basic server with routing
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+  if (req.method === 'GET' && req.url === '/') {
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.end('Hello, HTTP server!');
+  } else if (req.method === 'GET' && req.url === '/json') {
+    const data = { message: 'Hello, JSON!' };
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    res.end(JSON.stringify(data));
+  } else {
+    res.writeHead(404, {'Content-Type': 'text/plain'});
+    res.end('Not Found');
+  }
+});
+
+server.listen(3000, () => {
+  console.log('Server running at http://localhost:3000/');
+});
+
+// Example 2: Parsing JSON body in POST requests
+const server2 = http.createServer((req, res) => {
+  if (req.method === 'POST' && req.url === '/echo') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const obj = JSON.parse(body);
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify(obj));
+      } catch {
+        res.writeHead(400, {'Content-Type': 'text/plain'});
+        res.end('Invalid JSON');
+      }
+    });
+  } else {
+    res.writeHead(404, {'Content-Type': 'text/plain'});
+    res.end('Not Found');
+  }
+});
+
+server2.listen(3001, () => {
+  console.log('Server2 running at http://localhost:3001/');
+});
+
+// Example 3: Serving static files efficiently
+const fs = require('fs');
+const path = require('path');
+
+const server3 = http.createServer((req, res) => {
+  const reqPath = req.url === '/' ? '/index.html' : req.url;
+  const filePath = path.join(__dirname, 'public', reqPath);
+  fs.stat(filePath, (err, stats) => {
+    if (!err && stats.isFile()) {
+      const ext = path.extname(filePath).slice(1);
+      const mime = { html:'text/html', css:'text/css', js:'application/javascript' }[ext] || 'application/octet-stream';
+      res.writeHead(200, {'Content-Type': mime});
+      fs.createReadStream(filePath).pipe(res);
+    } else {
+      res.writeHead(404, {'Content-Type': 'text/plain'});
+      res.end('Not Found');
+    }
+  });
+});
+
+server3.listen(3002, () => {
+  console.log('Server3 running at http://localhost:3002/');
+});
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+
+// 43 – HTTPS module: creating secure servers with SSL certificates
+//
+// Node’s built-in https module extends http to support TLS/SSL.
+// You must provide a private key and certificate (and optionally CA chain).
+// Certificates can be self-signed for development or obtained from a CA for production.
+//
+// — Generating self-signed certificates (development) —
+// $ openssl genrsa -out key.pem 2048
+// $ openssl req -new -key key.pem -out csr.pem
+// $ openssl x509 -req -in csr.pem -signkey key.pem -out cert.pem -days 365
+//
+// — Example 1: Basic HTTPS server —
+// Creates a secure server on port 3443 using your key and cert.
+const https = require('https');
+const fs   = require('fs');
+
+const options = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+};
+
+https.createServer(options, (req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('Secure Hello World\n');
+}).listen(3443, () => {
+  console.log('HTTPS server listening on https://localhost:3443/');
+});
+
+// — Example 2: HTTP → HTTPS redirect —
+// Runs an HTTP server that redirects all traffic to HTTPS.
+const http = require('http');
+
+http.createServer((req, res) => {
+  const host = req.headers.host.replace(/:\d+$/, ':3443');
+  res.writeHead(301, { Location: `https://${host}${req.url}` });
+  res.end();
+}).listen(3080, () => {
+  console.log('HTTP redirect server listening on http://localhost:3080/');
+});
+
+// — Example 3: Mutual TLS (client certificate authentication) —
+// Requires clients to present a valid cert signed by your CA.
+const mOptions = {
+  key: fs.readFileSync('server-key.pem'),
+  cert: fs.readFileSync('server-cert.pem'),
+  ca: fs.readFileSync('ca-cert.pem'),    // trust chain
+  requestCert: true,
+  rejectUnauthorized: true
+};
+
+https.createServer(mOptions, (req, res) => {
+  const cert = req.socket.getPeerCertificate();
+  if (!req.client.authorized) {
+    res.writeHead(401, { 'Content-Type': 'text/plain' });
+    res.end('Client authentication failed\n');
+    return;
+  }
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end(`Hello, ${cert.subject.CN}\n`);
+}).listen(3444, () => {
+  console.log('mTLS server listening on https://localhost:3444/');
+});
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+
+// 44 – URL module: URL parsing and formatting, URLSearchParams
+//
+// The URL module provides utilities to parse, format, and resolve URLs in Node.js.
+// Use the WHATWG URL API (URL, URLSearchParams) or legacy utilities (url.parse, url.format).
+//
+// Key points:
+// • new URL(input, base?) parses a URL string against an optional base.
+// • urlObject.toString() or urlObject.href formats a URL object to string.
+// • URLSearchParams interface to manipulate query parameters.
+// • Legacy methods: url.parse(urlString, true) to parse and url.format(urlObject) to format.
+// • url.resolve(from, to) resolves a target URL relative to a base URL (legacy).
+
+const { URL } = require('url');
+
+const myURL = new URL('https://example.com:8080/path/page?name=alice&age=30#section');
+console.log(myURL.href);
+console.log(myURL.origin);
+console.log(myURL.protocol);
+console.log(myURL.host);
+console.log(myURL.pathname);
+console.log(myURL.search);
+console.log(myURL.hash);
+
+myURL.searchParams.append('role', 'admin');
+myURL.searchParams.set('age', '31');
+console.log(myURL.searchParams.get('name'));
+console.log([...myURL.searchParams.entries()]);
+console.log(myURL.href);
+
+const url = require('url');
+const parsedLegacy = url.parse('http://user:pass@host.com:8888/p/a/t/h?query=string#hash', true);
+console.log(parsedLegacy.protocol);
+console.log(parsedLegacy.auth);
+console.log(parsedLegacy.host);
+console.log(parsedLegacy.query);
+const formattedLegacy = url.format(parsedLegacy);
+console.log(formattedLegacy);
+
+console.log(new URL('/foo', 'https://example.com/base/').toString());
+console.log(new URL('bar', 'https://example.com/base/').toString());
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+
+// 45 – Querystring module: parsing and stringifying application/x-www-form-urlencoded data
+//
+// The querystring module provides utilities to work with URL query strings.
+// • parse(str[, sep][, eq][, options]) → Object  
+//   – Converts "key1=val1&key2=val2" into { key1: 'val1', key2: 'val2' }.  
+// • stringify(obj[, sep][, eq][, options]) → String  
+//   – Converts { key1: 'val1', key2: 'val2' } into "key1=val1&key2=val2".  
+// • escape(str) / unescape(str) → String  
+//   – Percent-encodes or decodes reserved characters.  
+//
+// Options:
+// • sep (default '&') – pair separator.  
+// • eq  (default '=') – key/value separator.  
+// • maxKeys – limits number of keys parsed (to avoid DOS via huge queries).  
+//
+// ——————————————————————————————————————————————————————————————
+// Example 1: Basic parse
+const querystring = require('querystring');
+const parsed = querystring.parse('name=alice&age=30&role=admin');
+console.log(parsed);  
+// Output: { name: 'alice', age: '30', role: 'admin' }
+
+// ——————————————————————————————————————————————————————————————
+// Example 2: Parse with custom separators
+const parsedCustom = querystring.parse('name|alice;age|30;role|admin', ';', '|');
+console.log(parsedCustom);  
+// Output: { name: 'alice', age: '30', role: 'admin' }
+
+// ——————————————————————————————————————————————————————————————
+// Example 3: Basic stringify
+const obj = { name: 'alice', age: '30', role: 'admin' };
+const str = querystring.stringify(obj);
+console.log(str);  
+// Output: "name=alice&age=30&role=admin"
+
+// ——————————————————————————————————————————————————————————————
+// Example 4: Stringify with nested values
+const nested = { colors: ['red','green'], user: { id: '123', active: true } };
+const nestedStr = querystring.stringify(nested);
+console.log(nestedStr);  
+// Output: "colors=red&colors=green&user=%5Bobject+Object%5D"
+
+// ——————————————————————————————————————————————————————————————
+// Example 5: escape and unescape
+const raw = 'Hello World! & %';
+const escaped = querystring.escape(raw);
+console.log(escaped);            // "Hello%20World%21%20%26%20%25"
+console.log(querystring.unescape(escaped));  // "Hello World! & %"
+
+// ——————————————————————————————————————————————————————————————
+// Next Steps:
+// • Use URLSearchParams for modern, WHATWG-compliant parsing/stringifying in web APIs.
+// • Handle arrays and objects more predictably with custom serializers or qs package.
+// • Limit parsed keys with the maxKeys option to mitigate potential DOS risks.
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+// 46 – Crypto module: hashing (sha256, md5), encryption/decryption, randomBytes
+//
+// The built-in crypto module offers:
+// • Hashing: createHash() for sha256, md5, etc. → digest('hex').
+// • HMAC: createHmac() using a secret key for message authentication.
+// • Symmetric encryption/decryption: createCipheriv()/createDecipheriv() with AES.
+// • Random bytes: randomBytes() for secure tokens, keys, nonces.
+// • Key derivation: pbkdf2, scrypt for password hashing.
+//
+// Important examples:
+// 1. Hash strings with SHA-256 and MD5.
+// 2. Generate HMAC digests.
+// 3. Encrypt/decrypt text using AES-256-CBC.
+// 4. Generate secure random tokens (async & sync).
+// 5. Derive a key from a password using PBKDF2.
+
+const crypto = require('crypto');
+
+// Hashing with SHA-256 and MD5
+const hashSha256 = crypto.createHash('sha256').update('message').digest('hex');
+const hashMd5    = crypto.createHash('md5')   .update('message').digest('hex');
+console.log('SHA-256:', hashSha256);
+console.log('MD5:    ', hashMd5);
+
+// HMAC using SHA-256
+const hmac = crypto.createHmac('sha256', 'secret-key').update('message').digest('hex');
+console.log('HMAC:   ', hmac);
+
+// Symmetric encryption/decryption with AES-256-CBC
+const algorithm = 'aes-256-cbc';
+const key       = crypto.randomBytes(32);
+const iv        = crypto.randomBytes(16);
+const cipher    = crypto.createCipheriv(algorithm, key, iv);
+let encrypted   = cipher.update('Secret data', 'utf8', 'hex');
+encrypted      += cipher.final('hex');
+console.log('Encrypted:', encrypted);
+const decipher  = crypto.createDecipheriv(algorithm, key, iv);
+let decrypted   = decipher.update(encrypted, 'hex', 'utf8');
+decrypted      += decipher.final('utf8');
+console.log('Decrypted:', decrypted);
+
+// Generating secure random tokens (callback)
+crypto.randomBytes(16, (err, buffer) => {
+  if (err) throw err;
+  console.log('Random token (callback):', buffer.toString('hex'));
+});
+
+// Generating secure random tokens (sync)
+const randomHex = crypto.randomBytes(16).toString('hex');
+console.log('Random token (sync):    ', randomHex);
+
+// Key derivation using PBKDF2
+crypto.pbkdf2('password', 'salt', 100000, 64, 'sha512', (err, derivedKey) => {
+  if (err) throw err;
+  console.log('Derived key (PBKDF2):   ', derivedKey.toString('hex'));
+});
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+// 47 – Timers module: setTimeout, setInterval, clearInterval, clearTimeout
+//
+// • setTimeout(callback, delay, ...args)
+//     Schedule callback once after delay milliseconds.
+// • clearTimeout(timeoutId)
+//     Cancel a pending timeout before it fires.
+// • setInterval(callback, interval, ...args)
+//     Schedule callback to run repeatedly every interval milliseconds.
+// • clearInterval(intervalId)
+//     Cancel a running interval.
+// • Timers run in the “timers” phase of the event loop.
+// • All timer functions are globals—no require() needed.
+//
+// ——————————————————————————————————————————————————————————————
+// Example 1: One-time timer
+const timeoutId = setTimeout(() => {
+  console.log('This runs after 1000ms');
+}, 1000);
+
+// Cancel before it executes
+clearTimeout(timeoutId);
+
+// ——————————————————————————————————————————————————————————————
+// Example 2: Repeating interval
+let count = 0;
+const intervalId = setInterval(() => {
+  count++;
+  console.log(`Interval tick ${count}`);
+  if (count === 5) clearInterval(intervalId);
+}, 500);
+
+// ——————————————————————————————————————————————————————————————
+// Example 3: Passing arguments to timers
+function greet(name) {
+  console.log(`Hello, ${name}!`);
+}
+setTimeout(greet, 1500, 'Alice');
+
+// ——————————————————————————————————————————————————————————————
+// Example 4: Zero-delay timeout demonstration
+console.log('Before setTimeout');
+setTimeout(() => console.log('Inside setTimeout 0ms'), 0);
+console.log('After setTimeout');
+
+// ——————————————————————————————————————————————————————————————
+// Next Steps:
+// • Experiment with clearing timers based on dynamic conditions.
+// • Compare setTimeout vs recursive setTimeout for intervals.
+// • Investigate timer precision and drift in long-running scripts.
+
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+// 48 – Process module: process.env, process.argv, process.exit, process.cwd, process.pid
+//
+// process.env:
+// • Contains user environment variables as strings.
+// • Use defaults when undefined, e.g.:
+//     const port = process.env.PORT || 3000;
+//
+// process.argv:
+// • Array of command-line arguments: [nodeExec, scriptPath, ...userArgs].
+// • Slice from index 2 to get user-provided args.
+// • Commonly used for simple CLI parsing.
+//
+// process.cwd():
+// • Returns the current working directory of the Node process.
+// • Ideal for resolving relative file paths.
+//
+// process.pid:
+// • Numeric process identifier.
+// • Useful for logging or process management.
+//
+// process.exit(code):
+// • Terminates the Node process with the given exit code.
+// • 0 indicates success; non-zero indicates failure.
+// • stdio streams are flushed before exit.
+//
+// ——————————————————————————————————————————————————————————————
+// Example usage:
+console.log('Environment:', process.env.NODE_ENV || 'development');
+console.log('Port:', process.env.PORT);
+console.log('All args:', process.argv);
+console.log('User args:', process.argv.slice(2));
+console.log('Working directory:', process.cwd());
+console.log('Process ID:', process.pid);
+
+if (process.argv.includes('--help')) {
+  console.log('Usage: node script.js [--help]');
+  process.exit(0);
+}
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+
+// 49 – Child Processes: child_process.exec, execFile, spawn, fork – running external commands, IPC between parent and child
+//
+// child_process module methods:
+// • exec – runs command in shell, buffers output.
+// • execFile – executes file directly without shell.
+// • spawn – launches a process and streams stdout/stderr.
+// • fork – spawns a new Node.js process with IPC channel.
+//
+// Choose exec for short commands, spawn for streaming output, fork for Node-to-Node communication.
+
+const { exec, execFile, spawn, fork } = require('child_process');
+
+exec('ls -la', (error, stdout, stderr) => {
+  if (error) {
+    console.error(`exec error: ${error}`);
+    return;
+  }
+  console.log('exec stdout:', stdout);
+  if (stderr) console.error('exec stderr:', stderr);
+});
+
+execFile('node', ['hello.js'], (error, stdout, stderr) => {
+  if (error) {
+    console.error(`execFile error: ${error}`);
+    return;
+  }
+  console.log('execFile stdout:', stdout);
+});
+
+const ping = spawn('ping', ['-c', '4', 'localhost']);
+ping.stdout.on('data', (data) => {
+  console.log(`spawn stdout: ${data}`);
+});
+ping.stderr.on('data', (data) => {
+  console.error(`spawn stderr: ${data}`);
+});
+ping.on('close', (code) => {
+  console.log(`spawn process exited with code ${code}`);
+});
+
+const child = fork('child.js');
+child.on('message', (msg) => {
+  console.log('Parent received:', msg);
+});
+child.send({ name: 'Parent' });
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+
+// 50 – Cluster module: leveraging multiple CPU cores, master/worker communication
+//
+// Node’s built-in cluster module lets you fork the master process into multiple worker processes
+// that share the same server port. This allows you to take advantage of multi-core systems.
+// Workers can communicate with the master via IPC (process.send and worker.on('message')).
+// The master can listen to worker events (online, exit) to manage lifecycle and respawn.
+//
+// Key Points:
+// • cluster.isMaster / cluster.isWorker to branch logic.
+// • cluster.fork() to spawn a worker.
+// • os.cpus().length to determine number of cores.
+// • process.send() in workers to message the master.
+// • cluster.on('message') in master to receive worker messages.
+// • cluster.on('exit') to detect crashes and optionally respawn.
+//
+// ——————————————————————————————————————————————————————————————
+// Example: Master/Worker HTTP server with IPC
+const cluster = require('cluster');
+const http = require('http');
+const os = require('os');
+
+if (cluster.isMaster) {
+  const numCPUs = os.cpus().length;
+  console.log(`Master ${process.pid} is running`);
+
+  // Fork workers
+  for (let i = 0; i < numCPUs; i++) {
+    const worker = cluster.fork();
+    // Send initial message to each worker
+    worker.send({ msg: 'Hello worker', workerId: i });
+  }
+
+  // Log when workers come online
+  cluster.on('online', (worker) => {
+    console.log(`Worker ${worker.process.pid} is online`);
+  });
+
+  // Receive messages from workers
+  cluster.on('message', (worker, message) => {
+    console.log(`Master received from worker ${worker.process.pid}:`, message);
+  });
+
+  // Restart workers on exit
+  cluster.on('exit', (worker, code, signal) => {
+    console.log(`Worker ${worker.process.pid} died (${signal || code}). Restarting...`);
+    cluster.fork();
+  });
+
+} else {
+  // Worker process: simple HTTP server
+  process.on('message', (message) => {
+    console.log(`Worker ${process.pid} received:`, message);
+    // Acknowledge back to master
+    process.send({ from: process.pid, ack: true });
+  });
+
+  http.createServer((req, res) => {
+    res.writeHead(200);
+    res.end(`Handled by worker ${process.pid}\n`);
+  }).listen(8000, () => {
+    console.log(`Worker ${process.pid} started server on port 8000`);
+  });
+}
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+
+// 51 – Worker Threads: creating threads for CPU-bound tasks, message passing, SharedArrayBuffer
+//
+// Node.js Worker Threads allow JavaScript to run in parallel threads within a single process.
+// They’re ideal for CPU-intensive tasks that would otherwise block the event loop.
+// Key concepts:
+// • isMainThread     – true in the main thread, false in workers.
+// • Worker           – class to spawn a new thread by executing a module.
+// • parentPort       – MessagePort for communication between main and worker.
+// • workerData       – initial data passed to the worker.
+// • MessageChannel   – create a pair of ports for bidirectional messaging.
+// • SharedArrayBuffer– memory shared between threads.
+// • Atomics          – atomic operations on shared memory to avoid races.
+//
+// ——————————————————————————————————————————————————————————————
+// Example 1: Basic Worker with message passing
+const { Worker, isMainThread, parentPort, workerData } = require('worker_threads');
+
+if (isMainThread) {
+  const worker = new Worker(__filename, { workerData: { text: 'Hello from main' } });
+  worker.on('message', msg => console.log('Main received:', msg));
+  worker.postMessage('Ping');
+} else {
+  console.log('Worker started with data:', workerData);
+  parentPort.on('message', msg => {
+    parentPort.postMessage(msg + ' Pong');
+  });
+}
+
+// ——————————————————————————————————————————————————————————————
+// Example 2: Offloading CPU-bound work (Fibonacci)
+if (isMainThread) {
+  const fibWorker = new Worker(__filename);
+  fibWorker.on('message', result => console.log('Fibonacci result:', result));
+  fibWorker.postMessage(40);
+} else {
+  parentPort.once('message', n => {
+    function fib(n) { return n < 2 ? n : fib(n - 1) + fib(n - 2); }
+    parentPort.postMessage(fib(n));
+  });
+}
+
+// ——————————————————————————————————————————————————————————————
+// Example 3: SharedArrayBuffer and Atomics
+if (isMainThread) {
+  const shared = new SharedArrayBuffer(Int32Array.BYTES_PER_ELEMENT * 1);
+  const sharedArray = new Int32Array(shared);
+  const sbWorker = new Worker(__filename);
+  sbWorker.on('exit', () => console.log('Final shared value:', sharedArray[0]));
+  sbWorker.postMessage(shared);
+} else {
+  parentPort.once('message', shared => {
+    const arr = new Int32Array(shared);
+    for (let i = 0; i < 1e6; i++) Atomics.add(arr, 0, 1);
+    parentPort.close();
+  });
+}
+
+// ——————————————————————————————————————————————————————————————
+// Next Steps:
+// • Use MessageChannel for custom port-based messaging.
+// • Employ worker pools (e.g., piscina) for high-throughput tasks.
+// • Properly terminate workers to free resources: worker.terminate().
+// • Handle errors: worker.on('error', handler) and ‘exit’ codes.
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+
+// 52 – OS module: os.platform, os.cpus, os.freemem, os.uptime, os.homedir
+//
+// The os module provides operating system–related utility methods:
+// • os.platform()  – returns the OS platform (e.g., 'darwin', 'win32', 'linux').
+// • os.cpus()      – returns an array of objects with info about each logical CPU core.
+// • os.freemem()   – returns the amount of free system memory in bytes.
+// • os.uptime()    – returns the system uptime in seconds since last reboot.
+// • os.homedir()   – returns the current user’s home directory path.
+//
+// Example usage:
+
+const os = require('os');
+
+console.log('Platform:', os.platform());
+console.log('CPU count:', os.cpus().length);
+console.log('CPU details:', os.cpus());
+console.log('Free memory (bytes):', os.freemem());
+console.log('Total memory (bytes):', os.totalmem());
+console.log('System uptime (seconds):', os.uptime());
+console.log('Home directory:', os.homedir());
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+
+// 53 – Crypto Streams: encrypting/decrypting data using stream pipelines
+//
+// Leverage Node.js stream pipeline to process large data through crypto transforms:
+// • Use crypto.createCipheriv()/createDecipheriv() as Transform streams.
+// • Use fs.createReadStream()/createWriteStream() to stream from/to files.
+// • Handle backpressure and errors via stream.pipeline() or pipelinePromise.
+// • Keep keys and IV secure; do not hard-code in production.
+
+const crypto = require('crypto');
+const fs = require('fs');
+const { pipeline } = require('stream/promises');
+
+const algorithm = 'aes-256-cbc';
+const key = crypto.randomBytes(32);
+const iv = crypto.randomBytes(16);
+
+(async () => {
+  try {
+    await pipeline(
+      fs.createReadStream('input.txt'),
+      crypto.createCipheriv(algorithm, key, iv),
+      fs.createWriteStream('encrypted.dat')
+    );
+    console.log('Encryption complete');
+  } catch (err) {
+    console.error('Encryption error:', err);
+  }
+})();
+
+(async () => {
+  try {
+    await pipeline(
+      fs.createReadStream('encrypted.dat'),
+      crypto.createDecipheriv(algorithm, key, iv),
+      fs.createWriteStream('decrypted.txt')
+    );
+    console.log('Decryption complete');
+  } catch (err) {
+    console.error('Decryption error:', err);
+  }
+})();
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
