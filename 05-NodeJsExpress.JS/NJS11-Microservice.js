@@ -26,6 +26,7 @@
 // 169 - Deploying to cloud platforms: Heroku, AWS Elastic Beanstalk, DigitalOcean App Platform, Azure App Service
 // 170 - Serverless deployment: AWS Lambda with Serverless Framework or AWS SAM, Azure Functions, Google Cloud Functions
 // 171 - Monitoring and logging: integrating Winston, Bunyan, or Pino with Loggly, Papertrail, or Elasticsearch/Logstash/Kibana (ELK) stack
+// 172 - Health checks and readiness/liveness probes in Kubernetes
 
 
 //////////////////////////////////////////////////////////////////
@@ -2156,5 +2157,62 @@ const esStream = pinoElastic({
 const pinoLogger = pino({ level: 'info' }, esStream);
 pinoLogger.info({ user: 'carol', action: 'signup' }, 'New user registered');
 
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+
+# 172 – Health checks and readiness/liveness probes in Kubernetes
+# -----------------------------------------------------------------------------
+# THEORY:
+# • Liveness probe: checks if the container is “alive”; a failing liveness probe causes a pod restart.
+// • Readiness probe: checks if the container is “ready” to accept traffic; failing readiness removes pod from Service endpoints.
+// • Probe types: HTTP GET, TCP socket, Exec command.
+// • Common settings:
+//     initialDelaySeconds – wait before first probe
+//     periodSeconds       – interval between probes
+//     timeoutSeconds      – time to wait for probe to succeed
+//     failureThreshold    – consecutive failures before action
+# -----------------------------------------------------------------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: app-container
+          image: my-image:latest
+          ports:
+            - containerPort: 3000
+
+          # Liveness probe: restart pod if /healthz fails
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            timeoutSeconds: 2
+            failureThreshold: 3
+
+          # Readiness probe: only send traffic when /ready succeeds
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 1
+            failureThreshold: 3
+
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////
