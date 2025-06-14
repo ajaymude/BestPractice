@@ -29,6 +29,23 @@
 // 172 - Health checks and readiness/liveness probes in Kubernetes
 
 
+// 🔧 API GATEWAYS & PROXY SERVERS
+// 173 - Setting up Nginx as a reverse proxy for Node.js: load balancing, SSL termination
+// 174 - Using HAProxy for advanced load balancing strategies
+// 175 - Implementing API caching at the gateway level (NGINX FastCGI cache, Varnish)
+// 176 - Rate limiting and IP blocking at the NGINX/HAProxy layer
+// 177 - JWT verification at the gateway level: using lua-nginx-module or nginx-auth-request
+
+// 🚀 SERVER-SIDE RENDERING (SSR) & TEMPLATE ENGINES
+// 178 - Using EJS: embedding JavaScript in HTML, partials, layouts
+// 179 - Pug (formerly Jade): indentation-based syntax, mixins, template inheritance
+// 180 - Handlebars: helpers, partials, block helpers
+// 181 - Integrating React or Vue for server-side rendering with Node.js: Next.js serverless functions, Nuxt.js server middleware
+// 182 - Caching rendered pages: in-memory, Redis, or CDNs
+// 183 - Hybrid rendering: generating static portions and hydrating on client
+
+
+
 //////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////
 
@@ -2212,6 +2229,979 @@ spec:
             timeoutSeconds: 1
             failureThreshold: 3
 
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+
+
+# 173 – Setting up Nginx as a reverse proxy for Node.js: load balancing & SSL termination
+# -----------------------------------------------------------------------------
+# THEORY:
+# • Nginx acts as a reverse proxy to route client requests to one or more Node.js backend servers.
+# • Load balancing (e.g., round-robin, least_conn) distributes traffic evenly or based on connection load.
+# • SSL termination offloads TLS/HTTPS to Nginx, forwarding plain HTTP to Node.js for better performance.
+//
+// Place this in /etc/nginx/nginx.conf or as a separate file in /etc/nginx/sites-enabled/example.com
+
+upstream node_backend {
+    least_conn;                            # choose the backend with the fewest active connections
+    server backend1.example.com:3000;
+    server backend2.example.com:3000;
+}
+
+server {
+    listen 80;
+    server_name example.com www.example.com;
+
+    # Redirect all HTTP traffic to HTTPS
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name example.com www.example.com;
+
+    # SSL certificates (Let's Encrypt)
+    ssl_certificate     /etc/letsencrypt/live/example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;
+
+    # SSL settings
+    ssl_protocols             TLSv1.2 TLSv1.3;
+    ssl_ciphers               HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers on;
+    ssl_session_cache         shared:SSL:10m;
+    ssl_session_timeout       10m;
+
+    # Gzip compression for assets
+    gzip                on;
+    gzip_types          text/plain application/json application/javascript text/css;
+    gzip_min_length     1000;
+
+    location / {
+        # Proxy to Node.js backend pool
+        proxy_pass         http://node_backend;
+        proxy_http_version 1.1;
+
+        # Preserve client info
+        proxy_set_header   Host              $host;
+        proxy_set_header   X-Real-IP         $remote_addr;
+        proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+
+        # WebSocket support
+        proxy_set_header   Upgrade           $http_upgrade;
+        proxy_set_header   Connection        "upgrade";
+
+        # Timeouts
+        proxy_connect_timeout 5s;
+        proxy_read_timeout    60s;
+    }
+}
+
+
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+
+
+
+# 174 – Using HAProxy for advanced load balancing strategies
+# -----------------------------------------------------------------------------
+# THEORY:
+# • HAProxy is a high-performance load balancer for HTTP/TCP with multiple algorithms.
+# • Strategies: roundrobin, leastconn, source hashing, URI hashing, header hashing, cookie-based persistence.
+# • Advanced features: health checks, SSL termination, stick tables for rate-limiting, ACLs for routing.
+# -----------------------------------------------------------------------------
+
+global
+    log /dev/log    local0
+    log /dev/log    local1 notice
+    daemon
+    maxconn 20000
+    tune.ssl.default-dh-param 2048
+
+defaults
+    log     global
+    mode    http
+    option  httplog
+    option  dontlognull
+    timeout connect 5s
+    timeout client  50s
+    timeout server  50s
+    option http-server-close
+    option forwardfor
+
+# ---- FRONTEND ----
+frontend http_front
+    bind *:80
+    bind *:443 ssl crt /etc/haproxy/certs/site.pem
+    mode http
+
+    # Redirect HTTP → HTTPS
+    acl is_plain_http  !{ ssl_fc }
+    http-request redirect scheme https if is_plain_http
+
+    # Rate-limit abusive clients (stick table)
+    stick-table type ip size 200k expire 10m store http_req_rate(10s)
+    acl too_many_requests sc_http_req_rate(0) gt 100
+    http-request deny if too_many_requests
+
+    # Route by path: API vs Web UI
+    acl is_api path_beg /api/
+    use_backend api_backend if is_api
+    default_backend web_backend
+
+# ---- BACKENDS ----
+
+# 1. Round Robin (default)
+backend web_backend
+    mode http
+    balance roundrobin
+    option httpchk GET /health
+    server web1 10.0.0.11:3000 check
+    server web2 10.0.0.12:3000 check
+    server web3 10.0.0.13:3000 check
+
+# 2. Least Connections
+backend api_backend
+    mode http
+    balance leastconn
+    option httpchk GET /health
+    server api1 10.0.0.21:4000 check
+    server api2 10.0.0.22:4000 check
+    server api3 10.0.0.23:4000 check
+
+# 3. Source Hashing (consistent hashing by client IP)
+backend hash_backend
+    mode http
+    balance source
+    hash-type consistent
+    option httpchk GET /health
+    server h1 10.0.0.31:5000 check
+    server h2 10.0.0.32:5000 check
+    server h3 10.0.0.33:5000 check
+
+# 4. Cookie-Based Persistence (sticky sessions)
+backend sticky_backend
+    mode http
+    balance roundrobin
+    cookie SERVERID insert indirect nocache
+    server s1 10.0.0.41:6000 cookie s1 check
+    server s2 10.0.0.42:6000 cookie s2 check
+    server s3 10.0.0.43:6000 cookie s3 check
+
+# 5. URI Hashing (consistent by request URI)
+backend uri_hash_backend
+    mode http
+    balance uri
+    option httpchk GET /health
+    server u1 10.0.0.51:7000 check
+    server u2 10.0.0.52:7000 check
+    server u3 10.0.0.53:7000 check
+
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+
+
+# 175 – Implementing API caching at the gateway level (NGINX FastCGI cache, Varnish)
+# -----------------------------------------------------------------------------
+# THEORY:
+# • Gateway-level caching reduces backend load and speeds up responses.
+# • NGINX FastCGI/Proxy cache writes dynamic responses to disk and serves stale on errors.
+# • Varnish is an HTTP accelerator: sits in front, caches per VCL rules, adds X-Cache headers.
+# -----------------------------------------------------------------------------
+
+http {
+  # 1. Define a cache zone on disk
+  proxy_cache_path /var/cache/nginx/api_cache levels=1:2 keys_zone=api_cache:50m
+                   max_size=2g inactive=30m use_temp_path=off;
+
+  upstream backend_api {
+    server api1.example.com:8080;
+    server api2.example.com:8080;
+  }
+
+  server {
+    listen 80;
+    server_name api.example.com;
+
+    location /api/ {
+      # Enable and configure proxy cache
+      proxy_cache api_cache;
+      proxy_cache_valid 200 302 10m;
+      proxy_cache_valid 404      1m;
+      proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
+
+      # Cache key: method + host + URI
+      proxy_cache_key "$scheme$request_method$host$request_uri";
+
+      # Forward to backend
+      proxy_pass http://backend_api;
+      proxy_set_header Host             $host;
+      proxy_set_header X-Real-IP        $remote_addr;
+      proxy_set_header X-Forwarded-For  $proxy_add_x_forwarded_for;
+
+      # Add header to indicate cache status
+      add_header X-Cache-Status $upstream_cache_status;
+    }
+  }
+}
+
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+
+
+# 176 – Rate limiting and IP blocking at the NGINX layer
+# -----------------------------------------------------------------------------
+# THEORY:
+# • limit_req_zone defines a rate limit per client IP (requests per second).
+# • limit_conn_zone caps concurrent connections per IP.
+# • deny/allow directives block or permit specific IPs or subnets.
+# -----------------------------------------------------------------------------
+http {
+  # Define shared zones
+  limit_req_zone $binary_remote_addr zone=rl:10m rate=5r/s;   # 5 requests/sec per IP
+  limit_conn_zone $binary_remote_addr zone=cc:1m;             # track per-IP connections
+
+  server {
+    listen 80;
+    server_name example.com;
+
+    # Blocklists
+    deny 203.0.113.0/24;
+    deny 198.51.100.42;
+    allow all;
+
+    # Apply rate limiting: allow bursts of 10, no delay
+    limit_req zone=rl burst=10 nodelay;
+
+    # Apply connection limiting: max 20 concurrent connections per IP
+    limit_conn cc 20;
+
+    location / {
+      proxy_pass http://backend;
+      proxy_set_header Host            $host;
+      proxy_set_header X-Real-IP       $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+  }
+}
+
+
+
+# 176 – Rate limiting and IP blocking at the HAProxy layer
+# -----------------------------------------------------------------------------
+# THEORY:
+# • stick-table tracks per-IP metrics (request rate, concurrent connections).
+# • tcp-request connection uses ACLs to reject based on rate or blocklist.
+# -----------------------------------------------------------------------------
+global
+    maxconn 20000
+
+defaults
+    mode http
+    timeout connect 5s
+    timeout client  50s
+    timeout server  50s
+
+frontend http_front
+    bind *:80
+
+    # Track request rate per IP over a 10s window
+    stick-table type ip size 200k expire 10m store http_req_rate(10s)
+
+    # ACLs
+    acl too_fast sc_http_req_rate(0) gt 100          # >100 reqs/10s
+    acl bad_ip src 203.0.113.0/24 198.51.100.42      # blocklisted IPs
+
+    # Reject if rate limit exceeded or IP blocked
+    tcp-request connection reject if too_fast or bad_ip
+
+    default_backend web_backend
+
+backend web_backend
+    balance roundrobin
+    server web1 10.0.0.1:3000 check
+    server web2 10.0.0.2:3000 check
+
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+
+
+# 177 – JWT verification at the gateway level: using lua-nginx-module or nginx-auth-request
+# -----------------------------------------------------------------------------
+# THEORY:
+# • Verify JSON Web Tokens (JWTs) at the proxy layer to offload auth from your services.
+# • lua-nginx-module lets you run Lua code (e.g. lua-resty-jwt) to validate tokens inline.
+# • auth_request delegates verification to a subrequest endpoint (which can be another lightweight service or internal location).
+# -----------------------------------------------------------------------------
+
+#############################
+# A) Using lua-nginx-module
+#############################
+
+http {
+  lua_shared_dict jwks_cache 10m;  # cache public keys
+
+  server {
+    listen 443 ssl;
+    server_name api.example.com;
+
+    # Load Lua JWT library
+    lua_package_path "/usr/local/lib/lua/?.lua;;";
+
+    # Function to validate JWT in Lua
+    init_by_lua_block {
+      local jwt = require "resty.jwt"
+      local cjson = require "cjson"
+      _G.verify_jwt = function(token)
+        local validators = require "resty.jwt-validators"
+        local jwt_obj = jwt:verify_jwt_obj({
+          token = token,
+          require_header = {"exp", "iss"},
+          validators = {
+            exp = validators.is_not_expired(),
+            iss = validators.equals("https://auth.example.com")
+          },
+          secret = "your-256-bit-secret"  -- or load public key
+        })
+        return jwt_obj.verified
+      end
+    }
+
+    location / {
+      access_by_lua_block {
+        local auth_header = ngx.req.get_headers()["Authorization"]
+        if not auth_header then
+          return ngx.exit(ngx.HTTP_UNAUTHORIZED)
+        end
+        local _, _, token = string.find(auth_header, "Bearer%s+(.+)")
+        if not token or not verify_jwt(token) then
+          return ngx.exit(ngx.HTTP_UNAUTHORIZED)
+        end
+      }
+
+      proxy_pass http://backend_api;
+      proxy_set_header Host            $host;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+  }
+}
+
+####################################
+# B) Using nginx auth_request module
+####################################
+
+http {
+  upstream auth_service {
+    server 127.0.0.1:9000;  # a microservice that validates JWT and returns 200/401
+  }
+
+  server {
+    listen 80;
+    server_name api.example.com;
+
+    # 1. Define auth check subrequest
+    location = /_jwt_auth {
+      internal;
+      proxy_pass       http://auth_service/validate;
+      proxy_pass_request_body off;
+      proxy_set_header Authorization $http_authorization;
+      proxy_set_header Content-Length "";
+      proxy_set_header X-Original-URI $request_uri;
+    }
+
+    # 2. Protect API endpoints
+    location /api/ {
+      auth_request /_jwt_auth;
+      auth_request_set $auth_status $upstream_status;
+
+      # Optional: reject if auth request returned non-200
+      error_page 401 = @error401;
+      if ($auth_status != 200) {
+        return 401;
+      }
+
+      proxy_pass http://backend_api;
+      proxy_set_header Host            $host;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+    location @error401 {
+      add_header Content-Type application/json;
+      return 401 '{"error":"Unauthorized"}';
+    }
+  }
+}
+
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+
+// 178 - Using EJS: embedding JavaScript in HTML, partials, layouts
+
+
+// 178 – Using EJS: embedding JavaScript in HTML, partials, layouts
+// -----------------------------------------------------------------------------
+// THEORY: EJS allows embedding JavaScript in HTML templates, supports partials for reusable snippets,
+//         and layouts to define common wrappers.
+// -----------------------------------------------------------------------------
+const express = require('express');
+const path = require('path');
+const expressLayouts = require('express-ejs-layouts');
+const app = express();
+
+// 1. Set up view engine and layouts
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+app.use(expressLayouts);
+app.set('layout', 'layouts/main'); // views/layouts/main.ejs
+
+// 2. Routes with dynamic data
+app.get('/', (req, res) => {
+  const user = { name: 'Alice', role: 'admin' };
+  const items = ['Item A', 'Item B', 'Item C'];
+  res.render('index', { title: 'Home', user, items });
+});
+
+app.get('/about', (req, res) => {
+  res.render('about', { title: 'About Us' });
+});
+
+// 3. Start server
+app.listen(3000, () => {
+  console.log('Server listening on http://localhost:3000');
+});
+
+
+// server.js
+const express = require('express');
+const path = require('path');
+const expressLayouts = require('express-ejs-layouts');
+const app = express();
+
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+app.use(expressLayouts);
+app.set('layout', 'layouts/main');
+
+app.get('/', (req, res) => {
+  const user = { name: 'Alice', role: 'admin' };
+  const items = ['Item A', 'Item B', 'Item C'];
+  res.render('index', { title: 'Home', user, items });
+});
+
+app.get('/about', (req, res) => {
+  res.render('about', { title: 'About Us' });
+});
+
+app.listen(3000, () => {
+  console.log('Server listening on http://localhost:3000');
+});
+
+/* views/layouts/main.ejs */
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %> – MyApp</title>
+</head>
+<body>
+  <%- include('../partials/header') %>
+  <main>
+    <%- body %>
+  </main>
+  <%- include('../partials/footer') %>
+</body>
+</html>
+
+/* views/partials/header.ejs */
+<header>
+  <nav>
+    <a href="/">Home</a> |
+    <a href="/about">About</a>
+  </nav>
+</header>
+
+/* views/partials/footer.ejs */
+<footer>
+  <p>&copy; 2025 MyApp</p>
+</footer>
+
+/* views/index.ejs */
+<h1>Welcome, <%= user.name %>!</h1>
+<% if (user.role === 'admin') { %>
+  <p><strong>Admin Dashboard</strong></p>
+<% } else { %>
+  <p>User Dashboard</p>
+<% } %>
+<ul>
+  <% items.forEach(item => { %>
+    <li><%= item %></li>
+  <% }) %>
+</ul>
+
+/* views/about.ejs */
+<h1>About Us</h1>
+<p>This is the about page for MyApp.</p>
+
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+
+
+// 179 – Using Pug (formerly Jade): indentation-based syntax, mixins, template inheritance
+// -----------------------------------------------------------------------------
+// THEORY:
+// • Pug uses indentation to define nesting instead of closing tags.
+// • Mixins are reusable blocks you can call with parameters.
+// • Template inheritance lets you define a base layout and override blocks in child templates.
+// -----------------------------------------------------------------------------
+
+// server.js
+const express = require('express');
+const path    = require('path');
+const app     = express();
+
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
+
+app.get('/', (req, res) => {
+  res.render('index', {
+    title: 'Home',
+    user:  { name: 'Alice', role: 'admin' },
+    items: ['Item A', 'Item B', 'Item C']
+  });
+});
+
+app.get('/about', (req, res) => {
+  res.render('about', { title: 'About Us' });
+});
+
+app.listen(3000, () => {
+  console.log('Server listening on http://localhost:3000');
+});
+
+
+/* views/layout.pug */
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title #{title} – MyApp
+  body
+    block header
+      header
+        nav
+          a(href="/") Home
+          |  | 
+          a(href="/about") About
+    block content
+    block footer
+      footer
+        p © 2025 MyApp
+
+
+/* views/mixins.pug */
+mixin list(items)
+  ul
+    each val in items
+      li= val
+
+
+/* views/index.pug */
+extends layout
+
+include mixins
+
+block content
+  h1 Welcome, #{user.name}!
+  if user.role === 'admin'
+    p: strong Admin Dashboard
+  else
+    p User Dashboard
+  +list(items)
+
+
+/* views/about.pug */
+extends layout
+
+block content
+  h1 About Us
+  p This is the about page for MyApp.
+
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+
+
+
+// 180 – Handlebars: helpers, partials, block helpers
+// -----------------------------------------------------------------------------
+// server.js
+const express   = require('express');
+const exphbs    = require('express-handlebars');
+const path      = require('path');
+const app       = express();
+
+const hbs = exphbs.create({
+  extname: '.hbs',
+  defaultLayout: 'main',
+  layoutsDir: path.join(__dirname, 'views', 'layouts'),
+  partialsDir: path.join(__dirname, 'views', 'partials'),
+  helpers: {
+    // Simple helper
+    uppercase: (str) => str.toUpperCase(),
+    // Block helper: generate a list
+    list: (items, options) => {
+      let out = '<ul>';
+      items.forEach(item => {
+        out += `<li>${options.fn(item)}</li>`;
+      });
+      return out + '</ul>';
+    },
+    // Conditional block helper
+    ifEquals: (a, b, options) =>
+      a === b ? options.fn(this) : options.inverse(this)
+  }
+});
+
+app.engine('.hbs', hbs.engine);
+app.set('view engine', '.hbs');
+app.set('views', path.join(__dirname, 'views'));
+
+app.get('/', (req, res) => {
+  res.render('index', {
+    title: 'Home',
+    user: { name: 'Alice', role: 'admin' },
+    items: ['Alpha', 'Beta', 'Gamma']
+  });
+});
+
+app.get('/about', (req, res) => {
+  res.render('about', { title: 'About Us' });
+});
+
+app.listen(3000, () => {
+  console.log('Server listening on http://localhost:3000');
+});
+
+
+
+/* views/layouts/main.hbs */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{title}} – MyApp</title>
+</head>
+<body>
+  {{> header}}
+  {{{body}}}
+  {{> footer}}
+</body>
+</html>
+
+
+
+/* views/partials/header.hbs */
+<header>
+  <nav>
+    <a href="/">Home</a> |
+    <a href="/about">About</a>
+  </nav>
+</header>
+
+
+
+/* views/partials/footer.hbs */
+<footer>
+  <p>© 2025 MyApp</p>
+</footer>
+
+
+
+/* views/index.hbs */
+<h1>Welcome, {{uppercase user.name}}!</h1>
+
+{{#ifEquals user.role 'admin'}}
+  <p><strong>Admin Dashboard</strong></p>
+{{else}}
+  <p>User Dashboard</p>
+{{/ifEquals}}
+
+{{#list items}}
+  {{this}}
+{{/list}}
+
+
+
+/* views/about.hbs */
+<h1>About Us</h1>
+<p>This is the about page for MyApp.</p>
+
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+
+
+// 181 – Integrating React (Next.js) SSR with serverless functions and Vue (Nuxt.js) SSR with server middleware
+// -----------------------------------------------------------------------------
+//
+// A) Next.js: React SSR + serverless API routes
+// -----------------------------------------------------------------------------
+
+// next.config.js
+module.exports = {
+  target: 'serverless',           // output each page as an AWS-Lambda-style function
+  reactStrictMode: true,
+};
+
+// pages/index.js
+import React from 'react';
+
+export default function Home({ posts }) {
+  return (
+    <div>
+      <h1>Latest Posts</h1>
+      <ul>
+        {posts.map(p => (
+          <li key={p.id}>{p.title}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+// Fetch data at request time on the server
+export async function getServerSideProps() {
+  const res = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=5');
+  const posts = await res.json();
+  return { props: { posts } };
+}
+
+// pages/api/hello.js
+export default function handler(req, res) {
+  res.status(200).json({ message: 'Hello from Next.js serverless function!' });
+}
+
+// package.json (scripts)
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  }
+}
+
+
+// B) Nuxt.js: Vue SSR + Express-style server middleware
+// -----------------------------------------------------------------------------
+
+// nuxt.config.js
+export default {
+  ssr: true,                      // enable server-side rendering
+  target: 'server',               // use a Node.js server
+  serverMiddleware: [
+    { path: '/api', handler: '~/api/index.js' }
+  ],
+  build: {
+    // any custom webpack config
+  }
+};
+
+// api/index.js
+const express = require('express');
+const app = express();
+
+app.get('/time', (req, res) => {
+  res.json({ now: new Date().toISOString() });
+});
+
+module.exports = app;
+
+// pages/index.vue
+<template>
+  <div>
+    <h1>Current Time</h1>
+    <p>{{ time }}</p>
+  </div>
+</template>
+
+<script>
+export default {
+  async asyncData({ $axios }) {
+    const { now } = await $axios.$get('/api/time');
+    return { time: now };
+  }
+}
+</script>
+
+// package.json (scripts)
+{
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start"
+  }
+}
+
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+
+
+
+
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+////////////////////////////////// 182 – Caching rendered pages: in-memory, Redis, or CDNs
+// -----------------------------------------------------------------------------
+// THEORY:
+// • In-memory cache (e.g., LRU) stores rendered HTML in your app’s RAM for ultra-fast retrieval.
+// • Redis cache stores rendered HTML centrally, shared across app instances, with TTL support.
+// • CDN cache (via Cache-Control / Surrogate-Control headers) offloads traffic to the edge for global speed.
+// -----------------------------------------------------------------------------
+
+const express = require('express');
+const LRU     = require('lru-cache');
+const { createClient } = require('redis');
+
+const app = express();
+app.set('view engine', 'ejs');
+
+// --- 1. In-memory cache (LRU) ---
+const memoryCache = new LRU({
+  max: 500,              // max 500 items
+  ttl: 1000 * 60 * 5     // 5 minutes in ms
+});
+
+app.get('/in-memory/:page', (req, res) => {
+  const key = req.originalUrl;
+  const cached = memoryCache.get(key);
+  if (cached) {
+    return res.send(cached);
+  }
+  // Render your page (e.g., EJS)
+  res.render(req.params.page, {}, (err, html) => {
+    if (err) return res.status(500).send(err.message);
+    memoryCache.set(key, html);
+    res.send(html);
+  });
+});
+
+// --- 2. Redis cache (shared across instances) ---
+const redisClient = createClient({ url: 'redis://localhost:6379' });
+redisClient.connect().catch(console.error);
+
+app.get('/redis/:page', async (req, res) => {
+  const key = `page:${req.originalUrl}`;
+  try {
+    const cached = await redisClient.get(key);
+    if (cached) {
+      return res.send(cached);
+    }
+    res.render(req.params.page, {}, async (err, html) => {
+      if (err) return res.status(500).send(err.message);
+      // Cache for 10 minutes
+      await redisClient.setEx(key, 60 * 10, html);
+      res.send(html);
+    });
+  } catch (e) {
+    // Fallback to rendering on Redis error
+    res.render(req.params.page, {}, (err, html) => {
+      if (err) return res.status(500).send(err.message);
+      res.send(html);
+    });
+  }
+});
+
+// --- 3. CDN-friendly cache headers ---
+app.get('/cdn/:page', (req, res) => {
+  // Browser cache: 5 minutes; CDN edge cache: 1 hour
+  res.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
+  res.render(req.params.page, {}, (err, html) => {
+    if (err) return res.status(500).send(err.message);
+    res.send(html);
+  });
+});
+
+// Start server
+app.listen(3000, () => {
+  console.log('App listening on http://localhost:3000');
+});
+//////////////////////////////////
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+
+
+// 183 – Hybrid rendering: generating static portions (SSR) and hydrating on client
+// -----------------------------------------------------------------------------
+// THEORY:
+// • Generate initial HTML on the server for fast first paint and SEO (Server-Side Rendering).
+// • Send the same React app code to the browser, then “hydrate” it to attach event handlers and make it interactive.
+// • Combines “static” markup with full client-side React behavior.
+// -----------------------------------------------------------------------------
+
+// --- server.js ---
+const express = require('express');
+const path    = require('path');
+const React   = require('react');
+const { renderToString } = require('react-dom/server');
+const App     = require('./src/App').default;
+
+const app = express();
+
+// Serve the client bundle
+app.use('/static', express.static(path.resolve(__dirname, 'dist')));
+
+app.get('/', (req, res) => {
+  // 1. Render React to HTML string
+  const appHtml = renderToString(React.createElement(App));
+
+  // 2. Send full HTML page with embedded markup and client script
+  res.send(`
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <title>Hybrid SSR + Hydration</title>
+      </head>
+      <body>
+        <div id="root">${appHtml}</div>
+        <script src="/static/client.js"></script>
+      </body>
+    </html>
+  `);
+});
+
+app.listen(3000, () => {
+  console.log('✅ Server listening on http://localhost:3000');
+});
+
+
+// --- src/App.jsx ---
+import React, { useState } from 'react';
+
+export default function App() {
+  const [count, setCount] = useState(0);
+  return (
+    <div>
+      <h1>🎉 Hybrid Rendering Demo</h1>
+      <button onClick={() => setCount(c => c + 1)}>
+        You clicked {count} times
+      </button>
+    </div>
+  );
+}
+
+
+// --- client.js ---
+import React from 'react';
+import { hydrate } from 'react-dom';
+import App from './src/App';
+
+// Hydrate on the client: attach React behaviors to server-rendered HTML
+hydrate(<App />, document.getElementById('root'));
+
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////
