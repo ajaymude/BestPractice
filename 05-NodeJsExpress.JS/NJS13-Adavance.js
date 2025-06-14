@@ -873,16 +873,595 @@ setTimeout(() => {
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
+
+
+// 215 – Horizontal scaling strategies: replicating services across multiple servers/containers
+// -----------------------------------------------------------------------------
+// NOTES:
+// 1. Design stateless services so any instance can handle any request.
+// 2. Use load balancers (NGINX, HAProxy, cloud LB) to distribute traffic across instances.
+// 3. On a single host, use the Node.js cluster module or PM2 in cluster mode to utilize all CPU cores.
+// 4. In containers, scale with Docker Compose’s `--scale` or Kubernetes Deployment replicas.
+// 5. For sticky sessions, use an external session store (Redis) or configure session affinity in the LB.
+// -----------------------------------------------------------------------------
+// 1. Node.js cluster module for multi-core scaling
+const cluster = require('cluster');
+const http    = require('http');
+const numCPUs = require('os').cpus().length;
+
+if (cluster.isPrimary) {
+  for (let i = 0; i < numCPUs; i++) cluster.fork();
+  cluster.on('exit', (w) => console.log(`Worker ${w.process.pid} exited`));
+} else {
+  http.createServer((req, res) => {
+    res.end(`Handled by worker ${process.pid}`);
+  }).listen(3000);
+}
+
+// -----------------------------------------------------------------------------
+// 2. PM2 ecosystem.config.js for clustering across cores
+module.exports = {
+  apps: [{
+    name: 'my-app',
+    script: 'server.js',
+    instances: 'max',
+    exec_mode: 'cluster',
+    env: { NODE_ENV: 'production' }
+  }]
+};
+// → pm2 start ecosystem.config.js | pm2 scale my-app 4
+
+// -----------------------------------------------------------------------------
+// 3. Docker Compose for container scaling (docker-compose.yml)
+version: '3.8'
+services:
+  app:
+    image: my-app:latest
+    ports:
+      - "3000:3000"
+    deploy:
+      replicas: 4
+    environment:
+      - NODE_ENV=production
+// → docker-compose up -d --scale app=4
+
+// -----------------------------------------------------------------------------
+// 4. Kubernetes Deployment & Service for L4/L7 load balancing (k8s.yaml)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: my-app
+        image: my-app:latest
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app-svc
+spec:
+  type: LoadBalancer
+  selector:
+    app: my-app
+  ports:
+  - port: 80
+    targetPort: 3000
+
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
+
+
+# 216 – Using service meshes and sidecars for seamless communication (Istio, Linkerd)
+# -----------------------------------------------------------------------------
+# NOTES:
+# 1. Service mesh injects a sidecar proxy (Envoy for Istio, Linkerd2-proxy for Linkerd) alongside each pod.
+# 2. Sidecars handle mTLS encryption, retries, circuit breaking, and telemetry transparently.
+# 3. Istio uses Kubernetes CRDs (PeerAuthentication, DestinationRule, VirtualService) to configure policies.
+# 4. Linkerd uses automatic proxy injection and CRDs (ServiceProfile, TrafficSplit) for traffic control.
+# 5. Sidecars intercept all inbound/outbound traffic to enforce mesh policies without changing application code.
+# -----------------------------------------------------------------------------
+
+# --- Istio: enforce mTLS and define traffic rules ---
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default-mtls
+  namespace: default
+spec:
+  mtls:
+    mode: STRICT                   # enforce mutual TLS between sidecars
+
+---
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: reviews-policy
+  namespace: default
+spec:
+  host: reviews.default.svc.cluster.local
+  trafficPolicy:
+    loadBalancer:
+      simple: LEAST_CONN          # least connections load balancing
+    connectionPool:
+      tcp:
+        maxConnections: 100       # limit concurrent connections
+      http:
+        http1MaxPendingRequests: 50
+        maxRequestsPerConnection: 100
+    outlierDetection:
+      consecutiveErrors: 5
+      interval: 10s
+      baseEjectionTime: 30s
+
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: reviews-split
+  namespace: default
+spec:
+  hosts:
+    - reviews.default.svc.cluster.local
+  http:
+    - match:
+        - uri:
+            prefix: /reviews
+      route:
+        - destination:
+            host: reviews.default.svc.cluster.local
+            subset: v1
+          weight: 80             # 80% traffic to v1
+        - destination:
+            host: reviews.default.svc.cluster.local
+            subset: v2
+          weight: 20             # 20% to v2 canary
+      retries:
+        attempts: 3
+        perTryTimeout: 2s
+
+# --- Linkerd: enable injection and define a ServiceProfile for retry logic ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: webapp
+  labels:
+    linkerd.io/inject: enabled     # auto-inject Linkerd proxy
+
+---
+apiVersion: linkerd.io/v1alpha2
+kind: ServiceProfile
+metadata:
+  name: webapp.default.svc.cluster.local
+  namespace: default
+spec:
+  routes:
+    - name: get_reviews
+      condition:
+        pathRegex: "^/reviews"
+      isRetryable: true
+      timeout: 2s                   # per-request timeout
+      backoff:
+        min: 10ms
+        max: 500ms
+
+---
+apiVersion: split.smi-spec.io/v1alpha2
+kind: TrafficSplit
+metadata:
+  name: reviews-split
+  namespace: default
+spec:
+  service: reviews
+  backends:
+    - service: reviews-v1
+      weight: 75
+    - service: reviews-v2
+      weight: 25                     # 25% traffic to v2
+
+# -----------------------------------------------------------------------------
+
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
+
+
+// 217 – Handling sticky sessions and session affinity in load balancers
+// -----------------------------------------------------------------------------
+// NOTES:
+// 1. Sticky sessions bind a client to the same backend instance for the duration of a session.
+// 2. Common methods: cookie-based (insert a cookie, or honor an app-set cookie) and IP-hash.
+// 3. NGINX: use the “sticky” module or the built-in ip_hash directive.
+// 4. HAProxy: use ‘cookie’ directives or source IP persistence.
+// 5. Kubernetes: Service spec supports sessionAffinity: ClientIP.
+// 6. AWS ALB/ELB: enable stickiness on the target group with duration-based cookies.
+// -----------------------------------------------------------------------------
+
+# --- NGINX (cookie-based sticky) ---
+upstream backend {
+    server backend1.example.com;
+    server backend2.example.com;
+    sticky cookie srv_id expires=1h path=/;   # will insert “srv_id” cookie valid 1 hour
+}
+
+server {
+    listen 80;
+    server_name example.com;
+
+    location / {
+        proxy_pass         http://backend;
+        proxy_set_header   Host    $host;
+        proxy_set_header   X-Real-IP $remote_addr;
+        proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+
+# --- NGINX (IP-hash sticky) ---
+upstream backend_ip {
+    ip_hash;                                   # hash client IP to pick backend
+    server backend1.example.com;
+    server backend2.example.com;
+}
+
+server {
+    listen 80;
+    server_name example.com;
+
+    location / {
+        proxy_pass http://backend_ip;
+    }
+}
+
+# --- HAProxy (cookie-based sticky) ---
+frontend http_front
+    bind *:80
+    default_backend web_backend
+
+backend web_backend
+    balance roundrobin
+    cookie SERVERID insert indirect nocache
+    server web1 10.0.0.1:3000 cookie web1 check
+    server web2 10.0.0.2:3000 cookie web2 check
+
+# --- HAProxy (source IP persistence) ---
+backend web_src
+    balance source                        # hash by client IP
+    server web1 10.0.0.1:3000 check
+    server web2 10.0.0.2:3000 check
+
+# --- Kubernetes Service (ClientIP affinity) ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: my-app
+  ports:
+    - port: 80
+      targetPort: 3000
+  sessionAffinity: ClientIP            # stick sessions by client IP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800            # 3 hours
+
+# --- AWS ALB Target Group (stickiness) ---
+Resource: AWS::ElasticLoadBalancingV2::TargetGroup
+Properties:
+  Name: my-alb-tg
+  Protocol: HTTP
+  Port: 80
+  VpcId: vpc-123456
+  TargetType: instance
+  HealthCheckProtocol: HTTP
+  HealthCheckPath: /health
+  Matcher:
+    HttpCode: '200'
+  StickinessConfig:
+    Enabled: true
+    Type: lb_cookie
+    CookieDurationSeconds: 3600        # 1 hour stickiness
+
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
+
+
+
+// 218 – Sharding data at the application layer: routing requests to appropriate database shard
+// -----------------------------------------------------------------------------
+// NOTES:
+// 1. Sharding splits your dataset across multiple database instances (“shards”) to scale writes and storage.
+// 2. The application is responsible for routing each request to the correct shard based on a shard key.
+// 3. Common strategies: modulo hashing (key % shardCount), range-based (ID ranges), or consistent hashing.
+// 4. Maintain a mapping of shard identifiers to DB connection instances.
+// 5. Ensure your shard key is included in all queries to avoid cross-shard joins.
+// 6. For cross-shard operations (analytics), use a separate aggregator or a data warehouse.
+// 7. Handle re-sharding by migrating data and updating the routing logic with minimal downtime.
+// -----------------------------------------------------------------------------
+
+const express = require('express');
+const mysql   = require('mysql2/promise');
+
+const app = express();
+app.use(express.json());
+
+// 1. Define connections to each shard
+const shardConfigs = [
+  { host: 'db-shard-0.example.com', user: 'dbuser', password: 'pass', database: 'app_shard_0' },
+  { host: 'db-shard-1.example.com', user: 'dbuser', password: 'pass', database: 'app_shard_1' },
+  { host: 'db-shard-2.example.com', user: 'dbuser', password: 'pass', database: 'app_shard_2' },
+];
+const shards = shardConfigs.map(cfg => mysql.createPool(cfg));
+
+// 2. Shard routing function (modulo strategy)
+function getShard(key) {
+  const shardIndex = key % shards.length;
+  return shards[shardIndex];
+}
+
+// 3. Example: Read user by ID (uses user ID as shard key)
+app.get('/users/:id', async (req, res, next) => {
+  try {
+    const userId = parseInt(req.params.id, 10);
+    const db = getShard(userId);
+    const [rows] = await db.query('SELECT * FROM users WHERE id = ?', [userId]);
+    if (rows.length === 0) return res.status(404).json({ error: 'User not found' });
+    res.json(rows[0]);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// 4. Example: Create new order (uses user ID to shard orders by owner)
+app.post('/orders', async (req, res, next) => {
+  try {
+    const { userId, productId, quantity } = req.body;
+    const db = getShard(userId);
+    const [result] = await db.execute(
+      'INSERT INTO orders (user_id, product_id, quantity) VALUES (?, ?, ?)',
+      [userId, productId, quantity]
+    );
+    res.status(201).json({ orderId: result.insertId });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// 5. Centralized error handler
+app.use((err, req, res, next) => {
+  console.error('Error:', err.message);
+  res.status(err.status || 500).json({ error: err.message });
+});
+
+// 6. Start server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`API server with ${shards.length} shards listening on port ${PORT}`);
+});
+
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
+
+
+
+// 219 – CQRS (Command Query Responsibility Segregation) pattern in Node.js
+// -----------------------------------------------------------------------------
+// THEORY & NOTES:
+// 1. CQRS separates write operations (“commands”) from read operations (“queries”) into distinct models.
+// 2. Commands mutate state and emit events; queries read from a denormalized “read model” optimized for views.
+// 3. The write model can use one schema/database; the read model can use another (or projection tables, caches).
+// 4. Projection keeps the read model up-to-date by handling events from the write side.
+// 5. Enables independent scaling, simpler queries, and clear separation of concerns.
+// -----------------------------------------------------------------------------
+
+const express = require('express');
+const { v4: uuidv4 } = require('uuid');
+const app = express();
+app.use(express.json());
+
+// In-memory event store (for demo)
+const eventStore = [];
+
+// Write model (authoritative) — simple object map
+const userWriteModel = {};
+
+// Read model (denormalized) — optimized for fast queries
+const userReadModel = new Map();
+
+// Projection: apply an event to update the read model
+function project(event) {
+  switch (event.type) {
+    case 'UserCreated':
+      userReadModel.set(event.payload.id, { 
+        id: event.payload.id,
+        name: event.payload.name,
+        email: event.payload.email
+      });
+      break;
+    case 'UserEmailUpdated':
+      if (userReadModel.has(event.payload.id)) {
+        const user = userReadModel.get(event.payload.id);
+        user.email = event.payload.newEmail;
+        userReadModel.set(event.payload.id, user);
+      }
+      break;
+    // add more event types as needed
+  }
+}
+
+// ----------------------
+// COMMAND HANDLERS (writes)
+// ----------------------
+
+// Create a new user
+app.post('/commands/createUser', (req, res) => {
+  const { name, email } = req.body;
+  const id = uuidv4();
+  const event = { type: 'UserCreated', payload: { id, name, email }, timestamp: Date.now() };
+  // 1. Persist event
+  eventStore.push(event);
+  // 2. Update write model (could be a DB save in real app)
+  userWriteModel[id] = { name, email };
+  // 3. Project to read model
+  project(event);
+  res.status(201).json({ id });
+});
+
+// Update a user’s email
+app.post('/commands/updateEmail', (req, res) => {
+  const { id, newEmail } = req.body;
+  if (!userWriteModel[id]) return res.status(404).json({ error: 'User not found' });
+  const event = { type: 'UserEmailUpdated', payload: { id, newEmail }, timestamp: Date.now() };
+  eventStore.push(event);
+  userWriteModel[id].email = newEmail;
+  project(event);
+  res.json({ success: true });
+});
+
+// ----------------------
+// QUERY HANDLERS (reads)
+// ----------------------
+
+// Get user by ID from read model
+app.get('/queries/users/:id', (req, res) => {
+  const user = userReadModel.get(req.params.id);
+  if (!user) return res.status(404).json({ error: 'User not found' });
+  res.json(user);
+});
+
+// List all users (denormalized)
+app.get('/queries/users', (req, res) => {
+  res.json(Array.from(userReadModel.values()));
+});
+
+// ----------------------
+// START SERVER
+// ----------------------
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`CQRS demo server running on port ${PORT}`);
+});
+
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
+
+
+
+// 220 – Event sourcing: storing events instead of state, rebuilding state from event log
+// -----------------------------------------------------------------------------
+// NOTES:
+// 1. Persist only events (append-only) instead of mutable state.
+// 2. Rebuild current state by replaying events: `state = events.reduce(apply, initialState)`.
+// 3. Full audit log and time-travel debugging.
+// 4. Use snapshots to speed up rebuild for long event streams.
+// 5. Create projections (read models) by consuming events.
+// 6. Use a robust event store (DB table, EventStoreDB, Kafka).
+// -----------------------------------------------------------------------------
+
+const express = require('express');
+const { v4: uuidv4 } = require('uuid');
+const app = express();
+app.use(express.json());
+
+// In-memory event store: Map<aggregateId, Array<event>>
+const eventStore = new Map();
+
+// Domain logic: rehydrate aggregate state from events
+function rehydrate(events) {
+  return events.reduce((state, { type, payload, aggregateId }) => {
+    switch (type) {
+      case 'AccountCreated':
+        return { id: aggregateId, balance: 0 };
+      case 'MoneyDeposited':
+        return { ...state, balance: state.balance + payload.amount };
+      case 'MoneyWithdrawn':
+        return { ...state, balance: state.balance - payload.amount };
+      default:
+        return state;
+    }
+  }, {});
+}
+
+// Append event to the store
+function appendEvent(event) {
+  const { aggregateId } = event;
+  const events = eventStore.get(aggregateId) || [];
+  events.push(event);
+  eventStore.set(aggregateId, events);
+}
+
+// COMMAND: Create account
+app.post('/accounts', (req, res) => {
+  const accountId = uuidv4();
+  appendEvent({
+    type: 'AccountCreated',
+    aggregateId: accountId,
+    payload: {},
+    timestamp: Date.now()
+  });
+  res.status(201).json({ accountId });
+});
+
+// COMMAND: Deposit money
+app.post('/accounts/:id/deposit', (req, res) => {
+  const { id } = req.params;
+  const { amount } = req.body;
+  if (amount <= 0) return res.status(400).json({ error: 'Amount must be positive' });
+  const events = eventStore.get(id);
+  if (!events) return res.status(404).json({ error: 'Account not found' });
+  appendEvent({
+    type: 'MoneyDeposited',
+    aggregateId: id,
+    payload: { amount },
+    timestamp: Date.now()
+  });
+  res.json({ success: true });
+});
+
+// COMMAND: Withdraw money
+app.post('/accounts/:id/withdraw', (req, res) => {
+  const { id } = req.params;
+  const { amount } = req.body;
+  if (amount <= 0) return res.status(400).json({ error: 'Amount must be positive' });
+  const events = eventStore.get(id);
+  if (!events) return res.status(404).json({ error: 'Account not found' });
+  const state = rehydrate(events);
+  if (state.balance < amount) return res.status(400).json({ error: 'Insufficient funds' });
+  appendEvent({
+    type: 'MoneyWithdrawn',
+    aggregateId: id,
+    payload: { amount },
+    timestamp: Date.now()
+  });
+  res.json({ success: true });
+});
+
+// QUERY: Get account state by replaying events
+app.get('/accounts/:id', (req, res) => {
+  const events = eventStore.get(req.params.id);
+  if (!events) return res.status(404).json({ error: 'Account not found' });
+  res.json(rehydrate(events));
+});
+
+// QUERY: Get raw event log
+app.get('/accounts/:id/events', (req, res) => {
+  res.json(eventStore.get(req.params.id) || []);
+});
+
+// Start server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Event-sourcing service listening on port ${PORT}`));
+
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
