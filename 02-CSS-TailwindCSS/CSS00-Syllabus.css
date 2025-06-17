@@ -1,0 +1,682 @@
+// 
+
+/* ====================== */
+/* CSS Full Syllabus      */
+/* (Beginner to Expert)   */
+/* ====================== */
+
+/* 📘 BASICS & SETUP */
+/* 01 - What is CSS and why use it? */
+/* 02 - Including CSS in HTML: inline, internal (<style>), external (<link>) */
+/* 03 - CSS Syntax: selectors, properties, values */
+/* 04 - CSS Cascade, Specificity, and Inheritance */
+/* 05 - The Browser Rendering Pipeline and Repaint/Reflow */
+
+/* 🔤 SELECTORS & COMBINATORS */
+/* 06 - Type (Element) Selectors */
+/* 07 - Class Selectors */
+/* 08 - ID Selectors */
+/* 09 - Attribute Selectors ([attr], [attr="value"], [attr^="start"], [attr$="end"], [attr*="contains"]) */
+/* 10 - Pseudo-classes (:hover, :active, :focus, :nth-child, :last-child, :first-of-type, :not) */
+/* 11 - Pseudo-elements (::before, ::after, ::first-letter, ::first-line, ::placeholder) */
+/* 12 - Grouping Selectors (comma-separated) */
+/* 13 - Descendant, Child (>), Adjacent Sibling (+), General Sibling (~) Combinators */
+/* 14 - Universal Selector (*) and Universal Selector Performance Considerations */
+/* 15 - :root and Global CSS Variables (Custom Properties) */
+
+/* 🎨 COLOR & TYPOGRAPHY */
+/* 16 - Color Syntax: Named Colors, Hex (#FFF, #FFFFFF), RGB(a), HSL(a), HWB, Lab, LCH */
+/* 17 - Opacity vs RGBA vs HSLA vs CSS Variables for Semi-transparency */
+/* 18 - Color Contrast and WCAG Accessibility Guidelines */
+/* 19 - Typography Basics: font-family, font-weight, font-style, font-variant */
+/* 20 - Web-safe Fonts vs @font-face and Google Fonts Integration */
+/* 21 - Font Loading Strategies: font-display, preloading, Font Loading API */
+/* 22 - Text Properties: line-height, letter-spacing (tracking), word-spacing */
+/* 23 - Text Alignment, Text Indentation, Text Transform, Text Decoration (underline, overline) */
+/* 24 - Responsive Typography: viewport units (vw, vh), calc() for fluid type */
+/* 25 - CSS Counters and Custom Numbering for Lists */
+
+/* 📦 BOX MODEL & SPACING */
+/* 26 - Width, Height, min-/max-width, min-/max-height */
+/* 27 - Content-box vs Border-box Box-sizing */
+/* 28 - Margin, Padding, Border: Shorthand and Individual Properties */
+/* 29 - Collapsing Margins Behavior */
+/* 30 - Box Shadows (box-shadow), Inset Shadows */
+/* 31 - Outline vs Border Differences */
+/* 32 - Border Radius (border-radius) and Creating Circles, Ellipses */
+/* 33 - Object-fit and Object-position for Replaced Elements (images, videos) */
+/* 34 - Box Alignment Properties in Flex and Grid (justify-content, align-items, align-self) */
+/* 35 - CSS Overflow: visible, hidden, scroll, auto, text-overflow: ellipsis */
+
+/* 🌐 LAYOUT BASICS */
+/* 36 - Display Property: block, inline, inline-block, inline-flex, inline-grid, none */
+/* 37 - Position Property: static, relative, absolute, fixed, sticky */
+/* 38 - Top, Right, Bottom, Left Offsets in Positioned Elements */
+/* 39 - Z-index and Stacking Contexts */
+/* 40 - Float and Clear: Legacy Layouts, Block Formatting Context */
+/* 41 - Containing Floats via Clearfix */
+
+/* 🔄 FLEXBOX (RESPONSIVE LAYOUT) */
+/* 42 - display: flex and Inline Flex */
+/* 43 - flex-direction: row, column, row-reverse, column-reverse */
+/* 44 - justify-content: flex-start, center, space-between, space-around, space-evenly */
+/* 45 - align-items: stretch, flex-start, flex-end, center, baseline */
+/* 46 - align-content: stretch, flex-start, flex-end, center, space-between, space-around */
+/* 47 - flex-wrap: nowrap, wrap, wrap-reverse */
+/* 48 - flex Property: flex-grow, flex-shrink, flex-basis Shortcuts */
+/* 49 - align-self Overrides for Individual Flex Items */
+/* 50 - Order Property to Reorder Items */
+/* 51 - Creating Centered Layouts with Flexbox */
+/* 52 - Flexbox Performance Considerations and Browser Bugs */
+
+/* 🟦 CSS GRID (ADVANCED LAYOUT) */
+/* 53 - display: grid and Inline Grid */
+/* 54 - grid-template-columns / grid-template-rows: fr Units, auto, minmax(), repeat() */
+/* 55 - grid-gap / gap, row-gap, column-gap */
+/* 56 - grid-template-areas and Naming Areas for Semantic Layouts */
+/* 57 - Placing Items with grid-row-start/End, grid-column-start/End Shorthand */
+/* 58 - justify-items, align-items, justify-content, align-content in Grid */
+/* 59 - grid-auto-flow: row, column, dense */
+/* 60 - Implicit Grid vs Explicit Grid Tracks */
+/* 61 - Subgrid (CSS Subgrid Module) */
+/* 62 - Aligning and Justifying Individual Grid Items */
+/* 63 - Responsive Grid Layout Techniques (auto-fit, auto-fill) */
+/* 64 - Grid Named Lines and Line Number Placement */
+
+/* 🔧 RESPONSIVE DESIGN & MEDIA QUERIES */
+/* 65 - Responsive Design Principles: Mobile-First vs Desktop-First */
+/* 66 - Viewport Meta Tag and “Responsive” in HTML */
+/* 67 - Media Query Syntax: @media (min-width), (max-width), (orientation), (aspect-ratio), (hover) */
+/* 68 - Using Breakpoints, Common Device Widths, and Container Queries */
+/* 69 - Fluid Layouts with max-width and Relative Units (%, vw, vh) */
+/* 70 - Responsive Images: srcset, sizes, picture Element */
+/* 71 - Responsive Typography Techniques (clamp(), min(), max()) */
+/* 72 - Hide/Show Content for Different Screen Sizes */
+/* 73 - CSS Container Queries (Experimental) */
+
+/* 🎨 STYLING TECHNIQUES & BEST PRACTICES */
+/* 74 - Shorthand Properties: margin, padding, border, background */
+/* 75 - Backgrounds: background-color, background-image, background-size (cover, contain), background-position, background-repeat */
+/* 76 - Gradients: linear-gradient, radial-gradient, conic-gradient Syntax */
+/* 77 - Multiple Background Layers and Blending Modes (background-blend-mode) */
+/* 78 - Borders: border styles (solid, dashed, dotted, double), border-image, border-image-slice, border-image-source */
+/* 79 - CSS Filters: blur(), brightness(), contrast(), drop-shadow() on images and elements */
+/* 80 - Mixins vs Utility Classes vs Component Classes */
+/* 81 - DRY CSS: Avoiding Repetition with Variables, Mixins, Extends */
+
+/* 🔧 PREPROCESSORS & POSTPROCESSORS */
+/* 82 - Sass (SCSS) Basics: Variables, Nesting, Partial Files, @import/@use */
+/* 83 - Sass Mixins, Functions, @extend, Placeholder Selectors (%placeholders) */
+/* 84 - Less Basics: Variables, Nesting, Mixins, Guards */
+/* 85 - Stylus Overview: Interpolation, Mixins, Functions */
+/* 86 - PostCSS: autoprefixer, postcss-preset-env, cssnano Plugins */
+/* 87 - CSS Next Features via postcss-preset-env (Custom Properties, Nesting, New Selectors) */
+/* 88 - Configuring Build Tools (Webpack, Gulp, Grunt) to Compile Sass/Less to CSS */
+/* 89 - Source Maps for Preprocessed CSS */
+
+/* 🔄 CSS-IN-JS & MODERN STYLING */  
+/* 90 - Styled Components: Tagged Template Literals, Theming, Server-Side Rendering Considerations */
+/* 91 - Emotion Library: css Prop, Global Styles, ThemeProvider */
+/* 92 - CSS Modules: Scoped Class Names, configuration in build tools */
+/* 93 - Tailwind CSS Utility-First Approach: Configuration, PurgeCSS/Content Paths */
+/* 94 - Utility-First vs Component-First vs Atomic CSS Philosophies */
+/* 95 - Styled JSX (Next.js Built-in CSS-in-JS) */
+/* 96 - Linaria: Zero-runtime CSS-in-JS with Babel plugin */
+
+/* 🌐 FRAMEWORKS & LIBRARIES */
+/* 97 - Bootstrap 5 Overview: Grid System, Utility Classes, Components */
+/* 98 - Foundation Framework: Grid, UI Components, Responsive Utilities */
+/* 99 - Bulma CSS: Flexbox-based Grid, Components, Modifiers */
+/* 100 - Material UI (MUI) / Material Design Lite Basics (React Integration, Theming) */
+/* 101 - Ant Design CSS (Less-based, Theming with Less Variables) */
+/* 102 - Chakra UI: Styled System, Theming, Component Library */
+/* 103 - Tailwind CSS Advanced: Customization, Plugins, Purging, JIT Mode */
+/* 104 - CSS Utility Libraries Comparison: Tachyons, Basscss, Micromodal, Pico.css */
+
+/* 🔁 LAYOUT PATTERNS & METHODOLOGIES */
+/* 105 - BEM (Block Element Modifier) Naming Convention and Structure */
+/* 106 - SMACSS (Scalable and Modular Architecture for CSS) */
+/* 107 - ITCSS (Inverted Triangle CSS) Architecture Layers */
+/* 108 - OOCSS (Object-Oriented CSS) Principles */
+/* 109 - Atomic Design Pattern: Atoms, Molecules, Organisms, Templates, Pages */
+/* 110 - CSS Naming Conventions: kebab-case vs camelCase vs snake_case */
+/* 111 - Utility-First vs Component-First vs Semantic CSS */
+/* 112 - CSS Architectures for Large-Scale Projects (Domain-Driven CSS) */
+
+/* 💧 THEMING & DESIGN SYSTEMS */
+/* 113 - CSS Custom Properties (Variables) for Theming */
+/* 114 - Dark Mode Toggle: prefers-color-scheme Media Query, JavaScript Fallback */
+/* 115 - Color Palettes and Accessible Color Contrast Ratios */
+/* 116 - Creating a Design Token System: Variables for Colors, Spacing, Typography */
+/* 117 - Documenting Design System Components (Storybook, Styleguidist) */
+/* 118 - Dynamic Theming with CSS Variables and JavaScript */
+
+/* 🧩 ANIMATIONS & TRANSITIONS */
+/* 119 - CSS Transitions: transition-property, transition-duration, timing-function, delay */
+/* 120 - CSS Animations: @keyframes, animation-name, animation-duration, timing-function, iteration-count, direction */
+/* 121 - Transform Functions: translate(), scale(), rotate(), skew(), perspective() */
+/* 122 - 3D Transforms and transform-style: preserve-3d */
+/* 123 - Animation Performance: will-change, GPU Acceleration, Avoiding Layout Thrashing */
+/* 124 - Animating SVG Elements with CSS: stroke-dasharray, stroke-dashoffset */
+/* 125 - Scroll-triggered Animations: IntersectionObserver API with CSS Classes */
+/* 126 - Parallax Effects Using CSS Perspective, translateZ, transform-style */
+
+/* 🛠 RESPONSIVE IMAGES & MEDIA */
+/* 127 - Responsive Background Images: background-size, background-position, media-query-based backgrounds */
+/* 128 - Picture Element (<picture>) and <source> for Art Direction */
+/* 129 - Object-fit and Object-position for Responsive Media */
+/* 130 - CSS Media Queries for Retina/HiDPI Displays (resolution:, min-device-pixel-ratio) */
+/* 131 - srcset, sizes Attributes for <img> */
+
+/* 📱 MOBILE-FIRST & TOUCH INTERACTIONS */
+/* 132 - Mobile-First Workflow: Designing and Writing CSS Starting at Smallest Screens */
+/* 133 - CSS Touch Action Property (touch-action: manipulation, auto, none) */
+/* 134 - Gestures and Pointer Events: :hover Fallback for Touch, cursor Styles */
+/* 135 - Viewport Units (vw, vh, vmin, vmax) vs % vs rem for Mobile Layouts */
+/* 136 - Safe Area Insets for Notched Devices (env(safe-area-inset-top), CSS Variables) */
+
+/* 🔍 PERFORMANCE & OPTIMIZATION */
+/* 137 - Critical CSS: Inlining Above-the-Fold Styles, Deferring Non-critical CSS */
+/* 138 - Minification and Compression: cssnano, clean-css, gzip/Brotli on Server */
+/* 139 - CSS Delivery: Preload, Preconnect, DNS-Prefetch for Fonts and CSS Resources */
+/* 140 - Reducing Unused CSS: PurgeCSS, UnCSS, Dead Code Elimination */
+/* 141 - Avoiding Selector Loops and Deep Nesting to Improve Rendering Speed */
+/* 142 - Batch DOM Reads and Writes to Avoid Layout Thrashing */
+/* 143 - Use of will-change, contain, and overflow for Paint Containment */
+
+/* 🛡 SECURITY & BEST PRACTICES */
+/* 144 - Preventing CSS Injection: Avoiding Unsanitized User-Generated Classes or IDs */
+/* 145 - Securing @import Sources: Subresource Integrity (SRI) for CSS Files */
+/* 146 - Cross-Origin Resource Sharing (CORS) for Web Fonts and External CSS */
+/* 147 - Content Security Policy (CSP) Directives for Styles: style-src, unsafe-inline Risks */
+
+/* ✅ TESTING & DEBUGGING */
+/* 148 - Debugging CSS in Browser DevTools: Inspect, Computed Styles, Box Model Panel */
+/* 149 - CSS Linting with Stylelint: Configuring Rules, Plugins (stylelint-order, stylelint-scss) */
+/* 150 - Visual Regression Testing with Percy or Chromatic for CSS/UI Changes */
+/* 151 - Accessibility Testing: axe-core, Lighthouse, manual keyboard-only navigation */
+/* 152 - Cross-Browser Testing: BrowserStack, Sauce Labs, Testing Edge Cases in Old Browsers (IE11) */
+/* 153 - Writing CSS Tests with Jest and jest-styled-components for CSS-in-JS */
+
+/* 🌐 CSS FOR WEB COMPONENTS & SHADOW DOM */
+/* 154 - Plain Web Components: <template>, <slot>, Shadow DOM Basics */
+/* 155 - Styling Shadow DOM Elements: ::part, ::slotted, encapsulation boundaries */
+/* 156 - CSS Custom Properties and Inheritance in Shadow DOM Context */
+/* 157 - Using Lit or Stencil for Component-based CSS Management */
+
+/* 🔄 CSS MODULES & SCOPED STYLES */
+/* 158 - CSS Modules in React/webpack: import styles from ‘Component.module.css’ */
+/* 159 - Scoped Styles in Vue Single-File Components (<style scoped>) */
+/* 160 - Angular View Encapsulation Strategies: Emulated, None, Shadow DOM */
+/* 161 - Svelte Scoped CSS: Component-specific CSS, auto-prefixed */
+
+/* 🗂 ARCHITECTURE & METHODOLOGIES */
+/* 162 - Organizing Large CSS Codebases: File Structure, Naming Conventions */
+/* 163 - Atomic CSS vs Utility-first vs Component-based Approaches */
+/* 164 - BEM Naming Deep Dive: Block, Element, Modifier Conventions, Avoiding Selector Conflicts */
+/* 165 - SMACSS Layering: Base, Layout, Module, State, Theme */
+/* 166 - ITCSS Layering: Settings, Tools, Generic, Base, Objects, Components, Utilities */
+/* 167 - CSS-in-JS Architecture Patterns: Styled System, CSS Prop, Theming Strategies */
+
+/* ⚙ TOOLING & WORKFLOW */
+/* 168 - Package.json Scripts for CSS Build: sass, postcss, autoprefixer, purgecss Commands */
+/* 169 - Setting Up Webpack for CSS: style-loader, css-loader, postcss-loader, MiniCssExtractPlugin */
+/* 170 - Using Gulp or Grunt for CSS Tasks: Compiling, Prefixing, Minifying, Deploying */
+/* 171 - BrowserSync or Live Server for Automatic CSS Reloading During Development */
+/* 172 - Linting and Formatting: Prettier for CSS, stylelint Configuration */
+/* 173 - Automating Accessibility and Performance Audits in CI (axe-core CLI, Lighthouse CI) */
+
+/* 📦 FRAMEWORKS & LIBRARIES (ADVANCED) */
+/* 174 - Tailwind CSS Advanced Customization: Configuring tailwind.config.js, Extending Themes, Plugins */
+/* 175 - Bootstrap Custom Builds: SASS Variables, Customizing Components via SASS Maps */
+/* 176 - Material Design Lite (MDL) Theming: Custom Themes, SASS Integration */
+/* 177 - Foundation Prototyping: XY Grid, Flex Grid vs. Block Grid, Building Custom Components */
+/* 178 - Chakra UI Theming under the Hood: Styled System, Emotion, CSS API */
+/* 179 - Bulma SASS Customization: Variables, Grid Customization, Extending Components */
+
+/* 🖼 CSS FOR GRAPHICS & VISUALIZATION */
+/* 180 - Creating Shapes with pure CSS: Circles, Triangles, Polygons using border and clip-path */
+/* 181 - CSS Clip-path and Masking: Creating Complex Shapes, Clipping SVG Paths */
+/* 182 - CSS Gradients for Backgrounds and Text Fill Effects */
+/* 183 - CSS Blend Modes (mix-blend-mode, background-blend-mode) for Visual Effects */
+/* 184 - Using CSS for Simple Charts: Bar graphs with divs, Flexbox-based or CSS Grid-based layouts */
+/* 185 - Creating Icon Systems: SVG Sprite Technique vs Icon Fonts vs React SVG Components */
+
+/* ⚡ PERFORMANCE MONITORING & OPTIMIZATION */
+/* 186 - Measuring CSS Performance: DevTools Performance Tab, Paint Flashing */
+/* 187 - Reducing Paint Areas: Avoid Large Repaints, Using will-change and contain Properties */
+/* 188 - Critical Path CSS: Extracting Critical CSS with tools (Critical, Penthouse) */
+/* 189 - Reducing CSS File Size: Combining, Minifying, GZIP/Brotli Compression */
+/* 190 - Splitting CSS by Media Type: print, screen, speech (prefetching, preloading Strategies) */
+/* 191 - Font Optimization: Subsetting, self-hosting vs Third-party, Preconnect and Preload */
+
+/* 🔒 SECURITY & MAINTAINABILITY */
+/* 192 - Avoiding Inline Styles and Style Attribute for Maintainability */
+/* 193 - Securing Third-Party CSS: Integrity Check with SRI, Subresource Integrity */
+/* 194 - Versioning CSS Assets for Cache Busting (hash in filename, query param) */
+/* 195 - Documenting CSS Guidelines and Coding Standards for Team Consistency */
+
+/* 🛡 COMPATIBILITY & FALLBACKS */
+/* 196 - Vendor Prefixes: -webkit-, -moz-, -ms-, -o-, autoprefixer Best Practices */
+/* 197 - Graceful Degradation vs Progressive Enhancement for Legacy Browsers */
+/* 198 - Feature Detection with @supports (CSS Feature Queries) */
+/* 199 - CSS Hacks for Legacy IE (Conditional Comments, Star Hack, Underscore Hack) */
+/* 200 - Fallbacks for Unsupported Properties: background-color fallback before gradient */
+
+/* 🌐 ACCESSIBILITY & A11Y */
+/* 201 - Using CSS to Improve Accessibility: Focus Outlines, Visible Focus Indicators */
+/* 202 - High Contrast Mode Considerations: Using system colors, prefers-contrast media query */
+/* 203 - Reduced Motion Media Query (prefers-reduced-motion) for Animations Transitions */
+/* 204 - Legible Font Sizes, Line Heights, and Color Contrast Ratios */
+/* 205 - Hiding Content Visually vs Completely Removing from Accessibility Tree (visibility: hidden vs display: none vs aria-hidden) */
+
+/* 🖥 PRINT STYLES & MULTIMEDIA */
+/* 206 - @media print: Styling for Print Layouts, Hiding Non-essential Elements */
+/* 207 - Page Break Controls: page-break-before, page-break-after, orphans, widows */
+/* 208 - Print-friendly Fonts, Colors, and Layout Considerations */
+/* 209 - Styling HTML5 Video and Audio Elements via CSS Controls */
+
+/* 🔄 ADVANCED CSS CONCEPTS */
+/* 210 - CSS Houdini APIs: Paint API, Layout API, Typed OM (Object Model) */
+/* 211 - CSS Variables (Custom Properties) Deep Dive: Inheritance, Cascade, Runtime Manipulation */
+/* 212 - Logical Properties and RTL Support: margin-inline-start, padding-block-end */
+/* 213 - CSS Grid Subgrid (W3C Candidate) for Complex Nested Grids */
+/* 214 - CSS Scroll Snap: scroll-snap-type, scroll-snap-align, scroll-snap-stop */
+/* 215 - CSS Scrollbars Styling (::-webkit-scrollbar, scrollbar-color, scrollbar-width) */
+/* 216 - CSS Masking and Clipping with clip-path, mask-image, mask-mode */
+/* 217 - CSS Media Queries Level 4: aspect-ratio, dynamic-range, color-gamut, pointer */
+/* 218 - CSS Houdini Typed Object Model: Working with numeric types, color types, length units */
+/* 219 - CSS Container Queries (WICG Spec): Querying parent container size for truly responsive components */
+
+/* 🧰 CSS INTEGRATION WITH JAVASCRIPT & FRAMEWORKS */
+/* 220 - Dynamically Manipulating CSS Classes with JavaScript: classList, className, style.property */
+/* 221 - Using CSS Custom Properties in JavaScript (getComputedStyle, style.setProperty) */
+/* 222 - Integrating CSS Modules in React/Vue/Angular: scoping, dynamic imports */
+/* 223 - Tailwind CSS JIT Class Generation and Purge Logic in JS Frameworks */
+/* 224 - Using Styled Components or Emotion in React: Theming via Context, Server-Side Rendering */
+/* 225 - Integrating PostCSS in Build Pipelines: Configuring autoprefixer, postcss-preset-env, cssnano */
+
+/* 📦 PACKAGING & DEPLOYMENT FOR CSS */
+/* 226 - Bundling CSS with Webpack: MiniCssExtractPlugin, CSS Minification, Source Maps */
+/* 227 - Splitting CSS by Route or Component in Single-Page Applications (Code Splitting) */
+/* 228 - Deploying CSS to CDNs: Cache-Control Headers, Cache Busting Strategies */
+/* 229 - Version Control for CSS: Git Branching Strategies, Code Reviews, Style Guides */
+/* 230 - CI/CD Pipeline Integration: Automated Linting, Testing, and Deployment of CSS Assets */
+
+/* 📊 MONITORING & ANALYTICS FOR CSS */
+/* 231 - Measuring Real-User CSS Performance: Web Vitals (CLS, LCP), RUM Tools */
+/* 232 - Identifying Render-blocking CSS: Critical Path Analysis, Preload vs Preconnect */
+/* 233 - Tracking CSS Usage with Chrome Coverage Tab: Identifying Unused CSS */
+/* 234 - Visual Regression Testing for CSS Changes: Percy, Chromatic, Storybook Integration */
+
+/* 🌟 ADVANCED THEMING & DESIGN SYSTEMS */
+/* 235 - Building a Scalable Design System: Tokens, Components, Documentation Practices */
+/* 236 - Theming Strategies: Multiple Themes via CSS Variables, Theming at Build vs Runtime */
+/* 237 - Cross-Platform Theming: Web, React Native, Flutter Integration Patterns */
+/* 238 - Automated Generation of CSS Documentation: Styleguidist, Docz, Storybook Docs */
+
+/* 🏗 CSS FOR COMPONENT LIBRARIES & FRAMEWORKS */
+/* 239 - Developing a Custom CSS Component Library: Modular CSS, Theming, Versioning */
+/* 240 - Publishing CSS Libraries to npm: Package.json, Style Field, Module Field */
+/* 241 - Rollup Configuration for Distributable CSS Packages: postcss Rollup Plugin, linting */
+/* 242 - Managing Peer Dependencies and Bundled CSS in Libraries */
+
+/* 📈 FUTURE OF CSS & STANDARDS */
+/* 243 - Upcoming CSS Features in Draft Proposals: Container Queries, :has() Selector, subgrid */
+/* 244 - Houdini Paint API: Creating Custom Paint Worklets, registerPaint() */
+/* 245 - CSS Layout API (Houdini): registerLayout(), Custom Algorithms for Layout */
+/* 246 - Typed Object Model (Typed OM) for CSS: Working with Typed CSS Values in JS */
+/* 247 - CSS Color Module Level 4: Lab(), LCH(), color() Function, color-contrast() */
+/* 248 - CSS Selectors Level 4: :has(), :is(), :where(), :nth-child(An+B of S) */
+
+/* 💼 CAREER & COMMUNITY */
+/* 249 - Contributing to CSS Standards: Following W3C and WHATWG Processes */
+/* 250 - Keeping Up with CSS: MDN Web Docs, CSS-Tricks, Smashing Magazine, A List Apart */
+/* 251 - Participating in CSS Community: CSS Working Group, Frontend Masters, CSS Conf Talks */
+/* 252 - Writing Technical CSS Documentation: Markdown Style Guides, Living Style Guides */
+
+/* — END OF CSS SYLLABUS — */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ======================
+// DSA Full Syllabus
+// (Beginner to Expert)
+// ======================
+
+// 📘 FUNDAMENTALS & SETUP
+// 01 - What are Data Structures and Algorithms (DSA), why they matter
+// 02 - Time complexity basics: Big O notation, Big Ω, Big Θ
+// 03 - Space complexity analysis: auxiliary vs total space
+// 04 - Amortized analysis: understanding dynamic array resizing, hash table operations
+// 05 - Recurrence relations: solving via substitution, master theorem, recursion trees
+// 06 - Asymptotic notations in practice: comparing functions, common complexity classes
+// 07 - Input sizes and constraints: estimating feasible algorithms based on N, memory limits
+// 08 - Profiling code: measuring runtime and memory in chosen language (e.g., Python, C++, Java)
+// 09 - Coding environment setup: choosing a language, configuring editor/IDE, setting up compilers/interpreters
+// 10 - Practice platforms introduction: LeetCode, Codeforces, HackerRank, AtCoder, GeeksforGeeks
+
+// 🔤 MATHEMATICAL FOUNDATIONS
+// 11 - Number systems: binary, octal, decimal, hexadecimal conversions
+// 12 - Modular arithmetic: operations mod M, properties, Fermat’s Little Theorem, modular inverses
+// 13 - Greatest Common Divisor (GCD) and Least Common Multiple (LCM): Euclid’s algorithm, extended Euclid
+// 14 - Prime numbers: primality checking (trial division), Sieve of Eratosthenes, Sieve of Atkin
+// 15 - Factorization: Pollard’s Rho algorithm, trial division optimizations
+// 16 - Combinatorics basics: permutations, combinations, factorials, Pascal’s triangle, binomial coefficients
+// 17 - Probability basics: expected value, linearity of expectation, simple probability calculations
+// 18 - Pigeonhole principle: applications in problem-solving
+// 19 - Number theory algorithms: Euler’s totient function, Möbius function, Chinese Remainder Theorem
+// 20 - Logarithms and exponentials: properties, changing bases, integer powers and roots
+
+// 📊 COMPLEXITY CLASSES & PARADIGMS
+// 21 - Brute force approach: definition, when to use, limitations
+// 22 - Divide and conquer paradigm: breaking problems, combining results, common examples
+// 23 - Greedy paradigm: making local optimal choices, proofs of correctness, greedy strategies
+// 24 - Dynamic programming paradigm: overlapping subproblems, optimal substructure, memoization vs tabulation
+// 25 - Backtracking paradigm: constructing solutions incrementally, pruning branches, use cases
+// 26 - Branch and bound: advanced search with bounding functions, solving optimization problems
+// 27 - Recursion and recursion trees: tracing recursive calls, tail recursion vs head recursion
+// 28 - Iterative vs recursive implementations: space and time trade-offs
+// 29 - Bit manipulation techniques: bitwise operators, masks, bit tricks for optimization
+// 30 - Randomized algorithms: randomized quicksort, randomized selection, Monte Carlo vs Las Vegas
+
+// 🗂 BASIC DATA STRUCTURES
+// 31 - Arrays: contiguous memory, indexing, iteration, pros/cons
+// 32 - Dynamic arrays (vectors/ArrayList): resizing strategies, amortized time complexity
+// 33 - Linked lists: singly vs doubly linked lists, node structure, traversal
+// 34 - Operations on linked lists: insertion, deletion, reversing, detecting cycles (Floyd’s Tortoise and Hare)
+// 35 - Stacks: LIFO principle, implementation via array or linked list, stack applications (parentheses matching, DFS)
+// 36 - Queues: FIFO principle, implementation via array or linked list, circular buffer, deque
+// 37 - Priority queues (heaps): binary heap structure, heapify, push/pop operations
+// 38 - Hash tables (hash maps/sets): hashing function, collision resolution (chaining vs open addressing), load factor
+// 39 - Balanced binary search trees: AVL trees, Red-Black trees, insert/delete balancing techniques
+// 40 - Unbalanced BST: operations, worst-case linear performance, use cases
+
+// 🔢 ADVANCED DATA STRUCTURES
+// 41 - Segment trees: building, point updates, range queries (sum, min, max), lazy propagation
+// 42 - Fenwick trees (Binary Indexed Trees): prefix sums, updates, space-time trade-offs
+// 43 - Trie (prefix tree): insertion, search, prefix queries for strings, memory considerations
+// 44 - Suffix Trie and Suffix Tree: construction (Ukkonen’s algorithm), applications in substring queries
+// 45 - Suffix Array: construction via suffix sorting (SA-IS), LCP array, pattern matching
+// 46 - Disjoint Set Union (Union-Find): union by rank, path compression, offline connectivity queries
+// 47 - Skip lists: probabilistic linked structure, search/insert/delete complexities
+// 48 - B-Trees and B+ Trees: disk-based trees, order, splitting and merging nodes, database indexing
+// 49 - KD-Trees: k-dimensional binary search tree, nearest neighbor search, range search
+// 50 - Interval trees: storing intervals, querying overlapping intervals, augmented BST variants
+// 51 - Range Minimum Query (RMQ): sparse table method, segment tree approach, LCA applications
+// 52 - Rope data structure: balanced tree for efficient string concatenation and substring operations
+// 53 - Bloom filters: probabilistic membership testing, false positive rate, hash functions selection
+// 54 - LRU Cache implementation: using hash map + doubly linked list for O(1) operations
+// 55 - Skip vectors and finger trees: functional data structures for sequences, persistence support
+
+// 🔍 SORTING & SEARCHING ALGORITHMS
+// 56 - Comparison-based sorts: Bubble sort, Selection sort, Insertion sort, Time complexities
+// 57 - Merge Sort: divide-and-conquer, stable sort, O(n log n) time, O(n) space
+// 58 - Quick Sort: partition schemes (Lomuto, Hoare), average vs worst case, randomized pivots
+// 59 - Heap Sort: building heap, in-place sorting, time and space analysis
+// 60 - Counting Sort and Radix Sort: non-comparison sorts for integers, digit-based sorting, stable versions
+// 61 - Bucket Sort: distributing elements into buckets, use cases with uniform distributions
+// 62 - Shell Sort: gap sequences, diminishing increments, trade-offs
+// 63 - TimSort: hybrid sort (merge sort + insertion sort) used in Python, Java, identifying runs
+// 64 - Binary Search: preconditions (sorted array), iterative vs recursive, edge-case handling
+// 65 - Ternary Search: searching unimodal function, applications in optimization
+// 66 - Exponential (Galloping) Search: searching in unbounded/unlimited lists, combining binary search
+// 67 - Interpolation Search: probing position based on value, average-case improvements over binary search
+// 68 - Search in rotated sorted array: identifying pivot, binary search adaptation
+// 69 - Search in bitonic array: finding peak, binary searches on subarrays
+// 70 - Search in 2D matrix: row-wise and column-wise sorted matrix search via binary search or divide-and-conquer
+
+// 🖥 TREE DATA STRUCTURES & ALGORITHMS
+// 71 - Binary Trees: node definition, traversal orders (inorder, preorder, postorder) recursively and iteratively
+// 72 - Level Order Traversal: BFS using queue, printing by level, zigzag level order
+// 73 - Binary Search Tree (BST): search, insert, delete operations, in-order successor/predecessor
+// 74 - Balanced BST operations: rotations (left, right) in AVL and Red-Black trees
+// 75 - Tree height and depth calculations: recursive definitions, iterative methods
+// 76 - Lowest Common Ancestor (LCA): binary lifting (sparse table), Euler tour + RMQ methods
+// 77 - Check BST validity: in-order traversal method, recursive min-max bound method
+// 78 - Serialize and Deserialize Tree: converting tree to string and back (Preorder with null markers)
+// 79 - Invert/Flip Binary Tree: swapping left and right children recursively or iteratively
+// 80 - Construct Tree from Traversals: preorder+inorder, postorder+inorder, level order+inorder
+// 81 - Balanced tree checks: height-balanced (AVL) verification, perfect tree conditions
+// 82 - Path sum problems: root-to-leaf path sum, path sum equals target, path sum II (all root-to-leaf paths)
+// 83 - Diameter of a Tree: longest path between any two nodes, two-pass DFS algorithm
+// 84 - Kth smallest/largest element in BST: using in-order traversal or augmenting node counts
+// 85 - Convert sorted array to BST: mid element as root, recursive construction
+// 86 - BST to sorted doubly linked list: in-order traversal linking nodes
+// 87 - Binary Indexed Tree on tree (Fenwick on tree): subtree sum queries, point updates
+// 88 - Segment tree applications on tree (Heavy-Light Decomposition): path queries, updates
+// 89 - Trie tree for IP routing: storing binary representations, longest prefix matching
+// 90 - Merkle Trees: hashing leaves, building tree for data integrity verification
+
+// 🌐 GRAPH THEORY & ALGORITHMS
+// 91 - Graph terminology: vertices, edges, directed vs undirected, weighted vs unweighted
+// 92 - Graph representations: adjacency matrix, adjacency list, edge list
+// 93 - Graph traversal: Depth-First Search (DFS) recursively and iteratively, applications (cycle detection, topological sort)
+// 94 - Breadth-First Search (BFS): level order, shortest path in unweighted graph, bipartiteness check
+// 95 - Cycle detection in directed and undirected graphs: DFS coloring or union-find methods
+// 96 - Topological Sort: Kahn’s algorithm (BFS) vs DFS-based, applications in scheduling/dependency resolution
+// 97 - Dijkstra’s Algorithm: single-source shortest path for non-negative weights, priority queue usage
+// 98 - Bellman-Ford Algorithm: handling negative weights, detecting negative cycles
+// 99 - Floyd-Warshall Algorithm: all-pairs shortest paths, dynamic programming on adjacency matrix
+// 100 - A* Search Algorithm: heuristic-based pathfinding, admissible heuristics, priority queue
+// 101 - Minimum Spanning Tree (MST): Kruskal’s algorithm (union-find) vs Prim’s algorithm (min-heap or dense graph DP)
+// 102 - Disjoint Set Union (DSU) applications in cycle detection, Kruskal’s, connected components
+// 103 - Strongly Connected Components (SCC): Kosaraju’s algorithm (2-pass DFS), Tarjan’s algorithm (lowlink values)
+// 104 - Bridge and articulation points: finding critical edges and vertices via DFS timestamps and low values
+// 105 - Biconnected components: generating blocks, articulation points, DFS low-link method
+// 106 - Eulerian Path and Circuit: necessary and sufficient conditions in undirected and directed graphs, Hierholzer’s algorithm
+// 107 - Hamiltonian Path and Cycle: backtracking approach, NP-complete nature, heuristics (Warnsdorff’s rule for knight’s tour)
+// 108 - Maximum flow (Ford-Fulkerson, Edmonds-Karp) and Min-cut: augmenting paths, capacity scaling
+// 109 - Dinic’s Algorithm: level graph construction (BFS), blocking flow (DFS), complexity O(E√V)
+// 110 - Push-Relabel (Goldberg-Tarjan): preflow-push operations, gap heuristic, global relabeling heuristic
+// 111 - Matching in Bipartite Graphs: Hungarian algorithm for maximum weight matching, Hopcroft-Karp for unweighted maximum matching
+// 112 - Network flow applications: bipartite matching reduction, min-cut max-flow for assignment, circulation problems
+// 113 - Graph coloring: greedy coloring, backtracking for optimal coloring, bipartite check as 2-coloring
+// 114 - Traveling Salesman Problem (TSP) brute force vs Held-Karp DP O(n2^n), approximations (2-approx MST, Christofides)
+// 115 - Shortest path in DAG: topological order DP for weighted DAGs
+
+// 🌀 STRING ALGEBRAS & PATTERN MATCHING
+// 116 - String basics: representation in memory, immutability considerations
+// 117 - Brute-force string search: O(nm) algorithm, sliding window concept
+// 118 - Knuth-Morris-Pratt (KMP) Algorithm: prefix function (lps array), linear-time pattern search
+// 119 - Boyer-Moore Algorithm: bad character rule, good suffix rule, preprocessing heuristics
+// 120 - Rabin-Karp Algorithm: rolling hash, collision handling, average-case O(n+m)
+// 121 - Z-Algorithm: Z-array construction, string matching, pattern preprocessing
+// 122 - Trie-based pattern search: building suffix automaton (SAM), suffix link concept
+// 123 - Aho-Corasick Algorithm: multi-pattern search, building failure links, applications in keyword filtering
+// 124 - Suffix Automaton: building in O(n), counting distinct substrings, longest common substring
+// 125 - Suffix Array + LCP: suffix array construction (SA-IS), Kasai’s algorithm for LCP, substring queries
+// 126 - Rolling hash based substring problems: finding palindrome substrings, string hashing collision avoidance
+// 127 - Wildcard and regex matching: backtracking vs dynamic programming approach for patterns with '*' and '?'
+// 128 - Edit Distance (Levenshtein Distance): DP formulation, time and space trade-offs, backtracking to reconstruct operations
+// 129 - Longest Common Subsequence (LCS): classic DP O(nm), space optimization to O(min(n,m))
+// 130 - Longest Common Substring: using DP or suffix array/trie approaches
+// 131 - Longest Palindromic Substring: expand around center vs Manacher’s algorithm for linear time
+// 132 - Palindromic Tree (Eertree): maintaining palindromic substrings in streaming fashion, O(n) time
+// 133 - Longest Repeating Substring: suffix array + LCP, binary search for length
+// 134 - Burrows-Wheeler Transform (BWT): reverse transform, FM-index for full-text search
+// 135 - De Bruijn Sequence and De Bruijn Graphs: graph representation for k-mers, genome assembly basics
+
+// 🔄 RECURSION & BACKTRACKING PROBLEMS
+// 136 - Understanding recursion tree depth and stack usage limits
+// 137 - Generating subsets (power set): recursive inclusion/exclusion, bitmasking approach
+// 138 - Generating permutations: recursive swapping vs visited array, handling duplicates
+// 139 - Combinations and combinations sum: recursive combination building, pruning by sum
+// 140 - N-Queens Problem: backtracking placement, column/diagonal constraints, bitmask optimization for N up to 15
+// 141 - Sudoku Solver: backtracking with constraint propagation, bitmasking rows/cols/boxes
+// 142 - Word Search in 2D Grid: DFS with visited marking, pruning out-of-bounds
+// 143 - Knight’s Tour Problem: backtracking with Warnsdorff’s heuristic, closed vs open tours
+// 144 - Rat in a Maze: pathfinding with backtracking, visited marking, all possible paths
+// 145 - Hamiltonian Path via backtracking: checking all permutations for small graphs
+// 146 - Subset Sum Problem: recursive DP vs backtracking, branch-and-bound optimizations
+// 147 - Partition into K equal sum subsets: backtracking with pruning, bitmask DP optimization
+// 148 - Word Break Problem: recursion + memoization, dynamic programming approach
+// 149 - Palindrome Partitioning: backtracking to split string into palindromic substrings
+// 150 - Expression Add Operators: generating all possible operator insertions to reach target
+
+// 🧩 DYNAMIC PROGRAMMING (DP)
+// 151 - DP fundamentals: overlapping subproblems vs recursion, memoization vs tabulation
+// 152 - 0/1 Knapsack Problem: recursive formulation, bottom-up DP O(N×W), space optimizations
+// 153 - Unbounded Knapsack Problem: DP modifications to allow multiple picks
+// 154 - Longest Increasing Subsequence (LIS): O(n^2) DP and O(n log n) patience sorting method
+// 155 - Longest Decreasing Subsequence: similar to LIS by negating or reversing comparisons
+// 156 - Longest Common Subsequence (LCS) (repeat) and Longest Common Substring (repeat)
+// 157 - Edit Distance (repeat), Wildcard Pattern Matching DP
+// 158 - Matrix Chain Multiplication: parenthesization cost DP, optimal substructure
+// 159 - Optimal Binary Search Tree: DP for minimizing search cost based on frequency
+// 160 - Partition DP: partitioning array into subarrays to minimize cost (e.g., partitioning for k segments)
+// 161 - Minimum Path Sum in grid: DP on 2D grid, handling obstacles
+// 162 - Unique Paths and Unique Paths II (with obstacles): combinatorial vs DP approach
+// 163 - Coin Change Problem: DP to count ways vs DP to minimize number of coins
+// 164 - Subset Sum (repeat), Partition Equal Subset Sum: DP bitset optimizations
+// 165 - DP on bitmask: Traveling Salesman DP O(n^2·2^n), subset DP problems (matching, assignment)
+// 166 - DP on trees: tree DP for subtree properties (size, sum, max path), rerooting technique
+// 167 - DP on graphs (DAG): shortest/longest path in DAG via topological order
+// 168 - DP with convex hull trick and Li Chao tree: optimizing linear DP transitions, CHT basics
+// 169 - DP with divide and conquer optimization: monotonicity conditions, knuth optimization, quadrangle inequality
+// 170 - DP with bitset optimizations: speedups for large sums/bitmask DP in competitive programming
+
+// 🔨 GREEDY ALGORITHMS
+// 171 - Interval Scheduling: selecting maximum non-overlapping intervals by earliest finish time
+// 172 - Activity Selection Problem: greedy interval scheduling (repeat with reconstruction of schedule)
+// 173 - Fractional Knapsack: greedy by value/weight ratio, proof of optimality
+// 174 - Huffman Coding: building prefix codes via min-heap, constructing code table
+// 175 - Minimum Number of Platforms Required for Railway Station: greedy sorting by arrival and departure times
+// 176 - Job Sequencing with Deadlines: greedy with disjoint-set or priority queue
+// 177 - Gas Station/Car Fueling Problem: greedy simulation of fuel stops
+// 178 - Scheduling to Minimize Lateness: scheduling by deadlines, earliest deadline first
+// 179 - Building Minimum Cost Connections: MST via Kruskal/Prim (repeat graph MST context in greedy)
+// 180 - Coin Change Greedy for canonical coin systems: when greedy fails vs when it works
+
+// 🔢 MATHEMATICAL & BITWISE PROBLEMS
+// 181 - Counting set bits: Brian Kernighan’s algorithm, __builtin_popcount in C/C++
+// 182 - Checking power of two: n & (n-1) trick, bitwise methods
+// 183 - Swapping two numbers without extra variable: XOR swap method, addition-subtraction swap
+// 184 - Gray code generation: recursive and bitwise formula (n ^ (n >> 1))
+// 185 - Next higher/lower number with same number of set bits: Brian Kernighan’s pattern
+// 186 - Bitwise DP on subsets: iterate over submasks via (mask - 1) & original_mask
+// 187 - Binary exponentiation (fast power): exponentiation by squaring
+// 188 - Modular exponentiation: fast power under modulus, handling large exponents
+// 189 - Multiplicative inverse under prime modulus: Fermat’s little theorem (a^(p-2) mod p)
+// 190 - Chinese Remainder Theorem applications: solving simultaneous congruences
+// 191 - Prefix XOR array: range XOR queries, find subarrays with given XOR using hash map
+// 192 - Lowest set bit calculations: n & -n to isolate least significant bit
+
+// 🧑‍🤝‍🧑 PROBLEM-SOLVING PATTERNS & STRATEGIES
+// 193 - Sliding Window Pattern: fixed and variable window sizes for subarray substring problems
+// 194 - Two Pointers Technique: sorting array and using two indices for sum, triplet, pair problems
+// 195 - Fast and Slow Pointers: cycle detection, finding middle of linked list, palindrome check
+// 196 - Prefix Sum and Difference Array: cumulative sums for range queries, difference array for range updates
+// 197 - Prefix XOR and Hash Map: subarray XOR problems
+// 198 - Bitmask Enumeration: iterating subsets, representing set of features, solving subset-sum variants
+// 199 - Four Sum, Three Sum Generalizations: reducing k-sum to two-sum via sorting and two pointers
+// 200 - Monotonic Stack: next greater/smaller element problems, histogram largest rectangle
+// 201 - Monotonic Queue/Deque: sliding window maximum/minimum in O(n)
+// 202 - Reservoir Sampling: randomly sampling k items from N-stream, online algorithms
+// 203 - Top K Elements: using min-heap of size k, quickselect algorithm for kth largest element
+// 204 - Merge Intervals: sorting by start time, merging overlapping intervals
+// 205 - Meeting Rooms: checking overlapping intervals with sorting or min-heap
+// 206 - Skyline Problem: using heap or divide-and-conquer to compute building silhouette
+// 207 - LRU Cache, LFU Cache design: using ordered dictionaries, frequency lists, maps of lists
+// 208 - Randomized selection (Quickselect): average O(n) to find kth element, worst-case O(n^2) with bad pivots
+// 209 - Fisher-Yates Shuffle: generating unbiased random permutations
+// 210 - Floyd’s Cycle-Finding for Sequence Detection: finding cycle length, starting index
+
+// 🔧 PRACTICAL IMPLEMENTATION & BEST PRACTICES
+// 211 - Choosing appropriate data structures for given constraints: array vs list vs tree vs hash
+// 212 - Memory usage considerations: avoiding recursion depth overflow, using iterative methods when needed
+// 213 - Edge-case handling: empty inputs, single-element cases, duplicate values, maximum constraints
+// 214 - Input/output optimization: fast I/O in C++ (ios::sync_with_stdio), BufferedReader in Java
+// 215 - Handling large integers: using 64-bit types, arbitrary precision libraries (BigInt, BigInteger)
+// 216 - Floating-point precision issues: comparing with eps, using integer arithmetic where possible
+// 217 - Using language-specific libraries: std::sort vs custom sort, built-in hash maps/sets vs custom implementations
+// 218 - Template code snippets: reading and writing DSA templates, reusing code for priority queue, DSU, segment tree
+// 219 - Code readability and maintainability: clear variable names, commenting complex logic, consistent style
+// 220 - Version control for DSA practice: organizing solutions by topic, tagging important problems
+
+// 🏆 COMPETITIVE PROGRAMMING & CONTEST PREPARATION
+// 221 - Competitive programming mindset: algorithmic thinking, time management, optimizing for speed
+// 222 - Common contest frameworks: Codeforces, AtCoder, HackerEarth, Kick Start, ICPC style contests
+// 223 - Problem classification: easy, medium, hard; identifying patterns quickly
+// 224 - Time management in contests: prioritizing quick solvable problems, bookmarking hardest problems
+// 225 - Debugging under time pressure: using assert statements, small test cases, printing intermediate values
+// 226 - Team contests and collaboration: dividing problems, sharing code templates, virtual participation
+// 227 - Practice cycles: daily practice, weekly mock contests, analyzing past contest editorials
+// 228 - Rating improvement strategies: participating in different contest platforms, identifying weak areas
+// 229 - Code template setup: single file with template code for DSU, segment tree, fast I/O, modular arithmetic
+// 230 - Using C++ STL or Java Collections effectively: priority_queue, vector, set, map, unordered_map
+
+// 🌐 TOOLING & ONLINE JUDGES
+// 231 - Setting up local testing harness: custom input files, output comparison scripts
+// 232 - Debugging via online IDEs vs local IDEs: pros and cons, handling platform differences
+// 233 - GitHub repositories for DSA solutions: organizing by topic, adding README explanations
+// 234 - Using online judge features: custom test cases, practice problems, badges and rating system
+// 235 - Automated testing scripts: shell scripts or Python scripts to run multiple test files
+// 236 - Integration with VSCode/CLion for problem-solving: plugins for competitive programming, code runner
+// 237 - Containerized coding environments: using Docker for consistent toolchain across machines
+// 238 - Virtual judges for practice: UVA Online Judge, SPOJ, CodeChef, AtCoder, HackerRank
+// 239 - Competitive programming libraries: GNU PBDS for order statistics tree, C++ rope, policy-based data structures
+// 240 - Continuous benchmarking: measuring solution speed and memory on large test cases
+
+// 📐 SYSTEM DESIGN PATTERMS FOR ALGORITHMS
+// 241 - Cache-conscious data structures: designing for CPU cache, minimizing cache misses
+// 242 - External memory algorithms: handling data that doesn’t fit in RAM, streaming algorithms
+// 243 - Parallel and concurrent algorithms: multithreading basics, thread-safe data structures, lock-free programming
+// 244 - GPU-based algorithms: basics of CUDA/OpenCL for parallel computing on large datasets
+// 245 - Distributed algorithms: map-reduce paradigm, distributed sorting, distributed graph processing
+// 246 - MapReduce patterns: word count, joining large datasets, distributed aggregation
+// 247 - Consistent hashing in distributed storage: ring-based partitioning, virtual nodes
+// 248 - Bloom filter usage in distributed systems: membership testing across nodes, false positive tuning
+// 249 - Sketching and streaming: Count-Min Sketch, HyperLogLog for approximate counting and cardinality
+// 250 - Approximation algorithms: PTAS, FPTAS, greedy approximations for NP-hard problems (vertex cover, set cover)
+
+// 🔒 SECURITY & ROBUSTNESS IN ALGORITHMIC CONTEXT
+// 251 - Preventing integer overflow: safe arithmetic checks in code, using built-in functions
+// 252 - Handling malicious inputs: validating input ranges, avoiding excessive recursion from crafted inputs
+// 253 - Secure hashing usage: avoiding collisions with MD5/SHA1, using SHA-256 or SHA-3 for cryptographic needs
+// 254 - Random number generation: using secure RNG vs pseudo RNG, uniform distribution correctness
+// 255 - Avoiding timing attacks in comparisons: constant-time comparison functions for sensitive data
+// 256 - Sanitizing inputs in string algorithms: preventing regex injections, unsafe memory access in C++
+// 257 - Protecting against denial-of-service via algorithmic complexity attacks: validating constraints before running algorithms
+
+// 🎓 INTERVIEW PREPARATION & RESOURCES
+// 258 - Behavioral vs technical interviews: balancing soft skills and DSA discussion
+// 259 - Whiteboard coding best practices: writing clean code without syntax highlighting, verbalizing thought process
+// 260 - Mock interview platforms: Pramp, Interviewing.io, LeetCode mock interviews
+// 261 - Common interview question patterns: arrays, strings, linked lists, trees, graphs, DP, greedy
+// 262 - Building a personal problem log: tracking solved problems, writing short explanations and complexity notes
+// 263 - Explaining complexity to interviewer: articulating time/space trade-offs clearly
+// 264 - Communicating edgecases and testing: walking through sample tests and corner cases verbally
+// 265 - Code optimization discussion: when to optimize, what micro-optimizations matter in interview context
+// 266 - Writing clean and modular code: dividing into helper functions, avoiding deep nesting
+// 267 - Asking clarifying questions: interpreting ambiguous problem statements correctly
+// 268 - Following up post-interview: reflecting on feedback, revisiting unsolved problems
+// 269 - Leveraging company-specific problem patterns: practicing tagged problems from major tech companies
+// 270 - Staying calm under pressure: strategies for decompression mid-interview, structured approach to long problems
+
+// 🏆 CAREER & COMMUNITY
+// 271 - Contributing to open-source DSA repositories: adding solutions, improving documentation
+// 272 - Writing technical blog posts: explaining complex algorithms, step-by-step walkthroughs, visualizations
+// 273 - Presenting at local meetups or conferences: DSA talks, live coding sessions
+// 274 - Mentoring others: conducting coding workshops, guiding novices through foundational topics
+// 275 - Participating in hackathons: applying DSA knowledge to real-world product building under time constraints
+// 276 - Staying updated: following algorithm research blogs, new problem patterns on platforms
+// 277 - Reading classic texts: CLRS (Introduction to Algorithms), Skiena’s Algorithm Design Manual, Competitive Programming by Halim
+// 278 - Exploring recent advances: learned index structures, succinct data structures, compressed indices
+// 279 - Engaging in collaborative problem-solving: pair programming sessions, team-based contests
+// 280 - Setting long-term learning goals: mastering one new algorithmic paradigm every quarter, tracking progress
+
+// — END OF DSA SYLLABUS —  

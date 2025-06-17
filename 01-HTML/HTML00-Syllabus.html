@@ -1,0 +1,396 @@
+<!--
+======================
+HTML Full Syllabus
+(Beginner to Expert)
+======================
+
+📘 BASICS & SETUP
+01 - What is HTML and why use it?
+02 - Versions of HTML: HTML4 vs XHTML vs HTML5
+03 - Setting up your development environment: text editors (VSCode, Sublime, Atom), browser basics
+04 - Creating and saving an .html file, open in browser
+05 - Basic HTML document structure: <!DOCTYPE html>, <html>, <head>, <body>
+06 - Character encoding: <meta charset="UTF-8">, importance of UTF-8
+07 - Validating HTML: W3C Markup Validation Service, linting with HTMLHint
+
+🔤 SYNTAX & FUNDAMENTALS
+08 - Elements and tags: start tag, end tag, self-closing tags
+09 - Attributes: global attributes (id, class, title, style), attribute syntax
+10 - Nesting rules: parent-child relationships, block-level vs inline elements
+11 - Semantic vs non-semantic tags: importance of semantics
+12 - HTML case sensitivity: lowercase convention in HTML5
+13 - HTML comments: <!-- comment -->, usage and best practices
+14 - Whitespace and formatting: collapsing whitespace, line breaks, indentation
+
+📁 DOCUMENT STRUCTURE & METADATA
+15 - <!DOCTYPE html>: purpose and effect on rendering
+16 - <html> element and lang attribute: specifying document language (lang="en")
+17 - <head> section: metadata container, ordering of <title>, <meta>, <link>, <script>
+18 - <title> element: importance for SEO and browser tabs
+19 - <meta> tags: viewport (responsive), description, keywords, author, robots
+20 - <base> tag: setting a base URL for relative links
+21 - Favicon inclusion: <link rel="icon" href="favicon.ico">, multiples sizes/formats
+22 - Linking external resources: <link rel="stylesheet" href="styles.css">
+23 - Embedding external scripts: <script src="script.js" async defer>, placement in <head> vs <body>
+
+🔤 TEXT CONTENT & TYPOGRAPHY
+24 - Text-level semantics: <h1>–<h6> for headings, <p> for paragraphs
+25 - Inline text elements: <span>, <strong>, <em>, <small>, <mark>, <del>, <ins>
+26 - Quotation elements: <blockquote>, <q>, <cite>, usage and citation formatting
+27 - Abbreviation and abbreviation expansion: <abbr title="...">
+28 - Definition lists: <dl>, <dt>, <dd> for term-definition pairs
+29 - Line breaks and horizontal rules: <br>, <hr>, use cases and accessibility implications
+30 - Preformatted text: <pre> and <code> for code blocks and preserving whitespace
+31 - Semantic grouping: <address>, <figure> with <figcaption>
+
+🔗 LINKS & NAVIGATION
+32 - Hyperlinks: <a href="url">, absolute vs relative URLs
+33 - Anchor attributes: target="_blank", rel="noopener noreferrer"
+34 - Linking to page fragments: <a href="#section1">, using id attributes
+35 - Navigation menus: unordered lists (<ul><li><a>), best practices for accessibility
+36 - Breadcrumb navigation patterns: semantics and SEO considerations
+37 - Link states: :link, :visited, :hover, :active, styling conventions
+38 - Linking to external resources: telephone links (tel:), email links (mailto:), file downloads
+39 - Bookmarking and deep linking: creating persistent in-page anchors
+
+🖼 IMAGES & MULTIMEDIA
+40 - Embedding images: <img src="image.jpg" alt="description">, importance of alt attributes
+41 - Responsive images: srcset, sizes attributes, <picture> element for art direction
+42 - Image formats: JPEG, PNG, GIF, SVG, WebP—when to use which
+43 - Lazy loading images: loading="lazy" attribute for <img>
+44 - Image captions: wrapping <img> in <figure> with <figcaption>
+45 - Multimedia embedding: <audio> with <source> and controls, supported formats
+46 - <video> element: <source> for multiple codecs, poster attribute, controls, autoplay, loop, muted
+47 - Embedding YouTube or other iframes: <iframe src="...">, responsive iframe patterns, title attribute
+48 - Canvas element basics: <canvas id="myCanvas" width="600" height="400"></canvas>, introductory use cases
+
+📑 LISTS & TABLES
+49 - Ordered lists: <ol> and list item ordering, nested lists
+50 - Unordered lists: <ul> for bullet lists, nesting and styling
+51 - Definition lists: <dl> for term-definition pairs (repeat)
+52 - Table structure: <table>, <thead>, <tbody>, <tfoot>, <tr>, <th>, <td>
+53 - Table captions and summaries: <caption>, summary attribute (deprecated in HTML5), ARIA roles
+54 - Table accessibility: scope, headers attribute, <th scope="row|col">
+55 - Table styling: using CSS to collapse borders, zebra striping, sticky headers
+56 - Responsive tables: <div class="table-responsive"> patterns, overflow-x: auto
+57 - Complex tables: rowSpan, colSpan attributes
+
+🖋 FORMS & INPUTS
+58 - <form> element: action, method (GET vs POST), enctype attribute for file upload
+59 - Input types: text, password, email, number, url, tel, search, date, datetime-local, month, week, time, color, range
+60 - Form attributes: novalidate, autocomplete, target, accept, enctype (multipart/form-data)
+61 - <label> element: for attribute, implicit vs explicit labeling, clicking focus behavior
+62 - Grouping controls: <fieldset> with <legend> for grouping related inputs
+63 - Common form controls: <input>, <textarea>, <select> with <option>, <optgroup>
+64 - Buttons: <button type="submit|reset|button"> vs <input type="submit|reset|button">
+65 - Placeholder vs value attributes: user experience considerations
+66 - Required fields and validation: required attribute, pattern attribute, minlength, maxlength
+67 - Native validation UI: browser default messages, customizing validation with JavaScript
+68 - Datalist for input autocomplete: <datalist id="options"> with <option>
+69 - Form validation events: invalid, input, change, submit, preventing default submission
+70 - File uploads: <input type="file">, multiple attribute, accept attribute for MIME type filtering
+71 - Form accessibility: ARIA attributes (aria-required, aria-invalid), error messaging patterns
+72 - Form submission handling: synchronous vs AJAX, using fetch() or XMLHttpRequest to submit forms
+
+🖋 SEMANTIC & STRUCTURAL ELEMENTS
+73 - <header>, <nav>, <main>, <section>, <article>, <aside>, <footer> semantics
+74 - Defining page regions: using role attributes (role="banner", "navigation", "main", "contentinfo")
+75 - Landmark roles: identifying key regions for assistive technologies
+76 - <div> vs semantic elements: when to use generic containers, preserving semantics
+77 - Accessibility roles: role="button" for non-button elements, ARIA attributes to enhance semantics
+78 - Document outline: nesting <section> and <article> to create an accessible outline
+79 - <details> and <summary> for collapsible content sections
+80 - <dialog> element: modal vs non-modal dialogs, show(), showModal(), ARIA considerations
+
+🌐 LAYOUT & CSS INTEGRATION
+81 - Linking external CSS: <link rel="stylesheet" href="styles.css">, avoiding inline styles
+82 - Inline vs internal vs external CSS: best practices for maintainability
+83 - CSS classes and IDs: class="...", id="...", specificity, naming conventions (BEM, SMACSS)
+84 - Inline style attribute: style="...", avoiding inline for performance and SEO
+85 - <style> block in <head>: embedding critical CSS for above-the-fold content
+86 - Responsive design basics: <meta name="viewport" content="width=device-width, initial-scale=1.0">
+87 - Flexbox container declaration on block-level elements, using CSS (repeat)
+88 - Grid container on <div> or <section> elements for layout, using CSS Grid (repeat)
+89 - Using semantic classes for responsive utilities: e.g., .container, .row, .col in Bootstrap-like frameworks
+90 - Utility-first frameworks integration: using Tailwind CSS utility classes in HTML markup
+
+🎨 MULTIMEDIA & GRAPHICS
+91 - SVG integration: inline SVG code vs <img src="vector.svg"> vs <object data="vector.svg">
+92 - SVG attributes: viewBox, preserveAspectRatio, using <use> for symbols
+93 - Embedding inline <svg>: styling with CSS, JavaScript manipulation via DOM
+94 - Canvas element advanced: drawing shapes, text, images, context (2d vs webgl)
+95 - <video> advanced attributes: muted, autoplay, loop, playsinline, preload
+96 - <video> accessibility: captions (<track kind="captions">), subtitles, <video controlsList>
+97 - Audio accessibility: <audio controls>, multiple sources, transcripts for screen readers
+98 - Embedding media via <object>, <embed>, and <iframe>: PDF, Flash (legacy), third-party widgets
+99 - Responsive media patterns: maintaining aspect ratios with CSS, object-fit property
+100 - WebP and AVIF image formats: browser support, fallback strategies
+
+📡 BROWSER APIs & INTERACTIONS
+101 - Geolocation API: navigator.geolocation.getCurrentPosition, watchPosition
+102 - Drag and Drop API: draggable="true", dragstart, dragover, drop events
+103 - Web Storage: localStorage vs sessionStorage, storing, retrieving, removing items
+104 - IndexedDB basics: opening a database, creating object stores, transactions, key paths
+105 - Fetch API: fetch(url), handling promises, parsing JSON, handling errors
+106 - XMLHttpRequest (XHR) legacy: open, send, onreadystatechange, readyState, status checks
+107 - History API: pushState, replaceState, popstate event for single-page applications
+108 - Fullscreen API: requestFullscreen(), exitFullscreen(), fullscreenchange events
+109 - Web Workers: spawning a worker via new Worker(), postMessage, onmessage, terminating workers
+110 - Service Worker basics: registering a service worker, lifetime, install, activate, fetch events
+111 - Intersection Observer API: observing elements entering/exiting viewport for lazy-loading or animations
+112 - Clipboard API: navigator.clipboard.readText(), writeText(), permissions, fallback for execCommand
+113 - Vibration API (mobile): navigator.vibrate([pattern]), use cases and limitations
+114 - Web Share API: navigator.share({ title, text, url }), fallback detection
+115 - Notifications API: Notification.requestPermission(), new Notification(), handling click events
+116 - Beacon API: navigator.sendBeacon() for sending analytics data asynchronously on unload
+117 - Pointer Events: pointerdown, pointermove, pointerup, pointercancel, pointerId, pointerType
+118 - Touch Events: touchstart, touchmove, touchend, handling multi-touch interactions
+119 - WebRTC basics: getUserMedia for camera/microphone, RTCPeerConnection for peer-to-peer connections
+120 - WebSockets in HTML: using new WebSocket(url), onopen, onmessage, onclose, send() methods
+121 - Device orientation and motion: DeviceOrientationEvent, DeviceMotionEvent, permission considerations
+122 - Payment Request API: creating a payment request, handling user interaction, payment methods
+123 - File API: <input type="file"> validation, FileReader to read file contents, drag-and-drop file uploads
+124 - Geolocation Security: requiring HTTPS for geolocation, handling errors when permission is denied
+
+🔒 SECURITY & BEST PRACTICES
+125 - Content Security Policy (CSP): <meta http-equiv="Content-Security-Policy" content="...">, preventing XSS
+126 - Avoiding inline JavaScript and CSS: using external files, nonce-based CSP if necessary
+127 - Sanitizing user input: innerText vs innerHTML, using DOMPurify for HTML sanitization
+128 - HTTPS vs HTTP: importance for secure API calls, mixed content warnings
+129 - Subresource Integrity (SRI): <script src="..." integrity="sha384-...">, crossorigin attribute
+130 - Protecting against Clickjacking: <meta http-equiv="X-Frame-Options" content="deny">
+131 - Best practices for cookies: Secure, HttpOnly, SameSite attributes, declaration in <meta> or HTTP headers
+132 - Cross-Origin Resource Sharing (CORS): <link rel="preconnect">, <meta> tags do not control CORS—must configure server
+133 - XSS and CSRF overview: how attacks exploit HTML constructs, prevention strategies
+134 - Avoiding deprecated attributes: border, bgcolor, align, vspace, hspace—use CSS instead
+135 - Accessibility violation prevention: ensuring proper ARIA usage, avoiding misuse of role attributes
+
+🧩 SEMANTIC HTML & ACCESSIBILITY (A11Y)
+136 - Importance of semantic HTML: improving accessibility, SEO, and maintainability
+137 - Landmark elements: <header role="banner">, <nav role="navigation">, <main role="main">, <aside role="complementary">, <footer role="contentinfo">
+138 - ARIA attributes: aria-label, aria-labelledby, aria-describedby, aria-hidden, role, tabindex
+139 - Accessible forms: associating <label> with inputs, aria-required, aria-invalid, aria-describedby for error messages
+140 - Keyboard navigation: ensuring focusable elements, using tabindex="0" and tabindex="-1" appropriately
+141 - Skip links: <a href="#main" class="skip-link">Skip to main content</a> for screen reader users
+142 - Screen reader testing: using NVDA (Windows) or VoiceOver (macOS), testing order and announcements
+143 - Color contrast ratios: WCAG 2.1 guidelines, using tools like aXe or Lighthouse to audit
+144 - Semantic grouping: using <section>, <article>, <nav>, <header>, <footer> to create logical structure
+145 - Alternative text for images: writing meaningful alt text, decorative images with alt=""
+146 - Accessible tables: using <caption>, scope attributes, headers attribute for complex tables
+147 - Accessible multimedia: captions (<track kind="captions">), transcripts, audio descriptions
+148 - Focus management: using autofocus, capturing focus on dialog open, returning focus to trigger on close
+149 - Landmark roles for ARIA: role="banner", role="navigation", role="main", role="contentinfo"
+150 - Accessible custom controls: using role="button", tabindex="0", aria-pressed, keyboard handling
+151 - Responsive typography: using rem units, respecting user zoom and font-size settings
+152 - Accessible SVG: adding <title> and <desc> elements, role="img", aria-labelledby, focusable="false"
+153 - Testing with automated tools: Lighthouse accessibility audit, aXe browser extension, WAVE tool
+154 - Manual accessibility testing: keyboard-only navigation, screen reader walkthrough, color-blindness simulation
+
+🌐 SEO & METADATA
+155 - Document title: importance for search ranking, unique titles per page
+156 - Meta descriptions and keywords: writing compelling descriptions for click-through rate
+157 - Open Graph meta tags: <meta property="og:title" content="...">, <meta property="og:description">
+158 - Twitter Card meta tags: <meta name="twitter:card" content="summary">, <meta name="twitter:title">
+159 - Structured data: JSON-LD implementation in <script type="application/ld+json"> for rich results
+160 - Schema.org vocabularies: Article, Website, Organization, BreadcrumbList, FAQPage
+161 - <link rel="canonical" href="..."> to prevent duplicate content issues
+162 - Robots meta tag: <meta name="robots" content="index,follow">, noindex for pages not to be indexed
+163 - Sitemaps: generating XML sitemaps, linking in robots.txt
+164 - hreflang for multilingual sites: <link rel="alternate" hreflang="en" href="...">
+165 - Meta viewport for mobile SEO: <meta name="viewport" content="width=device-width, initial-scale=1.0">
+166 - Accessibility and SEO overlap: semantic tags improve both accessibility and discoverability
+167 - Lazy-loading images and SEO: using loading="lazy" without impacting search indexing
+168 - Progressive enhancement vs graceful degradation for content indexing
+169 - Testing SEO: using Google Search Console, Lighthouse SEO audits
+
+⚡ PERFORMANCE & OPTIMIZATION
+170 - Minification of HTML: removing whitespace, comments, using build tools for automated minification
+171 - Preloading critical resources: <link rel="preload" href="styles.css" as="style">
+172 - Prefetching and preconnect: <link rel="preconnect" href="https://fonts.gstatic.com">
+173 - Deferring non-critical scripts: <script src="script.js" defer> vs async
+174 - Inlining critical CSS: embedding essential styles in <head>, deferring rest to external CSS
+175 - Reducing DOM size: minimizing nested elements, avoiding unnecessary wrappers
+176 - Image optimization: compressing images, using responsive formats (srcset, picture)
+177 - Caching strategies: setting proper cache-control headers on HTML, CSS, JS, images
+178 - Lazy loading non-visible content: using loading="lazy" for images, Intersection Observer for other elements
+179 - Reducing HTTP requests: combining CSS/JS files, using data URIs for small icons
+180 - Font loading optimization: preloading fonts, font-display: swap, using modern formats (WOFF2)
+181 - SVG sprites: combining multiple SVG icons into one file and referencing via <use>
+182 - Avoiding layout shifts: reserving space for images/videos, using aspect-ratio CSS property
+183 - Avoiding render-blocking resources: placing <link> and <script> strategically in <head> or end of <body>
+184 - HTTP/2 and multiplexing: benefits for parallel resource loading, server push basics
+
+🔍 TESTING & VALIDATION
+185 - HTML validation: W3C Markup Validation Service, incorporating in CI pipelines
+186 - Automated testing: using tools like HTMLHint, ESLint plugin for HTML, Prettier for formatting
+187 - End-to-end testing: using Cypress or Playwright to navigate pages, verify content
+188 - Visual regression testing: Percy, BackstopJS to catch unintended UI changes
+189 - Accessibility testing: automated with Lighthouse, aXe CLI, manual keyboard navigation checks
+190 - Link checking: verifying no broken links using online tools or Node packages
+191 - Spell checking and grammar tools: using plugins in editor or CI checks
+192 - Cross-browser testing: ensuring consistent rendering in Chrome, Firefox, Safari, Edge
+193 - Mobile device testing: using browser emulators and real devices for responsive layout checks
+194 - Performance audits: Lighthouse performance score for HTML content, reducing page load time
+
+🛠 TOOLS & WORKFLOW
+195 - Boilerplates and starters: HTML5 Boilerplate, using Yeoman generators
+196 - Task runners: Gulp, Grunt for HTML template injection, minification, live reload
+197 - Module bundlers: Webpack, Rollup, Parcel to bundle CSS/JS resulting in single-page apps with HTML templates
+198 - Templating languages: using Pug (Jade), Handlebars, EJS for dynamic HTML generation
+199 - Static site generators: Jekyll, Hugo, Eleventy, setting up HTML templates and partials
+200 - Package managers: npm, yarn, pnpm for managing front-end libraries, including HTML dependencies
+201 - Live reloading: using Browsersync or Webpack DevServer to automatically refresh browser on changes
+202 - Version control: best practices for committing HTML files, using .editorconfig for consistent formatting
+203 - Code reviews: checking for semantic correctness, accessibility, performance within pull requests
+204 - Documentation: maintaining README with HTML project structure, using MkDocs or GitBook for docs
+205 - CI/CD integration: running HTML lints, accessibility checks, deploying static HTML to GitHub Pages or Netlify
+
+📱 RESPONSIVE & MOBILE WEB
+206 - Responsive design principles: mobile-first workflow, fluid grids, flexible images
+207 - CSS media queries: @media (max-width), (min-width), orientation, resolution
+208 - Viewport units: vw, vh, vmin, vmax for responsive sizing
+209 - REM and EM units: scalable typography and spacing relative to root or parent font-size
+210 - Mobile navigation patterns: hamburger menus, collapsible nav, off-canvas menus
+211 - Touch-friendly interfaces: larger touch targets (minimum 44x44px), avoiding hover-only interactions
+212 - Viewport meta tag: <meta name="viewport" content="width=device-width, initial-scale=1.0">
+213 - Mobile web performance: reducing initial payload, optimizing images for mobile networks
+214 - Progressive enhancement for older mobile browsers: using feature detection, polyfills
+215 - Retina/HiDPI support: higher-resolution images for devices with devicePixelRatio > 1
+216 - CSS responsive frameworks: Bootstrap grid, Tailwind responsive utilities, Bulma columns
+217 - Flexible video embedding: maintaining aspect ratio with CSS wrappers (padding-top hack)
+
+🔄 PROGRESSIVE WEB APPS (PWA) BASICS
+218 - PWA overview: characteristics (installable, offline-capable, reliable, engaging)
+219 - Web App Manifest: <link rel="manifest" href="manifest.json">, manifest properties (name, icons, start_url, display)
+220 - Service worker registration in HTML: <script> if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js'); }
+221 - Caching strategies for HTML: precaching, runtime caching, using Workbox in service worker
+222 - Offline fallback page: serving a static offline HTML when network is unavailable
+223 - Add to Home Screen (A2HS): prompting users for install, best practices for manifest and icons
+224 - HTTPS requirement: serving over secure context for service workers and PWA features
+225 - Background sync: using service worker sync event for deferring actions until online
+226 - Push notifications: integrating with Push API and service worker, showing notifications via service worker
+227 - PWA audits: Lighthouse PWA checklist, analyzing best practices and PWA installability
+228 - Web App Install Banners: controlling display, using beforeinstallprompt event
+
+🌐 WEB COMPONENTS & CUSTOM ELEMENTS
+229 - Web Components overview: Shadow DOM, Custom Elements, HTML Templates, ES modules
+230 - Defining custom elements: class MyElement extends HTMLElement, customElements.define('my-element', MyElement)
+231 - Shadow DOM basics: this.attachShadow({ mode: 'open' }), encapsulating styles and markup
+232 - HTML <template> element: storing markup for cloning with JavaScript, document.importNode
+233 - Styling within Shadow DOM: scoped CSS, :host, :host-context selectors
+234 - Slots for content projection: <slot>, named slots, fallback content
+235 - Attributes and properties in custom elements: reflecting attributes to properties, observedAttributes()
+236 - Lifecycle callbacks: connectedCallback, disconnectedCallback, attributeChangedCallback, adoptedCallback
+237 - Extending built-in elements: creating customized built-in (e.g., <button is="fancy-button">)
+238 - Using Lit or Stencil for declarative Web Components: introduction and basic usage
+239 - Integrating Web Components in HTML: importing ES modules, using <script type="module">
+240 - Accessibility in Web Components: ARIA in shadow DOM, keyboard focus management
+
+🔭 ADVANCED HTML5 APIs & FEATURES
+241 - Geolocation integration (repeat)
+242 - Drag and Drop API (repeat)
+243 - Web Storage (repeat)
+244 - IndexedDB (repeat)
+245 - Fetch API (repeat)
+246 - WebSockets (repeat)
+247 - WebRTC (repeat)
+248 - Web Workers basics (repeat)
+249 - Service Workers basics (repeat)
+250 - Notifications API (repeat)
+251 - Vibration API (repeat)
+252 - Payment Request API (repeat)
+253 - File API (repeat)
+254 - Pointer & Touch Events (repeat)
+255 - Fullscreen API (repeat)
+256 - Web Audio API: basic audio context, audio nodes, loading and playing audio via HTML and JavaScript
+257 - Canvas 2D Graphics API: drawing shapes, paths, text, images on <canvas>
+258 - WebGL basics: rendering 3D graphics on <canvas>, context initialization
+259 - Web Animations API: element.animate(keyframes, options), controlling animations via JavaScript
+260 - Speech Synthesis API: window.speechSynthesis.speak(), SpeechSynthesisUtterance for text-to-speech
+261 - Speech Recognition API (webkitSpeechRecognition): starting recognition, handling results, browser support
+262 - Battery Status API (deprecated): navigator.getBattery(), monitoring battery level and charging status
+263 - Network Information API: navigator.connection.effectiveType, downlink, detecting changes in connection
+264 - Wake Lock API: navigator.wakeLock.request('screen') to prevent device from sleeping
+265 - Beacon API (repeat)
+266 - Vibration API (repeat)
+267 - URL API: URL constructor, parsing and manipulating URLs in JavaScript
+268 - URLSearchParams API: parsing query strings, appending, deleting parameters
+269 - Permissions API: navigator.permissions.query({ name: 'geolocation' }), monitoring permission changes
+270 - WebShare and Editor APIs (future): share() method, editing capabilities for Web Apps
+271 - Web Bluetooth API: connecting to Bluetooth devices from web page, permissions, device services
+272 - WebUSB API: accessing USB devices directly from web pages, handling permissions
+273 - Web NFC API (experimental): reading/writing NFC tags, security considerations
+274 - Web Serial API: communicating with serial devices, requesting ports, reading/writing to serial
+275 - Web SpeechGrammar API (deprecated transition): defining grammars for speech recognition
+276 - Credential Management API: navigator.credentials.get(), storing and retrieving credentials
+277 - Contact Picker API (experimental): navigator.contacts.select(), retrieving contact data securely
+278 - Idle Detection API (experimental): navigator.idleDetector.request(), monitoring user inactivity
+279 - Media Session API: navigator.mediaSession.metadata, handling media keys and lock screen integration
+280 - WebXR API basics: immersive VR and AR support in compatible browsers
+
+🔍 SEO & ANALYTICS INTEGRATION
+281 - Embedding analytics snippets: Google Analytics <script> snippet, tagging events
+282 - Using Google Tag Manager: injecting container snippet in HTML, dataLayer usage
+283 - Custom event tracking: adding data attributes to HTML elements, sending events on clicks
+284 - Managing tracking permissions: GDPR compliance, cookie banners, opt-in/out mechanisms
+285 - Meta tags for SEO (repeat)
+286 - Structured data (repeat)
+287 - Open Graph and Twitter Cards (repeat)
+288 - Sitemap linking (repeat)
+289 - hreflang and multilingual (repeat)
+
+🧩 SECURITY & COMPLIANCE
+290 - Content Security Policy (repeat)
+291 - Subresource Integrity (repeat)
+292 - Secure attributes for <a> and <iframe>: rel="noopener noreferrer"
+293 - XSS prevention: avoiding inline event handlers, sanitizing user-generated HTML
+294 - Clickjacking prevention: <meta http-equiv="X-Frame-Options" content="DENY">
+295 - SameSite cookies (repeat)
+296 - HTTP Strict Transport Security (HSTS) via headers (not HTML but important to mention)
+297 - Feature policy: using <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=()">
+298 - Referrer policy: <meta name="referrer" content="no-referrer-when-downgrade">
+299 - Mixed content handling: avoiding HTTP resources on HTTPS page
+300 - Privacy-first design: minimizing personal data collection in forms, anonymizing data
+
+🏗 MODERN WORKFLOW & TOOLING
+301 - Boilerplates: HTML5 Boilerplate, create-react-app index.html, customizing publicly served HTML
+302 - Template engines: using Pug, Nunjucks, Handlebars for server-rendered HTML generation
+303 - Static site generators (repeat)
+304 - Front-end build tools: configuring Webpack’s HtmlWebpackPlugin to generate HTML templates
+305 - Using EJS or Mustache for injecting data into HTML on the server side
+306 - Preprocessing HTML: using Gulp to replace environment-specific variables in HTML files
+307 - Linting and formatting: HTMLHint, Stylelint for embedded styles, Prettier for formatting
+308 - BrowserSync and live reload: automatic refreshing on HTML changes, synchronized testing
+309 - Version control: gitignore for node_modules, dist folders, ignoring .cache directories
+310 - Continuous integration: running HTML validation and accessibility checks in CI pipeline
+311 - Automated deployments: uploading static HTML to Netlify, Vercel, GitHub Pages, AWS S3
+312 - Environment variables in HTML: using process.env with build tool to inject API URLs or flags
+
+⚖ FUTURE & EMERGING HTML FEATURES
+313 - HTML Living Standard: tracking changes via WHATWG, understanding continuous evolution
+314 - New form input types proposals: date ranges, time ranges, week ranges
+315 - Progressive Web Components: integrating HTML with modern web standards
+316 - Multimodal interactions: speech, touch, gesture-driven UI patterns in HTML interfaces
+317 - Declarative Shadow DOM: upcoming features for easier encapsulation without JavaScript
+318 - Portals: enabling cross-document rendering in upcoming HTML specs
+319 - Credential Management updates: federated login, passkeys, WebAuthn integration in HTML forms
+320 - Declarative content security: new CSP directives controlled via HTML attributes
+321 - HTML modules (ESModule scripts): using <script type="module"> for HTML imports (experimental)
+322 - HTML partial imports and HTML templating proposals: future of native template composition
+323 - Web packaging: evolution of single-file distribution with HTML, CSS, JS bundles
+324 - Privacy and tracking prevention: first-party isolation, impact on HTML-based tracking
+
+🏆 CAREER & COMMUNITY
+325 - Contributing to HTML Living Standard: engaging with WHATWG issues, writing proposals
+326 - Keeping up with MDN Web Docs: tracking updates to HTML element documentation
+327 - Following W3C and WHATWG working group discussions: proposal status, RFCs
+328 - Participating in web conferences: Google I/O, Mozilla Developer Roadshow, SmashingConf
+329 - Engaging with community forums: Stack Overflow #html tag, HTML5 Rocks, Reddit r/webdev
+330 - Sharing snippets and patterns: GitHub Gists, CodePen, JSFiddle, CodeSandbox
+331 - Writing technical blog posts: documenting HTML patterns, best practices, accessibility tips
+332 - Teaching HTML: creating tutorials for beginners, contributing to freeCodeCamp
+333 - Real-world case studies: analyzing large-scale HTML-driven sites, performance audits
+334 - Interview preparation: common HTML interview questions, whiteboard exercises on semantic markup
+335 - Continuing education: subscribing to newsletters (HTML5 Weekly, WebOps Weekly), following industry blogs
+
+-- END OF HTML SYLLABUS --
