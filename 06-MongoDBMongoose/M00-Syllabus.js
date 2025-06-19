@@ -110,7 +110,7 @@
 // 🏷 TRANSACTIONS & ATOMICITY
 // 89 - Multi-document transactions: ACID transactions on replica sets
 // 90 - Starting a session: session = client.startSession(), withTransaction()
-– Note: Multi-line comments are okay but we continue numbering:
+// – Note: Multi-line comments are okay but we continue numbering:
 
 // 91 - Transaction options: readConcern, writeConcern, maxCommitTimeMS
 // 92 - Transaction limitations: oplog size, transaction size limits, retries
