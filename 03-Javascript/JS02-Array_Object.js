@@ -15,6 +15,8 @@
 
 // all methods of the array
 /*
+// array method 1 push 
+
 Array Methods Reference (categorized, including latest additions)
 
 // 1. Mutator Methods (modify the original array)
@@ -1515,6 +1517,369 @@ for (const row of ragged) {
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+
+
+
+// array method 1 push 
+
+/**
+ * Array.prototype.push()
+ * - Appends one or more elements to the end of an array.
+ * - Modifies the original array in place (it is not immutable).
+ * - Returns the new length of the array after insertion.
+ * - Can take multiple arguments, including use of the spread operator.
+ * - Commonly used for implementing stacks (push/pop), building dynamic lists,
+ *   buffering data, collecting events, and more.
+ */
+
+// 1. Add item to shopping cart
+const cart = [];
+console.log(cart.push({ id: 1, name: 'Book', qty: 2 }), cart);
+// → 1, [ { id: 1, name: 'Book', qty: 2 } ]
+
+// 2. Append user fetched from API to users array
+const users = [];
+console.log(users.push({ id: 42, name: 'Alice' }), users);
+// → 1, [ { id: 42, name: 'Alice' } ]
+
+// 3. Track clicked buttons
+const clicks = [];
+console.log(clicks.push('btnSubmit'), clicks);
+// → 1, [ 'btnSubmit' ]
+
+// 4. Log error messages
+const errors = [];
+console.log(errors.push('Invalid email'), errors);
+// → 1, [ 'Invalid email' ]
+
+// 5. Build matrix rows dynamically
+const matrix = [];
+console.log(matrix.push([1, 2, 3]), matrix);
+// → 1, [ [ 1, 2, 3 ] ]
+
+// 6. Merge two arrays efficiently
+const arr1 = [1, 2], arr2 = [3, 4];
+console.log(arr1.push(...arr2), arr1);
+// → 4, [ 1, 2, 3, 4 ]
+
+// 7. Enqueue operation in a queue
+const queue = [];
+console.log(queue.push('task1'), queue);
+// → 1, [ 'task1' ]
+
+// 8. Stack push in stack implementation
+const stack = [];
+console.log(stack.push(10), stack);
+// → 1, [ 10 ]
+
+// 9. Collect form input values
+const inputs = [];
+// assume document.getElementById('name').value === 'Ajay'
+console.log(inputs.push('Ajay'), inputs);
+// → 1, [ 'Ajay' ]
+
+// 10. Buffer streamed data chunks
+const buffer = [];
+console.log(buffer.push(Buffer.from('data')), buffer);
+// → 1, [ <Buffer 64 61 74 61> ]
+
+// 11. Collect promises for Promise.all
+const promises = [];
+console.log(promises.push(fetch('/api/data')), promises);
+// → 1, [ Promise { <pending> } ]
+
+// 12. Build CSS class list conditionally
+const classes = [];
+const isActive = true;
+console.log(classes.push(isActive ? 'active' : 'inactive'), classes);
+// → 1, [ 'active' ]
+
+// 13. Populate dropdown options
+const options = [];
+console.log(options.push({ value: '1', label: 'One' }), options);
+// → 1, [ { value: '1', label: 'One' } ]
+
+// 14. Record game scores
+const scores = [];
+console.log(scores.push(250), scores);
+// → 1, [ 250 ]
+
+// 15. Track history of visited pages
+const history = [];
+console.log(history.push('/home'), history);
+// → 1, [ '/home' ]
+
+// 16. Aggregate logs before sending batch
+const batchLogs = [];
+console.log(batchLogs.push('User logged in'), batchLogs);
+// → 1, [ 'User logged in' ]
+
+// 17. Build URL query parameters
+const params = [];
+const userId = 99;
+console.log(params.push(`id=${userId}`), params);
+// → 1, [ 'id=99' ]
+
+// 18. Store dynamic event handlers
+const handlers = [];
+function onClickHandler() { /* ... */ }
+console.log(handlers.push(onClickHandler), handlers);
+// → 1, [ [Function: onClickHandler] ]
+
+// 19. Track uploaded file names
+const files = [];
+const file = { name: 'resume.pdf' };
+console.log(files.push(file.name), files);
+// → 1, [ 'resume.pdf' ]
+
+// 20. Generate a sequence of numbers
+const sequence = [];
+for (let i = 1; i <= 5; i++) {
+  console.log(sequence.push(i), sequence);
+}
+// → 
+// 1, [1]
+// 2, [1,2]
+// 3, [1,2,3]
+// 4, [1,2,3,4]
+// 5, [1,2,3,4,5]
+
+// 21. Store recent search keywords
+const keywords = [];
+const searchTerm = 'JavaScript';
+console.log(keywords.push(searchTerm), keywords);
+// → 1, [ 'JavaScript' ]
+
+// 22. Accumulate API response items
+const items = [];
+const response = { items: ['a', 'b', 'c'] };
+console.log(items.push(...response.items), items);
+// → 3, [ 'a','b','c' ]
+
+// 23. Build breadcrumb trail
+const breadcrumbs = [];
+console.log(breadcrumbs.push({ name: 'Home', url: '/' }), breadcrumbs);
+// → 1, [ { name: 'Home', url: '/' } ]
+
+// 24. Collect selected checkboxes
+const selected = [];
+// assume two checkboxes with values 'opt1' and 'opt2' are checked
+['opt1','opt2'].forEach(val => console.log(selected.push(val), selected));
+// → 1, ['opt1']
+// → 2, ['opt1','opt2']
+
+// 25. Record timestamps of user actions
+const timestamps = [];
+console.log(timestamps.push(Date.now()), timestamps);
+// → 1, [ 1624440000000 ]
+
+// 26. Log user session starts
+const sessions = [];
+console.log(sessions.push({ userId, start: new Date() }), sessions);
+// → 1, [ { userId:99, start:2025-06-23T... } ]
+
+// 27. Dynamic module loader list
+const modulesToLoad = [];
+console.log(modulesToLoad.push('dashboardModule'), modulesToLoad);
+// → 1, [ 'dashboardModule' ]
+
+// 28. Construct email recipients list
+const recipients = [];
+const user = { email: 'a@example.com' };
+console.log(recipients.push(user.email), recipients);
+// → 1, [ 'a@example.com' ]
+
+// 29. Accumulate chart data points
+const dataPoints = [];
+const time = 12, value = 34;
+console.log(dataPoints.push({ x: time, y: value }), dataPoints);
+// → 1, [ { x:12, y:34 } ]
+
+// 30. Maintain an undo history stack
+const undoStack = [];
+const currentState = { text: 'hello' };
+console.log(undoStack.push(currentState), undoStack);
+// → 1, [ { text:'hello' } ]
+
+
+
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+
+
+// array method 2 pop
+
+/**
+ * Array.prototype.pop()
+ * - Removes the last element from an array.
+ * - Modifies the original array in place (it is not immutable).
+ * - Returns the removed element.
+ * - If the array is empty, returns undefined.
+ * - Commonly used for stack pop operations, undo history, cleaning up buffers,
+ *   trimming data lists, and backtracking.
+ */
+
+// 1. Remove last item from shopping cart
+let cart = ['Book', 'Pen', 'Notebook'];
+console.log(cart.pop(), cart);
+// → 'Notebook', [ 'Book', 'Pen' ]
+
+// 2. Remove last user from processing queue
+let users = ['Alice', 'Bob', 'Charlie'];
+console.log(users.pop(), users);
+// → 'Charlie', [ 'Alice', 'Bob' ]
+
+// 3. Track clicked buttons and undo last click
+let clicks = ['btnSave', 'btnCancel', 'btnSubmit'];
+console.log(clicks.pop(), clicks);
+// → 'btnSubmit', [ 'btnSave', 'btnCancel' ]
+
+// 4. Discard last error message after handling
+let errors = ['404 Not Found', '500 Server Error'];
+console.log(errors.pop(), errors);
+// → '500 Server Error', [ '404 Not Found' ]
+
+// 5. Remove last row from matrix
+let matrix = [[1,2], [3,4], [5,6]];
+console.log(matrix.pop(), matrix);
+// → [5,6], [ [1,2], [3,4] ]
+
+// 6. Separate last merged element
+let arr = [1,2,3,4];
+console.log(arr.pop(), arr);
+// → 4, [1,2,3]
+
+// 7. Dequeue from stack implementation
+let stack = [10,20,30];
+console.log(stack.pop(), stack);
+// → 30, [10,20]
+
+// 8. Undo last action in undo history
+let undoStack = ['state1','state2','state3'];
+console.log(undoStack.pop(), undoStack);
+// → 'state3', [ 'state1', 'state2' ]
+
+// 9. Remove last collected form input
+let inputs = ['Alice','Bob','Charlie'];
+console.log(inputs.pop(), inputs);
+// → 'Charlie', [ 'Alice', 'Bob' ]
+
+// 10. Process last buffered data chunk
+let buffer = [Buffer.from('a'), Buffer.from('b')];
+console.log(buffer.pop(), buffer);
+// → <Buffer 62>, [ <Buffer 61> ]
+
+// 11. Remove last promise before bulk execution
+let promises = [p1, p2, p3]; // assume p1,p2,p3 are Promise objects
+console.log(promises.pop(), promises);
+// → p3, [p1, p2]
+
+// 12. Remove last CSS class
+let classes = ['header','active','highlight'];
+console.log(classes.pop(), classes);
+// → 'highlight', [ 'header', 'active' ]
+
+// 13. Remove last dropdown option
+let options = [{v:1},{v:2},{v:3}];
+console.log(options.pop(), options);
+// → {v:3}, [{v:1},{v:2}]
+
+// 14. Remove last recorded score
+let scores = [100,200,300];
+console.log(scores.pop(), scores);
+// → 300, [100,200]
+
+// 15. Go back to previous page in history
+let history = ['/home','/about','/contact'];
+console.log(history.pop(), history);
+// → '/contact', ['/home','/about']
+
+// 16. Remove last log before sending batch
+let batchLogs = ['log1','log2','log3'];
+console.log(batchLogs.pop(), batchLogs);
+// → 'log3', ['log1','log2']
+
+// 17. Drop last URL query parameter
+let params = ['id=1','page=2','sort=asc'];
+console.log(params.pop(), params);
+// → 'sort=asc', ['id=1','page=2']
+
+// 18. Unregister last event handler
+let handlers = [h1, h2, h3];
+console.log(handlers.pop(), handlers);
+// → h3, [h1,h2]
+
+// 19. Remove last uploaded file name
+let files = ['a.pdf','b.docx','c.jpg'];
+console.log(files.pop(), files);
+// → 'c.jpg', ['a.pdf','b.docx']
+
+// 20. Trim last number from generated sequence
+let sequence = [1,2,3,4,5];
+console.log(sequence.pop(), sequence);
+// → 5, [1,2,3,4]
+
+// 21. Remove last search keyword
+let keywords = ['node','react','vue'];
+console.log(keywords.pop(), keywords);
+// → 'vue', ['node','react']
+
+// 22. Remove last API response item
+let items = ['item1','item2','item3'];
+console.log(items.pop(), items);
+// → 'item3', ['item1','item2']
+
+// 23. Pop last breadcrumb
+let breadcrumbs = ['Home','Products','Shoes'];
+console.log(breadcrumbs.pop(), breadcrumbs);
+// → 'Shoes', ['Home','Products']
+
+// 24. Deselect last selected checkbox
+let selected = ['opt1','opt2','opt3'];
+console.log(selected.pop(), selected);
+// → 'opt3', ['opt1','opt2']
+
+// 25. Remove last timestamp after processing
+let timestamps = [1620000000000,1620000050000];
+console.log(timestamps.pop(), timestamps);
+// → 1620000050000, [1620000000000]
+
+// 26. End last user session
+let sessions = [{id:1},{id:2},{id:3}];
+console.log(sessions.pop(), sessions);
+// → {id:3}, [{id:1},{id:2}]
+
+// 27. Unload last dynamically loaded module
+let modulesToLoad = ['modA','modB','modC'];
+console.log(modulesToLoad.pop(), modulesToLoad);
+// → 'modC', ['modA','modB']
+
+// 28. Remove last email recipient
+let recipients = ['a@x.com','b@y.com','c@z.com'];
+console.log(recipients.pop(), recipients);
+// → 'c@z.com', ['a@x.com','b@y.com']
+
+// 29. Drop last chart data point
+let dataPoints = [{x:1,y:2},{x:2,y:3}];
+console.log(dataPoints.pop(), dataPoints);
+// → {x:2,y:3}, [{x:1,y:2}]
+
+// 30. Backtrack in nested menus
+let menuTrail = ['Main','Settings','Profile'];
+console.log(menuTrail.pop(), menuTrail);
+// → 'Profile', ['Main','Settings']
+
+
+
+
+
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
