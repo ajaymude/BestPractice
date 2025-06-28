@@ -31,6 +31,7 @@
 16. <dt>
 17. <dd>
 18. <address>
+19. <ins>
 -->
 
 <!-- Inline Text Semantics / Formatting
@@ -67,6 +68,29 @@
 31. <var>
 32. <wbr>
 -->
+
+
+<!-- Semantic Tags
+1. <header>
+2. <nav>
+3. <main>
+4. <section>
+5. <article>
+6. <aside>
+7. <footer>
+8. <figure>
+9. <figcaption>
+10. <details>
+11. <summary>
+12. <dialog>
+13. <address>
+14. <data>
+15. <dfn>
+16. <time>
+17. <mark>
+18. <output>
+-->
+
 
 <!-- Document Metadata
 1. <head>
@@ -175,6 +199,35 @@
 <!DOCTYPE html> <!-- Document Structure 1 -->
 <html lang="en"> <!-- Document Structure 2 -->
 <head> <!-- Document Structure 3 -->
+
+  
+  <!-- 1. Basic .ico favicon -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+  <!-- 2. PNG favicon (multiple sizes) -->
+  <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
+
+  <!-- 3. SVG favicon -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+  <!-- 4. Apple Touch icon -->
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+
+  <!-- 5. Shortcut icon (legacy IE) -->
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+  <!-- 6. Web App Manifest -->
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- 7. Safari pinned tab icon -->
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+  <!-- 8. Microsoft tile (Windows) -->
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-config" content="/browserconfig.xml">
+
+
   <meta charset="UTF-8"> <!-- Document Structure 7 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -252,6 +305,66 @@
   <ol><li>One</li><li>Two</li></ol> <!-- Text Content 12 & 14 -->
   <ul><li>A</li><li>B</li></ul> <!-- Text Content 13 & 14 -->
   <dl><dt>Term</dt><dd>Definition</dd></dl> <!-- Text Content 15,16,17 -->
+
+
+  <address>Contact info</address> <!-- Text Content 18 -->
+  
+  <!-- 1. Basic postal address -->
+  <address>
+    123 Elm Street<br>
+    Springfield, IL 62704<br>
+    USA
+  </address>
+
+  <!-- 2. Author contact info in a footer -->
+  <footer>
+    <address>
+      Written by <a href="mailto:jane.doe@example.com">Jane Doe</a><br>
+      Visit us at <a href="https://example.com">example.com</a>
+    </address>
+  </footer>
+
+  <!-- 3. Company contact details with phone and email -->
+  <address>
+    <strong>Acme Corp.</strong><br>
+    456 Oak Avenue<br>
+    Metropolis, NY 10001<br>
+    <a href="tel:+15551234567">+1 555-123-4567</a><br>
+    <a href="mailto:info@acmecorp.com">info@acmecorp.com</a>
+  </address>
+
+  <!-- 4. Multiple addresses for team members -->
+  <section>
+    <h2>Our Team</h2>
+    <article>
+      <h3>John Smith</h3>
+      <address>
+        789 Pine Road<br>
+        Gotham, NJ 07001<br>
+        <a href="mailto:john.smith@example.com">john.smith@example.com</a>
+      </address>
+    </article>
+    <article>
+      <h3>Mary Johnson</h3>
+      <address>
+        321 Maple Lane<br>
+        Star City, CA 90012<br>
+        <a href="mailto:mary.j@example.com">mary.j@example.com</a>
+      </address>
+    </article>
+  </section>
+
+  <!-- 5. International address with country abbreviation -->
+  <address>
+    10 Downing Street<br>
+    Westminster<br>
+    London SW1A 2AA<br>
+    <abbr title="United Kingdom">UK</abbr>
+  </address>
+
+
+  <ins datetime="2025-01-01">Inserted text</ins> <!-- Text Content 19 -->
+
 
 
 
@@ -443,7 +556,44 @@
   <object data="file.ext"></object> <!-- 4 -->
   <param name="p" value="v"> <!-- 5 -->
   <video controls><source src="vid.mp4"></video> <!-- 6,8 -->
+
   <audio controls><source src="aud.mp3"></audio> <!-- 7,8 -->
+
+  
+  <!-- 1. Basic audio with controls -->
+  <audio controls>
+    <source src="audio/example.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- 2. Audio with autoplay, loop, and muted -->
+  <audio controls autoplay loop muted>
+    <source src="audio/background.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- 3. Multiple source formats for cross-browser support -->
+  <audio controls>
+    <source src="audio/sound.mp3" type="audio/mpeg">
+    <source src="audio/sound.ogg" type="audio/ogg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- 4. Audio with captions track -->
+  <audio controls>
+    <source src="audio/podcast.mp3" type="audio/mpeg">
+    <track kind="captions" src="captions_en.vtt" srclang="en" label="English">
+    <track kind="captions" src="captions_es.vtt" srclang="es" label="Spanish">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- 5. Audio without controls (JS-controlled) -->
+  <audio id="myAudio">
+    <source src="audio/track.mp3" type="audio/mpeg">
+  </audio>
+  <button onclick="document.getElementById('myAudio').play()">Play</button>
+  <button onclick="document.getElementById('myAudio').pause()">Pause</button>
+
   <track kind="captions" src="cap.vtt"> <!-- 9 -->
   <canvas id="c"></canvas> <!-- 10 -->
   <map name="m"><area shape="rect" coords="0,0,10,10" href="#"></map> <!-- 11,12 -->
@@ -1003,7 +1153,7 @@ Long lines will insert line breaks in the submitted value.
 
 
 
-  
+
 
 
   <!-- Interactive Elements -->
