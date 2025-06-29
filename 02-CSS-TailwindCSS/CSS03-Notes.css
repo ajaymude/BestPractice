@@ -1,0 +1,5 @@
+/* it will be applied to all links within the .nav class */
+a.active {
+    color: #1d4ed8; /* Tailwind's blue-700 */
+    font-weight: bold;
+}

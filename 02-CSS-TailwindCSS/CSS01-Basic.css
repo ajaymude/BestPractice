@@ -80,24 +80,18 @@
   }
   /*###################################################################*/
   /*###################################################################*/
-  
-
-
 
   box-sizing: border-box; /* content-box, border-box */
-  
+
   /* tailwind  */
   /* 
   block box-border
   hidden
   inline-block box-content 
   */
-  
+
   /*###################################################################*/
   /*###################################################################*/
-
-
-
 
   /* border */
   border-top-color: blue;
@@ -105,20 +99,20 @@
   border-bottom-color: yellow;
   border-left-color: purple;
   border-color: red green blue yellow; /* top, right, bottom, left */
-  
+
   border-bottom: 2px solid red;
   border-top: 2px solid blue;
   border-right: 2px solid green;
   border-left: 2px solid yellow;
   border: 2px solid red green blue yellow; /* top, right, bottom, left */
-  
+
   border-style: solid;
   border-width: 2px;
   border-radius: 10px;
   border-radius: 10px 20px 30px 40px; /* top-left, top-right, bottom-right, bottom-left */
   border-radius: 10px 20px; /* top-left, bottom-right */
   border: 2px solid red;
-  
+
   /* tailwind */
   /* 
   border-t-2 border-t-blue-500
@@ -134,10 +128,7 @@
 
   /*###################################################################*/
   /*###################################################################*/
-  
-  
-  
-  
+
   /* width and height  */
   width: 100px; /* auto, percentage, px, em, rem, vw, vh */
   height: 100px; /* auto, percentage, px, em, rem, vw, vh */
@@ -147,10 +138,7 @@
   min-height: 100px; /* auto, percentage, px, em, rem, vw, vh */
   /*###################################################################*/
   /*###################################################################*/
-  
-  
-  
-  
+
   /* padding  */
   padding: 10px;
   padding-top: 10px;
@@ -161,9 +149,10 @@
   padding: 10px 20px; /* top, bottom, left, right */
   padding: 10px 20px 30px; /* top, right, bottom */
   padding: 10px 20px; /* top, bottom, left, right */
-  
+
   /*###################################################################*/
   /*###################################################################*/
+
   /* margin  */
   margin: 10px;
   margin-top: 10px;
@@ -174,9 +163,10 @@
   margin: 10px 20px; /* top, bottom, left, right */
   margin: 10px 20px 30px; /* top, right, bottom */
   /* margin collapse it will the take the margin of the larger  */
-  
+
   /*###################################################################*/
   /*###################################################################*/
+
   /* font  */
   font-family: "Roboto", sans-serif; /* Font family */
   font-size: 16px; /* Font size */
@@ -186,16 +176,19 @@
   font: normal normal 16px/1.5 "Roboto", sans-serif; /* Full font shorthand */
   /* font: [font-style] [font-variant] [font-weight] [font-size]/[line-height] [font-family]; */
   font: italic small-caps bold 20px/30px "Arial", sans-serif;
-  
+
   /*###################################################################*/
   /*###################################################################*/
-  /*###################################################################*/
+
   /* color  */
   color: #333; /* Text color */
   text-align: justify; /* Text alignment */
-  /* vertical-align: baseline;                Vertical alignment */
+  vertical-align: baseline; /* Vertical alignment */
   direction: ltr; /* Text direction */
   unicode-bidi: normal; /* For bidirectional text */
+
+  /*###################################################################*/
+  /*###################################################################*/
 
   /* text  */
   text-decoration: underline dotted red; /* Underline + style + color */
@@ -218,13 +211,19 @@
   line-height: 1.5;
   opacity: 0.5;
 
+  /*###################################################################*/
+  /*###################################################################*/
   overflow: hidden; /* visible, hidden, scroll, auto */
   overflow-x: hidden; /* visible, hidden, scroll, auto */
   overflow-y: hidden; /* visible, hidden, scroll, auto */
 
+  /*###################################################################*/
+  /*###################################################################*/
   box-shadow: 2px 2px 5px #000000; /* inset, none */
   box-shadow: 2px 2px 5px #000000, -2px -2px 5px #000000; /* inset, none */
 
+  /*###################################################################*/
+  /*###################################################################*/
   /* background */
   background-image: url("image.png");
   background-repeat: no-repeat;
@@ -240,6 +239,10 @@
   background-color: repeating-linear-gradient(to right, red, blue);
   background-color: repeating-radial-gradient(circle, red, blue);
   background-color: repeating-conic-gradient(red, blue);
+  background: url("image.png") no-repeat center center / cover fixed content-box;
+
+  /*###################################################################*/
+  /*###################################################################*/
 
   /* position */
   position: relative; /* static, absolute, fixed, sticky, relative */
@@ -247,10 +250,12 @@
   right: 20px; /* auto, percentage, px, em, rem, vw, vh */
   bottom: 30px; /* auto, percentage, px, em, rem, vw, vh */
   left: 40px; /* auto, percentage, px, em, rem, vw, vh */
-  z-index: 1; /* auto, integer */
+  z-index: 1; /* auto, integer  0 default*/
   float: left; /* right, none */
   clear: left; /* right, both, none */
 
+  /*###################################################################*/
+  /*###################################################################*/
   /* filter  */
   filter: blur(5px);
   filter: brightness(0.5);
@@ -262,6 +267,8 @@
   filter: opacity(0.5);
   filter: saturate(2);
   filter: sepia(100%);
+  /*###################################################################*/
+  /*###################################################################*/
 
   /* transition  */
   transition-property: all; /* all, property */
@@ -273,6 +280,8 @@
   animation: fadeIn 2s ease-in-out 0s 1 normal forwards;
   animation: moveRight 3s ease-in-out infinite;
 }
+/*###################################################################*/
+/*###################################################################*/
 
 /* animation  */
 @keyframes fadeIn {
@@ -303,10 +312,13 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+/*###################################################################*/
+/*###################################################################*/
 img {
   object-fit: cover;
 }
 
+/*###################################################################*/
 /* google font link add in the head section of the html file */
 /* <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> */
 
@@ -318,6 +330,7 @@ img {
 table {
   border-collapse: collapse; /* Merge table borders */
   border-spacing: 0; /* No space between cells */
+  /*###################################################################*/
   table-layout: auto; /* Column widths adjust based on content */
   caption-side: top; /* Caption position: top, bottom */
   empty-cells: show; /* Show or hide empty cells */
@@ -941,18 +954,364 @@ absolute unit */
 
 /* //////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////// */
+
+/* 🔹 1. User Action Pseudo-Classes */
+:hover         /* When the user hovers over an element */
+:active        /* While an element is being activated (e.g., clicked) */
+:focus         /* When an element (like input) is focused */
+:focus-visible /* Focus only when visible (keyboard navigation) */
+:focus-within  /* Parent element when any child gets focus */
+
+/* 🔹 2. Input/Forms States */
+:checked       /* Input (checkbox/radio) is checked */
+:disabled      /* Input is disabled */
+:enabled       /* Input is enabled */
+:required      /* Input is required */
+:optional      /* Input is optional */
+:read-only     /* Input is read-only */
+:read-write    /* Input is editable */
+:valid         /* Input passes validation */
+:invalid       /* Input fails validation */
+:in-range      /* Input value is within valid range */
+:out-of-range  /* Input value is outside valid range */
+:placeholder-shown /* Input is showing placeholder text */
+
+/* 🔹 3. Structural/Position-based */
+:first-child   /* First child of its parent */
+:last-child    /* Last child of its parent */
+:only-child    /* The only child of its parent */
+:nth-child(n)  /* Matches the nth child (1-based index) */
+:nth-last-child(n) /* Matches nth child from the end */
+:first-of-type /* First of its type among siblings */
+:last-of-type  /* Last of its type among siblings */
+:only-of-type  /* Only one of its type among siblings */
+:nth-of-type(n)/* nth element of that type among siblings */
+:nth-last-of-type(n)/* nth from end of that type */
+
+/* 🔹 4. Negation and State Logic */
+:not(selector) /* Matches elements NOT matching the selector */
+
+/* 🔹 5. Target and Language */
+:target        /* Element with ID matching URL fragment (#section) */
+:lang(en)      /* Matches language of element (e.g., lang="en") */
+
+/* 🔹 6. UI Element Status */
+:any-link      /* Matches both :link and :visited */
+:link          /* Unvisited links */
+:visited       /* Visited links */
+
+/* 🔹 7. Misc */
+:empty         /* Element has no children (including text nodes) */
+:root          /* The root element (usually <html>) */
+:scope         /* Scoping selector, mainly in JS or :has() context */
+
+/* 🔹 8. Pseudo-classes from CSS4+ */
+:is(selector)  /* Matches if the element matches any selector inside */
+:where(selector) /* Same as :is but with 0 specificity */
+:has(selector) /* Parent matches if it contains something (not widely supported in all browsers) */
+
 /* //////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////// */
+
+
+/* 🔹 1. Content Insertion */
+::before         /* Inserts content *before* an element’s content */
+::after          /* Inserts content *after* an element’s content */
+
+/* 🔹 2. Typography Styling */
+::first-letter   /* Targets the first letter of a block-level element */
+::first-line     /* Targets the first line of a block-level element */
+
+/* 🔹 3. User Interaction */
+::selection      /* Styles the portion of text selected by the user */
+
+/* 🔹 4. Form/Field Styling */
+::placeholder    /* Styles placeholder text inside input or textarea */
+::file-selector-button /* Styles the button in <input type="file"> */
+
+/* 🔹 5. List Styling */
+::marker         /* Styles the bullet or number marker in list items */
+
+/* 🔹 6. Media & Accessibility */
+::cue            /* Styles captions/subtitles in <video> with WebVTT */
+::backdrop       /* Styles the backdrop layer of modal elements like <dialog> */
+
+/* 🔹 7. Experimental / Special Use (Limited support) */
+::spelling-error /* Used to highlight spelling errors (non-standard) */
+::grammar-error  /* Used to highlight grammar errors (non-standard) */
+
 /* //////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////// */
+
+
+
+/* 15 - :root and Global CSS Variables (Custom Properties) */
+
+/*
+  :root pseudo-class represents the document’s root element.
+  Defining variables here makes them globally available.
+  Custom properties (variables) follow the --name syntax.
+*/
+
+/* Define global variables */
+:root {
+  --primary-color: #3498db;
+  --secondary-color: #2ecc71;
+  --font-stack: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --spacing: 1rem;
+}
+
+/* Use variables with var() */
+body {
+  font-family: var(--font-stack);
+  color: var(--primary-color);
+  margin: var(--spacing);
+}
+
+.button {
+  background-color: var(--secondary-color);
+  color: white;
+  padding: var(--spacing);
+  border-radius: calc(var(--spacing) / 2);
+}
+
+/* Fallback values */
+.alert {
+  background-color: var(
+    --alert-bg,
+    #e74c3c
+  ); /* falls back to red shade if --alert-bg is undefined */
+  padding: var(--spacing, 0.5rem);
+}
+
+/* Overriding variables via cascade */
+.theme-dark {
+  --primary-color: #ecf0f1;
+  --secondary-color: #95a5a6;
+  --spacing: 1.5rem;
+}
+
+/* Variables inherit through the cascade and inheritance */
+.section {
+  --section-padding: 2rem;
+}
+.section .item {
+  padding: var(--section-padding);
+}
+
+/* Variables can be scoped locally */
+.card {
+  --card-bg: #fff;
+  background-color: var(--card-bg);
+  padding: var(--spacing);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
 /* //////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////// */
+
+/* 27 - Content-box vs Border-box Box-sizing */
+
+/*
+  box-sizing:
+  Defines how the total width and height of an element are calculated.
+  - content-box: default. width/height apply to the content box; padding and border are added outside.
+  - border-box: width/height include content, padding, and border.
+*/
+
+/* Example: content-box */
+.box-content {
+  width: 200px;
+  padding: 20px;
+  border: 5px solid #333;
+  box-sizing: content-box;
+  /* total rendered width = 200 + (2*20) + (2*5) = 250px */
+}
+
+/* Example: border-box */
+.box-border {
+  width: 200px;
+  padding: 20px;
+  border: 5px solid #333;
+  box-sizing: border-box;
+  /* total rendered width = 200px (includes padding & border) */
+}
+
 /* //////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////// */
+
+/* 32 - Border Radius (border-radius) and Creating Circles, Ellipses */
+
+/*
+  border-radius:
+  Defines the rounding of element corners. Accepts one to four length or percentage values.
+  - One value: applies to all corners.
+  - Two values: first for top-left & bottom-right, second for top-right & bottom-left.
+  - Three values: first for top-left, second for top-right & bottom-left, third for bottom-right.
+  - Four values: applies to top-left, top-right, bottom-right, bottom-left.
+*/
+
+/* Example: Rounded corners */
+.rounded {
+  width: 200px;
+  height: 100px;
+  background: #3498db;
+  border-radius: 15px;
+}
+
+/* Ellipse */
+.ellipse {
+  width: 200px;
+  height: 100px;
+  background: #2ecc71;
+  border-radius: 50% / 25%;
+}
+
+/* Circle */
+/* Make width & height equal, then set border-radius: 50% */
+.circle {
+  width: 100px;
+  height: 100px;
+  background: #e74c3c;
+  border-radius: 50%;
+}
+
+/* Complex shapes */
+/* Individual corner control */
+.custom-corners {
+  border-radius: 10px 20px 30px 40px;
+}
+
 /* //////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////// */
+
+
+
+
+/* 33 - Object-fit and Object-position for Replaced Elements (images, videos) */
+
+/*
+  object-fit:
+  Specifies how the content of a replaced element (e.g., <img>, <video>) is resized to fit its container.
+  Values:
+    fill       - stretches to fill container, may distort.
+    contain    - scales to fit within container, preserving aspect ratio.
+    cover      - scales to cover container, cropping if necessary.
+    none       - keeps original size.
+    scale-down - compares none and contain, uses smallest.
+
+  object-position:
+  Defines the alignment of the replaced element within its container when not filling completely.
+  Accepts position keywords or percentage/length values (e.g., top left, 20% 80%).
+*/
+
+/* Example: object-fit values */
+.img-fill {
+  width: 300px;
+  height: 200px;
+  object-fit: fill;
+}
+
+.img-contain {
+  width: 300px;
+  height: 200px;
+  object-fit: contain;
+  background: #f0f0f0;
+}
+
+.img-cover {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.img-none {
+  width: 300px;
+  height: 200px;
+  object-fit: none;
+}
+
+.img-scale-down {
+  width: 300px;
+  height: 200px;
+  object-fit: scale-down;
+}
+
+/* Example: object-position */
+.img-position {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  object-position: top right;
+}
+
+/* Video example */
+.video-box {
+  width: 400px;
+  height: 225px;
+}
+.video-box video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
 /* //////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////// */
+
+
+* 35 - CSS Overflow: visible, hidden, scroll, auto, text-overflow: ellipsis */
+/*
+  overflow:
+  Controls content that overflows a container’s box.
+  - visible: default, content spills out.
+  - hidden: clips overflowing content.
+  - scroll: adds scrollbars always.
+  - auto: adds scrollbars if needed.
+
+  text-overflow:
+  Handles clipped inline text.
+  - ellipsis: displays “…” to represent clipped text.
+*/
+
+/* Overflow examples */
+.overflow-visible {
+  width: 150px;
+  height: 50px;
+  overflow: visible;
+  background: #fafafa;
+}
+.overflow-hidden {
+  width: 150px;
+  height: 50px;
+  overflow: hidden;
+  background: #fdebd0;
+}
+.overflow-scroll {
+  width: 150px;
+  height: 50px;
+  overflow: scroll;
+  background: #d5f5e3;
+}
+.overflow-auto {
+  width: 150px;
+  height: 50px;
+  overflow: auto;
+  background: #ebdef0;
+}
+
+/* Text overflow example */
+.text-ellipsis {
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: #f5b7b1;
+}
+
+/* Usage: apply long text inside these containers to observe overflow behavior */
+
 /* //////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////// */
