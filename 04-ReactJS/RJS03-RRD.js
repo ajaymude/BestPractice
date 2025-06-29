@@ -896,6 +896,57 @@ export default App;
 
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
+
+
+import React from "react";
+import { NavLink } from "react-router-dom";
+
+const Navbar = () => {
+  return (
+    <nav className="flex space-x-4 bg-white p-4">
+      {/* 
+        - `end` ensures "/" only matches exactly "/" (not "/about", etc.)
+        - `className` can be a function receiving { isActive }
+      */}
+      <NavLink
+        to="/"
+        end
+        className={({ isActive }) =>
+          isActive
+            ? "text-blue-600 font-semibold border-b-2 border-blue-600"
+            : "text-gray-600 hover:text-blue-600"
+        }
+      >
+        Home
+      </NavLink>
+
+      <NavLink
+        to="/about"
+        className={({ isActive }) =>
+          isActive
+            ? "text-blue-600 font-semibold border-b-2 border-blue-600"
+            : "text-gray-600 hover:text-blue-600"
+        }
+      >
+        About
+      </NavLink>
+
+      <NavLink
+        to="/blog"
+        className={({ isActive }) =>
+          isActive
+            ? "text-blue-600 font-semibold border-b-2 border-blue-600"
+            : "text-gray-600 hover:text-blue-600"
+        }
+      >
+        Blog
+      </NavLink>
+    </nav>
+  );
+};
+
+export default Navbar;
+
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
