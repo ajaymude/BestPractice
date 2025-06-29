@@ -1,164 +1,3 @@
-/* ✅ CSS Full Syllabus (Beginner to Master Level) */
-
-/* 📘 BASICS OF CSS */
- /* 01 - What is CSS, its role in web development */
- /* 02 - How CSS works with HTML - CSSOM concept */
- /* 03 - Ways to apply CSS (Inline, Internal, External) */
- /* 04 - CSS Syntax: selectors, properties, values */
- /* 05 - CSS Comments */
- /* 06 - Case-sensitivity and white space rules */
- /* 07 - CSS File organization best practices */
-
-/* 🎯 CSS SELECTORS */
- /* 08 - Basic selectors (element, class, ID) */
- /* 09 - Grouping, universal, and nested selectors */
- /* 10 - Attribute selectors and matching patterns */
- /* 11 - Pseudo-classes (:hover, :active, :focus, :nth-child, etc.) */
- /* 12 - Pseudo-elements (::before, ::after, ::first-letter) */
- /* 13 - Combinators: descendant, child ( > ), adjacent (+), general sibling (~) */
- /* 14 - Specificity calculation and conflict resolution */
-
-/* 🎨 COLORS & UNITS */
- /* 15 - Color formats: Named, HEX, RGB, RGBA, HSL, HSLA */
- /* 16 - CSS units: absolute (px, cm) and relative (%, em, rem, vh, vw) */
- /* 17 - CurrentColor and transparent keyword */
-
-/* ✍️ TEXT AND FONTS */
- /* 18 - Font-family, font-size, font-weight, font-style */
- /* 19 - Text alignment, transform, decoration, spacing */
- /* 20 - Line-height and vertical alignment */
- /* 21 - Font loading and @font-face rule */
- /* 22 - Web-safe fonts and using Google Fonts */
-
-/* 📏 BOX MODEL & SPACING */
- /* 23 - Margin, padding, border, content */
- /* 24 - width, height, max-width, min-height */
- /* 25 - Box-sizing: content-box vs border-box */
- /* 26 - Outline vs Border */
- /* 27 - Overflow handling (hidden, scroll, auto, visible) */
-
-/* 📦 DISPLAY & VISIBILITY */
- /* 28 - Display types: block, inline, inline-block, flex, grid, none */
- /* 29 - Visibility: visible, hidden, collapse */
- /* 30 - Opacity and transparent effects */
-
-/* 🧭 POSITIONING SYSTEM */
- /* 31 - position: static, relative, absolute, fixed, sticky */
- /* 32 - Top, bottom, left, right usage */
- /* 33 - z-index, stacking order and context */
-
-/* 🧱 FLEXBOX (1D Layouts) */
- /* 34 - display: flex, flex-direction, flex-wrap */
- /* 35 - justify-content, align-items, align-content */
- /* 36 - flex-grow, flex-shrink, flex-basis */
- /* 37 - align-self, order, gap */
- /* 38 - Real-life layout examples with Flexbox */
-
-/* 🪟 CSS GRID (2D Layouts) */
- /* 39 - display: grid, grid-template-columns/rows */
- /* 40 - grid-gap (gap), grid-auto-flow, repeat() */
- /* 41 - grid-column, grid-row, start/end lines */
- /* 42 - grid-template-areas, naming grid lines */
- /* 43 - Implicit vs explicit grid */
- /* 44 - Grid item alignment and nesting */
-
-/* 📱 RESPONSIVE DESIGN */
- /* 45 - Media queries, breakpoints and range operators */
- /* 46 - Mobile-first vs desktop-first approaches */
- /* 47 - Viewport meta tag */
- /* 48 - Responsive typography (fluid sizes) */
- /* 49 - Container queries */
- /* 50 - Responsive images (object-fit, picture tag basics) */
-
-/* 🌈 BACKGROUNDS & BORDERS */
- /* 51 - background-color, image, position, repeat */
- /* 52 - background-size, attachment, shorthand */
- /* 53 - border types, shorthand, border-radius */
- /* 54 - outline, outline-offset */
- /* 55 - box-shadow, text-shadow */
-
-/* 💫 TRANSITIONS & ANIMATIONS */
- /* 56 - transition: property, duration, delay, timing */
- /* 57 - Animation: @keyframes, animation-name, duration, iteration */
- /* 58 - Transform + Animate (hover, toggle, etc.) */
- /* 59 - animation-direction, fill-mode, play-state */
- /* 60 - Animating position, size, and opacity */
-
-/* 📐 TRANSFORMS & EFFECTS */
- /* 61 - 2D transforms: translate, rotate, scale, skew */
- /* 62 - 3D transforms: perspective, rotateX/Y/Z */
- /* 63 - transform-origin and transform-style */
-
-/* 🧠 ADVANCED CONCEPTS */
- /* 64 - Custom properties (CSS variables) */
- /* 65 - calc(), min(), max(), clamp() functions */
- /* 66 - Logical properties (margin-inline, padding-block) */
- /* 67 - Writing-mode, text-orientation (vertical text) */
- /* 68 - Scroll behavior, scroll snap */
- /* 69 - aspect-ratio */
-
-/* 🧽 CLEAN & ORGANIZED CSS */
- /* 70 - BEM naming convention */
- /* 71 - DRY and reusable styles */
- /* 72 - Using shorthand properties smartly */
- /* 73 - CSS Reset vs Normalize */
- /* 74 - Cross-browser compatibility */
- /* 75 - Print stylesheets */
-
-/* 🧪 DEBUGGING & PERFORMANCE */
- /* 76 - DevTools for live inspection */
- /* 77 - Understanding and fixing specificity issues */
- /* 78 - Performance tips (reducing reflows/repaints) */
- /* 79 - Avoiding !important misuse */
-
-/* 🧰 CSS TOOLING & FRAMEWORKS */
- /* 80 - Bootstrap overview */
- /* 81 - Tailwind CSS overview */
- /* 82 - Sass/SCSS overview */
- /* 83 - CSS-in-JS (styled-components, Emotion) */
- /* 84 - PostCSS and Autoprefixer */
- /* 85 - Using utility-first and component-based styles */
-
-/* 🚀 DEPLOYMENT & PRODUCTION */
- /* 86 - Minification and bundling */
- /* 87 - Source maps and build tools (Vite, Webpack) */
- /* 88 - Hosting styles with GitHub Pages/Netlify */
-
-/* 🔨 MINI PROJECTS FOR PRACTICE */
- /* 89 - Button hover and press effects */
- /* 90 - Card layout with transitions */
- /* 91 - Navbar (fixed/sticky/responsive) */
- /* 92 - Login / signup form design */
- /* 93 - Accordion / tabs / toggles */
- /* 94 - Modal with animation */
- /* 95 - Dark mode toggle */
- /* 96 - Animated loader/spinner */
- /* 97 - Grid-based blog layout */
- /* 98 - Pricing table layout */
- /* 99 - Footer and contact form */
- /* 100 - Landing page (fully responsive) */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* 01 - way to connect css to html  */
 /* 02 - display, box-sizing, border, border-radius, width, height, 
         padding, margin, font, color, text-align, direction, text-decoration
@@ -215,6 +54,27 @@
 .p {
   display: block; /* inline, inline-block, flex, grid, table, table-row, table-cell, table-caption, list-item */
   display: none; /* hide the element */
+
+  /* display: block; 
+       Other values: inline-block, inline, flex, grid, none, contents, table, etc.
+       Block elements take full width and start on a new line
+      Inline elements stay in-line and ignore width/height  */
+  /* display: inline-block; 
+       Combines features of inline + block.
+       Respects width/height but doesn’t start on new line */
+  /* display: none; 
+       Element is completely removed from layout (not visible at all) */
+
+  /* Hidden using display: none (REMOVED from layout) */
+  .display-none {
+    display: none; /* Element will not be visible AND won't take any space */
+  }
+
+  /* Hidden using visibility: hidden (IN layout but INVISIBLE) */
+  .visibility-hidden {
+    visibility: hidden; /* Element is invisible but still takes up space */
+  }
+
   box-sizing: border-box; /* content-box, border-box */
 
   /* tailwind  */
