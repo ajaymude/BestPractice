@@ -44,6 +44,8 @@
 
 /* //////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
 /* 02 - display, box-sizing, border, border-radius, width, height, 
         padding, margin, font, color, text-align, direction, text-decoration
         text-indent, text-transform, text-shadow, text-overflow, white-space,
@@ -52,6 +54,8 @@
  */
 
 .p {
+  /*###################################################################*/
+  /*###################################################################*/
   display: block; /* inline, inline-block, flex, grid, table, table-row, table-cell, table-caption, list-item */
   display: none; /* hide the element */
 
@@ -74,15 +78,26 @@
   .visibility-hidden {
     visibility: hidden; /* Element is invisible but still takes up space */
   }
+  /*###################################################################*/
+  /*###################################################################*/
+  
+
+
 
   box-sizing: border-box; /* content-box, border-box */
-
+  
   /* tailwind  */
   /* 
-block box-border
-hidden
-inline-block box-content 
-*/
+  block box-border
+  hidden
+  inline-block box-content 
+  */
+  
+  /*###################################################################*/
+  /*###################################################################*/
+
+
+
 
   /* border */
   border-top-color: blue;
@@ -90,33 +105,39 @@ inline-block box-content
   border-bottom-color: yellow;
   border-left-color: purple;
   border-color: red green blue yellow; /* top, right, bottom, left */
-
+  
   border-bottom: 2px solid red;
   border-top: 2px solid blue;
   border-right: 2px solid green;
   border-left: 2px solid yellow;
   border: 2px solid red green blue yellow; /* top, right, bottom, left */
-
+  
   border-style: solid;
   border-width: 2px;
   border-radius: 10px;
   border-radius: 10px 20px 30px 40px; /* top-left, top-right, bottom-right, bottom-left */
   border-radius: 10px 20px; /* top-left, bottom-right */
   border: 2px solid red;
-
+  
   /* tailwind */
   /* 
-border-t-2 border-t-blue-500
-border-r-2 border-r-green-500
-border-b-2 border-b-yellow-500
-border-l-2 border-l-purple-500
-border-solid
-border-2 border-red-500
-rounded-[10px]                        
-rounded-[10px_20px_30px_40px]        
-rounded-[10px_20px]                   TL, BR (shorthand in CSS, needs custom in Tailwind) 
-*/
+  border-t-2 border-t-blue-500
+  border-r-2 border-r-green-500
+  border-b-2 border-b-yellow-500
+  border-l-2 border-l-purple-500
+  border-solid
+  border-2 border-red-500
+  rounded-[10px]                        
+  rounded-[10px_20px_30px_40px]        
+  rounded-[10px_20px]                   TL, BR (shorthand in CSS, needs custom in Tailwind) 
+  */
 
+  /*###################################################################*/
+  /*###################################################################*/
+  
+  
+  
+  
   /* width and height  */
   width: 100px; /* auto, percentage, px, em, rem, vw, vh */
   height: 100px; /* auto, percentage, px, em, rem, vw, vh */
@@ -124,7 +145,12 @@ rounded-[10px_20px]                   TL, BR (shorthand in CSS, needs custom in 
   min-width: 100px; /* auto, percentage, px, em, rem, vw, vh */
   max-height: 100%; /* auto, percentage, px, em, rem, vw, vh */
   min-height: 100px; /* auto, percentage, px, em, rem, vw, vh */
-
+  /*###################################################################*/
+  /*###################################################################*/
+  
+  
+  
+  
   /* padding  */
   padding: 10px;
   padding-top: 10px;
@@ -135,7 +161,9 @@ rounded-[10px_20px]                   TL, BR (shorthand in CSS, needs custom in 
   padding: 10px 20px; /* top, bottom, left, right */
   padding: 10px 20px 30px; /* top, right, bottom */
   padding: 10px 20px; /* top, bottom, left, right */
-
+  
+  /*###################################################################*/
+  /*###################################################################*/
   /* margin  */
   margin: 10px;
   margin-top: 10px;
@@ -146,7 +174,9 @@ rounded-[10px_20px]                   TL, BR (shorthand in CSS, needs custom in 
   margin: 10px 20px; /* top, bottom, left, right */
   margin: 10px 20px 30px; /* top, right, bottom */
   /* margin collapse it will the take the margin of the larger  */
-
+  
+  /*###################################################################*/
+  /*###################################################################*/
   /* font  */
   font-family: "Roboto", sans-serif; /* Font family */
   font-size: 16px; /* Font size */
@@ -156,7 +186,10 @@ rounded-[10px_20px]                   TL, BR (shorthand in CSS, needs custom in 
   font: normal normal 16px/1.5 "Roboto", sans-serif; /* Full font shorthand */
   /* font: [font-style] [font-variant] [font-weight] [font-size]/[line-height] [font-family]; */
   font: italic small-caps bold 20px/30px "Arial", sans-serif;
-
+  
+  /*###################################################################*/
+  /*###################################################################*/
+  /*###################################################################*/
   /* color  */
   color: #333; /* Text color */
   text-align: justify; /* Text alignment */
