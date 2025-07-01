@@ -268,6 +268,132 @@ export const RenderCounter = () => {
   );
 };
 
+
+
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  forwardRef,
+  useImperativeHandle
+} from 'react';
+
+/* 1. Accessing a DOM element */
+function FocusInputOnMount() {
+  const inputRef = useRef(null);
+  useEffect(() => {
+    inputRef.current.focus();      // focus the input when mounted
+  }, []);
+  return <input ref={inputRef} placeholder="I get focus on mount" />;
+}
+
+/* 2. Storing mutable values across renders */
+function RenderCounter() {
+  const renderCount = useRef(0);
+  renderCount.current += 1;       // increments on every render
+  return <p>Render count: {renderCount.current}</p>;
+}
+
+/* 3. Persisting previous props/state */
+function ShowPreviousValue({ value }) {
+  const prevValue = useRef(value);
+  useEffect(() => {
+    prevValue.current = value;     // update after each render
+  }, [value]);
+  return (
+    <p>
+      Current: {value}, Previous: {prevValue.current}
+    </p>
+  );
+}
+
+/* 4. Managing timers or external IDs */
+function TimerComponent() {
+  const timerId = useRef();
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    timerId.current = setInterval(() => {
+      setSeconds(s => s + 1);
+    }, 1000);
+    return () => clearInterval(timerId.current);
+  }, []);
+
+  return <p>Seconds elapsed: {seconds}</p>;
+}
+
+/* 5. Forwarding refs to child components */
+const FancyButton = forwardRef((props, ref) => (
+  <button ref={ref} className="fancy">
+    {props.children}
+  </button>
+));
+function Parent() {
+  const btnRef = useRef();
+  return (
+    <>
+      <FancyButton ref={btnRef}>Click me</FancyButton>
+      <button onClick={() => btnRef.current.click()}>
+        Trigger fancy button
+      </button>
+    </>
+  );
+}
+
+/* 6. Customizing exposed instance methods */
+const CustomInput = forwardRef((props, ref) => {
+  const internalRef = useRef();
+  useImperativeHandle(ref, () => ({
+    alertValue: () => {
+      alert(internalRef.current.value);
+    }
+  }));
+  return <input ref={internalRef} {...props} />;
+});
+function UseCustomInput() {
+  const customRef = useRef();
+  return (
+    <>
+      <CustomInput ref={customRef} placeholder="Type something" />
+      <button onClick={() => customRef.current.alertValue()}>
+        Alert input value
+      </button>
+    </>
+  );
+}
+
+/* App rendering all examples */
+export default function App() {
+  const [val, setVal] = useState('foo');
+  return (
+    <div style={{ padding: 20 }}>
+      <h2>1. Focus Input On Mount</h2>
+      <FocusInputOnMount />
+
+      <h2>2. Render Counter</h2>
+      <RenderCounter />
+
+      <h2>3. Show Previous Value</h2>
+      <input
+        value={val}
+        onChange={e => setVal(e.target.value)}
+        placeholder="Change me"
+      />
+      <ShowPreviousValue value={val} />
+
+      <h2>4. Timer Component</h2>
+      <TimerComponent />
+
+      <h2>5. Forwarding Refs</h2>
+      <Parent />
+
+      <h2>6. Imperative Handle</h2>
+      <UseCustomInput />
+    </div>
+  );
+}
+
+
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
 
