@@ -150,6 +150,7 @@
   padding: 10px 20px 30px; /* top, right, bottom */
   padding: 10px 20px; /* top, bottom, left, right */
 
+
   /*###################################################################*/
   /*###################################################################*/
 
@@ -421,6 +422,8 @@ select {
   gap: 20px;
   row-gap: 12px;
   column-gap: 24px; /* has no effect unless using wrapping rows */
+
+  /* main axis cross axis */
 }
 
 /* for the child element */
@@ -453,16 +456,25 @@ select {
   grid-column-gap: 10px; /* auto */
   grid-row-gap: 10px; /* auto */
   grid-gap: 10px; /* auto */
+  justify-items: start; /* center, end, stretch */
+  align-items: start; /* center, end, stretch */
+  justify-content: start; /* center, end, space-between, space-around, space-evenly */
+  align-content: start; /* center, end, space-between, space-around, space-evenly */
+
 }
 /* for the child element */
 .child {
   grid-column: 1 / 2; /* 1, 2, ... */
+  grid-column: 1 / span 4; /* 1, 2, ... */
   grid-row: 1 / 2; /* 1, 2, ... */
   grid-area: header; /* auto */
   grid-column-start: 1; /* auto */
   grid-column-end: 2; /* auto */
   grid-row-start: 1; /* auto */
   grid-row-end: 2; /* auto */
+  justify-self: start; /* center, end, stretch */
+  justify-self: start; /* center, end, stretch */
+
 }
 
 /* //////////////////////////////////////////////////////////////////////////////////////// */
@@ -548,6 +560,95 @@ p {
 /* //////////////////////////////////////////////////////////////////////////////////////// */
 
 /* 11 - selector and preference  */
+
+<!-- Demo markup -->
+<ul class="menu">
+  <li class="item primary">Home</li>
+  <li class="item">About</li>
+  <li class="item highlight">
+    <a href="#news">News <span class="badge hot">NEW!</span></a>
+  </li>
+  <li class="item">Contact</li>
+</ul>
+
+<section id="sidebar">
+  <h2>Links</h2>
+  <p class="note">Extra info</p>
+</section>
+
+<style>
+/* ───────────────────────────
+   1. Descendant combinator “ ” (space)
+   Matches ANY depth inside the ancestor
+   .menu a  ➜ every <a> anywhere inside .menu
+────────────────────────────*/
+.menu a {
+  color: teal;
+}
+
+/* ───────────────────────────
+   2. Child combinator “>”
+   Matches ONLY direct children
+   .menu > .item ➜ <li class="item">   (not grandchildren)
+────────────────────────────*/
+.menu > .item {
+  list-style: square;
+}
+
+/* ───────────────────────────
+   3. Adjacent-sibling combinator “+”
+   Matches the NEXT sibling only
+   h2 + p ➜ the <p> immediately after an <h2>
+────────────────────────────*/
+h2 + p {
+  font-style: italic;
+}
+
+/* ───────────────────────────
+   4. General-sibling combinator “~”
+   Matches ALL later siblings
+   .item.highlight ~ .item ➜ every <li> after the highlighted one
+────────────────────────────*/
+.item.highlight ~ .item {
+  opacity: 0.6;
+}
+
+/* ───────────────────────────
+   5. Grouping selector “,”
+   One rule targets many selectors
+────────────────────────────*/
+.menu,
+#sidebar {
+  padding: 12px;
+  border: 1px solid #ccc;
+}
+
+/* ───────────────────────────
+   6. Multiple-class selector
+   .item.highlight ➜ <li> that has BOTH classes
+────────────────────────────*/
+.item.highlight {
+  background: #ffeaa7;
+}
+
+/* ───────────────────────────
+   7. Combining attribute selectors
+   a[href^="#"][target] ➜ <a> whose href starts with “#” AND has target attr
+────────────────────────────*/
+a[href^="#"][target] {
+  text-decoration: underline dotted;
+}
+
+/* ───────────────────────────
+   8. Pseudo-class + class
+   .badge.hot:hover ➜ only when the span has class "badge hot" AND is hovered
+────────────────────────────*/
+.badge.hot:hover {
+  background: crimson;
+  color: #fff;
+}
+</style>
+
 
 /* universal selector */
 * {
@@ -641,6 +742,7 @@ a:visited {
 a:link {
   color: red;
   text-decoration: none;
+  /* normal link not visited */
 }
 a:hover {
   color: green;
@@ -1185,9 +1287,6 @@ body {
 /* //////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////// */
 
-
-
-
 /* 33 - Object-fit and Object-position for Replaced Elements (images, videos) */
 
 /*
@@ -1260,7 +1359,6 @@ body {
 /* //////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////// */
 
-
 * 35 - CSS Overflow: visible, hidden, scroll, auto, text-overflow: ellipsis */
 /*
   overflow:
@@ -1314,6 +1412,7 @@ body {
 
 /* //////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////// */
+
 /* //////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////// */
