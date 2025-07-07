@@ -5,6 +5,7 @@
 // 31 - useContext
 // 32 - Custom Hooks
 // 33 - Rules of Hooks
+// 34 - useMemo and useCallback
 
 // 🧠 COMPONENT LIFECYCLE
 // 34 - Lifecycle phases
@@ -40,6 +41,7 @@ const Counter = ({ start = 0 }) => {
 
   const increment = () => setCount(prev => prev + 1);
   const decrement = () => setCount(prev => prev - 1);
+  const decrement = () => setCount(prev => [...prev , prev] );
 
   return (
     <div style={{ padding: '1rem', border: '1px solid #ccc' }}>
@@ -1102,6 +1104,231 @@ export function FetchWithCancel({ url }) {
 
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
+
+
+
+// React useMemo Hook Notes
+// Why useMemo?
+// React components re-render whenever props or state change.
+// If your render involves expensive calculations or derived data,
+// useMemo “memoizes” the result and recomputes only when its dependencies change.
+// Signature:
+// const memoizedValue = useMemo(
+//   () => computeHeavyValue(arg1, arg2),
+//   [arg1, arg2]
+// );
+
+// Basic Example:
+import React, { useState, useMemo } from 'react';
+
+function ExpensiveCalc({ num }) {
+  const total = useMemo(() => {
+    console.log('Running heavy loop');
+    let sum = 0;
+    for (let i = 0; i < 1e7; i++) {
+      sum += num;
+    }
+    return sum;
+  }, [num]);
+
+  return <div>Total: {total}</div>;
+}
+
+export default function App() {
+  const [num, setNum] = useState(1);
+  const [count, setCount] = useState(0);
+
+  return (
+    <>
+      <input
+        type="number"
+        value={num}
+        onChange={e => setNum(+e.target.value)}
+      />
+      <button onClick={() => setCount(c => c + 1)}>
+        Re-render ({count})
+      </button>
+      <ExpensiveCalc num={num} />
+    </>
+  );
+}
+
+// Real-World Use Case: Filtering a List
+function UserList({ users, query }) {
+  const filtered = useMemo(
+    () =>
+      users.filter(u =>
+        u.name.toLowerCase().includes(query.toLowerCase())
+      ),
+    [users, query]
+  );
+
+  return (
+    <ul>
+      {filtered.map(u => (
+        <li key={u.id}>{u.name}</li>
+      ))}
+    </ul>
+  );
+}
+
+// Common Pitfalls:
+// 1. Over-memoizing: Wrapping trivial calculations adds overhead.
+// 2. Missing Dependencies: Forgetting to list used variables causes stale results.
+// 3. Shallow Comparison: New object/array references (even with same contents) trigger a recompute.
+
+// When to Favor useMemo:
+// - Heavy computations (complex algorithms, big loops).
+// - Derived data (filtering, sorting large datasets).
+// - Stabilizing references passed to memoized children (React.memo).
+
+// useMemo vs useCallback vs React.memo:
+// - useMemo: caches values.
+// - useCallback: caches functions.
+// - React.memo: wraps a component to skip re-render when props haven’t changed.
+
+
+
+// Example: Sorting a Large List with useMemo
+// Sorting can be expensive on large arrays, so memoize the sorted result
+// and only re-compute when the source array or sort order changes.
+
+import React, { useState, useMemo } from 'react';
+
+function SortedList({ items, ascending }) {
+  const sortedItems = useMemo(() => {
+    console.log('Sorting items');
+    return [...items].sort((a, b) => (ascending ? a - b : b - a));
+  }, [items, ascending]);
+
+  return (
+    <ul>
+      {sortedItems.map((item, index) => (
+        <li key={index}>{item}</li>
+      ))}
+    </ul>
+  );
+}
+
+export default function App() {
+  // Generate a fixed large list once
+  const items = useMemo(
+    () => Array.from({ length: 10000 }, () => Math.floor(Math.random() * 100000)),
+    []
+  );
+
+  const [ascending, setAscending] = useState(true);
+  const [count, setCount] = useState(0);
+
+  return (
+    <>
+      <button onClick={() => setAscending((prev) => !prev)}>
+        Toggle Sort Order ({ascending ? 'Asc' : 'Desc'})
+      </button>
+      <button onClick={() => setCount((c) => c + 1)}>
+        Re-render ({count})
+      </button>
+      <SortedList items={items} ascending={ascending} />
+    </>
+  );
+}
+
+
+
+
+
+
+
+
+
+
+
+// React useCallback Hook Notes
+// Why useCallback?
+// Memoizes a function reference so it only changes when its dependencies change.
+// Useful to prevent unnecessary child re-renders (with React.memo) or effect re-runs.
+// Signature:
+// const memoizedCallback = useCallback(
+//   () => { /* your callback code */ },
+//   [dep1, dep2]
+// );
+
+// Basic Example:
+import React, { useState, useCallback } from 'react';
+
+function CounterButton({ onClick, children }) {
+  console.log('Rendering Button:', children);
+  return <button onClick={onClick}>{children}</button>;
+}
+
+const MemoCounterButton = React.memo(CounterButton);
+
+export default function App() {
+  const [count, setCount] = useState(0);
+  const [other, setOther] = useState(false);
+
+  // increment is recreated only if setCount changes (never)
+  const increment = useCallback(() => {
+    setCount(c => c + 1);
+  }, []);
+
+  return (
+    <>
+      <MemoCounterButton onClick={increment}>
+        Increment ({count})
+      </MemoCounterButton>
+      <button onClick={() => setOther(o => !o)}>
+        Toggle Other ({other.toString()})
+      </button>
+    </>
+  );
+}
+
+// Real-World Use Case: Stable Handlers in a List
+import React, { useState, useCallback } from 'react';
+
+function Item({ item, onSelect }) {
+  console.log('Rendering Item', item.id);
+  return <li onClick={() => onSelect(item.id)}>{item.text}</li>;
+}
+
+const MemoItem = React.memo(Item);
+
+export function ItemList({ items }) {
+  const [selected, setSelected] = useState(null);
+
+  // handleSelect stays the same between renders
+  const handleSelect = useCallback(id => {
+    setSelected(id);
+  }, []);
+
+  return (
+    <>
+      <p>Selected: {selected}</p>
+      <ul>
+        {items.map(item => (
+          <MemoItem key={item.id} item={item} onSelect={handleSelect} />
+        ))}
+      </ul>
+    </>
+  );
+}
+
+// Common Pitfalls:
+// 1. Over-callbackizing: Memoizing trivial functions adds overhead.
+// 2. Missing Dependencies: Forgetting to list every variable causes stale callbacks.
+// 3. No Benefit: Only use when passing to memoized children or as effect deps.
+
+// When to Favor useCallback:
+// - Passing callbacks to React.memo children.
+// - Keeping stable references in dependency arrays.
+// - Avoiding recreation of handlers on every render.
+
+// useCallback vs useMemo vs React.memo:
+// - useCallback: memoizes functions.
+// - useMemo: memoizes values.
+// - React.memo: skips child renders when props are unchanged.
+
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////

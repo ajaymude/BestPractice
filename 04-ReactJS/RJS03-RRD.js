@@ -5,6 +5,8 @@
 // 40 - Nested Routes
 // 41 - Redirects and NotFound pages
 
+// createBrowserRouter , RouterProvider , this is the new new the fetch the dara in the router
+
 
 
 // ======================
@@ -949,6 +951,299 @@ export default Navbar;
 
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
+
+// data fetch in the react router 
+
+// src/index.jsx
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from 'react-router-dom'
+import App from './App'
+import Home, { loader as homeLoader } from './pages/Home'
+import Post, { loader as postLoader } from './pages/Post'
+import ErrorPage from './pages/ErrorPage'
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,             // your root layout
+    errorElement: <ErrorPage />,   // catches loader/render errors
+    children: [
+      {
+        index: true,
+        element: <Home />,         // renders at “/”
+        loader: homeLoader,        // fetch list of posts
+      },
+      {
+        path: 'posts/:postId',
+        element: <Post />,         // renders at “/posts/123”
+        loader: postLoader,        // fetch a single post by ID
+      },
+    ],
+  },
+])
+
+ReactDOM
+  .createRoot(document.getElementById('root'))
+  .render(<RouterProvider router={router} />)
+
+
+
+// src/pages/Home.jsx
+import { useLoaderData, Link } from 'react-router-dom'
+
+export async function loader() {
+  const res = await fetch('/api/posts')
+  if (!res.ok) throw new Response('Failed to load posts', { status: res.status })
+  return res.json()  // this becomes the “data” for Home
+}
+
+export default function Home() {
+  const posts = useLoaderData()
+  return (
+    <div>
+      <h1>All Posts</h1>
+      <ul>
+        {posts.map(post => (
+          <li key={post.id}>
+            <Link to={`posts/${post.id}`}>{post.title}</Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+
+
+// src/pages/Post.jsx
+import { useLoaderData } from 'react-router-dom'
+
+export async function loader({ params }) {
+  const res = await fetch(`/api/posts/${params.postId}`)
+  if (!res.ok) throw new Response('Post not found', { status: 404 })
+  return res.json()
+}
+
+export default function Post() {
+  const post = useLoaderData()
+  return (
+    <article>
+      <h2>{post.title}</h2>
+      <p>{post.body}</p>
+    </article>
+  )
+}
+
+
+
+
+// how to send the data in the react router dom 
+
+// src/index.jsx
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import ContactEdit, { action as contactAction, loader as contactLoader } from './pages/ContactEdit'
+
+const router = createBrowserRouter([
+  {
+    path: '/contacts/:contactId/edit',
+    element: <ContactEdit />,
+    loader: contactLoader,     // to fetch existing contact data
+    action: contactAction,     // to handle form submission
+    errorElement: <ErrorPage />
+  },
+  // …other routes
+])
+
+ReactDOM.createRoot(document.getElementById('root'))
+  .render(<RouterProvider router={router} />)
+
+
+
+// src/pages/ContactEdit.jsx
+import { useLoaderData, Form, redirect } from 'react-router-dom'
+
+// loader: fetch the contact to prefill the form
+export async function loader({ params }) {
+  const res = await fetch(`/api/contacts/${params.contactId}`)
+  if (!res.ok) throw new Response('Not Found', { status: 404 })
+  return res.json()
+}
+
+// action: process the submitted form
+export async function action({ request, params }) {
+  const formData = await request.formData()
+  const updates = {
+    name: formData.get('name'),
+    email: formData.get('email'),
+  }
+
+  const res = await fetch(`/api/contacts/${params.contactId}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(updates),
+  })
+
+  if (!res.ok) {
+    // you can throw a Response to trigger your errorElement
+    throw new Response('Failed to update', { status: res.status })
+  }
+
+  // after a successful update, redirect back to the contact’s detail page
+  return redirect(`/contacts/${params.contactId}`)
+}
+
+export default function ContactEdit() {
+  const contact = useLoaderData()
+
+  return (
+    <Form method="post">
+      <label>
+        Name:<br />
+        <input name="name" defaultValue={contact.name} />
+      </label>
+      <label>
+        Email:<br />
+        <input name="email" defaultValue={contact.email} />
+      </label>
+      <button type="submit">Save</button>
+    </Form>
+  )
+}
+
+
+// how to handle the error in the react router dom
+
+
+// src/index.jsx
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from 'react-router-dom'
+import App from './App'
+import Dashboard, { loader as dashboardLoader } from './pages/Dashboard'
+import Settings, { loader as settingsLoader } from './pages/Settings'
+import ErrorPage from './pages/ErrorPage'
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    errorElement: <ErrorPage />,    // ← catches errors for all child routes too
+    children: [
+      {
+        index: true,
+        element: <Dashboard />,
+        loader: dashboardLoader,
+      },
+      {
+        path: 'settings',
+        element: <Settings />,
+        loader: settingsLoader,
+        // you could also override errorElement here if you wanted a different error UI
+      },
+    ],
+  },
+])
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <RouterProvider router={router} />
+)
+
+
+
+
+
+
+
+// src/pages/ErrorPage.jsx
+import React from 'react'
+import {
+  useRouteError,
+  isRouteErrorResponse,
+  Link,
+} from 'react-router-dom'
+
+export default function ErrorPage() {
+  const error = useRouteError()
+
+  // You can detect thrown Response errors (e.g. from loader)
+  if (isRouteErrorResponse(error)) {
+    return (
+      <div style={{ padding: 20 }}>
+        <h1>Oops! {error.status} {error.statusText}</h1>
+        <p>{error.data || 'Sorry, something went wrong fetching this page.'}</p>
+        <Link to="/">Go back home</Link>
+      </div>
+    )
+  }
+
+  // Fallback for other errors (e.g. render errors, JS exceptions)
+  return (
+    <div style={{ padding: 20 }}>
+      <h1>Unexpected Error</h1>
+      <pre>{error.message}</pre>
+      <Link to="/">Go back home</Link>
+    </div>
+  )
+}
+
+
+
+// src/pages/Dashboard.jsx
+import React from 'react'
+import { useLoaderData, Link } from 'react-router-dom'
+
+export async function loader() {
+  // simulate a failed fetch
+  const res = await fetch('/api/dashboard')
+  if (!res.ok) {
+    // throw a Response to trigger ErrorPage’s isRouteErrorResponse branch
+    throw new Response('Dashboard data not available', { status: 503 })
+  }
+  return res.json()
+}
+
+export default function Dashboard() {
+  const data = useLoaderData()
+  return (
+    <div>
+      <h2>Welcome, {data.username}!</h2>
+      <Link to="settings">Go to settings</Link>
+    </div>
+  )
+}
+
+
+
+// src/pages/Settings.jsx
+import React from 'react'
+import { useLoaderData } from 'react-router-dom'
+
+export async function loader() {
+  // simulate a JS error in loader
+  throw new Error('Settings failed to load due to a bug!')
+}
+
+export default function Settings() {
+  const settings = useLoaderData()
+  return (
+    <div>
+      <h2>Your Settings</h2>
+      {/* ... */}
+    </div>
+  )
+}
+
+
+
+
+
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
