@@ -1438,6 +1438,65 @@ fs.unlink('temp.txt', (err) => {
   console.log('temp.txt successfully deleted');
 });
 
+
+// fs-example.js
+// 1. Load the module
+const fs = require('fs');
+const path = require('path');
+
+// 2. Asynchronous read (callback API)
+fs.readFile(path.join(__dirname, 'input.txt'), 'utf8', (err, data) => {
+  if (err) {
+    return console.error('Read error:', err);
+  }
+  console.log('Async read:', data);
+});
+
+// 3. Synchronous read
+try {
+  const text = fs.readFileSync(path.join(__dirname, 'input.txt'), 'utf8');
+  console.log('Sync read:', text);
+} catch (err) {
+  console.error('Sync read error:', err);
+}
+
+// 4. Promises API (async/await)
+(async () => {
+  try {
+    const { readFile, writeFile, appendFile, mkdir, readdir } = fs.promises;
+    // Ensure directory exists
+    await mkdir(path.join(__dirname, 'data'), { recursive: true });
+    // Write a new file
+    await writeFile(path.join(__dirname, 'data', 'output.txt'), 'Hello, fs.promises!\n');
+    console.log('File written.');
+
+    // Append some text
+    await appendFile(path.join(__dirname, 'data', 'output.txt'), 'Appended line.\n');
+    console.log('Appended.');
+
+    // Read directory contents
+    const files = await readdir(path.join(__dirname, 'data'));
+    console.log('Files in data/:', files);
+  } catch (err) {
+    console.error('fs.promises error:', err);
+  }
+})();
+
+// 5. Streams for large files
+const readStream = fs.createReadStream(path.join(__dirname, 'bigfile.txt'), { encoding: 'utf8' });
+const writeStream = fs.createWriteStream(path.join(__dirname, 'data', 'copy.txt'));
+readStream.on('error', err => console.error('Stream read error:', err));
+writeStream.on('error', err => console.error('Stream write error:', err));
+readStream.pipe(writeStream).on('finish', () => {
+  console.log('Stream copy complete.');
+});
+
+// 6. Watching for changes
+fs.watch(path.join(__dirname, 'input.txt'), (eventType, filename) => {
+  console.log(`File ${filename} changed:`, eventType);
+});
+
+
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
 

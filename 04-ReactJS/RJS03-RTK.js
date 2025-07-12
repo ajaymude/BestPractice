@@ -1632,9 +1632,116 @@ export const {
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 
+// useLocation
 
 
 
+import { Link, useLocation } from 'react-router-dom';
+
+export default function Navbar() {
+  const location = useLocation();
+
+  return (
+    <nav>
+      <Link
+        to="/"
+        className={location.pathname === '/' ? 'active' : ''}
+      >
+        Home
+      </Link>
+      <Link
+        to="/about"
+        className={location.pathname.includes('/about') ? 'active' : ''}
+      >
+        About
+      </Link>
+      <Link
+        to="/blog"
+        className={location.pathname.startsWith('/blog') ? 'active' : ''}
+      >
+        Blog
+      </Link>
+    </nav>
+  );
+}
+
+
+
+import { useLocation } from 'react-router-dom';
+
+export default function SearchResults() {
+  const { search } = useLocation();
+  const params = new URLSearchParams(search);
+  const page = params.get('page') || '1';
+  const referrer = params.get('ref');
+
+  return (
+    <div>
+      <h1>Showing results for page {page}</h1>
+      {referrer && <p>Came from: {referrer}</p>}
+    </div>
+  );
+}
+
+
+
+
+
+// Somewhere in your app
+<Link
+  to="/checkout"
+  state={{ cartTotal: 42.50, from: 'product-page' }}
+>
+  Go to Checkout
+</Link>
+
+// In Checkout.jsx
+import { useLocation } from 'react-router-dom';
+
+export default function Checkout() {
+  const location = useLocation();
+  const { cartTotal, from } = location.state || {};
+
+  return (
+    <div>
+      <h2>Checkout</h2>
+      {cartTotal != null
+        ? <p>Your total is ${cartTotal}</p>
+        : <p>No cart information available.</p>
+      }
+      {from && <small>Navigated here from: {from}</small>}
+    </div>
+  );
+}
+
+
+
+
+
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
+export default function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null; // this component doesn’t render anything
+}
+
+
+
+
+interface Location {
+  pathname: string;   // e.g. "/about/team"
+  search: string;     // e.g. "?page=2&ref=home"
+  hash: string;       // e.g. "#section1"
+  state?: any;        // arbitrary state you passed
+  key: string;        // unique ID for this history entry
+}
+ 
 
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////

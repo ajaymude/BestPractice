@@ -14,8 +14,8 @@
 // 06 - Statements, Expressions, and Semicolons
 // 07 - Comments (single-line, multi-line)
 // 08 - Variables: var, let, const (hoisting, temporal dead zone)
-// 09 - Data Types: primitive (string, number, boolean, null, undefined, symbol, bigint)
-// 10 - typeof operator and type coercion
+// 09 - Data Types: primitive (string, number, boolean, null, undefined, symbol, bigint)  // NON -primitive (object, array, function)
+// 10 - typeof operator and type coercion 
 
 // 🔢 OPERATORS & EXPRESSIONS
 // 11 - Arithmetic Operators (+, -, *, /, %, **, ++, --)
