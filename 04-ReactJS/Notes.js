@@ -23,6 +23,10 @@ import { useSelector, useDispatch } from "react-redux";
 // urlParams.set("sort", sidebarData.sort);
 
 
+// use the lazy loading in the react router dom
+// import { lazy, Suspense } from 'react';
+
+
 
 // protected route 
 

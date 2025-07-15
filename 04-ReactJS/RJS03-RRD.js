@@ -1246,6 +1246,35 @@ export default function Settings() {
 
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
+
+
+import { useSearchParams } from "react-router-dom";
+
+import { useSearchParams } from "react-router-dom";
+
+function ProductPage() {
+  const [searchParams] = useSearchParams();
+  const category = searchParams.get("category"); // e.g., ?category=shoes
+
+  return <div>Category: {category}</div>;
+}
+
+
+const [searchParams, setSearchParams] = useSearchParams();
+
+// Add or change a param
+setSearchParams({ category: "shoes", sort: "price" });
+// URL becomes: ?category=shoes&sort=price
+
+
+searchParams.set("page", "2");
+setSearchParams(searchParams);
+// Will update ?page=2 while keeping other params
+
+
+
+
+
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
