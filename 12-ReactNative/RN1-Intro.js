@@ -28,7 +28,7 @@
 // 28 - <VirtualizedList></VirtualizedList>
 // 29 - <SectionList></SectionList>
 // 30 - <VirtualizedList></VirtualizedList>
-
+// 31 -  <PaperProvider>
 
 
 
@@ -181,8 +181,112 @@ const styles = StyleSheet.create({
 
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
+
+import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+
+const RN1-Intro = () => {
+  return (
+    <View>
+      <Text>RN1-Intro</Text>
+    </View>
+  )
+}
+
+export default RN1-Intro
+
+const styles = StyleSheet.create({})
+
+
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
+
+
+import React from 'react';
+import { View, Button, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback, Pressable, Text, StyleSheet, Alert } from 'react-native';
+import { Provider as PaperProvider, Button as PaperButton } from 'react-native-paper';
+
+export default function App() {
+  return (
+    <PaperProvider>
+      <View style={styles.container}>
+
+        {/* 1. Default Button */}
+        <Button title="Default Button" onPress={() => Alert.alert('Default Button Pressed')} />
+
+        {/* 2. TouchableOpacity */}
+        <TouchableOpacity style={styles.button} onPress={() => Alert.alert('TouchableOpacity Pressed')}>
+          <Text style={styles.buttonText}>TouchableOpacity</Text>
+        </TouchableOpacity>
+
+        {/* 3. Pressable */}
+        <Pressable
+          onPress={() => Alert.alert('Pressable Pressed')}
+          style={({ pressed }) => [
+            styles.button,
+            { backgroundColor: pressed ? 'lightblue' : 'blue' }
+          ]}
+        >
+          <Text style={styles.buttonText}>Pressable</Text>
+        </Pressable>
+
+        {/* 4. TouchableHighlight */}
+        <TouchableHighlight
+          underlayColor="lightblue"
+          onPress={() => Alert.alert('TouchableHighlight Pressed')}
+          style={styles.button}
+        >
+          <Text style={styles.buttonText}>TouchableHighlight</Text>
+        </TouchableHighlight>
+
+        {/* 5. TouchableWithoutFeedback */}
+        <TouchableWithoutFeedback onPress={() => Alert.alert('TouchableWithoutFeedback Pressed')}>
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>TouchableWithoutFeedback</Text>
+          </View>
+        </TouchableWithoutFeedback>
+
+        {/* 6. Custom Button Component */}
+        <CustomButton title="Custom Button" onPress={() => Alert.alert('Custom Button Pressed')} />
+
+        {/* 7. React Native Paper Button */}
+        <PaperButton mode="contained" onPress={() => Alert.alert('Paper Button Pressed')}>
+          Paper Button
+        </PaperButton>
+
+      </View>
+    </PaperProvider>
+  );
+}
+
+const CustomButton = ({ title, onPress }) => (
+  <TouchableOpacity onPress={onPress} style={[styles.button, { backgroundColor: 'green' }]}>
+    <Text style={styles.buttonText}>{title}</Text>
+  </TouchableOpacity>
+);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10
+  },
+  button: {
+    backgroundColor: 'blue',
+    padding: 10,
+    marginVertical: 5,
+    borderRadius: 5,
+    alignItems: 'center',
+    width: 200
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold'
+  }
+});
+
+
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////

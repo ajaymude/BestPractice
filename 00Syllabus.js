@@ -3,7 +3,11 @@
 
 // Node.js Syllabus
 // REPL
-// fs
+// fs 
+    // readFileSync , readFile, writeFileSync, writeFile
+    // appendFileSync, appendFile, unlinkSync, unlink
+    // dirfilesSync, readdir, mkdirSync, rmdirSync, renameSync
+    // statSync, lstatSync, existsSync, accessSync
 // path
 // os
 // http
