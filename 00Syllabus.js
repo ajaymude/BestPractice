@@ -105,9 +105,8 @@
 		    // app.js 	
 		// client 
 				// src
-						// library
-								// element 
-								
+						// assets
+						// element 
 						// component 
 						// page 
 						// hooks
