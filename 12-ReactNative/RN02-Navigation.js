@@ -408,8 +408,128 @@ const styles = StyleSheet.create({
 
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
+
+
+
+import React from 'react';
+import { View, Text, Button, ImageBackground, StyleSheet } from 'react-native';
+
+// Image URL for background
+const backgroundImage = { uri: 'https://via.placeholder.com/400x800' };
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+
+      {/* ImageBackground component */}
+      <ImageBackground
+        source={backgroundImage}
+        resizeMode="cover" // Options: cover, contain, stretch, center, repeat
+        style={styles.imageBackground}
+      >
+        {/* Content over the background image */}
+        <View style={styles.overlay}>
+          <Text style={styles.title}>Welcome to the App</Text>
+          <Button title="Get Started" onPress={() => alert('Button Pressed!')} />
+        </View>
+
+      </ImageBackground>
+
+    </View>
+  );
+}
+
+// Styles
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  imageBackground: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  overlay: {
+    backgroundColor: 'rgba(0,0,0,0.5)', // Semi-transparent background
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center'
+  },
+  title: {
+    fontSize: 24,
+    color: 'white',
+    marginBottom: 10,
+    fontWeight: 'bold'
+  }
+});
+
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
+
+
+
+import React from 'react';
+import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
+
+// Local Image Import (ensure you have a file like 'logo.png' in your project)
+import LocalImage from './assets/logo.png';
+
+export default function App() {
+  return (
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.title}>React Native Image Example</Text>
+
+      {/* 1. Remote Image from URL */}
+      <Text>Remote Image:</Text>
+      <Image
+        source={{ uri: 'https://via.placeholder.com/150' }}
+        style={styles.image}
+        resizeMode="cover" // cover, contain, stretch, repeat, center
+      />
+
+      {/* 2. Local Image */}
+      <Text>Local Image:</Text>
+      <Image
+        source={LocalImage}
+        style={styles.image}
+        resizeMode="contain"
+      />
+
+      {/* 3. Image with rounded corners */}
+      <Text>Image with Rounded Corners:</Text>
+      <Image
+        source={{ uri: 'https://via.placeholder.com/150' }}
+        style={[styles.image, { borderRadius: 20 }]}
+      />
+
+      {/* 4. Circular Image */}
+      <Text>Circular Image:</Text>
+      <Image
+        source={{ uri: 'https://via.placeholder.com/150' }}
+        style={[styles.image, { borderRadius: 50 }]}
+      />
+    </ScrollView>
+  );
+}
+
+// Styles
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    padding: 20
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20
+  },
+  image: {
+    width: 100,
+    height: 100,
+    marginVertical: 10
+  }
+});
+
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
