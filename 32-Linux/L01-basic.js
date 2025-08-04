@@ -108,8 +108,6 @@
 // 26. echo - display a line of text
 //     Syntax: echo [options] [string]
 //     Why: To print messages or variable values to the terminal.
-//    Example: echo "Hello, World!" file.txt  
-//    it will print "Hello, World!" to the terminal and save it to file.txt
 
 // 27. history - show command history
 //     Syntax: history [options]
@@ -206,3 +204,206 @@
 // 50. tee - read from standard input and write to standard output and files
 //     Syntax: command | tee file
 //     Why: To capture output to files while also displaying it.
+
+// Advanced Commands
+
+// 51. htop - interactive process viewer
+//     Syntax: htop
+//     Why: To monitor processes with an improved interface, supports scrolling, sorting, and killing.
+
+// 52. lsof - list open files
+//     Syntax: lsof [options] [file|directory|-p pid]
+//     Why: To display all files opened by processes, useful for diagnosing resource locks.
+
+// 53. strace - trace system calls and signals
+//     Syntax: strace [options] command [args]
+//     Why: To debug program execution by tracing system calls and signals.
+
+// 54. ss - socket statistics
+//     Syntax: ss [options]
+//     Why: To inspect network sockets, connections, and listening ports; faster and more informative than netstat.
+
+// 55. tcpdump - network packet analyzer
+//     Syntax: tcpdump [options] [filter]
+//     Why: To capture and analyze network traffic for diagnostics and security auditing.
+
+// 56. rsync - remote and local file synchronization
+//     Syntax: rsync [options] source destination
+//     Why: To efficiently sync files and directories, transferring only changes, supports compression and SSH.
+
+// 57. tmux - terminal multiplexer
+//     Syntax: tmux [options] [command]
+//     Why: To manage multiple terminal sessions, detach and reattach sessions for persistent work.
+
+// 58. iptables - IPv4 packet filtering and NAT
+//     Syntax: sudo iptables [options] [chain] [rule-specification]
+//     Why: To configure firewall rules, network address translation, and packet mangling.
+
+// 59. sed - stream editor
+//     Syntax: sed [options] 'script' file
+//     Why: To perform basic text transformations on file streams using scripts.
+
+// 60. awk - pattern scanning and processing language
+//     Syntax: awk [options] 'program' file
+//     Why: To process and analyze text files line by line using patterns and actions.
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////
+
+// for the login we use the ssh port 22 
+// for the web server we use the http port 80
+// for the secure web server we use the https port 443
+// for the mail server we use the smtp port 25
+// for the secure mail server we use the smtps port 465
+// for the pop3 server we use the pop3 port 110
+
+
+// public key authentication is more secure than password authentication
+// private key is kept secret on the client side
+// ssh keys are generated using ssh-keygen
+// putty is a popular SSH client for Windows
+
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////
+
+
+/**
+ * Linux Commands Cheat-Sheet
+ *
+ * 1. Login-Related
+ *    ssh user@host             // Securely open a remote shell session
+ *
+ * 2. Disk-Usage
+ *    df -h                     // Show available disk space (human-readable)
+ *    du -sh [path]             // Show directory size summary (human-readable)
+ *
+ * 3. Process Management
+ *    ps aux                    // List all processes with CPU/memory details
+ *    top                       // Interactive real-time view of running processes
+ *    fuser -m [path]           // Identify processes accessing a file or filesystem
+ *    kill PID                  // Terminate a process by its PID (use -9 for force)
+ *    nohup cmd &               // Run command immune to hangups; continues after logout
+ *    free -h                   // Display RAM and swap usage (human-readable)
+ *    vmstat [interval]         // Show VM, CPU, I/O stats periodically
+ *
+ * 4. System-Level Commands
+ *    uname                     // Print kernel name and system info
+ *    uptime                    // Show system uptime and load averages
+ *    date                      // Display current date and time
+ *    who, whoami               // who: list logged-in users; whoami: current effective username
+ *    which <cmd>               // Locate the full path of <cmd> executable
+ *    id                        // Show UID, GID, and group memberships of current user
+ *    sudo <cmd>                // Execute <cmd> as root (or another user)
+ *    shutdown [options]        // Halt or power off the system safely
+ *    reboot                    // Restart the system immediately
+ *    apt-get                   // Debian/Ubuntu package management frontend
+ *    yum                       // RHEL/CentOS legacy RPM package manager
+ *    dnf                       // Fedora/RHEL modern RPM package manager
+ *    pacman                    // Arch Linux package manager
+ *    emerge/portage            // Gentoo package management (Portage system)
+ *
+ * 5. User & Group Management
+ *    sudo <cmd>                // Execute commands with elevated privileges
+ *    useradd <user>            // Create a new user account
+ *    whoami                    // Display the current effective username
+ *    su - <user>               // Switch to another user account
+ *    passwd <user>             // Set or change the password for <user>
+ *    userdel <user>            // Delete a user account
+ *    groupadd <group>          // Create a new group
+ *    gpasswd -a <user> <group> // Add <user> to <group> (use -m to create group if missing)
+ *    groupdel <group>          // Delete a group
+ *
+ * 6. File Permission Commands
+ *    umask [mask]              // Set default file creation permission mask
+ *    ls -l [file/dir]          // List files/directories with detailed perms and ownership
+ *    chmod [options] mode file // Change file or directory permissions
+ *    chown [options] owner[:group] file // Change file owner and optionally group
+ *    chgrp [options] group file // Change group ownership of a file or directory
+ *
+ * 7. Compression Commands
+ *    zip archive.zip files...              // Create a ZIP archive
+ *    unzip archive.zip                    // Extract a ZIP archive
+ *    gzip file                             // Compress file to file.gz
+ *    gunzip file.gz                        // Decompress gzip file
+ *    tar -cvf archive.tar files...         // Create tar archive
+ *    tar -xvf archive.tar                  // Extract tar archive
+ *    tar -czvf archive.tar.gz files...     // Create gzipped tarball (tar + gzip)
+ *    tar -xzvf archive.tar.gz              // Extract gzipped tarball
+ *
+ * 8. File Transfer Commands
+ *    scp source user@host:destination      // Secure copy files over SSH
+ *    rsync -avz source/ user@host:dest/   // Synchronize files/directories (with compression)
+ *
+ * 9. Text Processing Commands
+ *    cat [file]                            // Concatenate and display file contents
+ *    head [options] file                   // Show first lines of a file (default 10)
+ *    tail [options] file                   // Show last lines of a file (default 10, use -f to follow)
+ *    less file                             // View file pages interactively
+ *    grep [options] pattern file...        // Search for pattern in files
+ *    sed 'script' file                     // Stream editor for text transformations
+ *    awk 'program' file                    // Pattern scanning and processing language
+ *    cut [options] file                    // Extract columns or fields from lines
+ *    sort [options] file                   // Sort lines in text files
+ *    uniq [options] file                   // Report or filter duplicate lines
+ *
+ * 10. Networking Commands
+ *    ping [options] host                   // Send ICMP ECHO_REQUEST to network host
+ *    ss [options]                          // Show socket statistics (preferred over netstat)
+ *    netstat [options]                     // Network connections, routing tables, interface stats
+ *    traceroute host                       // Print route packets take to network host
+ *    curl [options] url                    // Transfer data with URL syntax
+ *    wget [options] url                    // Non-interactive download of files from web
+ *    dig [options] host                    // DNS lookup utility
+ *    nslookup host                         // Query Internet name servers interactively
+ *
+ * 11. Filesystem & Storage Commands
+ *    lsblk                                 // List block devices
+ *    blkid                                 // Locate/print block device attributes
+ *    mount [options] device dir            // Mount a filesystem
+ *    umount [options] target               // Unmount a filesystem
+ *    fdisk / parted                        // Partition table manipulator (fdisk or parted)
+ *    mkfs.<fstype> device                  // Create a filesystem on a device (e.g. mkfs.ext4)
+ *    fsck [options] filesystem             // File system consistency check and repair
+ *
+ * 12. Logs & Monitoring
+ *    journalctl [options]                  // Query systemd journal logs
+ *    dmesg [options]                       // Print or control kernel ring buffer
+ *    tail -f file                          // Follow file output in real time
+ *    watch [options] cmd                   // Execute a program periodically, showing output
+ *
+ * 13. Shell Utilities
+ *    history                               // Display or manipulate command history
+ *    alias [name[='value']]                // Define or display aliases
+ *    env                                   // Display environment variables
+ *    export VAR=value                      // Set environment variable for current shell
+ *    echo [string]                         // Display a line of text
+ *    clear                                 // Clear the terminal screen
+ *    xargs [options] cmd                   // Build and execute command lines from input
+ *    tee file                              // Read stdin and write to stdout and file
+ *
+ * 14. Job Scheduling
+ *    crontab -e                            // Edit user's cron jobs
+ *    crontab -l                            // List user's cron jobs
+ *    at time                                // Schedule command to run once at a later time
+ *
+ * Usage Tips:
+ *   • Combine these commands for routine maintenance:
+ *     - Quick checks: uname -a; uptime; df -h; free -h
+ *     - Text search: grep -R 'pattern' /path
+ *     - Schedule tasks: crontab -e; at 09:00
+ */
