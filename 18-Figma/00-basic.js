@@ -31,3 +31,4 @@
 // 24. Final Review – ensure all elements align with goals and branding.
 // 25. Launch Preparation – check hosting, domain, and technical setup. 
 
+g
