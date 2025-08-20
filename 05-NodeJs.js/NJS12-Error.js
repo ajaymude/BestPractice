@@ -1508,6 +1508,136 @@ metadata:
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
+
+
+
+// server.js — Express error handling blueprint (Node 18+)
+// npm i express
+const express = require('express');
+
+const app = express();
+app.use(express.json());
+
+// ---------- 1) Error helpers ----------
+class ApiError extends Error {
+  constructor(statusCode = 500, message = 'Internal Server Error', details = null) {
+    super(message);
+    this.statusCode = statusCode;
+    this.details = details;
+  }
+}
+// Handy typed errors (optional sugar)
+const BadRequest = (msg = 'Bad Request', details) => new ApiError(400, msg, details);
+const Unauthorized = (msg = 'Unauthorized', details) => new ApiError(401, msg, details);
+const Forbidden = (msg = 'Forbidden', details) => new ApiError(403, msg, details);
+const NotFound = (msg = 'Not Found', details) => new ApiError(404, msg, details);
+
+// Wrap async route handlers so you can "throw" or let rejects bubble
+const asyncHandler = (fn) => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
+
+// Optional: normalize some common library errors (Mongoose-friendly)
+function normalizeError(err) {
+  // Duplicate key (Mongo/Mongoose)
+  if (err && (err.code === 11000 || err.code === 11001)) {
+    const fields = err.keyValue ? Object.keys(err.keyValue) : undefined;
+    return new ApiError(409, 'Duplicate key', { fields, keyValue: err.keyValue });
+  }
+  // Mongoose validation error
+  if (err && err.name === 'ValidationError' && err.errors) {
+    const details = Object.values(err.errors).map(e => ({ path: e.path, message: e.message }));
+    return new ApiError(422, 'Validation failed', details);
+  }
+  // CastError (invalid ObjectId)
+  if (err && err.name === 'CastError') {
+    return new ApiError(400, `Invalid ${err.path}: ${err.value}`, { path: err.path, value: err.value });
+  }
+  // Zod / Joi / express-validator style (if present)
+  if (Array.isArray(err?.errors) && err.errors.every(e => e?.path && e?.message)) {
+    return new ApiError(422, 'Validation failed', err.errors);
+  }
+  return err instanceof ApiError ? err : new ApiError(err.statusCode || 500, err.message || 'Internal Error');
+}
+
+// ---------- 2) Demo routes ----------
+app.get('/', (_req, res) => {
+  res.json({ ok: true, msg: 'Hello. Try /sync-error, /async-error, /bad-request, /not-found' });
+});
+
+// Synchronous error
+app.get('/sync-error', (_req, _res) => {
+  throw BadRequest('Synchronous oops');
+});
+
+// Async error (no try/catch needed when using asyncHandler)
+app.get('/async-error', asyncHandler(async (_req, _res) => {
+  // Simulate async failure
+  await new Promise((_, reject) => setTimeout(() => reject(new Error('DB timed out')), 50));
+}));
+
+// Manual bad request with details
+app.post('/bad-request', (req, _res, next) => {
+  const { name } = req.body || {};
+  if (!name || name.trim().length < 3) {
+    return next(BadRequest('name must be at least 3 chars', [{ path: 'name', message: 'Too short' }]));
+  }
+  next(new ApiError(501, 'Demo only — not implemented'));
+});
+
+// Example id casting (pretend ObjectId needed)
+app.get('/users/:id', (req, _res, next) => {
+  const id = req.params.id;
+  const isValidObjectId = /^[a-f\d]{24}$/i.test(id);
+  if (!isValidObjectId) return next(BadRequest('Invalid user id', [{ path: 'id', message: 'Not a 24-char hex' }]));
+  // simulate not found
+  next(NotFound('User not found', [{ path: 'id', message: 'No user with given id' }]));
+});
+
+// ---------- 3) 404 route (must be before error handler) ----------
+app.use((req, _res, next) => {
+  next(NotFound(`${req.originalUrl} not found`));
+});
+
+// ---------- 4) Central error handler (last middleware) ----------
+app.use((err, req, res, _next) => {
+  const env = process.env.NODE_ENV || 'development';
+  const normalized = normalizeError(err);
+
+  const status = Number(normalized.statusCode) || 500;
+  const payload = {
+    success: false,
+    statusCode: status,
+    message: normalized.message || 'Internal Server Error',
+    details: normalized.details || undefined,
+    path: req.originalUrl,
+    method: req.method,
+    timestamp: new Date().toISOString(),
+    // Only include stack in non-production
+    stack: env === 'production' ? undefined : (normalized.stack || err.stack),
+  };
+
+  // You could log here (console, winston, pino). Keep console for demo:
+  if (status >= 500) console.error('❌', payload);
+  else console.warn('⚠️', payload.message, payload.details || '');
+
+  res.status(status).json(payload);
+});
+
+// ---------- 5) Process-level guards ----------
+let server = app.listen(process.env.PORT || 3000, () => {
+  console.log(`API up on http://localhost:${server.address().port}`);
+});
+
+// Make sure the process doesn’t die silently
+process.on('unhandledRejection', (reason) => {
+  console.error('UNHANDLED REJECTION:', reason);
+  // In real apps, you might close server then exit(1)
+});
+process.on('uncaughtException', (err) => {
+  console.error('UNCAUGHT EXCEPTION:', err);
+  // In real apps, close then exit(1)
+});
+
+
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////

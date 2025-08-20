@@ -3361,16 +3361,826 @@ console.log("Iterative Fibonacci of 7:", fibonacciIterative(7)); // 13
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
+
+
+/**************************************************************************************************
+ * 70) ARRAY + OBJECT DESTRUCTURING (ES6)
+ **************************************************************************************************/
+
+// Array destructuring – position based
+const arr = [10, 20, 30, 40];
+const [a, b] = arr;                 // a=10, b=20
+const [, , c] = arr;                // skip items → c=30
+const [x, , , y=99] = [1, 2, 3];    // default values → x=1, y=99
+const [first, ...rest] = arr;       // rest operator → first=10, rest=[20,30,40]
+
+// Quick swap (no temp var)
+let p = 1, q = 2;
+[p, q] = [q, p];                     // p=2, q=1
+
+// Nested array destructuring
+const nested = [1, [2, 3]];
+const [n1, [n2, n3]] = nested;       // n1=1, n2=2, n3=3
+
+// Object destructuring – key based (order doesn’t matter)
+const user = { id: 42, name: "Ajay", role: "dev" };
+const { name, id } = user;           // name="Ajay", id=42
+
+// Rename while destructuring
+const { role: job } = user;          // job="dev" (no 'role' variable created)
+
+// Default values + renaming
+const { city = "Pune", name: fullName } = user;  // city="Pune", fullName="Ajay"
+
+// Nested object destructuring
+const options = { size: { w: 800, h: 600 }, theme: "dark" };
+const { size: { w, h }, theme } = options; // w=800, h=600, theme="dark"
+
+// Destructure function params (great for options objects)
+function createUser({ name, role = "user", active = true } = {}) {
+  return { name, role, active };
+}
+
+// Destructure in loops
+const people = [{ n: "A" }, { n: "B" }];
+for (const { n } of people) { /* n is each name */ }
+
+// Pitfalls:
+// - Array: missing items become undefined.
+// - Object: accessing a missing nested path without default throws if you destructure deeper from undefined.
+//   const { foo: { bar } } = {}; // ❌ TypeError
+//   Fix → const { foo: { bar } = {} } = {}; // ✅ bar=undefined
+
+/**************************************************************************************************
+ * 71) DATA STRUCTURE: Set
+ **************************************************************************************************/
+
+// Characteristics:
+// - Unique values only (no duplicates)
+// - Insertion order preserved
+// - Fast membership checks (average O(1))
+// - Values can be primitives or object references
+const s = new Set([1, 2, 2, 3]); // → {1,2,3}
+
+// Core APIs
+s.add(4);                 // add value
+s.has(2);                 // true
+s.delete(3);              // remove one
+s.size;                   // 3
+s.clear();                // remove all
+
+// Iterate
+const set2 = new Set(["a", "b", "c"]);
+for (const v of set2) {}            // values
+set2.forEach((v) => {});            // same value for key+value (Set has no keys)
+
+// Convert between Set and Array
+const uniq = [...new Set([1,1,2,3,3])];    // [1,2,3]
+const setFromArr = new Set([..."hello"]);  // {'h','e','l','l','o'}
+
+// Common use cases:
+// - Deduplication, membership tests, set ops (union/intersection/diff)
+const A = new Set([1,2,3]), B = new Set([3,4]);
+const union = new Set([...A, ...B]);                       // {1,2,3,4}
+const inter = new Set([...A].filter(x => B.has(x)));       // {3}
+const diff  = new Set([...A].filter(x => !B.has(x)));      // {1,2}
+
+/**************************************************************************************************
+ * 72) DATA STRUCTURE: Map
+ **************************************************************************************************/
+
+// Characteristics:
+// - Key/value pairs with ANY key type (objects, functions, primitives)
+// - Preserves insertion order
+// - Better than plain objects when keys aren’t strings/symbols or when frequent adds/removes
+const m = new Map();
+const objKey = { id: 1 };
+m.set("name", "Ajay");
+m.set(objKey, { score: 100 });
+m.get("name");           // "Ajay"
+m.get(objKey);           // { score: 100 }
+m.has("name");           // true
+m.delete("name");        // remove one
+m.size;                  // size of map
+m.clear();               // remove all
+
+// Iteration
+const map2 = new Map([["a",1], ["b",2]]);
+for (const [k, v] of map2) {}
+map2.forEach((v, k) => {});
+
+// Convert
+const entries = [...map2];                  // [["a",1],["b",2]]
+const fromObj = new Map(Object.entries({x:10,y:20}));
+const toObj   = Object.fromEntries(map2);   // { a:1, b:2 }
+
+// Use cases:
+// - Caches (object keys), counting frequencies, adjacency lists (graphs), LRU implementations
+
+/**************************************************************************************************
+ * 73) WEAKSET + WEAKMAP
+ **************************************************************************************************/
+
+// WeakSet:
+// - Stores only object references (no primitives)
+// - References are weak → if no other strong refs exist, GC can free them
+// - Non-iterable (no size, no forEach), only .add/.has/.delete
+const ws = new WeakSet();
+let o1 = { x: 1 };
+ws.add(o1);
+ws.has(o1);   // true
+o1 = null;    // object can be GC’d later; WeakSet auto-forgets
+
+// WeakMap:
+// - Keys must be objects; values can be anything
+// - Weak refs enable memory-safe metadata per object (no leaks)
+// - Non-iterable; only .set/.get/.has/.delete
+const wm = new WeakMap();
+let k = {};
+wm.set(k, { hidden: true });
+wm.get(k);    // { hidden: true }
+k = null;     // key/value can be GC’d later
+
+// Use cases:
+// - Private data for objects without preventing GC
+// - Event listener bookkeeping, memoization caches tied to object lifetimes
+
+/**************************************************************************************************
+ * 74) MODULES (IMPORT/EXPORT)
+ **************************************************************************************************/
+
+// File: math.js (module)
+export const add = (a, b) => a + b;            // named export
+export const PI  = 3.14159;
+const secret = 42;
+export default function mul(a, b) { return a * b; } // default export (one per file)
+
+// File: app.js (module consumer)
+import mul, { add, PI as π } from "./math.js";
+mul(2,3);            // 6
+add(1,2);            // 3
+π;                   // 3.14159
+
+// Re-export (barrel):
+// index.js
+export * from "./math.js";        // re-export named exports
+export { default as multiply } from "./math.js";
+
+// Dynamic import (code splitting; returns a Promise):
+// (Only inside modules; top-level await supported in ESM)
+async function load() {
+  const { heavyFn } = await import("./heavy.js");
+  heavyFn();
+}
+
+// Notes:
+// - ESM is static (tree-shakable). Imports hoisted, read-only bindings.
+// - Use 'type="module"' in browser or "type":"module" in package.json for Node.
+// - Default vs named: you can have many named exports, max one default.
+// - Import paths are URL-like in browsers; Node can use relative or bare specifiers (resolved by Node rules).
+
+/**************************************************************************************************
+ * 75) STRING: padStart, padEnd, trimStart, trimEnd
+ **************************************************************************************************/
+
+// padStart/End: pad to a target length with given fill string (default " ")
+"7".padStart(3, "0");        // "007"
+"js".padEnd(5, ".");         // "js..."
+"123".padStart(2, "0");      // "123" (already >= length → unchanged)
+
+// Common use: formatting IDs, times, columns
+const hh = String(5).padStart(2, "0"); // "05"
+const mm = String(9).padStart(2, "0"); // "09"
+
+// trimStart/trimEnd: remove whitespace from start/end only (Unicode whitespace)
+"   hi  ".trimStart();        // "hi  "
+"   hi  ".trimEnd();          // "   hi"
+"   hi  ".trim();             // both ends → "hi"
+
+// Notes:
+// - padStart/End compute how many chars to add: max(0, targetLen - str.length).
+// - If fill string doesn’t divide evenly, it’s truncated.
+// - trim* don’t modify the original string (strings are immutable).
+
+/**************************************************************************************************
+ * QUICK CHEAT CODES
+ **************************************************************************************************/
+
+// 1) Deduplicate array quickly:
+const unique = [...new Set(arr)];
+
+// 2) Count frequency with Map:
+const freq = new Map();
+for (const v of ["a","b","a"]) freq.set(v, (freq.get(v) || 0) + 1);
+
+// 3) Destructure with defaults in params:
+function connect({ host="localhost", port=5432 } = {}) {}
+
+// 4) Swap variables:
+[aVar, bVar] = [bVar, aVar];
+
+// 5) Convert Map <-> Object:
+const objFromMap = Object.fromEntries(aMap);
+const mapFromObj = new Map(Object.entries(anObj));
+
+// 6) Left pad numbers:
+const orderNo = String(123).padStart(8, "0"); // "00000123"
+
+// 7) Safe nested destructuring:
+const { cfg: { url } = {} } = maybeObj; // url=undefined if cfg missing
+
+
+
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
+
+
+/*
+===========================================================
+76) Different Types of Errors in JavaScript (Cheat Sheet)
+===========================================================
+
+Core built-in error classes all inherit from Error:
+- Error            → Base class (use this if none of the below fit)
+- SyntaxError      → Code can’t be parsed (usually at load-time; eval/Function can throw at run-time)
+- ReferenceError   → Refers to a variable/property that doesn’t exist (or TDZ with let/const)
+- TypeError        → Wrong “type” usage (call non-function, access prop of null/undefined, etc.)
+- RangeError       → Value out of allowed range (e.g., new Array(-1), num.toFixed(100))
+- URIError         → Malformed URI sequence in encode/decode URI components
+- EvalError        → Historical; rarely used nowadays
+- AggregateError   → A group of errors (e.g., Promise.any() rejection contains AggregateError)
+
+Examples:
+-----------------------------------------------------------
+  // SyntaxError (parse-time)
+  // const x = ;             // ← Uncaught SyntaxError at load/parse time
+  // Runtime SyntaxError via eval / Function:
+  try { eval("const x = ;"); } catch (e) { console.log(e.name); } // SyntaxError
+
+  // ReferenceError
+  try { console.log(notDefinedVar); } catch (e) { console.log(e.name); } // ReferenceError
+  // TDZ:
+  // console.log(a); let a = 1; // ReferenceError (Temporal Dead Zone)
+
+  // TypeError
+  try {
+    const n = null;
+    n.toString();                          // Cannot read properties of null
+  } catch (e) { console.log(e.name); }     // TypeError
+  try {
+    const f = 123;
+    f();                                   // Not a function
+  } catch (e) { console.log(e.name); }     // TypeError
+
+  // RangeError
+  try { new Array(-1); } catch (e) { console.log(e.name); }          // RangeError
+  try { (12.34).toFixed(100); } catch (e) { console.log(e.name); }   // RangeError
+
+  // URIError
+  try { decodeURIComponent("%"); } catch (e) { console.log(e.name); } // URIError
+
+  // AggregateError (Promise.any rejects if ALL reject)
+  Promise.any([Promise.reject("A"), Promise.reject("B")])
+    .catch(e => console.log(e.name)); // AggregateError
+
+Useful Error fields:
+  e.name      → "TypeError", "SyntaxError", …
+  e.message   → human-readable explanation
+  e.stack     → stack trace (non-standard but widely available)
+  e.cause     → underlying error (ES2022+): new Error("msg", { cause: original })
+
+Best practices:
+  - Always throw Error instances (not strings).  // BAD: throw "fail"
+  - Provide context: new Error("Invalid email: blank local-part")
+  - Use specific error classes when it helps callers decide behavior.
+  - Avoid exposing internal details in production messages.
+
+===========================================================
+77) Exercise: Throw a Custom Error Object
+===========================================================
+
+1) Create your own error class (extend Error)
+2) Attach helpful metadata (e.g., code, status, field)
+3) Throw it when validation fails
+4) Catch it and branch logic by `instanceof` or `name`
+
+Example solution:
+-----------------------------------------------------------
+  class ValidationError extends Error {
+    constructor(message, options = {}) {
+      super(message, options);           // keeps message + cause
+      this.name = "ValidationError";
+      this.code = options.code ?? "VALIDATION_FAILED";
+      this.field = options.field ?? null;
+      // Optional: better stacks in V8
+      if (Error.captureStackTrace) Error.captureStackTrace(this, ValidationError);
+    }
+  }
+
+  // A small validator that throws our custom error
+  function requireNonEmptyString(value, field = "value") {
+    if (typeof value !== "string") {
+      throw new ValidationError(`${field} must be a string`, { code: "TYPE", field });
+    }
+    if (value.trim() === "") {
+      throw new ValidationError(`${field} cannot be empty`, { code: "EMPTY", field });
+    }
+    return value;
+  }
+
+  // Using `cause` to wrap underlying errors
+  function parseUser(json) {
+    try {
+      const obj = JSON.parse(json);
+      obj.name = requireNonEmptyString(obj.name, "name");
+      return obj;
+    } catch (err) {
+      // Wrap low-level error with higher-level context
+      throw new ValidationError("Failed to parse user payload", { code: "PARSE", cause: err });
+    }
+  }
+
+  // Demo:
+  try {
+    parseUser('{"name":""}');
+  } catch (e) {
+    if (e instanceof ValidationError) {
+      console.log("[ValidationError]", e.message, e.code, e.field, e.cause?.message);
+    } else {
+      console.log("[Unknown error]", e);
+    }
+  }
+
+Tips:
+  - Prefer `instanceof CustomError` over string matching messages.
+  - Add error codes for programmatic handling (e.g., "EMPTY", "TYPE").
+
+===========================================================
+78) Handle Errors with try, catch, finally
+===========================================================
+
+try/catch basics:
+-----------------------------------------------------------
+  try {
+    // code that may throw
+  } catch (e) {
+    // handle or rethrow
+  } finally {
+    // always runs (success or error) → cleanup: close files, stop timers, release locks
+  }
+
+Key patterns:
+-----------------------------------------------------------
+  // 1) Handle known, rethrow unknown
+  try {
+    risky();
+  } catch (e) {
+    if (e instanceof ValidationError) {
+      alert(e.message);           // known: handle gracefully
+    } else {
+      throw e;                    // unknown: rethrow (don’t swallow)
+    }
+  }
+
+  // 2) finally for cleanup (runs even if you return/throw in try/catch)
+  function withTimer(fn) {
+    const t = setTimeout(() => {}, 1000);
+    try {
+      return fn();
+    } finally {
+      clearTimeout(t);            // guarantees cleanup
+    }
+  }
+
+  // ⚠ Avoid returning from finally (it overrides thrown errors/returns)
+  function dangerous() {
+    try {
+      throw new Error("boom");
+    } finally {
+      // return 42; // ← would hide the error! Don’t do this.
+    }
+  }
+
+Async error handling:
+-----------------------------------------------------------
+  // a) Promises
+  doAsync()
+    .then(res => console.log(res))
+    .catch(err => console.error("Promise error:", err));
+
+  // b) async/await with try/catch
+  async function load() {
+    try {
+      const res = await fetch("/api/data");
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      return data;
+    } catch (e) {
+      console.error("load failed:", e);
+      // optionally rethrow if caller must know
+      // throw e;
+    } finally {
+      console.log("cleanup spinner, etc.");
+    }
+  }
+
+  // c) AggregateError example (Promise.any)
+  async function firstAvailable(urls) {
+    try {
+      const fetches = urls.map(u => fetch(u));
+      return await Promise.any(fetches);
+    } catch (e) {
+      if (e instanceof AggregateError) {
+        console.error("All failed:", e.errors); // array of underlying errors
+      } else {
+        throw e;
+      }
+    }
+  }
+
+Node/Runtime safety nets (don’t rely on these for control flow):
+  - Browser: window.addEventListener("unhandledrejection", e => { ... })
+  - Node: process.on("unhandledRejection", handler), process.on("uncaughtException", handler)
+  (Use to log/alert; fix the root cause in code.)
+
+Quick checklist:
+  [ ] Throw Error objects, not strings
+  [ ] Use specific error classes for predictable handling
+  [ ] Include context (message, code, cause)
+  [ ] Don’t swallow unknown errors; rethrow
+  [ ] Use finally for cleanup; don’t return from finally
+  [ ] Test both success and failure paths
+*/
+
+
+
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
+
+
+/********************************************************************************************
+ * 148) SECTION INTRO
+ * Modern Browser APIs for interactive media, graphics, hardware access, and animation.
+ * Focus: GeoLocation, Canvas, rAF, Web Audio/Video, Web Animations, Speech APIs, mini-projects.
+ ********************************************************************************************/
+
+
+/********************************************************************************************
+ * 149) GEOLOCATION API
+ * - navigator.geolocation.getCurrentPosition(success, error?, options?)
+ * - navigator.geolocation.watchPosition(success, error?, options?) → id; clear via clearWatch(id)
+ * - Requires HTTPS (except localhost). User permission needed.
+ * - options: { enableHighAccuracy:boolean, timeout:number(ms), maximumAge:number(ms) }
+ ********************************************************************************************/
+if ("geolocation" in navigator) {
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      const { latitude, longitude, accuracy } = pos.coords;
+      console.log("Lat/Lng:", latitude, longitude, "±", accuracy, "m");
+    },
+    (err) => console.error(err.code, err.message),
+    { enableHighAccuracy: true, timeout: 10_000, maximumAge: 5_000 }
+  );
+}
+// Watch example:
+const watchId = navigator.geolocation?.watchPosition((pos) => {
+  console.log("Moving:", pos.coords.latitude, pos.coords.longitude);
+});
+// navigator.geolocation?.clearWatch(watchId);
+
+
+/********************************************************************************************
+ * 150) SHOW LOCATION ON MAP
+ * Quick methods (no libs):
+ * 1) Google Maps link: https://www.google.com/maps?q=<lat>,<lng>
+ * 2) Static iframe embed (OpenStreetMap via Leaflet needs JS/CSS; link approach is simplest)
+ ********************************************************************************************/
+function openOnMaps(lat, lng) {
+  window.open(`https://www.google.com/maps?q=${lat},${lng}`, "_blank");
+}
+// Example with a live position:
+navigator.geolocation?.getCurrentPosition(({ coords }) => {
+  openOnMaps(coords.latitude, coords.longitude);
+});
+
+
+/********************************************************************************************
+ * 151) CANVAS API (2D)
+ * - <canvas width height>.getContext("2d")
+ * - Draw shapes: fillRect, strokeRect, clearRect, beginPath/moveTo/lineTo/arc/stroke/fill
+ * - Text: fillText/strokeText; Images: drawImage(img, x, y)
+ * - Transform: translate/rotate/scale; save()/restore()
+ * - Pixels: getImageData/putImageData; Export: canvas.toDataURL("image/png")
+ ********************************************************************************************/
+// Basic drawing:
+const canvas = document.querySelector("#c");
+const ctx = canvas?.getContext("2d");
+if (ctx) {
+  // Rectangle
+  ctx.fillStyle = "#4f46e5";
+  ctx.fillRect(20, 20, 120, 80);
+
+  // Circle
+  ctx.beginPath();
+  ctx.arc(200, 60, 40, 0, Math.PI * 2);
+  ctx.fillStyle = "#10b981";
+  ctx.fill();
+
+  // Line
+  ctx.beginPath();
+  ctx.moveTo(20, 140);
+  ctx.lineTo(240, 140);
+  ctx.strokeStyle = "#111827";
+  ctx.lineWidth = 4;
+  ctx.stroke();
+
+  // Text
+  ctx.font = "16px system-ui";
+  ctx.fillStyle = "#111827";
+  ctx.fillText("Canvas Basics", 20, 170);
+}
+
+
+/********************************************************************************************
+ * 152) requestAnimationFrame (rAF)
+ * - Schedules the next frame ~60fps (depends on refresh rate), passes DOMHighResTimeStamp
+ * - Better than setInterval for animation (throttles in background tabs; syncs to paint)
+ * - cancelAnimationFrame(id) to stop
+ ********************************************************************************************/
+let rafId;
+let x = 0, vx = 2;
+function tick(t) { // t is high-res timestamp (ms)
+  if (!ctx) return;
+  ctx.clearRect(0, 180, canvas.width, 40);
+  ctx.fillRect(x, 190, 20, 20);
+  x += vx;
+  if (x < 0 || x > canvas.width - 20) vx *= -1;
+  rafId = requestAnimationFrame(tick);
+}
+// rafId = requestAnimationFrame(tick);
+// cancelAnimationFrame(rafId);
+
+
+/********************************************************************************************
+ * 153-154) MINI-PROJECT: ANIMATED CLOCK (Canvas – analog)
+ * Steps:
+ * 1) Clear canvas; 2) Translate to center; 3) Draw face/ticks; 4) Compute angles for h/m/s;
+ * 5) Draw hands; 6) rAF loop or setInterval(1000/60).
+ ********************************************************************************************/
+function drawClock(ctx, radius) {
+  const now = new Date();
+  ctx.save();
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.translate(canvas.width/2, canvas.height/2);
+
+  // Face
+  ctx.beginPath();
+  ctx.arc(0, 0, radius, 0, Math.PI*2);
+  ctx.fillStyle = "#fff"; ctx.fill();
+  ctx.strokeStyle = "#111827"; ctx.lineWidth = 4; ctx.stroke();
+
+  // Marks
+  for (let i=0; i<60; i++) {
+    ctx.rotate(Math.PI/30);
+    ctx.beginPath();
+    ctx.moveTo(radius-10, 0);
+    ctx.lineTo(radius, 0);
+    ctx.lineWidth = (i%5===0) ? 3 : 1;
+    ctx.stroke();
+  }
+
+  // Angles
+  const sec = now.getSeconds() + now.getMilliseconds()/1000;
+  const min = now.getMinutes() + sec/60;
+  const hr  = (now.getHours()%12) + min/60;
+
+  // Hour hand
+  ctx.save();
+  ctx.rotate((Math.PI/6)*hr);
+  ctx.lineWidth = 6; ctx.beginPath(); ctx.moveTo(-10,0); ctx.lineTo(radius*0.5,0); ctx.stroke();
+  ctx.restore();
+
+  // Minute hand
+  ctx.save();
+  ctx.rotate((Math.PI/30)*min);
+  ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(-15,0); ctx.lineTo(radius*0.75,0); ctx.stroke();
+  ctx.restore();
+
+  // Second hand
+  ctx.save();
+  ctx.rotate((Math.PI/30)*sec);
+  ctx.strokeStyle = "#ef4444"; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(-20,0); ctx.lineTo(radius*0.9,0); ctx.stroke();
+  ctx.restore();
+
+  ctx.restore();
+}
+function runClock() {
+  if (!ctx) return;
+  drawClock(ctx, Math.min(canvas.width, canvas.height)/2 - 10);
+  requestAnimationFrame(runClock);
+}
+// runClock();
+
+
+/********************************************************************************************
+ * 155) WEB AUDIO API (Basics)
+ * - audioCtx = new AudioContext(); nodes: OscillatorNode, GainNode, AnalyserNode, etc.
+ * - Connect graph: node.connect(nextNode).connect(audioCtx.destination)
+ * - Many autoplay policies require a user gesture before audioCtx.resume()
+ ********************************************************************************************/
+const audioCtx = window.AudioContext ? new AudioContext() : null;
+async function beep(freq=440, ms=200) {
+  if (!audioCtx) return;
+  if (audioCtx.state === "suspended") await audioCtx.resume();
+
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.frequency.value = freq;
+  gain.gain.value = 0.1; // volume
+
+  osc.connect(gain).connect(audioCtx.destination);
+  osc.start();
+  setTimeout(() => { osc.stop(); osc.disconnect(); }, ms);
+}
+// document.addEventListener("click", () => beep(523.25, 150)); // user gesture to unlock
+
+
+/********************************************************************************************
+ * 156) MINI-PROJECT: MUSIC PLAYER (HTMLAudioElement + minimal controls)
+ ********************************************************************************************/
+// HTML: <audio id="player" src="song1.mp3"></audio>
+//       <button id="play">▶</button><input id="seek" type="range" min="0" max="100" value="0">
+const $ = (s) => document.querySelector(s);
+const player = $("#player");
+const playBtn = $("#play");
+const seek = $("#seek");
+const playlist = ["song1.mp3", "song2.mp3"];
+let trackIndex = 0;
+function load(i) { player.src = playlist[i]; player.load(); }
+playBtn?.addEventListener("click", async () => {
+  if (player.paused) { await player.play(); playBtn.textContent = "⏸"; }
+  else { player.pause(); playBtn.textContent = "▶"; }
+});
+player?.addEventListener("timeupdate", () => {
+  if (!player.duration) return;
+  seek.value = String((player.currentTime / player.duration) * 100);
+});
+seek?.addEventListener("input", () => {
+  if (!player.duration) return;
+  player.currentTime = (Number(seek.value)/100) * player.duration;
+});
+player?.addEventListener("ended", () => {
+  trackIndex = (trackIndex + 1) % playlist.length;
+  load(trackIndex); player.play();
+});
+// load(trackIndex);
+
+
+/********************************************************************************************
+ * 157) MINI-PROJECT: DRUM MACHINE (low-latency triggers)
+ * - Preload buffers with fetch + audioCtx.decodeAudioData
+ * - On key press, createBufferSource → connect → start(0)
+ ********************************************************************************************/
+const bank = new Map();
+async function loadSample(name, url) {
+  if (!audioCtx) return;
+  const res = await fetch(url);
+  const arr = await res.arrayBuffer();
+  const buf = await audioCtx.decodeAudioData(arr);
+  bank.set(name, buf);
+}
+function trigger(name) {
+  if (!audioCtx || !bank.has(name)) return;
+  const src = audioCtx.createBufferSource();
+  src.buffer = bank.get(name);
+  src.connect(audioCtx.destination);
+  src.start();
+}
+// Example mapping: Z=X snare/kick/hats
+// document.addEventListener("keydown", (e) => {
+//   const map = { KeyZ: "kick", KeyX: "snare", KeyC: "hat" };
+//   trigger(map[e.code]);
+// });
+
+
+/********************************************************************************************
+ * 158) VIDEO API (HTMLVideoElement)
+ * - Methods: play(), pause(), load(); Props: currentTime, duration, volume, muted, playbackRate
+ * - Events: loadedmetadata, timeupdate, ended, seeking/seeked, waiting/canplay
+ * - Extras: requestPictureInPicture(), requestFullscreen() on container
+ ********************************************************************************************/
+// HTML: <video id="vid" src="movie.mp4"></video>
+//       <button id="pip">PiP</button>
+const vid = $("#vid");
+$("#pip")?.addEventListener("click", async () => {
+  if (document.pictureInPictureElement) { await document.exitPictureInPicture(); return; }
+  if (document.pictureInPictureEnabled && vid) await vid.requestPictureInPicture();
+});
+// Seek:
+// vid.currentTime = 60; // jump to 1:00
+// Speed:
+// vid.playbackRate = 1.25;
+
+
+/********************************************************************************************
+ * 159) MINI-PROJECT: CUSTOM VIDEO PLAYER (progress, volume, skip)
+ ********************************************************************************************/
+// HTML: <video id="v" src="movie.mp4"></video>
+// <button id="pp">Play/Pause</button>
+// <button id="back">-10s</button> <button id="fwd">+10s</button>
+// <input id="vol" type="range" min="0" max="1" step="0.01" value="1">
+// <input id="prog" type="range" min="0" max="100" value="0">
+const v = $("#v"), pp = $("#pp"), back = $("#back"), fwd = $("#fwd"), vol = $("#vol"), prog = $("#prog");
+pp?.addEventListener("click", () => v.paused ? v.play() : v.pause());
+back?.addEventListener("click", () => v.currentTime = Math.max(0, v.currentTime - 10));
+fwd?.addEventListener("click", () => v.currentTime = Math.min(v.duration || Infinity, v.currentTime + 10));
+vol?.addEventListener("input", () => v.volume = Number(vol.value));
+v?.addEventListener("timeupdate", () => { if (v.duration) prog.value = String((v.currentTime/v.duration)*100); });
+prog?.addEventListener("input", () => { if (v.duration) v.currentTime = (Number(prog.value)/100)*v.duration; });
+
+
+/********************************************************************************************
+ * 160) WEB ANIMATIONS API (WAAPI) – BALL PROJECT
+ * - element.animate(keyframes, options) → Animation
+ * - Control: anim.pause()/play()/reverse(), anim.currentTime, anim.playbackRate
+ * - Keyframes: array or keyframe object; Options: duration, iterations, direction, easing, fill
+ ********************************************************************************************/
+// HTML: <div id="ball" style="width:40px;height:40px;border-radius:50%;background:#ef4444;position:absolute;"></div>
+const ball = document.querySelector("#ball");
+const bounce = ball?.animate(
+  [
+    { transform: "translate(0,0)" },
+    { transform: "translate(300px,0)", offset: 0.5, easing: "ease-in" },
+    { transform: "translate(600px,0)" }
+  ],
+  { duration: 1200, iterations: Infinity, direction: "alternate", easing: "ease-out" }
+);
+// bounce.playbackRate = 1.2; bounce.pause(); bounce.play(); bounce.reverse();
+
+
+/********************************************************************************************
+ * 161) SPEECH RECOGNITION API (Web Speech – Recognition)
+ * - Experimental; Chrome supports via webkitSpeechRecognition. HTTPS + mic permission.
+ * - Events: onresult, onaudiostart/end, onend; Props: lang, interimResults, continuous
+ ********************************************************************************************/
+const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+function startRecognition() {
+  if (!SpeechRec) { console.warn("SpeechRecognition not supported."); return; }
+  const rec = new SpeechRec();
+  rec.lang = "en-US";
+  rec.interimResults = true;
+  rec.continuous = false;
+  rec.onresult = (e) => {
+    const transcript = Array.from(e.results).map(r => r[0].transcript).join("");
+    console.log("Heard:", transcript, "final?", e.results[0].isFinal);
+  };
+  rec.onerror = (e) => console.error(e.error);
+  rec.onend = () => console.log("Recognition ended");
+  rec.start();
+}
+// startRecognition();
+
+
+/********************************************************************************************
+ * 162) SPEECH SYNTHESIS API (Text → Speech)
+ * - window.speechSynthesis; new SpeechSynthesisUtterance(text)
+ * - voice selection via speechSynthesis.getVoices(); events: onstart, onend, onerror
+ * - Use voicesloaded event (voices may load async)
+ ********************************************************************************************/
+function speak(text, { rate=1, pitch=1, volume=1, lang="en-US", voiceName } = {}) {
+  const u = new SpeechSynthesisUtterance(text);
+  u.rate = rate; u.pitch = pitch; u.volume = volume; u.lang = lang;
+
+  const voices = speechSynthesis.getVoices();
+  if (voiceName) {
+    const v = voices.find(v => v.name === voiceName);
+    if (v) u.voice = v;
+  }
+  speechSynthesis.speak(u);
+}
+// window.speechSynthesis.onvoiceschanged = () => console.log(speechSynthesis.getVoices());
+// speak("Hello Ajay, welcome to Web APIs!");
+
+
+/********************************************************************************************
+ * QUICK TIPS & PITFALLS
+ * - Geolocation: handle errors (PERMISSION_DENIED, POSITION_UNAVAILABLE, TIMEOUT); cache with maximumAge.
+ * - Canvas: set canvas.width/height attributes (not CSS) for crisp drawing; use save/restore around transforms.
+ * - rAF: do physics with delta time for consistent speed across frame rates (use timestamp param).
+ * - Web Audio: resume() on user gesture; reuse a single AudioContext; use AnalyserNode for visualizers.
+ * - Video: wait for loadedmetadata before reading duration; handle CORS when drawing to canvas from video.
+ * - WAAPI: returns an Animation; try `fill: "forwards"` to persist end state.
+ * - Speech: provide UI to stop/cancel; recognition may stop automatically after silence.
+ ********************************************************************************************/
+
+
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////

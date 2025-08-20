@@ -161,6 +161,178 @@
 //////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
 
+// ============================================================
+// Linux Directory Structure — Notes (JS Comment Style)
+// ============================================================
+//
+// Big idea: Linux has a single tree that starts at / (root). Everything
+// (devices, filesystems, processes) is mounted somewhere under /.
+//
+// Quick map (top-level):
+// /            — root of the filesystem tree
+// /bin         — essential user binaries (now often symlink to /usr/bin)
+// /sbin        — essential system binaries (often symlink to /usr/sbin)
+// /usr         — userland apps & read-only data (most software lives here)
+// /usr/local   — locally installed software (not managed by distro pkg mgr)
+// /lib, /lib64 — essential shared libraries for /bin and /sbin
+// /etc         — host-specific system configuration
+// /var         — variable data (logs, caches, spool, dbs that change)
+// /home        — users’ home directories (/home/alice, /home/bob)
+// /root        — home for the superuser root
+// /tmp         — temporary files (world-writable; usually cleared on reboot)
+// /var/tmp     — temporary files preserved across reboots (usually)
+// /opt         — optional third-party packages (e.g., /opt/google/chrome)
+// /srv         — service data for system-provided services (e.g., /srv/www)
+// /dev         — device files (disks, ttys, random, null, etc.)
+// /proc        — procfs: runtime kernel & process info (virtual, in-memory)
+// /sys         — sysfs: devices, drivers, kernel tunables (virtual)
+// /run         — volatile runtime state (PID files, sockets; replaces /var/run)
+// /boot        — kernel, initramfs, bootloader files (e.g., GRUB)
+// /media       — mount points for removable media (USB, CD/DVD)
+// /mnt         — generic mount point for temporary mounts
+// /lost+found  — fsck recovery area (per-filesystem; on ext* filesystems)
+//
+// ------------------------------------------------------------
+// Visual sketch (partial):
+// ------------------------------------------------------------
+// /
+// ├── bin -> /usr/bin
+// ├── sbin -> /usr/sbin
+// ├── lib  (and/or lib64)
+// ├── usr/
+// │   ├── bin/        (most executables)
+// │   ├── sbin/       (admin executables)
+// │   ├── lib*/       (libraries for usr binaries)
+// │   ├── share/      (arch-independent data: man pages, icons)
+// │   └── local/      (your locally built/installed stuff)
+// ├── etc/            (configs: ssh/, sysctl.conf, fstab, hosts, passwd)
+// ├── var/
+// │   ├── log/        (system/app logs)
+// │   ├── lib/        (state for services: databases, pkg state)
+// │   ├── spool/      (mail, print queues)
+// │   ├── cache/      (apt cache, app caches)
+// │   └── tmp/        (temp; kept across reboots)
+// ├── home/
+// ├── root/           (root user’s home)
+// ├── dev/            (sda, nvme*, tty*, null, zero, random, urandom)
+// ├── proc/           (cpuinfo, meminfo, pid/… subtrees)
+// ├── sys/            (devices/, class/, fs/, kernel/)
+// ├── run/            (systemd, app sockets, PID files)
+// ├── boot/           (vmlinuz-*, initrd.img-*, grub/)
+// ├── media/          (auto mounts like /media/$USER/USBSTICK)
+// └── mnt/            (manual mounts)
+//
+// ------------------------------------------------------------
+// Directory-by-directory quick refs & examples
+// ------------------------------------------------------------
+//
+// /etc (configs):
+//   /etc/ssh/sshd_config   // SSH server settings
+//   /etc/fstab             // filesystems to mount at boot
+//   /etc/hosts, /etc/hostname
+//   /etc/systemd/system/*.service  // custom systemd units (overrides)
+// Best practice: backup /etc before major changes.
+//
+// /usr vs /usr/local:
+//   /usr           → OS/distro-managed software (packages)
+//   /usr/local     → local installs you manage (e.g., built from source)
+// Rule: don’t put your own binaries in /usr/bin; use /usr/local/bin.
+//
+// /var (changes frequently):
+//   /var/log/             // syslog, auth.log, nginx/, journal (if on disk)
+//   /var/lib/             // app state (e.g., databases, containers)
+//   /var/cache/           // package caches (apt, dnf)
+//   /var/spool/           // queued jobs (print, mail)
+//   /var/tmp/             // long-lived temp files
+//
+// /tmp vs /var/tmp:
+//   /tmp      → world-writable, may be tmpfs, typically wiped on reboot
+//   /var/tmp  → persists across reboots (use for longer-lived temp files)
+// Check sticky bit on /tmp: `ls -ld /tmp` → drwxrwxrwt (the trailing 't').
+//
+// /dev (devices & special files):
+//   /dev/sda, /dev/nvme0n1p1  // disks/partitions
+//   /dev/tty*, /dev/pts/*     // terminals/pts
+//   /dev/null                 // write-to-discard
+//   /dev/zero                 // infinite zeros
+//   /dev/random, /dev/urandom // entropy sources
+//
+// /proc (virtual runtime info):
+//   /proc/cpuinfo, /proc/meminfo, /proc/uptime
+//   /proc/<PID>/cmdline, environ, fd/  // per-process info
+//   Mounts view: /proc/mounts
+//
+// /sys (kernel/device model):
+//   /sys/class/net/eth0/      // network device attrs
+//   /sys/block/sda/           // block device info
+//
+// /run (volatile runtime):
+//   /run/systemd/, /run/user/1000/, /run/nginx.pid
+//   Replaced older /var/run and /var/lock symlinks on many distros.
+//
+// /boot:
+//   vmlinuz-<ver>     // compressed kernel
+//   initrd/initramfs  // early userspace image
+//   grub/             // bootloader config, modules
+//
+// /opt & /srv:
+//   /opt/vendor/app/…              // vendor/third-party packages
+//   /srv/www, /srv/ftp, /srv/git   // service data roots (if you use them)
+//
+// /lost+found:
+//   Created by ext* filesystems; fsck puts orphaned files here. Don’t delete.
+//
+// ------------------------------------------------------------
+// Modern “usr-merge” note
+// ------------------------------------------------------------
+// Many distros (Ubuntu, Debian, Fedora) unify paths so /bin→/usr/bin,
+// /sbin→/usr/sbin, /lib*→/usr/lib*. You may see symlinks at top level.
+// Practical effect: most binaries actually live in /usr/*.
+//
+// ------------------------------------------------------------
+// What goes where? (rules of thumb)
+// ------------------------------------------------------------
+// • Your custom binaries/scripts       → /usr/local/bin (system-wide) or ~/bin
+// • Third-party large apps             → /opt/<vendor>/<app>
+// • Service data (served to clients)   → /srv/<service> (optional convention)
+// • Configuration                      → /etc/<app>
+// • Logs/state/cache                   → /var/log, /var/lib, /var/cache
+// • Temporary files                    → /tmp (short-lived), /var/tmp (longer)
+// • User data                          → /home/<user>
+//
+// ------------------------------------------------------------
+// Handy commands to explore
+// ------------------------------------------------------------
+// ls -l /                     // top-level directories & symlinks
+// tree -L 1 /usr              // one-level view (install `tree` first)
+// df -Th                      // filesystems, types & usage
+// find /etc -maxdepth 1 -type f | sort   // top-level config files
+// lsblk -f                    // block devices & mount points
+// mount | column -t           // current mounts
+// stat /bin /usr/bin          // see if /bin is a symlink
+// ls -ld /tmp /var/tmp        // check permissions/sticky bit
+//
+// ------------------------------------------------------------
+// Safety & best practices
+// ------------------------------------------------------------
+// • Don’t manually modify files under /usr managed by your package manager.
+// • Keep /etc, /var, and /home on backups; they hold config, state, and data.
+// • Be cautious under /dev, /proc, /sys — they’re virtual; don’t try to “clean” them.
+// • Use UUIDs in /etc/fstab to avoid device-name drift.
+// • Check permissions on world-writable dirs: /tmp should be drwxrwxrwt.
+//
+// End — Linux Directory Structure quick reference.
+// Want a printable one-pager or an exercise set to locate files & explain their place?
+// ============================================================
+
+
+
+//////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
+
 
 
 
@@ -486,7 +658,7 @@
 //
 // D. Basic Navigation Commands
 // ------------------------------------------------------------
-// 1) pwd — print working directory
+// 1)   — print working directory
 //    - Shows absolute path of your current directory.
 //    - Example:
 //        $ pwd
@@ -2316,6 +2488,32 @@
 //////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
+
+// types of hypervisors:
+// 1. Type 1 (bare-metal): runs directly on hardware (e.g., VMware ESXi, Microsoft Hyper-V).
+// 2. Type 2 (hosted): runs on top of an existing OS (e.g., VirtualBox, VMware Workstation).
+
+// # root user
+// The root user is the superuser in Unix/Linux systems with full control over the system.
+// It can perform any action, including modifying system files, changing permissions, and managing users.
+// Use with caution; avoid using root for daily tasks to minimize security risks.
+
+
+// # sudo
+// The `sudo` command allows a permitted user to execute a command as the superuser or another user.
+// It stands for "superuser do" and is used to perform administrative tasks without logging in as root.
+// Example: `sudo apt update` runs the `apt update` command with root privileges.
+// Configure `/etc/sudoers` to manage permissions and security policies for `sudo` usage.
+
+// command options arguments
+// - Options modify the behavior of a command (e.g., `-l` for listing, `-v` for verbose).
+// - Arguments are the inputs to the command (e.g., file names, user names).
+// Example: `ls -l /home/user` where `-l` is an option and `/home/user` is an argument
+
+
+
+
+
 //////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
