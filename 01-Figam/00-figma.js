@@ -1,5 +1,66 @@
 // figma
 
+// user - project - page - frame
+
+// toolbar  sidebar left right
+
+// frame
+//  group is more than two  , if you change the properties of the group it will affect all the children inside the group
+//  section is more than two  , if you change the properties of the section it will not affect the children inside the section
+//  component is a reusable element , if you change the properties of the component it will affect all the instances of the component
+//  instance is a copy of the component , if you change the properties of the instance it will not affect the component
+//  variant is a different state of the component , if you change the properties of the variant it will affect all the instances of the variant
+
+// shape
+// rectangle short key is R
+// circle
+// line
+// arrow
+// polygon
+// star
+// triangle
+// boolean operations
+// union
+// subtract
+// intersect
+// exclude
+
+// text short key is T
+// font
+// font size
+// font weight
+
+// constraints
+// it works on the children inside the frame
+// it help to create responsive designs
+// it help to create consistent designs
+// left
+// right
+// top
+// bottom
+// center
+// left
+// right
+
+// auto layout short key is shift + a
+// it works on the parent element of the elements
+// it help to create responsive designs
+// it help to create consistent designs
+
+// color
+// images short key is ctrl + shift + k
+// strokes
+// effects
+// fills
+// icons
+
+// To save the time create the design system in the figma
+// it save the time in the future
+// because you can reuse the components
+// use the variable of the colors, fonts, etc don't use the hard coded values
+
+//
+
 // wireframing
 // you can create wireframes in figma
 // you can create low fidelity wireframes in figma
@@ -101,12 +162,49 @@
 // fills
 // icons
 
-// components
-// variants
-// auto layout
-// constraints
+// components   short key is ctrl + alt + k
+// you can create components
+// you can create variants of components
+// you can create instances of components
+// you can override properties of instances
+// you can detach instances from components
+
+// variants instances  short key is ctrl + alt + b
+// you can create components
+// you can create variants of components
+// you can create instances of components
+// you can override properties of instances
+// you can detach instances from components
+
+// variables  short key is ctrl + alt + v
+// colors
+// strings
+// numbers
+// booleans
+// images
+
+// auto layout  short key is shift + a
+// it apply on the parent element of the elements
+// it help to create responsive designs
+// it help to create consistent designs
+
+// constraints short key is alt + c
+// we set to the current element it self , it have the relation with the parent element
+// left, right, top, bottom, center, scale
+
+// Effects
+// shadows
+// blurs
+
 // styles
-// plugins
+
+// plugins shot key is ctrl + /
+// you can install plugins from the figma community
+// you can create your own plugins using figma api
+// you can manage your installed plugins
+// you can update your installed plugins
+// you can delete your installed plugins
+
 // collaboration
 // handoff
 // resources
@@ -136,3 +234,13 @@
 // uplabs
 // pinterest
 // design blogs
+
+// what is the short way to set the color to the object ?
+// what is the short way to set the border radius to the object
+// what is the short way to set the opacity to the object
+
+// how to create the landing page in figma
+// how to create the  navbar in figma
+// how to create the  footer in figma
+// how to create the  card in figma
+// how to create the  form in figma
