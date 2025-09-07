@@ -244,3 +244,10 @@
 // how to create the  footer in figma
 // how to create the  card in figma
 // how to create the  form in figma
+
+
+
+
+// learn figma short key and short tricks to work faster
+// practice figma daily
+// follow figma community
