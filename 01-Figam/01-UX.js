@@ -36,3 +36,13 @@
 // patterns
 
 
+// design system
+// color palette
+// typography system
+// iconography  
+// ui components
+// interaction patterns
+// accessibility guidelines
+// branding guidelines
+// documentation
+
