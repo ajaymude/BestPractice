@@ -136,6 +136,8 @@
   min-width: 100px; /* auto, percentage, px, em, rem, vw, vh */
   max-height: 100%; /* auto, percentage, px, em, rem, vw, vh */
   min-height: 100px; /* auto, percentage, px, em, rem, vw, vh */
+
+  clamp:(100px, 50%, 500px); /* min, preferred, max */  
   /*###################################################################*/
   /*###################################################################*/
 
