@@ -105,7 +105,7 @@ exports.sub = sub;
 // ───────────────
 // Consumer file
 const add  = require('./math.cjs');        // default-style import
-const { sub } = require('./math');         // named import (destructuring)
+const { sub } = require('./math.js');         // named import (destructuring)
 console.log(add(2, 3), sub(5, 1));         // 5 4
 
 
