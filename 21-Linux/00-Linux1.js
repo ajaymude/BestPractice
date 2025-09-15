@@ -268,3 +268,61 @@ END OF SYLLABUS
 
 
 
+// sort user.txt   -- it will sort the file in ascending order
+// sort -r user.txt   -- it will sort the file in descending order
+// sort -n user.txt   -- it will sort the file in numerical order
+// sort -k 2 user.txt   -- it will sort the file based on the second column
+// sort -t ',' -k 2 user.txt   -- it will sort the file based on the second column with comma as delimiter
+
+
+// uniq user.txt   -- it will remove the duplicate lines from the file
+// uniq -c user.txt   -- it will count the number of occurrences of each line in the file
+// uniq -d user.txt   -- it will show only the duplicate lines in the file
+// uniq -u user.txt   -- it will show only the unique lines in the file
+
+// grep 'search_term' user.txt   -- it will search the search_term in the file
+// grep -i 'search_term' user.txt   -- it will search the search_term in the file ignoring case
+// grep -v 'search_term' user.txt   -- it will show the lines which does not contain the search_term
+// grep -r 'search_term' /path/to/directory   -- it will search the search_term in all the files in the directory recursively
+// grep -n 'search_term' user.txt   -- it will show the line number along with the line which contains the search_term
+// grep -c 'search_term' user.txt   -- it will show the count of lines which contains the search_term
+// grep -A 3 'search_term' user.txt   -- it will show the 3 lines after the line which contains the search_term
+// grep -B 3 'search_term' user.txt   -- it will show the 3 lines before the line which contains the search_term
+// grep -C 3 'search_term' user.txt   -- it will show the 3 lines before and after the line which contains the search_term
+// grep -E 'search_term1|search_term2' user.txt   -- it will search for multiple search terms in the file
+// grep -F 'search_term' user.txt   -- it will search for the fixed string in the file
+// grep -L 'search_term' *.txt   -- it will show the files which does not contain the search_term
+// grep -l 'search_term' *.txt   -- it will show the files which contains the search_term
+// grep -o 'search_term' user.txt   -- it will show only the matched search_term in the file
+// grep -P 'search_term' user.txt   -- it will search for the perl compatible regular expression in the file
+// grep -w 'search_term' user.txt   -- it will search for the whole word in the file
+// grep -x 'search_term' user.txt   -- it will search for the whole line in the file
+// grep -R 'search_term' /path/to/directory   -- it will search the search_term in all the files in the directory recursively
+// grep --color=auto 'search_term' user.txt   -- it will highlight the search_term in the file
+
+
+// tr 'a-z' 'A-Z' < user.txt   -- it will convert all the lowercase letters to uppercase letters in the file
+// tr 'A-Z' 'a-z' < user.txt   -- it will convert all the uppercase letters to lowercase letters in the file
+// tr -d 'a-z' < user.txt   -- it will delete all the lowercase letters from the file
+// tr "b" "B" < user.txt   -- it will replace all the b with B in the file
+// tr -s ' ' < user.txt   -- it will replace multiple spaces with single space in the file
+// tr -s '\n' < user.txt   -- it will replace multiple new lines with single new line in the file
+// tr -c 'a-zA-Z0-9' '\n' < user.txt   -- it will replace all the special characters with new line in the file
+
+// rev user.txt   -- it will reverse the lines in the file
+// cut -d ' ' -f 1 user.txt   -- it will cut the first column from the file with space as delimiter
+// cut -d ',' -f 1 user.txt   -- it will cut the first column from the file with comma as delimiter
+
+// sed 's/old/new/g' user.txt   -- it will replace all the old with new in the file
+// sed -n '1,5p' user.txt   -- it will print the lines from 1 to 5 in the file
+// sed '3d' user.txt   -- it will delete the 3rd line from the file
+// sed '3q' user.txt   -- it will quit after printing the 3rd line from the file
+// sed '$d' user.txt   -- it will delete the last line from the file
+// sed '1i\This is the first line' user.txt   -- it will insert the line at the beginning of the file
+// sed '5a\This is the last line' user.txt   -- it will append the line at the end of the file
+// sed -i 's/old/new/g' user.txt   -- it will replace all the old with new in the file and save the changes to the file
+
+
+
+
+
