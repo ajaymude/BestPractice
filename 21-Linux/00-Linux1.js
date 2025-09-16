@@ -45,7 +45,7 @@
    - jobs, fg, bg
    - kill, killall, pkill
    - nice, renice
-   - signals (SIGTERM, SIGKILL, SIGSTOP)
+   - signals (SIGTERM, SIGKILL, SIGSTOP);
 
 7. Package Management
    - apt, dpkg (Debian/Ubuntu)
@@ -325,4 +325,28 @@ END OF SYLLABUS
 
 
 
+// env with the environment variables
+
+// echo $HOME
+// echo "$PATH"
+// export VAR_NAME="value"   -- it will set the environment variable for the current session
+// unset VAR_NAME   -- it will unset the environment variable for the current session
+// export VAR_NAME="value" >> ~/.bashrc   -- it will set the environment variable permanently
+// source ~/.bashrc   -- it will reload the bashrc file to apply the changes
+
+
+
+// learn about the path 
+
+
+// soft link hard link 
+
+// ln source_file link_name   -- it will create a hard link
+// ln -s source_file link_name   -- it will create a soft link
+// ls -ltr  -- it will show the details of the files in the directory
+
+
+
+
+// linux user management
 
