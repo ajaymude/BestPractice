@@ -61,6 +61,8 @@
    - LVM basics
    - Disk quotas
 
+
+
 9. Archiving & Compression
    - tar, gzip, gunzip, bzip2, xz
    - zip, unzip
@@ -349,4 +351,41 @@ END OF SYLLABUS
 
 
 // linux user management
+
+// root user
+// normal user
+// system user
+
+// group
+// super user
+// sudo user
+
+
+// linux file system 
+
+
+// df  -h   -- it will show the disk space in human readable format
+// du -sh *   -- it will show the size of each file and folder in the current directory in human readable format
+
+// top -- it will show the running processes in the system
+// htop -- it will show the running processes in the system with more details
+// ps aux -- it will show the running processes in the system with more details
+
+// free -h -- it will show the memory usage in human readable format
+// vmstat -- it will show the virtual memory statistics
+// iostat -- it will show the input/output statistics
+// sar -- it will show the system activity report
+// mpstat -- it will show the CPU usage statistics
+
+// uptime -- it will show the system uptime
+
+// journalctl -- it will show the system logs
+
+// systemctl -- it will show the systemd services status
+// service -- it will show the init.d services status
+
+// free -- it will show the memory usage
+
+// uname -r -- it will show the kernel version
+// lsb_release -a -- it will show the linux distribution details
 
