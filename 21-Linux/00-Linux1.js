@@ -389,3 +389,64 @@ END OF SYLLABUS
 // uname -r -- it will show the kernel version
 // lsb_release -a -- it will show the linux distribution details
 
+// whoami -- it will show the current logged in user
+// who -- it will show the currently logged in users
+// w -- it will show the currently logged in users with more details
+// id -- it will show the user id, group id and groups of the current user 
+
+// which command_name -- it will show the path of the command
+// whereis command_name -- it will show the path of the
+
+// sudo command_name -- it will show the path of the command with super user privileges
+
+// shutdown -h now -- it will shutdown the system immediately
+// shutdown -r now -- it will reboot the system immediately
+// reboot -- it will reboot the system immediately
+
+// control r - for the reverse search of the command in the history
+
+
+
+
+// useradd username   -- it will create a new user
+// useradd -m username   -- it will create a new user with home directory
+// useradd -s /bin/bash username   -- it will create a new user with bash shell
+// useradd -G groupname username   -- it will create a new user and add to the group
+// usermod -aG groupname username   -- it will add the existing user to the group
+
+
+// userdel username   -- it will delete the user
+// passwd username    -- it will change the password of the user
+// su - username      -- it will switch to the user
+// sudo command_name  -- it will run the command with super user privileges
+// groupadd groupname -- it will create a new group
+// groupdel groupname -- it will delete the group
+// gpasswd -d username groupname -- it will remove the user from the group
+// gpasswd -a username groupname -- it will add the user to the group
+// gpasswd -M user1,user2 groupname -- it will set the members of the group
+
+
+// groups username   -- it will show the groups of the user
+// id username       -- it will show the user id, group id and groups of the user
+// groups username   -- it will show the groups of the user
+// gpasswd username  -- it will change the password of the group
+// newgrp groupname  -- it will switch to the group
+
+
+
+// exit -- it will exit from the current user to the previous user
+
+
+// chmod 755 filename   -- it will set the permissions to rwxr-xr-x
+// chmod 644 filename   -- it will set the permissions to rw-r--r--
+// chmod 700 filename   -- it will set the permissions to rwx------
+
+
+// umask 022   -- it will set the default permissions to rwxr-xr-x
+// umask 002   -- it will set the default permissions to rwxrwxr-x
+// umask 077   -- it will set the default permissions to rwx------
+
+// chown user:group filename   -- it will change the owner and group of the file
+
+// chgrp groupname filename   -- it will change the group of the file
+
