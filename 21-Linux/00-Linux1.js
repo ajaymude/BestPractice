@@ -450,3 +450,250 @@ END OF SYLLABUS
 
 // chgrp groupname filename   -- it will change the group of the file
 
+// echo $$ -- it will show the process id of the current shell
+// echo $SHELL -- it will show the current shell
+// echo $0 -- it will show the current shell
+// echo $PATH -- it will show the path of the commands
+// echo $PPID -- it will show the parent process id of the current shell
+
+
+
+
+// linux networking basics
+
+// ifconfig -- it will show the network interfaces details
+// ip addr  -- it will show the network interfaces details
+// ip link  -- it will show the network interfaces details
+// ip route -- it will show the routing table
+// ping google.com -- it will ping the google.com
+// traceroute google.com -- it will show the route to the google.com
+// tracepath google.com -- it will show the path to the google.com
+// nslookup google.com -- it will show the DNS details of the google.com
+// dig google.com -- it will show the DNS details of the google.com
+// netcat -zv google.com 80 -- it will check if the port 80 is open on google.com
+// mtr google.com -- it will show the route to the google.com with more details
+
+// netstat -tuln -- it will show the listening ports
+// ss -tuln -- it will show the listening ports
+// lsof -i -- it will show the open files and network connections
+// curl google.com -- it will show the html content of the google.com
+// wget google.com -- it will download the html content of the google.com
+// scp file.txt user@remote_host:/path/to/destination -- it will copy the file to the remote host
+// sftp user@remote_host -- it will open the sftp session to the remote host
+// ssh user@remote_host -- it will open the ssh session to the remote host
+
+
+// telnet remote_host 80 -- it will connect to the remote host on port 80
+// ssh-keygen -- it will generate the ssh key pair
+// ssh-copy-id user@remote_host -- it will copy the ssh public key to the remote host
+
+
+// iwconfig -- it will show the wireless network interfaces details
+// iwlist scan -- it will scan the available wireless networks
+// nmcli -- it will show the network manager details
+// nmtui -- it will open the network manager text user interface
+
+
+
+
+// # 📁 USER ACCOUNT FILES
+// cat /etc/passwd          # View basic user details
+// cat /etc/shadow          # View hashed passwords (root only)
+// cat /etc/group           # View groups and members
+
+// # 👤 USER MANAGEMENT
+// sudo useradd ajay                         # Create new user
+// sudo useradd -m -s /bin/bash ajay         # Create with home dir and bash shell
+// sudo passwd ajay                          # Set/change password
+// sudo usermod -aG sudo ajay                # Add user to sudo group
+// sudo usermod -l newname ajay              # Rename user
+// sudo usermod -d /home/newhome ajay        # Change home directory
+// sudo chage -l ajay                        # View password aging info
+// sudo chage -M 90 ajay                     # Set password expiration (90 days)
+// sudo userdel ajay                         # Delete user (keep home)
+// sudo userdel -r ajay                      # Delete user and home
+
+// # 👥 GROUP MANAGEMENT
+// sudo groupadd developers                  # Create group
+// sudo groupmod -n devteam developers       # Rename group
+// sudo groupdel developers                  # Delete group
+// sudo usermod -aG developers ajay          # Add user to group
+// sudo gpasswd -d ajay developers           # Remove user from group
+// groups ajay                               # Show groups for a user
+// id ajay                                   # Show UID, GID, memberships
+
+// # 🔑 SWITCH USERS & ELEVATE PRIVILEGES
+// su - ajay                                 # Switch user with environment
+// sudo -u postgres psql                     # Execute as another user
+// sudo visudo                               # Safely edit /etc/sudoers
+// sudo -l                                   # List allowed sudo commands
+// sudo whoami                               # Confirm elevated privileges
+
+// # 📜 /ETC/SUDOERS EXAMPLES
+// # ajay ALL=(ALL:ALL) ALL                          # Grant sudo rights
+// # %devteam ALL=NOPASSWD: /bin/systemctl restart apache2  # Group restart Apache w/o password
+
+// # 📂 FILE PERMISSIONS & OWNERSHIP
+// ls -l                                      # List with permissions
+// stat filename                              # Detailed file info
+// chmod u+x script.sh                        # Add execute for owner
+// chmod g-w file.txt                          # Remove write for group
+// chmod o=r file.txt                          # Set read for others
+// chmod 755 script.sh                         # rwxr-xr-x
+// sudo chown ajay file.txt                    # Change owner
+// sudo chown ajay:developers file.txt         # Change owner and group
+// chmod -R 755 /var/www                       # Recursive change
+// chown -R www-data:www-data /var/www         # Recursive ownership change
+// umask                                      # Show default mask
+// umask 022                                  # Set default perms to 755
+
+// # 📌 SPECIAL PERMISSIONS
+// chmod +t /shared                            # Sticky bit for shared dirs
+// chmod u+s /path/to/program                  # SUID: run as file owner
+// chmod g+s /projectdir                       # SGID: inherit group ID
+
+// # ✅ BEST PRACTICES (NOT COMMANDS)
+// # - Use sudo, not root login
+// # - Edit /etc/sudoers with visudo
+// # - Manage permissions via groups
+// # - Use restrictive umask (e.g., 027)
+// # - Audit /etc/passwd, /etc/shadow, /etc/sudoers regularly
+
+
+
+// # 📌 PROCESS BASICS
+// ps                     # List running processes (default = current shell)
+// ps aux                 # BSD-style full listing of all processes
+// ps -ef                 # Full-format listing (SysV style)
+// top                    # Interactive real-time process monitor
+// htop                   # Alternative interactive monitor (colorful, scrollable)
+// pgrep nginx            # Find PIDs of processes matching "nginx"
+// pidof sshd             # Find PID of a specific program
+
+// # 📌 PROCESS STATES & CONTEXT SWITCHING
+// # (Use ps, top, or htop to view states like R=Running, S=Sleeping, Z=Zombie)
+// # Context switches are internal to multitasking—monitored via tools like vmstat or perf.
+
+// # 📌 PROCESS PRIORITY (NICENESS)
+// nice -n 10 mycommand          # Start with lower priority (higher niceness)
+// sudo renice -5 1234           # Change priority of PID 1234 to -5 (higher priority)
+// ps -o pid,comm,ni -p 1234     # Show niceness of specific PID
+
+// # 📌 SIGNALS & KILLING PROCESSES
+// kill -l                       # List all available signals
+// kill -SIGINT 1234             # Send SIGINT (Ctrl+C equivalent) to PID 1234
+// kill -SIGTERM 1234            # Gracefully terminate PID 1234
+// kill -9 1234                  # Force-kill PID 1234 (SIGKILL)
+// kill -SIGHUP 1234             # Hangup signal—restart some daemons
+// kill -SIGSTOP 1234            # Pause a process
+// kill -SIGCONT 1234            # Resume a paused process
+// killall firefox               # Send default SIGTERM to all firefox processes
+// sudo pkill -HUP apache2       # Send SIGHUP to apache2 processes
+
+// # 📌 FOREGROUND & BACKGROUND CONTROL
+// sleep 100 &                   # Run in background (&)
+// jobs                          # List background jobs
+// fg %1                         # Bring job #1 to foreground
+// bg %1                         # Resume job #1 in background
+// disown %1                      # Remove job #1 from shell job table
+
+// # 📌 PROCESS CLEANUP
+// # Zombie processes (Z) indicate parent didn’t reap—kill or restart parent or reassign orphan to init.
+// # Orphan processes get adopted by PID 1 (systemd).
+
+// # 📌 ADVANCED MONITORING
+// top -u ajay                   # Show processes for a specific user
+// top -p 1234                   # Monitor specific PID
+// htop -u root                  # Filter htop by user
+// watch -n 1 ps aux             # Refresh ps every second
+
+// # ✅ BEST PRACTICES
+// # - Prefer SIGTERM before SIGKILL for graceful shutdown.
+// # - Use nice/renice instead of killing CPU-hungry processes immediately.
+// # - Monitor with top/htop to avoid runaway resource usage.
+// # - Use pkill/killall cautiously—may affect multiple processes.
+
+
+
+
+
+
+
+
+
+
+
+
+// # 🧰 JOB CONTROL CHEAT SHEET (Bash)
+
+// # ▶️ START JOBS IN BACKGROUND
+// cmd &                              # Run in background, print [job_id] PID
+// long_task >/tmp/out.log 2>&1 &     # Background + redirect output
+
+// # 📋 LIST & INSPECT JOBS
+// jobs                                # List background/suspended jobs
+// jobs -l                             # Include PIDs
+// jobs -r                             # Running only
+// jobs -s                             # Stopped only
+
+// # 🎮 BRING TO FOREGROUND / SEND TO BACKGROUND
+// fg                                  # Foreground most recent job
+// fg %1                               # Foreground job by job-id
+// bg %1                               # Resume stopped job in background
+// %?name                               # Refer to job by partial command match (e.g., fg %?node)
+
+// # ⏸️ SUSPEND FROM FOREGROUND (CTRL+Z)
+// # While a job runs in foreground, press: Ctrl+Z  -> stops it
+// bg %1                               # Then continue it in background
+
+// # 🧹 DETACH FROM SHELL
+// disown %1                           # Remove job from shell’s job table (keeps running)
+// disown -h %1                        # Keep in job table but don’t send HUP on shell exit
+// shopt -s huponexit                  # Auto-send HUP to jobs when shell exits (optional)
+
+// # 🚫 STOP/TERM/KILL JOBS
+// kill -SIGSTOP %1                    # Stop (pause) a job
+// kill -SIGCONT %1                    # Continue a stopped job
+// kill %1                             # Send SIGTERM (graceful) to job
+// kill -9 %1                          # Force kill (SIGKILL) job
+// kill -TERM 12345                    # By PID instead of job-id
+
+// # 🕰️ WAIT / SYNCHRONIZE
+// wait                                # Wait for all child jobs
+// wait %1                             # Wait for specific job-id
+// wait 12345                          # Wait for PID
+// wait -n                             # Wait for the next job to finish (Bash 4.3+)
+// echo $?                             # Exit status of last waited job
+
+// # 🔒 KEEP RUNNING AFTER LOGOUT: nohup vs &
+// nohup cmd >nohup.out 2>&1 &         # Immune to HUP; output to nohup.out
+// nohup -p 12345                      # (GNU coreutils) show if PID is nohup-immune (where available)
+// setsid cmd &                        # Start in new session (no controlling TTY)
+
+// # 🧷 STICKY BACKGROUND (avoid SIGHUP on logout)
+// # Option A: disown after starting
+// cmd & disown
+// # Option B: start with nohup
+// nohup cmd &
+
+// # 📦 GROUPED/BATCH JOBS
+// { cmd1 & cmd2 & cmd3 & wait; }      # Run 3 jobs in parallel, wait for all
+// pids=(); for i in {1..3}; do sleep $i & pids+=($!); done; wait "${pids[@]}"
+
+// # 📡 CONTROL TTY OUTPUT FLOW (stty: suspend/flow control)
+// stty -a                             # Inspect TTY settings
+// # XON/XOFF flow control: Ctrl+S to pause output, Ctrl+Q to resume (if enabled)
+// stty ixon                           # Enable software flow control (Ctrl+S / Ctrl+Q)
+// stty -ixon                          # Disable it
+// # Send “suspend” (Ctrl+Z) is handled by the shell, not stty; to change key:
+// stty susp '^Z'                      # Set suspend char (rarely needed)
+
+// # 🔍 QUICK FILTERS & REFERENCES
+// jobs | grep "node"                  # Find a specific job by command text
+// ps -o pid,ppid,tty,stat,time,cmd --ppid $$  # Child processes of current shell
+
+// # 🧭 BEST PRACTICES
+// # 1) Prefer SIGTERM before SIGKILL.
+// # 2) Use nohup or disown for long-lived jobs before logging out.
+// # 3) Name logs for background jobs: cmd >cmd.out 2>cmd.err &
+// # 4) Use wait (or wait -n) to coordinate parallel steps in scripts.
