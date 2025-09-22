@@ -595,7 +595,7 @@ END OF SYLLABUS
 // jobs                          # List background jobs
 // fg %1                         # Bring job #1 to foreground
 // bg %1                         # Resume job #1 in background
-// disown %1                      # Remove job #1 from shell job table
+// disown %1                      # Remove job #1 from shell job table 
 
 // # 📌 PROCESS CLEANUP
 // # Zombie processes (Z) indicate parent didn’t reap—kill or restart parent or reassign orphan to init.
