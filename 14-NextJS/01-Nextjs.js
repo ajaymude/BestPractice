@@ -16,6 +16,12 @@
 
 // Layouts
 // app/layout.js
+// app/not-found.js
+// app/error.js
+// app/loading.js
+// app/route.js
+// app/head.js
+
 // pages/_app.js
 // pages/_document.js
 
@@ -29,13 +35,29 @@
 // params.id
 
 
+// form 
+// action 
+
+
 // module.css
 
 // import Image from 'next/image';
-<Image src={} atl width height prority  />
+<Image src={} atl width height prority  fill />
 
 // server components
 // client components 'use client'
+
+
+// Suspense and Streaming
+// import { Suspense } from 'react';
+// <Suspense fallback={<div>Loading...</div>}>
+//   <SomeComponent />
+// </Suspense>
+
+
+// import usePathname from 'next/navigation';
+// const pathname = usePathname();
+
 
 
 
@@ -49,3 +71,26 @@
 //   <title>My Page Title</title>
 //   <meta name="description" content="My page description" />
 // </Head>
+
+
+// next js config.js
+// module.exports = {
+//   reactStrictMode: true,
+//   images: {
+//     domains: ['example.com'],
+//     remotePatterns: [
+//       {
+//         protocol: 'https',
+//         hostname: 'example.com',
+//         port: '',
+//         pathname: '/images/**',
+//       },
+//     ],
+//   },
+// };
+
+
+
+
+
+// learn about the FileReader() API
