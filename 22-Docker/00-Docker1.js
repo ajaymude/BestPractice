@@ -57,3 +57,7 @@
 // docker container prune         // remove all stopped containers
 
 
+
+
+
+// creating a docker image
