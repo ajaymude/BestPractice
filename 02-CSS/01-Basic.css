@@ -1,0 +1,206 @@
+p {
+  color: blue;
+  background-color: linear-gradient(to right, red, yellow);
+  background-color: repeating-linear-gradient(to right, red, yellow);
+  background-color: radial-gradient(circle, red, yellow);
+  background-color: repeating-radial-gradient(circle, red, yellow);
+
+  /* font */
+  font-size: 20px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  font-weight: bold;
+  font-style: italic;
+  font-variant: small-caps;
+  font: italic small-caps bold 20px/30px Arial, sans-serif;
+  /* text */
+  text-decoration-line: underline;
+  text-decoration-color: red;
+  text-decoration-style: wavy;
+  text-decoration: underline wavy red;
+  text-decoration: none;
+
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-align: justify;
+  text-align-last: right;
+  text-justify: inter-word;
+  text-transform: capitalize;
+  /* like paragraph space  */
+  text-indent: 10px;
+  /* it use with the white-space ...  */
+  text-overflow: ellipsis;
+
+  letter-spacing: 2px;
+  word-spacing: 5px;
+  word-wrap: break-word;
+  word-break: break-all;
+
+  line-height: 1.5;
+  /* like html pre tag */
+  white-space: nowrap;
+  writing-mode: sideways-lr;
+  direction: rtl;
+
+  /* column */
+  column-count: 3;
+  column-gap: 20px;
+  column-rule: 1px solid black;
+  column-span: all;
+  column-width: 100px;
+  column-fill: balance;
+  column-rule-color: red;
+  column-rule-style: dashed;
+  column-rule-width: 2px;
+  column-rule: 2px dashed red;
+
+  /* position  */
+  position: relative;
+  top: 10px;
+  left: 20px;
+  right: 30px;
+  bottom: 40px;
+  position: absolute;
+  position: fixed;
+  position: sticky;
+
+  /* width */
+  width: 100px;
+  max-width: 200px;
+  min-width: 50px;
+
+  /* height */
+  height: 50px;
+  max-height: 100px;
+  min-height: 25px;
+
+  /* margin */
+  margin-top: 10px;
+  margin-right: 15px;
+  margin-bottom: 20px;
+  margin-left: 25px;
+  margin: 10px 15px 20px 25px;
+  margin: 10px 15px;
+  margin: 10px;
+  margin: auto;
+
+  /* padding  */
+  padding: 5px;
+  padding-top: 10px;
+  padding-right: 15px;
+  padding-bottom: 20px;
+  padding-left: 25px;
+  padding: 10px 15px 20px 25px;
+  padding: 10px 15px;
+
+  /* border  */
+  border-width: 1px;
+  border-color: red;
+  border-style: solid;
+  border: 1px solid black;
+  border-top: 2px dashed blue;
+  border-right: 3px dotted green;
+  border-bottom: 4px double orange;
+  border-left: 5px groove purple;
+  border-image-source: url("border.png");
+  border-image-slice: 30;
+  border-image-width: 10px;
+  border-image-outset: 5px;
+  border-image-repeat: stretch;
+  border-image: url("border.png") 30 10px stretch;
+  border-collapse: collapse;
+  border-spacing: 10px 20px;
+  border-style: solid dashed dotted double groove ridge inset none;
+  /* border radius  */
+  border-radius: 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 25px;
+  border-radius: 10px 15px 20px 25px;
+
+  /* outline */
+  outline-width: 2px;
+  outline-color: green;
+  outline-style: dashed;
+  outline-offset: 4px;
+  outline: 2px dashed green;
+
+  /* box sizing */
+  box-sizing: border-box;
+
+  /* box-shadow */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(0, 0, 0, 0.1);
+
+  /* background */
+  background-color: lightgray;
+  background-image: url("background.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  background: lightgray url("background.png") no-repeat center/cover fixed;
+  background-blend-mode: multiply;
+  mix-blend-mode: multiply;
+  background-origin: padding-box;
+  background-clip: border-box;
+
+  /* overflow  */
+  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: scroll;
+  text-overflow: ellipsis;
+
+  /* float */
+  float: left;
+  float: right;
+  clear: both;
+
+  display: block;
+  cursor: pointer;
+  opacity: 0.8;
+  z-index: 10;
+
+  transition: all 0.3s ease;
+
+  transform: rotate();
+  transform: scale(1.2);
+  transform: translate(10px, 20px);
+  transform: skew(10deg, 20deg);
+  transform: rotate(45deg) scale(1.2) translate(10px,
+  20px) skew(10deg, 20deg);
+  transform-origin: center;
+  transform-style: preserve-3d;
+  perspective: 500px;
+  perspective-origin: center;
+  backface-visibility: hidden;
+  
+
+  /* visibility */
+  visibility: hidden;
+}
+
+ul {
+  list-style-type: square;
+  list-style-position: inside;
+  list-style-image: url("bullet.png");
+  list-style: square inside url("bullet.png");
+}
+
+li {
+  margin-bottom: 5px;
+}
+
+/* types of selectors */
+/* p{}
+#id{}
+.class{}
+div p{}
+a:hover{} */
+
+@font-face {
+  font-family: "MyFont";
+  src: url();
+}
+/* google font  */
