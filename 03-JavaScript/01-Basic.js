@@ -1049,12 +1049,12 @@ element.title // title attribute
 // all dom event 
 click
 dblclick
+contextmenu
+mouseenter
+mouseleave
 mouseover
 mouseout
 mousemove
-mouseenter
-mouseleave
-
 submit
 change
 focus
@@ -1070,23 +1070,81 @@ change
 input
 keydown
 keyup
-change
-input
-keydown
-keyup
-change
-input
-keydown
-keyup
+
+
+// dom traversal
+parentNode
+childNodes
+firstChild
+lastChild
+previousSibling
+nextSibling
+parentElement
+children
+firstElementChild
+lastElementChild
+previousElementSibling
+nextElementSibling
+
+
+// append child in the js 
+element.appendChild(child)
+element.prepend(child)
+element.append(child)
+element.prepend(child)
+
+// remove child in the js 
+element.removeChild(child)
+element.remove()
+element.removeChild(child)
+
+// insert before in the js 
+element.insertBefore(child, referenceNode)
+element.insertAdjacentElement(position, child)
+
+// clone node in the js 
+element.cloneNode(deep);
 
 
 
- 
+// window 
+window.open(url, target, features)
+window.close()
+window.location.href = url
+window.location.reload()
+window.location.assign(url)
+window.location.replace(url)
+window.location.search
+window.location.hash
+window.location.pathname
+window.location.origin
+window.location.protocol
+window.location.host
+window.location.port
+
+// history
+window.history.back()
+window.history.forward()
+window.history.go(n)
+window.history.length
+window.history.pushState(state, title, url)
 
 
 
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
+
+// timer interval
+// setTimeout
+// setInterval
+// clearTimeout
+// clearInterval
+// stopAccurateInterval
+// startAccurateInterval
+// startAccurateInterval
+
+
+
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
