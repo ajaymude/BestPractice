@@ -1,0 +1,189 @@
+// 
+# ✅ GIT MASTER NOTES (Beginner to Advanced)
+
+// 01 - Git Introduction
+git --version                                 # Check Git version
+git init                                      # Initialize new repo
+git config --global user.name "Your Name"     
+git config --global user.email "you@example.com"
+git config --list                             # View Git config
+
+// 02 - Add & Commit
+git status                                    # View file changes
+git add index.html                            # Stage specific file
+git add .                                     # Stage all changes
+git rm file.txt                               # Remove & stage deletion
+git commit -m "commit message"                # Commit staged files
+git commit -am "message"                      # Add + commit tracked files
+
+// 03 - Branching
+git branch                                    # List local branches
+git branch new-feature                        # Create new branch
+git branch -d branch-name                     # Delete branch (safe, merged)
+git branch -D branch-name                     # Force delete branch
+git branch -M main                            # Rename current branch to 'main'
+git branch -a                                 # List all branches (local + remote)
+git branch -r                                 # List remote branches
+git branch --merged                           # List branches merged into current
+git branch --set-upstream-to=origin/main      # Set upstream for current branch
+git branch --unset-upstream                   # Remove upstream tracking
+
+// 04 - Switching Branches
+git checkout main                             # Switch to 'main' branch
+git checkout -b new-feature                   # Create & switch to 'new-feature'
+git checkout commitHash                       # Checkout specific commit (detached HEAD)
+git checkout filename.txt                     # Discard changes in that file (to last commit)
+git checkout .                                # Discard ALL unstaged changes
+git checkout --                               # Same as above
+git switch branch-name                        # Alternative to checkout
+git switch -c new-feature                     # Create & switch
+
+// 05 - Remote Setup & Push
+git remote add origin <url>                   # Link local repo to remote 'origin'
+git remote -v                                 # Show remote URLs
+git remote set-url origin <new-url>           # Change 'origin' URL
+git remote remove origin                      # Remove remote named 'origin'
+git fetch -p                                  # Prune deleted branches on fetch
+
+git push -u origin main                       # Push + set upstream (track 'main')
+git push                                      # Push current branch
+git push origin feature                       # Push 'feature' branch to 'origin'
+git push --force origin main                  # Force push 'main' (overwrites remote history)
+git push origin --delete branch-name          # Delete remote branch
+git push origin --tags                        # Push all tags
+
+// 06 - Pulling & Fetching
+git pull                                      # Pull from tracked upstream (merge)
+git pull origin main                          # Pull & merge 'main' from 'origin'
+git pull --rebase                             # Pull then rebase current branch
+git pull --rebase origin main                 # Pull with rebase from 'main'
+git pull -s recursive -X ours                 # Pull, prefer local on conflict
+git pull -s recursive -X theirs               # Pull, prefer remote on conflict
+git fetch                                     # Fetch all branches/tags (no merge)
+git fetch origin main                         # Fetch only 'main' from 'origin'
+git fetch --all                               # Fetch all remotes
+git fetch --tags                              # Fetch all tags
+
+// 07 - Merge & Rebase
+git merge new-feature                         # Merge 'new-feature' into current
+git merge --squash branch                     # Merge as a single squashed commit
+git merge --no-ff branch                      # Create a merge commit even if fast-forward possible
+git merge --abort                             # Abort ongoing merge (if conflicts)
+git rebase main                               # Reapply commits on top of 'main'
+git rebase -i HEAD~n                          # Interactively edit last n commits
+git cherry-pick <commit>                      # Copy specific commit onto current branch
+
+// 08 - Diff & Log
+git diff                                      # Show unstaged changes (working dir vs last commit)
+git diff --staged                             # Show staged changes (staging vs last commit)
+git diff commit1 commit2                      # Show changes between two commits
+git diff branch1..branch2                     # Show changes in 'branch2' not in 'branch1'
+git diff main...feature-branch                 # Show changes since branches diverged (three-dot syntax)
+git diff filename                             # Show changes in a specific file
+git diff --name-only                          # Show only filenames with changes
+
+git log                                       # Full commit history
+git log --oneline                             # Compact one-line per commit
+git log --graph --decorate --oneline          # Visual graph of commits
+git log -- <file>                             # Show history of specific file
+git log HEAD..origin/main                     # Show commits in 'origin/main' not in local HEAD
+git log --author="Name"                       # Filter log by author
+git log -p                                    # Show patch (diff) with each commit
+
+git show <commit>                             # Show details of a specific commit
+
+git shortlog -sne                             # Summary of commits by author
+git describe --tags                            # Describe current commit with nearest tag
+
+// 09 - Reset, Revert, Restore
+git reset file.txt                            # Unstage a file (keep its changes in working dir)
+git reset --soft HEAD~1                       # Move HEAD back 1 commit, keep changes staged
+git reset --mixed HEAD~1                      # Move HEAD back 1 commit, unstage changes (default)
+git reset --hard HEAD~1                       # Move HEAD back 1 commit, delete changes
+git reset <commitHash>                        # Reset to specific commit (default --mixed)
+git reset --hard <commitHash>                 # Reset to specific commit, delete changes
+git restore filename                          # Discard unstaged changes in 'filename'
+git restore .                                 # Discard ALL unstaged changes
+git restore --staged filename                 # Unstage 'filename' (keep changes in working dir)
+git revert <commit>                           # Create a new commit that undoes <commit>
+
+// 10 - Stash
+git stash                                     # Save all tracked changes
+git stash -u                                  # Include untracked files in stash
+git stash -a                                  # Include ignored files too
+git stash list                                # List all stashes
+git stash push -m "message"                   # Stash with custom message
+git stash show                                # Show summary of latest stash
+git stash show -p                             # Show patch of latest stash
+git stash apply                               # Apply latest stash (keeps it)
+git stash apply stash@{1}                     # Apply specific stash
+git stash pop                                 # Apply latest stash and remove it
+git stash drop stash@{0}                      # Delete specific stash
+git stash clear                               # Delete all stashes
+git stash branch <branchname>                 # Create new branch from stash
+
+// 11 - Tagging
+git tag                                        # List all tags
+git tag -l                                     # Same as above
+git tag 1.0 <commitHash>                       # Create lightweight tag '1.0' at <commitHash>
+git tag -a 2.0 -m "message"                    # Create annotated tag '2.0' with message
+git tag -d 1.0                                 # Delete local tag '1.0'
+git push origin --tags                         # Push all local tags to remote
+git push origin <tagname>                      # Push specific tag
+git show 1.0                                   # Show details of tag '1.0'
+
+// 12 - Misc & Advanced
+git reflog                                     # View all HEAD movements (last ~90 days)
+git clean -dn                                  # Show untracked files that would be removed
+git clean -df                                  # Delete untracked files forcefully
+git clean -xdf                                 # Delete untracked + ignored files
+
+git ls-files                                   # List tracked files
+git ls-remote                                  # List remote refs (branches, tags)
+
+git bisect start                               # Begin bisection to find bad commit
+git bisect bad                                 # Mark current commit as bad
+git bisect good <commit>                       # Mark known good commit
+# ... Git checks out midpoint commit, repeat until you find the culprit.
+
+git grep "pattern"                             # Search for text in tracked files
+git archive --format=zip HEAD > source.zip      # Create archive of current HEAD
+
+git submodule add <url> <path>                 # Add a submodule
+git submodule update --init --recursive        # Clone/update submodules recursively
+git submodule status                            # Show status of submodules
+
+git revert --no-edit <commit>                  # Revert without opening editor
+
+// 13 - File Blame & History
+git blame <file>                               # Show line-by-line last modification
+git log --follow -- <file>                     # Follow file renames when viewing history
+
+// 14 - Git Aliases
+git config --global alias.st status          
+git config --global alias.ci commit          
+git config --global alias.co checkout        
+git config --global alias.br branch          
+git config --global alias.lg "log --graph --decorate --oneline"
+git config --global alias.unstage "restore --staged"
+
+// 15 - Credential Management
+git config --global credential.helper store     # Save credentials to disk
+git config --global credential.helper cache     # Cache credentials in memory
+
+// 16 - Cleaning Up Local Branches
+git fetch -p                                   # Prune deleted remote branches
+git branch --merged                            # List merged branches
+git branch -d <branch>                         # Delete merged branch
+git branch -D <branch>                         # Force delete branch (even if unmerged)
+
+// 17 - GitHub Workflow (Windows example)
+echo "# repoName" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/username/repo.git
+git push -u origin main
+
+# ✅ End of Git Master Notes

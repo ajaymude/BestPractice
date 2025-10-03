@@ -1,0 +1,1309 @@
+<!-- list of the all html tag  -->
+<!-- Document Structure
+1. <!DOCTYPE>
+2. <html>
+3. <head>
+4. <title>
+5. <base>
+6. <link>
+7. <meta>
+8. <style>
+9. <body>
+10. <!-- ... -->
+-->
+
+<!-- Text Content
+1. <h1>
+2. <h2>
+3. <h3>
+4. <h4>
+5. <h5>
+6. <h6>
+7. <p>  
+8. <hr>
+9. <br>
+10. <pre>
+11. <blockquote>
+12. <ol>
+13. <ul>
+14. <li>
+15. <dl>
+16. <dt>
+17. <dd>
+18. <address>
+19. <ins>
+-->
+
+<!-- Inline Text Semantics / Formatting
+1. <a>
+2. <abbr>
+3. <acronym> (not supported in HTML5)
+4. <b>
+5. <bdi>
+6. <bdo>
+7. <cite>
+8. <code>
+9. <data>
+10. <dfn>
+11. <em>
+12. <i>
+13. <kbd>
+14. <mark>
+15. <q>
+16. <rb>
+17. <rp>
+18. <rt>
+19. <rtc>
+20. <ruby>
+21. <s>
+22. <samp>
+23. <small>
+24. <span>
+25. <strong>
+26. <sub>
+27. <sup>
+28. <time>
+29. <tt> (not supported in HTML5)
+30. <u>
+31. <var>
+32. <wbr>
+-->
+
+
+<!-- Semantic Tags
+1. <header>
+2. <nav>
+3. <main>
+4. <section>
+5. <article>
+6. <aside>
+7. <footer>
+8. <figure>
+9. <figcaption>
+10. <details>
+11. <summary>
+12. <dialog>
+13. <address>
+14. <data>
+15. <dfn>
+16. <time>
+17. <mark>
+18. <output>
+-->
+
+
+<!-- Document Metadata
+1. <head>
+2. <meta>
+3. <title>
+4. <base>
+5. <link>
+6. <style>
+-->
+
+<!-- Embedded Content
+1. <img>
+2. <iframe>
+3. <embed>
+4. <object>
+5. <param>
+6. <video>
+7. <audio>
+8. <source>
+9. <track>
+10. <canvas>
+11. <map>
+12. <area>
+13. <picture>
+14. <svg>
+15. <math>
+-->
+
+<!-- Scripting
+1. <script>
+2. <noscript>
+3. <template>
+4. <slot>
+5. <canvas>
+-->
+
+<!-- Forms
+1. <form>
+2. <input>
+3. <textarea>
+4. <button>
+5. <select>
+6. <optgroup>
+7. <option>
+8. <label>
+9. <fieldset>
+10. <legend>
+11. <datalist>
+12. <output>
+13. <meter>
+14. <progress>
+15. <isindex> (obsolete)
+-->
+
+<!-- Table Content
+1. <table>
+2. <caption>
+3. <colgroup>
+4. <col>
+5. <thead>
+6. <tbody>
+7. <tfoot>
+8. <tr>
+9. <td>
+10. <th>
+-->
+
+<!-- Interactive Elements
+1. <details>
+2. <dialog>
+3. <summary>
+4. <menu>
+5. <menuitem> (deprecated)
+-->
+
+<!-- Web Components
+1. <template>
+2. <slot>
+-->
+
+<!-- Deprecated/Obsolete (not used in modern HTML5)
+1. <acronym>
+2. <applet>
+3. <basefont>
+4. <big>
+5. <blink> (non-standard)
+6. <center>
+7. <dir>
+8. <font>
+9. <frame>
+10. <frameset>
+11. <isindex>
+12. <marquee> (non-standard)
+13. <noframes>
+14. <s>
+15. <strike>
+16. <tt>
+17. <u> (repurposed in HTML5 as stylistic underline)
+-->
+
+
+ 
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+
+<!DOCTYPE html> <!-- Document Structure 1 -->
+<html lang="en"> <!-- Document Structure 2 -->
+<head> <!-- Document Structure 3 -->
+
+  
+  <!-- 1. Basic .ico favicon -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+  <!-- 2. PNG favicon (multiple sizes) -->
+  <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
+
+  <!-- 3. SVG favicon -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+  <!-- 4. Apple Touch icon -->
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+
+  <!-- 5. Shortcut icon (legacy IE) -->
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+  <!-- 6. Web App Manifest -->
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- 7. Safari pinned tab icon -->
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+  <!-- 8. Microsoft tile (Windows) -->
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-config" content="/browserconfig.xml">
+
+
+  <meta charset="UTF-8"> <!-- Document Structure 7 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 1. <meta charset> -->
+  <meta charset="UTF-8">
+
+  <!-- 2. <meta name="viewport"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 3. <meta name="description"> -->
+  <meta name="description" content="A demonstration of HTML meta tags.">
+
+  <!-- 4. <meta name="keywords"> -->
+  <meta name="keywords" content="HTML, meta, tags, example">
+
+  <!-- 5. <meta name="author"> -->
+  <meta name="author" content="Your Name">
+
+  <!-- 6. <meta http-equiv="refresh"> -->
+  <meta http-equiv="refresh" content="60">
+
+  <!-- 7. <base> -->
+  <base href="https://example.com/" target="_blank">
+
+  <base href="https://example.com/"> <!-- Document Structure 5 -->
+  <title>All HTML Tags Demo</title> <!-- Document Structure 4 -->
+  <link rel="stylesheet" href="styles.css"> <!-- Document Structure 6 -->
+  <style> /* Document Structure 8 */ </style>
+  <!-- Document Structure 10: HTML Comment -->
+</head>
+<body> <!-- Document Structure 9 -->
+
+
+  <!-- Opening tag: <div> -->
+  <div class=" test">This is a div.</div>
+  <!-- attribute:value -->
+  <!-- Closing tag: </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Text Content -->
+  <h1>Heading 1</h1> <!-- Text Content 1 -->
+  <h2>Heading 2</h2> <!-- Text Content 2 -->
+  <h3>Heading 3</h3> <!-- Text Content 3 -->
+  <h4>Heading 4</h4> <!-- Text Content 4 -->
+  <h5>Heading 5</h5> <!-- Text Content 5 -->
+  <h6>Heading 6</h6> <!-- Text Content 6 -->
+
+  <p>Paragraph text.</p> <!-- Text Content 7 -->
+
+  <hr> <!-- Text Content 8 -->
+  Line1<br>Line2 <!-- Text Content 9 -->
+
+  <pre>Preformatted
+  Text</pre> <!-- Text Content 10 -->
+
+  <blockquote cite="#">Blockquote</blockquote> <!-- Text Content 11 -->
+  
+  <ol><li>One</li><li>Two</li></ol> <!-- Text Content 12 & 14 -->
+  <ul><li>A</li><li>B</li></ul> <!-- Text Content 13 & 14 -->
+  <dl><dt>Term</dt><dd>Definition</dd></dl> <!-- Text Content 15,16,17 -->
+
+
+  <address>Contact info</address> <!-- Text Content 18 -->
+  
+  <!-- 1. Basic postal address -->
+  <address>
+    123 Elm Street<br>
+    Springfield, IL 62704<br>
+    USA
+  </address>
+
+  <!-- 2. Author contact info in a footer -->
+  <footer>
+    <address>
+      Written by <a href="mailto:jane.doe@example.com">Jane Doe</a><br>
+      Visit us at <a href="https://example.com">example.com</a>
+    </address>
+  </footer>
+
+  <!-- 3. Company contact details with phone and email -->
+  <address>
+    <strong>Acme Corp.</strong><br>
+    456 Oak Avenue<br>
+    Metropolis, NY 10001<br>
+    <a href="tel:+15551234567">+1 555-123-4567</a><br>
+    <a href="mailto:info@acmecorp.com">info@acmecorp.com</a>
+  </address>
+
+  <!-- 4. Multiple addresses for team members -->
+  <section>
+    <h2>Our Team</h2>
+    <article>
+      <h3>John Smith</h3>
+      <address>
+        789 Pine Road<br>
+        Gotham, NJ 07001<br>
+        <a href="mailto:john.smith@example.com">john.smith@example.com</a>
+      </address>
+    </article>
+    <article>
+      <h3>Mary Johnson</h3>
+      <address>
+        321 Maple Lane<br>
+        Star City, CA 90012<br>
+        <a href="mailto:mary.j@example.com">mary.j@example.com</a>
+      </address>
+    </article>
+  </section>
+
+  <!-- 5. International address with country abbreviation -->
+  <address>
+    10 Downing Street<br>
+    Westminster<br>
+    London SW1A 2AA<br>
+    <abbr title="United Kingdom">UK</abbr>
+  </address>
+
+
+  <ins datetime="2025-01-01">Inserted text</ins> <!-- Text Content 19 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Inline Text Semantics / Formatting -->
+  <p>
+    
+    <a href="#">Link</a> <!-- 1 -->
+      <!-- 1. Basic link -->
+  <a href="https://www.example.com">Visit Example.com</a>
+
+  <!-- 2. Open in new tab -->
+  <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+    Open Example in New Tab
+  </a>
+
+  <!-- 3. Email link -->
+  <a href="mailto:contact@example.com">Email Us</a>
+
+  <!-- 4. Telephone link -->
+  <a href="tel:+1234567890">Call Us</a>
+
+  <!-- 5. Download file -->
+  <a href="/files/report.pdf" download>Download Report</a>
+
+  <!-- 6. Fragment identifier -->
+  <a href="#section1">Jump to Section 1</a>
+  <h2 id="section1">Section 1</h2>
+
+  <!-- 7. Link with title and hreflang -->
+  <a href="https://es.example.com" title="Sitio en Español" hreflang="es">
+    Visitar versión en Español
+  </a>
+
+  <!-- 8. Link with query parameters -->
+  <a href="https://www.example.com/search?q=html+anchor">
+    Search for “html anchor”
+  </a>
+
+  <!-- 9. Linking to an element by ID -->
+  <a href="#footer">Go to Footer</a>
+  <footer id="footer">Footer Content</footer>
+
+  <!-- 10. Anchor wrapping block-level element -->
+  <a href="https://www.example.com">
+    <div class="card">Click anywhere to visit Example.com</div>
+  </a>
+
+
+    <abbr title="abbr">abbr</abbr> <!-- 2 -->
+    <acronym title="acr">acr</acronym> <!-- 3 -->
+    <b>bold</b> <!-- 4 -->
+    <bdi>text</bdi> <!-- 5 -->
+    <bdo dir="rtl">rtl</bdo> <!-- 6 -->
+    <cite>cite</cite> <!-- 7 -->
+    <code>code()</code> <!-- 8 -->
+    <data value="42">42</data> <!-- 9 -->
+    <dfn>dfn</dfn> <!-- 10 -->
+    <em>em</em> <!-- 11 -->
+    <i>italic</i> <!-- 12 -->
+    <kbd>Ctrl</kbd> <!-- 13 -->
+    <mark>mark</mark> <!-- 14 -->
+    <q>quote</q> <!-- 15 -->
+    <rb>rb</rb> <!-- 16 -->
+    <rp>(</rp><rt>rt</rt><rp>)</rp> <!-- 17,18 -->
+    <rtc>rtc</rtc> <!-- 19 -->
+    <ruby>ruby<rt>ru</rt></ruby> <!-- 20 -->
+    <s>strikethrough</s> <!-- 21 -->
+    <samp>sample</samp> <!-- 22 -->
+    <small>small</small> <!-- 23 -->
+    <span>span</span> <!-- 24 -->
+    <strong>strong</strong> <!-- 25 -->
+    <sub>sub</sub> <!-- 26 -->
+    <sup>sup</sup> <!-- 27 -->
+    <time datetime="2025-06-24">time</time> <!-- 28 -->
+    <tt>tt</tt> <!-- 29 -->
+    <u>underline</u> <!-- 30 -->
+    <var>var</var> <!-- 31 -->
+    <wbr> <!-- 32 -->
+  </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Document Metadata (already shown above) -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Embedded Content -->
+  <img src="img.jpg" alt=""> <!-- 1 -->
+  
+    <!-- 1. Basic image -->
+  <img src="images/photo.jpg" alt="A scenic mountain view">
+
+  <!-- 2. With width & height -->
+  <img src="images/photo.jpg" alt="Mountain panorama" width="600" height="400">
+
+  <!-- 3. With title attribute -->
+  <img src="images/photo.jpg"
+       alt="Mountain panorama"
+       title="Scenic Mountain View">
+
+  <!-- 4. Responsive image with srcset & sizes -->
+  <img src="images/photo-small.jpg"
+       srcset="
+         images/photo-small.jpg 480w,
+         images/photo-medium.jpg 800w,
+         images/photo-large.jpg 1200w
+       "
+       sizes="
+         (max-width: 600px) 480px,
+         (max-width: 1200px) 800px,
+         1200px
+       "
+       alt="Scenic Mountain">
+
+  <!-- 5. Lazy‐loaded image -->
+  <img src="images/photo.jpg" alt="Mountain panorama" loading="lazy">
+
+  <!-- 6. Image with a client‐side image map -->
+  <img src="images/map.jpg" alt="Interactive map" usemap="#regionMap">
+  <map name="regionMap">
+    <area shape="rect" coords="34,44,270,350"
+          href="region1.html"
+          alt="Region 1">
+    <area shape="circle" coords="400,200,75"
+          href="region2.html"
+          alt="Region 2">
+  </map>
+
+  <!-- 7. Inline base64‐encoded image -->
+  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..."
+       alt="Inline icon">
+
+  <!-- 8. Decorative image (ignored by assistive tech) -->
+  <img src="images/decorative.png"
+       alt=""
+       aria-hidden="true">
+  
+  
+  <iframe src="about:blank"></iframe> <!-- 2 -->
+  <embed src="file.ext"></embed> <!-- 3 -->
+  <object data="file.ext"></object> <!-- 4 -->
+  <param name="p" value="v"> <!-- 5 -->
+  <video controls><source src="vid.mp4"></video> <!-- 6,8 -->
+
+  <audio controls><source src="aud.mp3"></audio> <!-- 7,8 -->
+
+  
+  <!-- 1. Basic audio with controls -->
+  <audio controls>
+    <source src="audio/example.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- 2. Audio with autoplay, loop, and muted -->
+  <audio controls autoplay loop muted>
+    <source src="audio/background.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- 3. Multiple source formats for cross-browser support -->
+  <audio controls>
+    <source src="audio/sound.mp3" type="audio/mpeg">
+    <source src="audio/sound.ogg" type="audio/ogg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- 4. Audio with captions track -->
+  <audio controls>
+    <source src="audio/podcast.mp3" type="audio/mpeg">
+    <track kind="captions" src="captions_en.vtt" srclang="en" label="English">
+    <track kind="captions" src="captions_es.vtt" srclang="es" label="Spanish">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- 5. Audio without controls (JS-controlled) -->
+  <audio id="myAudio">
+    <source src="audio/track.mp3" type="audio/mpeg">
+  </audio>
+  <button onclick="document.getElementById('myAudio').play()">Play</button>
+  <button onclick="document.getElementById('myAudio').pause()">Pause</button>
+
+  <track kind="captions" src="cap.vtt"> <!-- 9 -->
+  <canvas id="c"></canvas> <!-- 10 -->
+  <map name="m"><area shape="rect" coords="0,0,10,10" href="#"></map> <!-- 11,12 -->
+  <picture><source srcset="pic1.jpg"><img src="pic2.jpg"></picture> <!-- 13 -->
+  <svg></svg> <!-- 14 -->
+  <math><mi>x</mi><mo>=</mo><mn>1</mn></math> <!-- 15 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Scripting -->
+  <script>/* code */</script> <!-- 1 -->
+  <noscript>No JS</noscript> <!-- 2 -->
+  <template><div>tmpl</div></template> <!-- 3 -->
+  <slot></slot> <!-- 4 -->
+  <canvas></canvas> <!-- 5 (duplicate of Embedded Content) -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Forms -->
+  <form action="#"> <!-- 1 -->
+    <input type="text"> <!-- 2 -->
+
+    
+    <!-- 1. Text input -->
+    <label for="text1">Text:</label>
+    <input type="text" id="text1" name="text1" placeholder="Enter text"><br><br>
+
+    <!-- 2. Password input -->
+    <label for="pwd">Password:</label>
+    <input type="password" id="pwd" name="pwd" placeholder="Enter password"><br><br>
+
+    <!-- 3. Email input -->
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" placeholder="you@example.com"><br><br>
+
+    <!-- 4. Number input -->
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" min="0" max="120"><br><br>
+
+    <!-- 5. Range input -->
+    <label for="vol">Volume:</label>
+    <input type="range" id="vol" name="vol" min="0" max="100"><br><br>
+
+    <!-- 6. Date input -->
+    <label for="dob">Date of Birth:</label>
+    <input type="date" id="dob" name="dob"><br><br>
+
+    <!-- 7. Color input -->
+    <label for="favcolor">Favorite Color:</label>
+    <input type="color" id="favcolor" name="favcolor" value="#ff0000"><br><br>
+
+    <!-- 8. Tel input -->
+    <label for="phone">Phone:</label>
+    <input type="tel" id="phone" name="phone" placeholder="+123456789"><br><br>
+
+    <!-- 9. URL input -->
+    <label for="website">Website:</label>
+    <input type="url" id="website" name="website" placeholder="https://"><br><br>
+
+    <!-- 10. Search input -->
+    <label for="search">Search:</label>
+    <input type="search" id="search" name="search" placeholder="Search query"><br><br>
+
+    <!-- 11. File input -->
+    <label for="file">Upload File:</label>
+    <input type="file" id="file" name="file"><br><br>
+
+    <!-- 12. Checkbox input -->
+    <label><input type="checkbox" name="subscribe" checked> Subscribe</label><br><br>
+
+    <!-- 13. Radio inputs -->
+    <label><input type="radio" name="gender" value="male"> Male</label>
+    <label><input type="radio" name="gender" value="female"> Female</label><br><br>
+
+    <!-- 14. Hidden input -->
+    <input type="hidden" name="userid" value="12345">
+
+    <!-- 15. Submit button -->
+    <input type="submit" value="Submit">
+
+    <!-- 16. Reset button -->
+    <input type="reset" value="Reset">
+
+    <!-- 17. Generic button -->
+    <input type="button" value="Click Me">
+ 
+
+    <textarea></textarea> <!-- 3 -->
+
+
+        <!-- 1. Basic textarea with rows and cols -->
+    <label for="ta1">Basic:</label><br>
+    <textarea id="ta1" name="ta1" rows="4" cols="50"></textarea><br><br>
+
+    <!-- 2. Textarea with placeholder -->
+    <label for="ta2">With placeholder:</label><br>
+    <textarea id="ta2" name="ta2" rows="4" cols="50"
+              placeholder="Enter your comments here..."></textarea><br><br>
+
+    <!-- 3. Read-only textarea -->
+    <label for="ta3">Read-only:</label><br>
+    <textarea id="ta3" name="ta3" rows="3" cols="40" readonly>
+This textarea is read-only.
+    </textarea><br><br>
+
+    <!-- 4. Disabled textarea -->
+    <label for="ta4">Disabled:</label><br>
+    <textarea id="ta4" name="ta4" rows="3" cols="40" disabled>
+Cannot type here.
+    </textarea><br><br>
+
+    <!-- 5. Textarea with maxlength -->
+    <label for="ta5">With maxlength (10 chars):</label><br>
+    <textarea id="ta5" name="ta5" rows="3" cols="40" maxlength="10"></textarea><br><br>
+
+    <!-- 6. Wrapped text (wrap="hard") -->
+    <label for="ta6">Hard wrap:</label><br>
+    <textarea id="ta6" name="ta6" rows="3" cols="40" wrap="hard">
+Long lines will insert line breaks in the submitted value.
+    </textarea><br><br>
+
+    <!-- 7. Autofocus and required -->
+    <label for="ta7">Autofocus & required:</label><br>
+    <textarea id="ta7" name="ta7" rows="4" cols="50" autofocus required></textarea><br><br>
+
+    <!-- 8. Textarea outside form, associated by form attribute -->
+    <textarea id="ta8" name="ta8" rows="3" cols="40" form="f2"
+              placeholder="Outside form"></textarea><br><br>
+
+    <button>btn</button> <!-- 4 -->
+
+      <!-- 1. Basic button -->
+    <button type="button">Click Me</button>
+
+    <!-- 2. Submit button -->
+    <button type="submit">Submit Form</button>
+
+    <!-- 3. Reset button -->
+    <button type="reset">Reset Form</button>
+
+    <!-- 4. Disabled button -->
+    <button type="button" disabled>Disabled</button>
+
+    <!-- 5. Button with onclick handler -->
+    <button type="button" onclick="alert('Hello!')">Show Alert</button>
+
+    <!-- 6. Autofocus button -->
+    <button type="button" autofocus>Autofocus Here</button>
+
+    <!-- 7. Submit with custom form action & method -->
+    <button type="submit"
+            formaction="/search"
+            formmethod="get">
+      Search
+    </button>
+
+    <!-- 8. Button outside its form -->
+    <button type="submit"
+            form="form1">
+      Submit Form1 (Outside Form)
+    </button>
+  </form>
+
+  <!-- 9. Button acting as a link via JavaScript -->
+  <button type="button"
+          onclick="window.location.href='https://example.com'">
+    Go to Example.com
+  </button>
+
+  <!-- 10. Button with an icon -->
+  <button type="button">
+    <img src="icon.png" alt="" width="16" height="16">
+    Icon Button
+  </button>
+
+
+    <select><optgroup label=""><option>opt</option></optgroup></select> <!-- 5,6,7 -->
+
+   <!-- 1. Basic select -->
+    <label for="basic">Basic:</label>
+    <select id="basic" name="basic">
+      <option value="apple">Apple</option>
+      <option value="banana">Banana</option>
+      <option value="cherry">Cherry</option>
+    </select>
+    <br><br>
+
+    <!-- 2. Select with optgroup -->
+    <label for="grouped">Grouped:</label>
+    <select id="grouped" name="grouped">
+      <optgroup label="Fruits">
+        <option value="orange">Orange</option>
+        <option value="pear">Pear</option>
+      </optgroup>
+      <optgroup label="Vegetables">
+        <option value="carrot">Carrot</option>
+        <option value="lettuce">Lettuce</option>
+      </optgroup>
+    </select>
+    <br><br>
+
+    <!-- 3. Multiple select -->
+    <label for="multiple">Multiple:</label>
+    <select id="multiple" name="multiple" multiple>
+      <option value="red">Red</option>
+      <option value="green">Green</option>
+      <option value="blue">Blue</option>
+      <option value="yellow">Yellow</option>
+    </select>
+    <br><br>
+
+    <!-- 4. Size attribute -->
+    <label for="sized">Size (3 rows):</label>
+    <select id="sized" name="sized" size="3">
+      <option value="dog">Dog</option>
+      <option value="cat">Cat</option>
+      <option value="bird">Bird</option>
+      <option value="fish">Fish</option>
+    </select>
+    <br><br>
+
+    <!-- 5. Disabled select -->
+    <label for="disabled">Disabled:</label>
+    <select id="disabled" name="disabled" disabled>
+      <option value="one">One</option>
+      <option value="two">Two</option>
+    </select>
+    <br><br>
+
+    <!-- 6. Required select -->
+    <label for="required">Required:</label>
+    <select id="required" name="required" required>
+      <option value="">-- Choose --</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+    <br><br>
+
+    <!-- 7. Select outside its form -->
+    <label for="external">Outside Form:</label>
+    <select id="external" name="external" form="form1">
+      <option value="x">X</option>
+      <option value="y">Y</option>
+    </select>
+    <br><br>
+
+
+    <label>lbl<input></label> <!-- 8 -->
+    <fieldset><legend>leg</legend></fieldset> <!-- 9,10 -->
+
+    <!-- 1. Basic fieldset with legend -->
+  <form>
+    <fieldset>
+      <legend>Contact Details</legend>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name"><br><br>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email">
+    </fieldset>
+  </form>
+
+  <!-- 2. Disabled fieldset -->
+  <form>
+    <fieldset disabled>
+      <legend>Account Settings (Disabled)</legend>
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username"><br><br>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password">
+    </fieldset>
+  </form>
+
+  <!-- 3. Nested fieldsets -->
+  <form>
+    <fieldset>
+      <legend>Survey</legend>
+      <fieldset>
+        <legend>Preferences</legend>
+        <label><input type="checkbox" name="opt1"> Option 1</label><br>
+        <label><input type="checkbox" name="opt2"> Option 2</label>
+      </fieldset>
+      <fieldset>
+        <legend>Feedback</legend>
+        <textarea name="feedback" rows="3" cols="30"></textarea>
+      </fieldset>
+    </fieldset>
+  </form>
+
+  <!-- 4. Fieldset outside form (using form attribute) -->
+  <textarea id="comments" name="comments" form="f2" rows="3" cols="30" placeholder="Comments"></textarea>
+  <fieldset form="f2">
+    <legend>Additional Comments</legend>
+    <input type="checkbox" name="subscribe"> Subscribe to newsletter
+  </fieldset>
+  <form id="f2" action="#" method="post">
+    <button type="submit">Submit Form 2</button>
+  </form>
+
+    <datalist id="d"><option>o</option></datalist> <!-- 11 -->
+
+     <!-- 1. Basic datalist -->
+    <label for="browser">Choose a browser:</label>
+    <input list="browsers" id="browser" name="browser" placeholder="Select or type">
+    <datalist id="browsers">
+      <option value="Chrome">
+      <option value="Firefox">
+      <option value="Edge">
+      <option value="Safari">
+      <option value="Opera">
+    </datalist>
+    <br><br>
+
+    <!-- 2. Allow custom values -->
+    <label for="color">Favorite color:</label>
+    <input list="colors" id="color" name="color" placeholder="Enter any color">
+    <datalist id="colors">
+      <option value="Red">
+      <option value="Green">
+      <option value="Blue">
+      <option value="Yellow">
+    </datalist>
+    <br><br>
+
+    <!-- 3. Datalist with value+label -->
+    <label for="country">Select a country:</label>
+    <input list="countries" id="country" name="country" placeholder="Country">
+    <datalist id="countries">
+      <option value="US" label="United States">
+      <option value="GB" label="United Kingdom">
+      <option value="IN" label="India">
+      <option value="AU" label="Australia">
+    </datalist>
+    <br><br>
+
+    <!-- 4. Reuse one datalist across multiple inputs -->
+    <datalist id="tiers">
+      <option value="Standard">
+      <option value="Premium">
+      <option value="VIP">
+    </datalist>
+    <label for="tier1">Ticket Tier 1:</label>
+    <input list="tiers" id="tier1" name="tier1"><br><br>
+    <label for="tier2">Ticket Tier 2:</label>
+    <input list="tiers" id="tier2" name="tier2">
+
+
+    <output>out</output> <!-- 12 -->
+    <meter value="0.5">50%</meter> <!-- 13 -->
+    <progress value="30"></progress> <!-- 14 -->
+    <isindex> <!-- 15 -->
+  </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Table Content -->
+
+  <style>
+    table { border-collapse: collapse; width: 100%; margin-bottom: 2em; }
+    th, td { border: 1px solid #666; padding: 0.5em; text-align: left; }
+    col.blue { background-color: #e0f7fa; }
+    col.green { background-color: #e8f5e9; }
+  </style>
+
+  <table> <!-- 1 -->
+    
+    <caption>cap</caption> <!-- 2 -->
+    <colgroup><col></col></colgroup> <!-- 3,4 -->
+    <thead><tr><th>th</th></tr></thead> <!-- 5,8,10 -->
+    <tbody><tr><td>td</td></tr></tbody> <!-- 6,8,9 -->
+    <tfoot><tr><td>td</td></tr></tfoot> <!-- 7,8,9 -->
+  </table>
+
+
+    <!-- 1. Basic table -->
+  <table>
+    <tr>
+      <th>Item</th>
+      <th>Price</th>
+    </tr>
+    <tr>
+      <td>Apple</td>
+      <td>$1.00</td>
+    </tr>
+    <tr>
+      <td>Banana</td>
+      <td>$0.50</td>
+    </tr>
+  </table>
+
+  <!-- 2. Table with caption -->
+  <table>
+    <caption>Monthly Sales</caption>
+    <tr>
+      <th>Month</th>
+      <th>Units Sold</th>
+    </tr>
+    <tr>
+      <td>January</td>
+      <td>120</td>
+    </tr>
+    <tr>
+      <td>February</td>
+      <td>90</td>
+    </tr>
+  </table>
+
+  <!-- 3. Table with thead, tbody, tfoot -->
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Q1</th>
+        <th>Q2</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Gadget</td>
+        <td>200</td>
+        <td>180</td>
+      </tr>
+      <tr>
+        <td>Widget</td>
+        <td>150</td>
+        <td>170</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td>Total</td>
+        <td>350</td>
+        <td>350</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <!-- 4. Table with colgroup and col -->
+  <table>
+    <colgroup>
+      <col class="blue">
+      <col class="green">
+    </colgroup>
+    <thead>
+      <tr>
+        <th>Department</th>
+        <th>Employees</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Engineering</td>
+        <td>25</td>
+      </tr>
+      <tr>
+        <td>Marketing</td>
+        <td>12</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 5. Table with rowspan and colspan -->
+  <table>
+    <tr>
+      <th rowspan="2">Region</th>
+      <th colspan="2">Sales</th>
+    </tr>
+    <tr>
+      <th>Online</th>
+      <th>In-Store</th>
+    </tr>
+    <tr>
+      <td>North</td>
+      <td>$5,000</td>
+      <td>$3,200</td>
+    </tr>
+    <tr>
+      <td>South</td>
+      <td>$4,500</td>
+      <td>$2,800</td>
+    </tr>
+  </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Interactive Elements -->
+  <details><summary>sum</summary>content</details> <!-- 1,3 -->
+
+   <!-- 1. Basic <summary> inside <details> -->
+  <details>
+    <summary>Click to expand</summary>
+    <p>This is the hidden content revealed when you click the summary.</p>
+  </details>
+
+  <!-- 2. <details> open by default -->
+  <details open>
+    <summary>Always open summary</summary>
+    <p>This content is visible by default because of the "open" attribute.</p>
+  </details>
+
+  <!-- 3. Multiple <details> with different summaries -->
+  <details>
+    <summary>Section A</summary>
+    <p>Content for section A.</p>
+  </details>
+  <details>
+    <summary>Section B</summary>
+    <p>Content for section B.</p>
+  </details>
+
+  <!-- 4. Nested <details> -->
+  <details>
+    <summary>Outer section</summary>
+    <p>Outer content.</p>
+    <details>
+      <summary>Inner section</summary>
+      <p>Inner content inside the outer details.</p>
+    </details>
+  </details>
+
+  <!-- 5. <summary> with interactive content -->
+  <details>
+    <summary>
+      <button type="button">Toggle Details</button>
+    </summary>
+    <p>Here’s some content toggled by a button inside the summary.</p>
+  </details>
+
+  <dialog open>dlg</dialog> <!-- 2 -->
+
+  
+  <!-- 1. Basic <dialog> open by default -->
+  <dialog open>
+    <p>This dialog is open by default.</p>
+    <button onclick="this.parentElement.close()">Close</button>
+  </dialog>
+
+  <hr>
+
+  <!-- 2. <dialog> controlled via JavaScript -->
+  <button id="showDialog">Show Dialog</button>
+  <dialog id="jsDialog">
+    <p>This dialog is shown/hidden with JS.</p>
+    <button id="closeDialog">Close</button>
+  </dialog>
+  <script>
+    const dlg = document.getElementById('jsDialog');
+    document.getElementById('showDialog').onclick = () => dlg.showModal();
+    document.getElementById('closeDialog').onclick = () => dlg.close();
+  </script>
+
+  <hr>
+
+  <!-- 3. <dialog> containing a form -->
+  <button id="openFormDialog">Open Form</button>
+  <dialog id="formDialog">
+    <form method="dialog">
+      <p><label>Name: <input type="text" name="name"></label></p>
+      <p><button value="cancel">Cancel</button>
+         <button value="confirm">Confirm</button></p>
+    </form>
+  </dialog>
+  <script>
+    const formDlg = document.getElementById('formDialog');
+    document.getElementById('openFormDialog').onclick = () => formDlg.showModal();
+  </script>
+
+  <hr>
+
+  <!-- 4. Nested <dialog> example -->
+  <button id="openParent">Open Parent</button>
+  <dialog id="parentDialog">
+    <p>Parent dialog content.</p>
+    <button id="openChild">Open Child</button>
+    <button onclick="this.parentElement.close()">Close Parent</button>
+
+    <dialog id="childDialog">
+      <p>Child dialog nested inside.</p>
+      <button onclick="this.parentElement.close()">Close Child</button>
+    </dialog>
+  </dialog>
+  <script>
+    const parent = document.getElementById('parentDialog');
+    const child  = document.getElementById('childDialog');
+    document.getElementById('openParent').onclick = () => parent.showModal();
+    document.getElementById('openChild').onclick  = () => child.showModal();
+  </script>
+
+
+  <menu><li>mi</li></menu> <!-- 4,14 -->
+
+   <!-- 1. Basic menu as simple list -->
+  <menu label="Options">
+    <li><button>Home</button></li>
+    <li><button>Profile</button></li>
+    <li><button>Settings</button></li>
+  </menu>
+
+  <!-- 2. Menu with <menuitem> commands -->
+  <menu label="File">
+    <menuitem label="New" onclick="alert('New File')"></menuitem>
+    <menuitem label="Open" onclick="alert('Open File')"></menuitem>
+    <menuitem label="Save" onclick="alert('Save File')"></menuitem>
+  </menu>
+
+  <!-- 3. Context menu triggered via oncontextmenu -->
+  <p oncontextmenu="showCtx(event)">Right-click here for context menu</p>
+  <menu id="ctxMenu" type="context">
+    <li onclick="alert('Cut')">Cut</li>
+    <li onclick="alert('Copy')">Copy</li>
+    <li onclick="alert('Paste')">Paste</li>
+  </menu>
+
+  <!-- 4. Toolbar menu -->
+  <menu type="toolbar" aria-label="Formatting toolbar">
+    <button onclick="document.execCommand('bold')"><b>B</b></button>
+    <button onclick="document.execCommand('italic')"><i>I</i></button>
+    <button onclick="document.execCommand('underline')"><u>U</u></button>
+  </menu>
+
+  <script>
+    const ctx = document.getElementById('ctxMenu');
+    function showCtx(e) {
+      e.preventDefault();
+      ctx.style.left = e.pageX + 'px';
+      ctx.style.top  = e.pageY + 'px';
+      ctx.style.display = 'block';
+      document.addEventListener('click', () => ctx.style.display = 'none', { once: true });
+    }
+  </script>
+
+  <menuitem label="mi"></menuitem> <!-- 5 -->
+
+
+</body>
+</html>

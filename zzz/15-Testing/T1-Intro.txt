@@ -1,0 +1,63 @@
+
+
+1 - automated testing 
+2 - manual testing 
+
+
+unit testing 
+integration testing 
+end to end testing 
+
+test driven development 
+
+
+https://github.com/academind/js-testing-practical-guide-code/tree/02-setup  // academind git repo 
+
+
+// installation of vitest 
+
+npm install -D vitest
+
+
+// first example 
+
+import { expect, test } from 'vitest';
+
+function add(a, b) {
+  return a + b;
+}
+
+test('adds two numbers', () => {
+  expect(add(2, 3)).toBe(5);
+});
+
+
+
+
+npm run test , test:vitest globals 
+
+
+
+📌 What is AAA Pattern?
+1️⃣ Arrange → Set up test data and dependencies.
+2️⃣ Act → Execute the function or API you want to test.
+3️⃣ Assert → Verify the expected output.
+
+
+
+
+
+import { test, expect } from 'vitest';
+import { add } from './math.js';
+
+test('adds two numbers', () => {
+  // ✅ Arrange
+  const num1 = 2;
+  const num2 = 3;
+
+  // ✅ Act
+  const result = add(num1, num2);
+
+  // ✅ Assert
+  expect(result).toBe(5);
+});

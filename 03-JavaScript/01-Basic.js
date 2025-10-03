@@ -1147,6 +1147,68 @@ window.history.pushState(state, title, url)
 
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
+
+// oop 
+// class
+// constructor
+// method
+// inheritance
+// polymorphism
+// encapsulation
+// abstraction
+
+
+class Person {
+
+  // it call itself when you call method of the class
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  greet() {
+    console.log(`Hello, I'm ${this.name} and I'm ${this.age} years old.`);
+  }
+
+  static species() {
+    return "Homo sapiens";
+  }
+}
+
+
+// access the class
+let abc = new Person("John", 20);
+a.greet();
+
+
+// set the property of the class
+abc.name = "Jane";
+abc.hello = function() {
+  console.log(`Hello, I'm ${this.name} and I'm ${this.age} years old.`);
+}
+
+// you can call the static method of the class
+Person.species();
+
+class Student extends Person {
+  constructor(name, age, grade) {
+    // this is call the constructor of the parent class
+    super(name, age);
+    this.grade = grade;
+  }
+
+  greet() {
+    console.log(`Hello, I'm ${this.name} and I'm ${this.age} years old.`);
+  }
+}
+
+let student = new Student("Jane", 20, "A");
+student.greet();
+
+
+
+
+
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////

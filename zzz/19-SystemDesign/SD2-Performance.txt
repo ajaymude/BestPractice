@@ -1,0 +1,34 @@
+
+
+// performance 
+
+problem
+measurement 
+principle 
+
+
+// Latency   // time unit // wait time + process time 
+
+cpu 
+memory 
+disk
+network
+
+
+// concurrency 
+
+locking 
+ -pessimistic 
+ -optimistic 
+
+coherence 
+
+
+
+// catching 
+
+static data 
+dynamic data 
+
+
+

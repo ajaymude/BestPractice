@@ -1,0 +1,36 @@
+/* how should be the large application CSS setup for a web application? */
+/* how to import font from the google? */
+
+
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Root font size and color variables */
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --bg-color: #f8f9fa;
+  --text-color: #212529;
+  --heading-color: #111;
+  --border-radius: 8px;
+}
+
+/* Set base font and background on html */
+html {
+  font-size: 16px; /* Easy for rem units */
+  scroll-behavior: smooth;
+}
+
+/* Body base styles */
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  padding: 20px;
+}
