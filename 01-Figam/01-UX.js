@@ -46,3 +46,14 @@
 // branding guidelines
 // documentation
 
+
+
+// information architecture
+// user experience
+// user interface
+// user interaction
+// user flow
+// user journey
+// user pain points
+// user needs
+// user goals
