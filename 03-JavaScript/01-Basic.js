@@ -136,6 +136,79 @@ switch (day) {
 // let isConfirmed = confirm("Are you sure?");
 // console.log(isConfirmed);
 
+
+
+// conversion and coercion Examples
+let val;
+val = 5 + "5"; // "55" (number + string = string)
+val = "5" + 5; // "55" (string + number = string)
+val = "5" - 2; // 3 (string - number = number)
+val = "5" * 2; // 10 (string * number = number)
+val = "10" / 2; // 5 (string / number = number) 
+val = "10" % 2; // 0 (string % number = number)
+val = "10" ** 2; // 100 (string ** number = number)
+val = "10" == 10; // true (string == number = true)
+val = "10" === 10; // false (string === number = false)
+val = "10" != 10; // false (string != number = false)
+val = "10" !== 10; // true (string !== number = true)
+val = "10" > 5; // true (string > number = true)
+val = "10" < 5; // false (string < number = false)
+val = "10" >= 5; // true (string >= number = true)
+val = "10" <= 5; // false (string <= number = false)
+val = "10" && 5; // 5 (string && number = number)
+val = "10" || 5; // 10 (string || number = string)
+val = "10" && "5"; // "5" (string && string = string)
+val = "10" || "5"; // "10" (string || string = string)
+val = "10" && "5" && "2"; // "2" (string && string && string = string)
+val = "10" || "5" || "2"; // "10" (string || string || string = string)
+val = "10" && "5" && "2" && "1"; // "1" (string && string && string && string = string)
+val = "10" || "5" || "2" || "1"; // "10" (string || string || string || string = string)
+val = "10" && "5" && "2" && "1" && "0"; // "0" (string && string && string && string && string = string)
+val = "10" || "5" || "2" || "1" || "0"; // "10" (string || string || string || string || string = string)
+val = "10" && "5" && "2" && "1" && "0" && "9"; // "9" (string && string && string && string && string && string = string)
+val = "10" || "5" || "2" || "1" || "0" || "9"; // "10" (string || string || string || string || string || string = string)
+val = "10" && "5" && "2" && "1" && "0" && "9" && "8"; // "8" (string && string && string && string && string && string && string = string)
+val = "10" || "5" || "2" || "1" || "0" || "9" || "8"; // "10" (string || string || string || string || string || string || string = string)
+
+
+
+
+// truthy and falsy values
+// truthy values are true, 1, "0", "false", "null", "undefined", "NaN", "Infinity", "[]", "{}"
+// falsy values are false, 0, "", null, undefined, NaN, Infinity, "0", "false", "null", "undefined", "NaN", "Infinity", "[]", "{}"
+
+
+// equality and strict equality
+// equality ==
+// strict equality ===
+// inequality !=
+// strict inequality !==
+// greater than >
+// less than <
+// greater than or equal to >=
+// less than or equal to <=
+// greater than or equal to >=
+
+
+// turnery operator
+// condition ? true : false
+// condition ? true : false
+
+
+// switch case
+// switch (expression) {
+//   case value1:
+//     // code block
+//     break;
+//   case value2:
+//     // code block
+//     break;
+// }
+
+
+
+// 
+
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 
@@ -248,6 +321,24 @@ do {
   console.log(k);
   k++;
 } while (k < 5);
+
+// break and continue
+for (let i = 0; i < 5; i++) {
+  if (i === 3) {
+    break;
+  }
+  console.log(i);
+}
+
+for (let i = 0; i < 5; i++) {
+  if (i === 3) {
+    continue;
+  }
+  console.log(i);
+}
+
+
+
 
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
