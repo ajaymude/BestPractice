@@ -1,9 +1,0 @@
-
-electron is created by the github 
-
-// installation 
-
-npm init -y 
-
-npm i --save elctron 
-
